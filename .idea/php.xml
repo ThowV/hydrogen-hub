@@ -111,6 +111,7 @@
       <path value="$PROJECT_DIR$/vendor/laravel/telescope" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-activitylog" />
+      <path value="$PROJECT_DIR$/vendor/marvinlabs/laravel-discord-logger" />
     </include_path>
   </component>
   <component name="PhpUnit">
