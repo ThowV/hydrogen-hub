@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MarketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,29 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.dashboard');
-});
-
-Route::get('/dashboard', function () {
-    return view('layouts.dashboard');
-});
-
-Route::get('/market', function () {
-    return view('layouts.dashboard');
-});
+Route::get('/',             [DashboardController::class, 'show']);
+Route::get('/dashboard',    [DashboardController::class, 'show']);
+Route::get('/market',       [MarketController::class, 'show']);
 
 /*
-Route::get('/company/', function () {
-    return COMPANY PORTFOLIO
-});
-
-Route::get('/company/portfolio', function () {
-    return COMPANY PORTFOLIO
-});
-
-Route::get('/company/overview', function () {
-    return COMPANY OVERVIEW
-});
+Route::get('/company/',         ...);
+Route::get('/company/portfolio, ...);
+Route::get('/company/overview', ...);
  */
 
