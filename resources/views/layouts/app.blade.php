@@ -16,6 +16,12 @@
             font-family: 'Nunito';
             padding: 4em;
         }
+        
+        .navbar{
+                color: white;
+                background: blue;
+                width: 20%;
+            }
     </style>
     @stack('styles')
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
