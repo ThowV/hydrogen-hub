@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyDayLogTable extends Migration
+class CreateCompanyDayLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCompanyDayLogTable extends Migration
      */
     public function up()
     {
-        Schema::create('company_day_log', function (Blueprint $table) {
+        Schema::create('company_day_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id');
             $table->unsignedBigInteger('produced')->default(0);
@@ -30,6 +30,6 @@ class CreateCompanyDayLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_day_log');
+        Schema::dropIfExists('company_day_logs');
     }
 }
