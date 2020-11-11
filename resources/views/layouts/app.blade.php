@@ -20,12 +20,18 @@
                 font-family: 'Nunito';
             }
         </style>
-
+        @stack('styles')
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         @livewireStyles
     </head>
-    <body class="antialiased">
-        Je bent zo lekker bezig freek
+    <body>
+        <div class="w1/2">
+            @include('layouts.nav')
+        </div>
 
+        @yield('content')
         @livewireScripts
+
+        @stack('scripts')
     </body>
 </html>
