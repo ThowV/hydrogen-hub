@@ -24,7 +24,7 @@
     </head>
     <body class="antialiased">
         Je bent zo lekker bezig freek
-        
+
         @livewireScripts
     </body>
 </html>
