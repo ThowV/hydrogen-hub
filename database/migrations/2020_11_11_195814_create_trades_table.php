@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTradeTable extends Migration
+class CreateTradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTradeTable extends Migration
      */
     public function up()
     {
-        Schema::create('trade', function (Blueprint $table) {
+        Schema::create('trades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('creator_id');
             $table->foreignId('responder_id')->nullable();
@@ -36,6 +36,6 @@ class CreateTradeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trade');
+        Schema::dropIfExists('trades');
     }
 }

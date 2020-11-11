@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserHasTradeTable extends Migration
+class CreateUsersHaveTradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserHasTradeTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_has_trade', function (Blueprint $table) {
+        Schema::create('users_have_trades', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('trade_id');
@@ -29,6 +29,6 @@ class CreateUserHasTradeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_has_trade');
+        Schema::dropIfExists('users_have_trades');
     }
 }
