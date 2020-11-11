@@ -14,5 +14,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('layouts.dashboard');
 });
+
+Route::get('/dashboard', function () {
+    return view('layouts.dashboard');
+});
+
+Route::get('/market', function () {
+    return view('layouts.dashboard');
+});
+
+/*
+Route::get('/company/', function () {
+    return COMPANY PORTFOLIO
+});
+
+Route::get('/company/portfolio', function () {
+    return COMPANY PORTFOLIO
+});
+
+Route::get('/company/overview', function () {
+    return COMPANY OVERVIEW
+});
+ */
+
