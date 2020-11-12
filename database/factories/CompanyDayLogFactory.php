@@ -23,6 +23,7 @@ class CompanyDayLogFactory extends Factory
     {
         return [
             'produced' => $this->faker->numberBetween(0, 1000000),
+            'company_id' => 1,
             'demand' => $this->faker->numberBetween(0, 1000000),
             'stored' => $this->faker->numberBetween(0, 1000000),
         ];

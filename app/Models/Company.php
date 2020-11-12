@@ -11,11 +11,16 @@ class Company extends Model
 
     public function employees()
     {
-        return $this->hasMany(CompanyDayLog::class);
+        return $this->hasMany(User::class);
     }
 
     public function dayLogs()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(CompanyDayLog::class);
+    }
+
+    public function trades()
+    {
+        return $this->hasManyThrough(Trade::class, User::class, null, 'owner_id');
     }
 }

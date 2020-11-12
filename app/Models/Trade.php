@@ -20,4 +20,14 @@ class Trade extends Model
         $this->open = true;
         $this->save();
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function responder()
+    {
+        return $this->belongsTo(User::class, 'responder_id');
+    }
 }

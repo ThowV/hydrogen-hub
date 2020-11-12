@@ -21,9 +21,13 @@ class TradeFactory extends Factory
      */
     public function definition()
     {
+        $enum = ['green', 'blue', 'grey'];
+        $trades = ['offer', 'request'];
         return [
-            'trade_type' => array_rand(['offer', 'request']),
-            'hydrogen_type' => array_rand(['green', 'blue', 'grey']),
+            'owner_id' => 1,
+            'responder_id' => 2,
+            'trade_type' => $trades[array_rand($trades)],
+            'hydrogen_type' => $enum[array_rand($enum)],
             'units_per_hour' => $this->faker->numberBetween(0, 1000),
             'volumes' => $this->faker->numberBetween(0, 1000000),
             'price_per_unit' => $this->faker->numberBetween(0, 1000),
