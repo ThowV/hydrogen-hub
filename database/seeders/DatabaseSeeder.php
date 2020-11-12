@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\CompanyDayLog;
+use App\Models\RegistrationRequest;
 use App\Models\Trade;
+use App\Models\User;
 use Carbon\Carbon;
+use Hash;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -19,14 +22,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $u = User::create(['email'=>"melchiorkokernoot@gmail.com", "password"=> Hash::make('melchior123'), "company_id"=>1, "first_name"=>"Melchior","last_name"=>"kokernoot"]);
         \App\Models\User::factory(10)->create();
         Company::factory(10)->create();
         CompanyDayLog::factory(50)->create();
         Trade::factory(50)->create();
+        RegistrationRequest::factory(10)->create();
 
         $this->createPermissions();
         $this->createRoles();
         $this->bindRolesToPermissions();
+
+        $u->assignRole('Super Admin');
     }
 
     public function createPermissions()
