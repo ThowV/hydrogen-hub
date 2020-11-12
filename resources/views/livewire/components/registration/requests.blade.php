@@ -9,16 +9,16 @@
         </tr>
         @foreach($requests as $request)
         <tr class="border-2">
-            <td class="border">{{$request->company_name}}</td>
-            <td class="border">{{$request->company_email}}</td>
-            <td class="border">
+            <td class="border px-2">{{$request->company_name}}</td>
+            <td class="border px-2">{{$request->company_admin_email}}</td>
+            <td class="border px-2">
                 <a href="{{route('request.accept', $request->id)}}">
                     <button
                         class="text-white bg-green-600 rounded p-2 mx-1">Allow
                     </button>
                 </a>
             </td>
-            <td class="border">
+            <td class="border px-2">
                 <a href="{{route('request.deny', $request->id)}}">
                     <button
                         class="text-white bg-red-600 rounded p-2 mx-1">Deny

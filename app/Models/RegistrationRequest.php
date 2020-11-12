@@ -12,7 +12,7 @@ class RegistrationRequest extends Model
 
     protected $fillable = [
         "company_name",
-        "company_email",
+        "company_admin_email",
         "company_admin_first_name",
         "company_admin_last_name"
     ];

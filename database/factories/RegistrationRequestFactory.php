@@ -23,7 +23,7 @@ class RegistrationRequestFactory extends Factory
     {
         return [
             "company_name" => $this->faker->company,
-            "company_email" => $this->faker->email,
+            "company_admin_email" => $this->faker->email,
             "company_admin_first_name"=> $this->faker->firstName,
             "company_admin_last_name"=> $this->faker->lastName,
             "status"=>rand(0,1),
