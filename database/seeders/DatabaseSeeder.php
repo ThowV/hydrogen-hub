@@ -6,7 +6,12 @@ use App\Models\Company;
 use App\Models\CompanyDayLog;
 use App\Models\RegistrationRequest;
 use App\Models\Trade;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
