@@ -8,8 +8,10 @@ class RegistrationRequestController extends Controller
 {
     public function accept(RegistrationRequest $registration_request)
     {
-        $registration_request->accept();
         //TODO create company and user model
+        if(!auth()->user()->hasPermissionTo('company.request.allow')){
+            $registration_request->accept();
+        }
 
         return back();
     }
