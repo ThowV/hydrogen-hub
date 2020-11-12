@@ -15,11 +15,12 @@ class CreateRegistrationRequestsTable extends Migration
     {
         Schema::create('registration_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('company_name');
-            $table->string('company_email');
+            $table->string('company_name')->unique();
+            $table->string('company_email')->unique();
             $table->string('company_admin_first_name');
             $table->string('company_admin_last_name');
             $table->boolean('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
