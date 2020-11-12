@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
@@ -23,7 +24,7 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'email' => $this->faker->unique()->safeEmail,
+            'owner_id' => User::all()->random()->id,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ];

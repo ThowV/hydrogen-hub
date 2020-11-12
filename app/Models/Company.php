@@ -9,6 +9,11 @@ class Company extends Model
 {
     use HasFactory;
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
     public function employees()
     {
         return $this->hasMany(User::class);
