@@ -16,7 +16,7 @@
             font-family: 'Nunito';
             padding: 4em;
         }
-        
+
         .navbar{
                 color: white;
                 background: blue;
