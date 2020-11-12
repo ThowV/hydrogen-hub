@@ -14,6 +14,7 @@ use App\Http\Controllers\MarketController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/register' ,    \App\Http\Livewire\Company\RegisterComponent::class);
 
 Route::get('/',             [DashboardController::class, 'show']);
 Route::get('/dashboard',    [DashboardController::class, 'show']);
