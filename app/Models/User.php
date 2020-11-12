@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function trades()
+    {
+        return $this->hasMany(Trade::class);
+    }
 }
