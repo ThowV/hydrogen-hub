@@ -48,9 +48,9 @@
                 <input type="text" placeholder="Enter amount" wire:model="duration">
 
                 <select name="duration_type" wire:model="duration_type">
-                    <option value="days">Days</option>
-                    <option value="weeks">Weeks</option>
-                    <option value="months">Months</option>
+                    <option value="day">Days</option>
+                    <option value="week">Weeks</option>
+                    <option value="month">Months</option>
                 </select>
 
                 @error('duration') <span>{{ $message }}</span> @enderror
@@ -73,9 +73,9 @@
                 <input type="text" placeholder="Enter amount" wire:model="expires_at">
 
                 <select name="expires_at_type" wire:model="expires_at_type">
-                    <option value="days">Days</option>
-                    <option value="weeks">Weeks</option>
-                    <option value="months">Months</option>
+                    <option value="day">Days</option>
+                    <option value="week">Weeks</option>
+                    <option value="month">Months</option>
                 </select>
 
                 @error('expires_at') <span>{{ $message }}</span> @enderror
