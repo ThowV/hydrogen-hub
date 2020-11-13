@@ -29,10 +29,10 @@ class TradeFactory extends Factory
             'trade_type' => $trades[array_rand($trades)],
             'hydrogen_type' => $enum[array_rand($enum)],
             'units_per_hour' => $this->faker->numberBetween(0, 1000),
-            'volumes' => $this->faker->numberBetween(0, 1000000),
             'price_per_unit' => $this->faker->numberBetween(0, 1000),
             'mix_co2' => $this->faker->numberBetween(0, 100),
-            'ends_at' => $this->faker->dateTimeBetween('now', '+1 years'),
+            'duration' => $this->faker->dateTimeBetween('now', '+1 years'),
+            'expires_at' => $this->faker->dateTimeBetween('now', '+1 years'),
         ];
     }
 }

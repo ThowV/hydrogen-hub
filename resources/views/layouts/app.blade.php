@@ -27,14 +27,15 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     @livewireStyles
 </head>
-    <body>
-        <div class="w1/2">
-            @include('layouts.nav')
-        </div>
+
+<body>
+    <div class="w1/2">
+        @include('layouts.nav')
+    </div>
 
     @yield('content')
     @livewireScripts
 
     @stack('scripts')
-    </body>
+</body>
 </html>

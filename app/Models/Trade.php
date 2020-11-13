@@ -9,6 +9,17 @@ class Trade extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'owner_id',
+        'trade_type',
+        'hydrogen_type',
+        'units_per_hour',
+        'price_per_unit',
+        'mix_co2',
+        'duration',
+        'expires_at',
+    ];
+
     public function close()
     {
         $this->open = false;
