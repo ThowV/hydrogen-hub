@@ -53,11 +53,14 @@ class MarketComponent extends Component
 
         // Close create modal
         $this->closeCreateModal();
+
+        // Update trades since we added a new one
+        $this->updateTrades();
     }
 
     public function mount()
     {
-        $this->trades = Trade::latest()->limit(10)->get()->toArray();
+        $this->updateTrades();
     }
 
     public function render()
@@ -84,5 +87,10 @@ class MarketComponent extends Component
     public function closeRespondModal()
     {
         $this->isRespondModalOpen = false;
+    }
+
+    private function updateTrades()
+    {
+        $this->trades = Trade::latest()->limit(10)->get()->toArray();
     }
 }
