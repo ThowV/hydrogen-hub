@@ -7,13 +7,23 @@ use Livewire\Component;
 
 class MarketComponent extends Component
 {
-    public $trade_type, $hydrogen_type, $units_per_hour, $duration, $price_per_unit, $mix_co2, $expires_at;
+    public $trade_type;
+    public $hydrogen_type;
+    public $units_per_hour;
+    public $duration;
+    public $price_per_unit;
+    public $mix_co2;
+    public $expires_at;
 
     // Default select does not work with livewire at the moment:
     public $duration_type = "days";
     public $expires_at_type = "days";
 
     public $isCreateModalOpen = false;
+    public $isRespondModalOpen = false;
+
+    public $trades;
+    public $trade;
 
     protected $rules = [
         'trade_type' =>     'required',
@@ -45,11 +55,14 @@ class MarketComponent extends Component
         $this->closeCreateModal();
     }
 
+    public function mount()
+    {
+        $this->trades = Trade::latest()->limit(10)->get()->toArray();
+    }
+
     public function render()
     {
-        $trades = Trade::latest()->paginate(10);
-
-        return view('livewire.market-component', ['trades' => $trades])->extends('layouts.app');;
+        return view('livewire.market-component')->extends('layouts.app');
     }
 
     public function openCreateModal()
@@ -60,5 +73,16 @@ class MarketComponent extends Component
     public function closeCreateModal()
     {
         $this->isCreateModalOpen = false;
+    }
+
+    public function openRespondModal(Trade $trade)
+    {
+        $this->trade = $trade->toArray();
+        $this->isRespondModalOpen = true;
+    }
+
+    public function closeRespondModal()
+    {
+        $this->isRespondModalOpen = false;
     }
 }

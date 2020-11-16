@@ -83,12 +83,30 @@
 
             <button type="submit">Place</button>
         </form>
+
+        <button wire:click="closeCreateModal">Close create modal</button>
     @endif
 
+    @if($isRespondModalOpen)
+        <hr><hr><hr>
+
+        <p><b>Trade type:</b> {{ $trade["trade_type"] }}</p>
+        <p><b>Hydrogen type:</b> {{ $trade["hydrogen_type"] }}</p>
+        <p><b>Units per hour:</b> {{ $trade["units_per_hour"] }}</p>
+        <p><b>Duration (needs to be transformed):</b> {{ $trade["duration"] }}</p>
+        <p><b>Price per unit:</b> {{ $trade["price_per_unit"] }}</p>
+        <p><b>Mix CO2:</b> {{ $trade["mix_co2"] }}%</p>
+        <p><b>Expires in (needs to be transformed):</b> {{ $trade["expires_at"] }}</p>
+
+        <button wire:click="closeRespondModal">Close respond modal</button>
+    @endif
+
+    <hr><hr><hr>
+
     @foreach($trades as $trade)
-        <button>
-            {{ $trade }}
-        </button>
+        <div wire:click="openRespondModal({{ $trade["id"] }})">
+            <p>{{ $trade["id"] }} - {{ $trade["trade_type"] }} (click to open)</p>
+        </div>
     @endforeach
 </div>
 
