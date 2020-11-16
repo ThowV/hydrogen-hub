@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CreateCompanyAction;
 use App\Models\Company;
 use App\Models\RegistrationRequest;
 use App\Models\User;
@@ -9,20 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class RegistrationRequestController extends Controller
 {
-    public function accept(RegistrationRequest $registration_request)
+    public function accept(RegistrationRequest $registrationRequest)
     {
         //TODO create company and user model
         if (!auth()->user()->hasPermissionTo('request.allow')) {
             //give notice
-            return ;
+            return;
         }
 
-        DB::transaction(function () use ($registration_request){
-//              Company::create();
-//              User::create();
-        });
+        (new CreateCompanyAction($registrationRequest))->execute();
 
-        $registration_request->accept();
         return back();
     }
 
@@ -30,7 +27,7 @@ class RegistrationRequestController extends Controller
     {
         if (auth()->user()->hasPermissionTo('request.deny')) {
             $registration_request->deny();
-        }else{
+        } else {
 
         }
 
