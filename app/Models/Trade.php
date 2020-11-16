@@ -14,9 +14,9 @@ class Trade extends Model
         'trade_type',
         'hydrogen_type',
         'units_per_hour',
+        'duration',
         'price_per_unit',
         'mix_co2',
-        'duration',
         'expires_at',
     ];
 

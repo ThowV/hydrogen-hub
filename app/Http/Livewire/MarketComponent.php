@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Trade;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class MarketComponent extends Component
@@ -16,8 +17,8 @@ class MarketComponent extends Component
     public $expires_at;
 
     // Default select does not work with livewire at the moment:
-    public $duration_type = "days";
-    public $expires_at_type = "days";
+    public $duration_type = "day";
+    public $expires_at_type = "day";
 
     public $isCreateModalOpen = false;
     public $isRespondModalOpen = false;
@@ -43,7 +44,7 @@ class MarketComponent extends Component
         $data['owner_id'] = auth()->id();
 
         // Modify duration data
-        $data['duration'] = now()->add($data['duration'], $this->duration_type);
+        $data['duration'] = $data['duration'] . ' ' . $this->duration_type . ($data['duration'] > 1 ? 's' : '');
 
         // Modify expires at data
         $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
@@ -80,7 +81,16 @@ class MarketComponent extends Component
 
     public function openRespondModal(Trade $trade)
     {
-        $this->trade = $trade->toArray();
+        // Turn trade object into an array
+        $trade = $trade->toArray();
+
+        // Modify expires at data to create expires in value
+        $expiresIn = (new Carbon($trade['expires_at']))->diff(now());
+        $expiresIn = array("days"=>$expiresIn->d, "hours"=>$expiresIn->h, "minutes"=>$expiresIn->i);
+        $trade['expires_in'] = $expiresIn;
+
+        // Finalize
+        $this->trade = $trade;
         $this->isRespondModalOpen = true;
     }
 
