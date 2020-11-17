@@ -14,34 +14,25 @@ use Illuminate\Support\Str;
 
 class CreateCompanyAction
 {
-
-    /**
-     * CreateCompanyAction constructor.
-     */
-    public function __construct(RegistrationRequest $registration_request)
-    {
-        $this->registration_request = $registration_request;
-    }
-
-    public function execute()
+    public function execute(RegistrationRequest $registration_request)
     {
 
-        DB::transaction(function () {
+        DB::transaction(function () use ($registration_request) {
 
-            if (Company::whereName($this->registration_request->company_name)->first()) {
+            if (Company::whereName($registration_request->company_name)->first()) {
                 throw new CompanyNameNotUniqueException();
             }
 
-            if (User::whereEmail($this->registration_request->company_admin_email)->first()) {
+            if (User::whereEmail($registration_request->company_admin_email)->first()) {
                 throw new EmailNotUniqueException();
             }
 
             $company = Company::create([
-                'name' => $this->registration_request->company_name,
+                'name' => $registration_request->company_name,
                 'owner_id' => ($user = User::create([
-                    "first_name" => $this->registration_request->company_admin_first_name,
-                    "last_name" => $this->registration_request->company_admin_last_name,
-                    "email" => $this->registration_request->company_admin_email,
+                    "first_name" => $registration_request->company_admin_first_name,
+                    "last_name" => $registration_request->company_admin_last_name,
+                    "email" => $registration_request->company_admin_email,
                     "password" => Hash::make(Str::random(8))
                 ]))->id,
                 //           ->sendWelcomeNotification(now()->addDay());;
@@ -50,6 +41,6 @@ class CreateCompanyAction
             $user->save();
         });
 
-        return $this->registration_request->accept();
+        return $registration_request->accept();
     }
 }
