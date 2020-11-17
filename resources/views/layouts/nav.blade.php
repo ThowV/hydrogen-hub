@@ -1,5 +1,5 @@
 @auth()
-<header class="">
+<header>
 
     <div class="relative h-screen bg-nav grid grid-rows-6 ">
 
@@ -60,17 +60,19 @@
         </nav>
 
 
-        <div class="row-start-6 text-white font-bold grid grid-cols-4 grid-rows-2 pt-16 sm:pt-12 xl:pt-32 xxl:pt-40 px-6">
+        <div class="row-start-6 text-white font-bold grid grid-cols-4 px-2 pb-10">
 
-                <div class="w-full h-full grid row-span-2 items-center justify-items-center">
-                    <img class="rounded-full w-8 xl:w-12 xxl:w-16 border" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
+                <div class="w-full h-full grid items-end justify-items-center">
+                    <img class="rounded-full w-8 xl:w-10 xxl:w-12 border" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
+                </div>
+
+                <div class="w-full h-full grid content-end col-start-2 col-span-2">
+                    <a class="truncate sm:text-xxs md:text-xxs lg:text-xs xl:text-base xxl:text-xl ">{{ auth()->user()->full_name  }}</a>
+                    <a class="truncate opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">{{ auth()->user()->email  }}</a>
                 </div>
 
 
-                <a class="grid items-end row-start-1 col-start-2 col-span-2 sm:text-xxs md:text-xxs lg:text-xs xl:text-base xxl:text-xl ">{{ auth()->user()->full_name  }}</a>
-
-
-                <div class="w-full h-full grid row-span-2 items-center justify-items-center cursor-pointer" id="settings-btn">
+                <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-2" id="settings-btn">
                     <svg class="opacity-50 hover:opacity-100 duration-300 w-5 xl:w-6 xxl:w-8" xmlns="http://www.w3.org/2000/svg" width="19.721" height="19.721" viewBox="0 0 19.721 19.721">
                         <g id="Icon_ionic-md-settings" data-name="Icon ionic-md-settings" transform="translate(0)">
                             <path id="Icon_ionic-md-settings-2" data-name="Icon ionic-md-settings" d="M20.724,14.222a6.167,6.167,0,0,0,.05-.986c0-.345-.05-.641-.05-.986l2.118-1.627a.453.453,0,0,0,.1-.641l-2.017-3.4a.491.491,0,0,0-.605-.2L17.8,7.368a7.339,7.339,0,0,0-1.714-.986l-.353-2.613a.54.54,0,0,0-.5-.394H11.193a.54.54,0,0,0-.5.394l-.4,2.613a8.539,8.539,0,0,0-1.715.986L6.049,6.382a.472.472,0,0,0-.605.2l-2.017,3.4a.6.6,0,0,0,.1.641L5.7,12.25c0,.345-.05.641-.05.986s.05.641.05.986L3.579,15.849a.453.453,0,0,0-.1.641l2.017,3.4a.491.491,0,0,0,.605.2L8.622,19.1a7.339,7.339,0,0,0,1.714.986l.4,2.613a.489.489,0,0,0,.5.394h4.034a.54.54,0,0,0,.5-.394l.4-2.613A8.534,8.534,0,0,0,17.9,19.1l2.521.986a.472.472,0,0,0,.605-.2l2.017-3.4a.6.6,0,0,0-.1-.641ZM13.21,16.687a3.452,3.452,0,1,1,3.53-3.451A3.469,3.469,0,0,1,13.21,16.687Z" transform="translate(-3.375 -3.375)" fill="#fff" opacity="1"/>
@@ -79,35 +81,47 @@
                 </div>
 
 
-                <a class="opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">{{ auth()->user()->email  }}</a>
 
         </div>
 
             <!-- Personal information section -->
             <div class="absolute bg-personal hidden row-start-5 w-full h-full rounded-t-xl text-white px-8 xxl:px-12 py-6" id="settings" >
-                <div class="grid grid-rows-6 grid-cols-2 w-full h-full items-center justify-items-end">
+                
+                <div class="grid grid-cols-4 w-full h-full">
 
-                    <svg class="col-start-2 row-start-1 w-4 xxl:w-12 opacity-50 hover:opacity-100 cursor-pointer"xmlns="http://www.w3.org/2000/svg" width="22.429" height="22.429" viewBox="0 0 22.429 22.429" id="close-settings">
-                        <g id="Group_299" data-name="Group 299" transform="translate(317.808 -1627.379) rotate(90)">
-                            <line id="Line_176" data-name="Line 176" y1="18.187" x2="18.187" transform="translate(1629.5 297.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
-                            <line id="Line_177" data-name="Line 177" x2="18.187" y2="18.187" transform="translate(1629.5 297.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
-                        </g>
-                    </svg>
+                    <div class="grid grid-rows-5 col-span-3 justify-items-start items-end gap-2 truncate">
 
-                    <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
-                    <a class="col-start-2 row-start-2 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                        <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
+                    
+                        <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
 
-                    <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
-                    <a class="col-start-2 row-start-3 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                        <p class="col-start-1 row-start-4 font-bold sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-xl">{{ auth()->user()->email  }}</p>
 
-                    <p class="col-start-1 row-start-4 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->email  }}</p>
-                    <a class="col-start-2 row-start-4 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                        <p class="col-start-1 row-start-5 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">*******</p>
 
-                    <p class="col-start-1 row-start-5 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">*******</p>
-                    <a class="col-start-2 row-start-5 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                    </div>
 
-                    <button class="col-start-1 col-span-2 m-auto row-start-6 bg-white text-personal px-8 py-1 my-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">Log out</button>
+                    <div class="grid grid-rows-5 col-start-4 justify-items-end items-end gap-2">
 
+                        <svg class="col-start-2 row-start-1 w-4 xxl:w-12 opacity-50 hover:opacity-100 cursor-pointer"xmlns="http://www.w3.org/2000/svg" width="22.429" height="22.429" viewBox="0 0 22.429 22.429" id="close-settings">
+                            <g id="Group_299" data-name="Group 299" transform="translate(317.808 -1627.379) rotate(90)">
+                                <line id="Line_176" data-name="Line 176" y1="18.187" x2="18.187" transform="translate(1629.5 297.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                                <line id="Line_177" data-name="Line 177" x2="18.187" y2="18.187" transform="translate(1629.5 297.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                            </g>
+                        </svg>
+                    
+                        <a class="col-start-2 row-start-2 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                        
+                        <a class="col-start-2 row-start-3 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                        <a class="col-start-2 row-start-4 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                        <a class="col-start-2 row-start-5 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                    </div>
+
+                    <button class="col-start-1 col-span-4 m-auto row-start-6 bg-white text-personal px-8 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">Log out</button>
+        
                 </div>
 
             </div>
