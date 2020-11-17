@@ -1,3 +1,4 @@
+@auth()
 <header class="">
 
     <div class="relative h-screen bg-nav grid grid-rows-6 ">
@@ -34,15 +35,16 @@
                     <a class="col-start-4" href="/">Company</a>
 
                     <ul class="items-center col-start-4">
-                        <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl"> 
-                            <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Request::is('company/') ? 'opacity-100' : '' }}" href="/">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
+                        <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                            <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company/') ? 'opacity-100' : '' }}" href="/">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
                         </li>
-                        <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl"> 
-                            <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Request::is('company/') ? 'opacity-100' : '' }}" href="/">●&nbsp;&nbsp;&nbsp;Overview</a></li>
+                        <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                            <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company/') ? 'opacity-100' : '' }}" href="/">●&nbsp;&nbsp;&nbsp;Overview</a></li>
                         </li>
                     </ul>
                 </li>
 
+                @role('Super Admin')
                 <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16  xxl:px-16 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('company/') ? 'opacity-100' : '' }}" ">
 
                     <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
@@ -52,10 +54,11 @@
                     <a class="col-start-4" href="/">Admin</a>
 
                 </li>
+                @endrole()
 
             </ul>
         </nav>
-            
+
 
         <div class="row-start-6 text-white font-bold grid grid-cols-4 grid-rows-2 pt-16 sm:pt-12 xl:pt-32 xxl:pt-40 px-6">
 
@@ -64,8 +67,8 @@
                 </div>
 
 
-                <a class="grid items-end row-start-1 col-start-2 col-span-2 sm:text-xxs md:text-xxs lg:text-xs xl:text-base xxl:text-xl ">Erik Knevelaar</a>
-                
+                <a class="grid items-end row-start-1 col-start-2 col-span-2 sm:text-xxs md:text-xxs lg:text-xs xl:text-base xxl:text-xl ">{{ auth()->user()->full_name  }}</a>
+
 
                 <div class="w-full h-full grid row-span-2 items-center justify-items-center cursor-pointer" id="settings-btn">
                     <svg class="opacity-50 hover:opacity-100 duration-300 w-5 xl:w-6 xxl:w-8" xmlns="http://www.w3.org/2000/svg" width="19.721" height="19.721" viewBox="0 0 19.721 19.721">
@@ -76,7 +79,7 @@
                 </div>
 
 
-                <a class="opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">erik@mail.com</a>
+                <a class="opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">{{ auth()->user()->email  }}</a>
 
         </div>
 
@@ -94,22 +97,22 @@
                     <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
                     <a class="col-start-2 row-start-2 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
 
-                    <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">Erik Knevelaar</p>
+                    <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
                     <a class="col-start-2 row-start-3 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
 
-                    <p class="col-start-1 row-start-4 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">erik@mail.com</p>
+                    <p class="col-start-1 row-start-4 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->email  }}</p>
                     <a class="col-start-2 row-start-4 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
 
                     <p class="col-start-1 row-start-5 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">*******</p>
                     <a class="col-start-2 row-start-5 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
 
                     <button class="col-start-1 col-span-2 m-auto row-start-6 bg-white text-personal px-8 py-1 my-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">Log out</button>
-                
+
                 </div>
 
             </div>
- 
+
     </div>
 
 </header>
-
+@endauth
