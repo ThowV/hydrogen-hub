@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $u = User::create(['email' => "melchiorkokernoot@gmail.com", "password" => Hash::make('melchior123'), "company_id" => 1, "first_name" => "Melchior", "last_name" => "kokernoot"]);
+        $u_3 = User::create(['email' => "martijnjongman9@gmail.com", "password" => Hash::make('martijn123'), "company_id" => 1, "first_name" => "Martijn", "last_name" => "Jongman"]);
         \App\Models\User::factory(25)->create();
         Company::factory(10)->create();
         CompanyDayLog::factory(50)->create();
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->bindRolesToPermissions();
 
         $u->assignRole('Super Admin');
+        $u_3->assignRole('Super Admin');
     }
 
     public function createPermissions()
