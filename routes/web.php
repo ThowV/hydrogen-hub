@@ -31,8 +31,8 @@ Route::group(['middleware' =>                                           ['web', 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
-    Route::get('/dashboard',                                        [DashboardController::class, 'show']);
-    Route::get('/market',                                           [MarketController::class, 'show']);
+    Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
+    Route::get('/market',                                           [MarketController::class, 'show'])->name('market');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
     Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
 });
