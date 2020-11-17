@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MarketController;
 use App\Http\Controllers\RegistrationRequestController;
 use App\Http\Controllers\WelcomeMessageController;
 use App\Http\Livewire\Company\RegisterComponent;
 use App\Http\Livewire\LoginComponent;
+use App\Http\Livewire\MarketComponent;
 use Illuminate\Support\Facades\Route;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
 
@@ -20,19 +20,19 @@ use Spatie\WelcomeNotification\WelcomesNewUsers;
 |
 */
 
-Route::get('/login',                                         LoginComponent::class)->name('login');
-Route::get('/register' ,                                     RegisterComponent::class);
+Route::get('/login',                                        LoginComponent::class)->name('login');
+Route::get('/register' ,                                    RegisterComponent::class);
 
-Route::group(['middleware' =>                                           ['web', WelcomesNewUsers::class,]], function () {
-    Route::get('welcome/{user}',                                    [WelcomeMessageController::class, 'showWelcomeForm'])->name('welcome');
-    Route::post('welcome/{user}',                                   [WelcomeMessageController::class, 'savePassword'])->name('welcome.post');
+Route::group(['middleware' =>                                          ['web', WelcomesNewUsers::class,]], function () {
+    Route::get('welcome/{user}',                                   [WelcomeMessageController::class, 'showWelcomeForm'])->name('welcome');
+    Route::post('welcome/{user}',                                  [WelcomeMessageController::class, 'savePassword'])->name('welcome.post');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
-    Route::get('/dashboard',                                        [DashboardController::class, 'show']);
-    Route::get('/market',                                           [MarketController::class, 'show']);
-    Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
-    Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
+    Route::get('/',                                                [DashboardController::class, 'show'])->name('home');
+    Route::get('/dashboard',                                       [DashboardController::class, 'show']);
+    Route::get('/market',                                    MarketComponent::class);
+    Route::get('/company_request/{registration_request}/accept',   [RegistrationRequestController::class, 'accept'])->name('request.accept');
+    Route::get('/company_request/{registration_request}/deny',     [RegistrationRequestController::class, 'deny'])->name('request.deny');
 });
 
