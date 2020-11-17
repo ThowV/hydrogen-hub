@@ -6,8 +6,6 @@
 
     <title>Hydrogen Hub</title>
 
-
-
     <!-- Tailwind -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}"></link>
 
