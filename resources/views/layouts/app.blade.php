@@ -6,36 +6,52 @@
 
     <title>Hydrogen Hub</title>
 
-    <!-- Fonts -->
-    <link href="http://fonts.cdnfonts.com/css/effra" rel="stylesheet">
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
-    <!-- Styles -->
-    <style>
-        body {
-            font-family: 'Effra', sans-serif;
-        }
-        #menu{
-            background: #003399;
-        }
-    </style>
+
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="{{asset('css/app.css')}}"></link>
+
+    <!-- Jquery -->
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous">
+    </script>
+    
     @stack('styles')
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     @livewireStyles
 </head>
-    <body class="h-screen">
+    <body class="bg-background font-sans">
 
-        <div class="grid grid-cols-8 h-screen">
+        <div class="grid grid-cols-8 grid-rows-1 h-screen">
 
-            <div class="col-span-1">
+            <div class="col-span-1 sm:col-span-2">
                     @include('layouts.nav')
             </div>
 
-            @yield('content')
-            @livewireScripts
-            @stack('scripts')
+            <div class="col-span-7 sm:col-span-6">
+                    @yield('content')
+                    @livewireScripts
+                    @stack('scripts')
+            </div>
+
         
         </div>
+
+        <script>
+                const overlay = document.querySelector('#settings')
+                const selectBtn = document.querySelector('#settings-btn')
+                const closeBtn = document.querySelector('#close-settings')
+
+                const toggleSetting = () => {
+                    overlay.classList.toggle('hidden')
+                    overlay.classList.toggle('grid')
+                }
+
+                selectBtn.addEventListener('click', toggleSetting)
+                closeBtn.addEventListener('click', toggleSetting)
+        </script>
 
     </body>
 </html>
