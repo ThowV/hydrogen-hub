@@ -4,6 +4,7 @@
 namespace App;
 
 
+use App\Exceptions\EmailNotUniqueException;
 use App\Models\Company;
 use App\Models\RegistrationRequest;
 use App\Models\User;
@@ -27,6 +28,14 @@ class CreateCompanyAction
 
         DB::transaction(function () {
 
+            if (Company::whereName($this->registration_request->company_name)->first()) {
+                throw new CompanyNameNotUniqueException();
+            }
+
+            if (User::whereEmail($this->registration_request->company_admin_email)->first()) {
+                throw new EmailNotUniqueException();
+            }
+
             $company = Company::create([
                 'name' => $this->registration_request->company_name,
                 'owner_id' => ($user = User::create([
@@ -37,7 +46,6 @@ class CreateCompanyAction
                 ]))->id,
                 //           ->sendWelcomeNotification(now()->addDay());;
             ]);
-
             $user->company_id = $company->id;
             $user->save();
         });

@@ -1,14 +1,15 @@
 <?php
 
 
-namespace App\Exceptions;
+namespace App;
 
 
-class EmailNotUniqueException extends \Exception
+class CompanyNameNotUniqueException extends \Exception
 {
 
+
     /**
-     * EmailNotUniqueException constructor.
+     * CompanyNameNotUniqueException constructor.
      * @param string $message
      * @param int $code
      * @param null $previous
