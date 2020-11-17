@@ -49,7 +49,7 @@
                         <path id="Icon_metro-wrench" data-name="Icon metro-wrench" d="M27.056,21.9,15.812,12.258A7.035,7.035,0,0,0,7.56,2.23l4.062,4.062a1.567,1.567,0,0,1,0,2.21L9.144,10.979a1.567,1.567,0,0,1-2.21,0L2.872,6.917A7.033,7.033,0,0,0,12.9,15.17l9.638,11.244a1.428,1.428,0,0,0,2.122.081l2.478-2.478a1.428,1.428,0,0,0-.081-2.122Z" transform="translate(-2.571 -1.928)" fill="#fff"/>
                     </svg>
 
-                    <a class="col-start-4" href="/">Admin</a>
+                    <a class="col-start-4" href="{{route('admin')}}">Admin</a>
 
                 </li>
 
@@ -82,7 +82,8 @@
 
             <!-- Personal information section -->
             <div class="absolute bg-personal hidden row-start-5 w-full h-full rounded-t-xl text-white px-8 xxl:px-12 py-6" id="settings" >
-                <div class="grid grid-rows-6 grid-cols-2 w-full h-full items-center justify-items-end">
+
+                <div class="grid grid-cols-4 w-full h-full">
 
                     <svg class="col-start-2 row-start-1 w-4 xxl:w-12 opacity-50 hover:opacity-100 cursor-pointer"xmlns="http://www.w3.org/2000/svg" width="22.429" height="22.429" viewBox="0 0 22.429 22.429" id="close-settings">
                         <g id="Group_299" data-name="Group 299" transform="translate(317.808 -1627.379) rotate(90)">
@@ -91,8 +92,9 @@
                         </g>
                     </svg>
 
-                    <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
-                    <a class="col-start-2 row-start-2 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                        <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2" src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg" alt="Andy Leverenz">
+
+                        <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
 
                     <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">Erik Knevelaar</p>
                     <a class="col-start-2 row-start-3 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
@@ -103,8 +105,27 @@
                     <p class="col-start-1 row-start-5 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">*******</p>
                     <a class="col-start-2 row-start-5 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
 
-                    <button class="col-start-1 col-span-2 m-auto row-start-6 bg-white text-personal px-8 py-1 my-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">Log out</button>
-                
+                    <div class="grid grid-rows-5 col-start-4 justify-items-end items-end gap-2">
+
+                        <svg class="col-start-2 row-start-1 w-4 xxl:w-12 opacity-50 hover:opacity-100 cursor-pointer"xmlns="http://www.w3.org/2000/svg" width="22.429" height="22.429" viewBox="0 0 22.429 22.429" id="close-settings">
+                            <g id="Group_299" data-name="Group 299" transform="translate(317.808 -1627.379) rotate(90)">
+                                <line id="Line_176" data-name="Line 176" y1="18.187" x2="18.187" transform="translate(1629.5 297.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                                <line id="Line_177" data-name="Line 177" x2="18.187" y2="18.187" transform="translate(1629.5 297.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
+                            </g>
+                        </svg>
+
+                        <a class="col-start-2 row-start-2 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                        <a class="col-start-2 row-start-3 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                        <a class="col-start-2 row-start-4 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                        <a class="col-start-2 row-start-5 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+
+                    </div>
+
+                    <button class="col-start-1 col-span-4 m-auto row-start-6 bg-white text-personal px-8 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">Log out</button>
+
                 </div>
 
             </div>

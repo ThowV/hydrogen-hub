@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\RegistrationRequestController;
@@ -22,7 +23,7 @@ use Spatie\WelcomeNotification\WelcomesNewUsers;
 
 
 Route::get('/login',                                         LoginComponent::class)->name('login');
-Route::get('/register' ,                                     RegisterComponent::class);
+Route::get('/register' ,                                     RegisterComponent::class)->name('company.register');
 
 Route::group(['middleware' =>                                           ['web', WelcomesNewUsers::class,]], function () {
     Route::get('welcome/{user}',                                    [WelcomeMessageController::class, 'showWelcomeForm'])->name('welcome');
@@ -31,8 +32,9 @@ Route::group(['middleware' =>                                           ['web', 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
-    Route::get('/dashboard',                                        [DashboardController::class, 'show']);
-    Route::get('/market',                                           [MarketController::class, 'show']);
+    Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
+    Route::get('/market',                                           [MarketController::class, 'show'])->name('market');
+    Route::get('/admin',                                            [AdminController::class, 'index'])->name('admin');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
     Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
 });
