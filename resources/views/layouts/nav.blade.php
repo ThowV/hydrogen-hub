@@ -12,7 +12,7 @@
                     <svg class="xxl:mx-10 sm:w-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
                         <path id="Icon_material-dashboard" data-name="Icon material-dashboard" d="M4.5,18.389H15.611V4.5H4.5ZM4.5,29.5H15.611V21.167H4.5Zm13.889,0H29.5V15.611H18.389Zm0-25v8.333H29.5V4.5Z" transform="translate(-4.5 -4.5)" fill="#fff" opacity="1"/>
                     </svg>
-                    <a class="grid col-start-4" href="/">Dashboard</a>
+                    <a class="grid col-start-4" href="{{route('home')}}">Dashboard</a>
                 </li>
 
 
@@ -20,7 +20,7 @@
                     <svg class="xxl:mx-10 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" href="/market">
                         <path id="Icon_metro-shop" data-name="Icon metro-shop" d="M11.228,12.83l1.1-8.2H6.613L4.226,11.659a2.747,2.747,0,0,0-.112.781,3.37,3.37,0,0,0,3.571,3.125,3.446,3.446,0,0,0,3.544-2.734Zm5.385,2.734a3.371,3.371,0,0,0,3.571-3.125c0-.064,0-.128-.007-.189L19.47,4.627H13.756l-.708,7.617c0,.064-.006.128-.006.2a3.371,3.371,0,0,0,3.571,3.125ZM23.558,17.2v6.178H9.669V17.209a5.266,5.266,0,0,1-1.985.388,5.107,5.107,0,0,1-.793-.077v9.92a2.082,2.082,0,0,0,1.942,2.188H24.391a2.084,2.084,0,0,0,1.944-2.187V17.521a5.321,5.321,0,0,1-.793.077A5.2,5.2,0,0,1,23.558,17.2ZM29,11.659l-2.39-7.031H20.9L22,12.818a3.44,3.44,0,0,0,3.546,2.747,3.371,3.371,0,0,0,3.571-3.125A2.8,2.8,0,0,0,29,11.659Z" transform="translate(-4.113 -4.627)" fill="#fff" opacity="1"/>
                     </svg>
-                    <a class="col-start-4" href="/market">Marketplace</a>
+                    <a class="col-start-4" href="{{route('market')}}">Marketplace</a>
                 </li>
 
 
