@@ -29,16 +29,15 @@ class CreateCompanyAction
 
             $company = Company::create([
                 'name' => $this->registration_request->company_name,
-                'owner_id' => $user_id = User::create([
+                'owner_id' => ($user = User::create([
                     "first_name" => $this->registration_request->company_admin_first_name,
                     "last_name" => $this->registration_request->company_admin_last_name,
                     "email" => $this->registration_request->company_admin_email,
                     "password" => Hash::make(Str::random(8))
-                ])->id,
+                ]))->id,
                 //           ->sendWelcomeNotification(now()->addDay());;
             ]);
 
-            $user = User::find($user_id);
             $user->company_id = $company->id;
             $user->save();
         });
