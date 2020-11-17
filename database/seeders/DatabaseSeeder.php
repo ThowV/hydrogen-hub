@@ -43,14 +43,30 @@ class DatabaseSeeder extends Seeder
         Permission::insert([
             ["name" => "request.allow", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "request.deny", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "companies.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "companies.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+
+            ["name" => "listing.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "listing.buy", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "listing.sellto", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "listings.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "listing.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "listing.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "comapny.portfolio.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.users.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.users.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.users.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.users.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.fund.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.produced.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.stored.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.demand.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+
         ]);
     }
 
     public function bindRolesToPermissions()
     {
-        $super_admin = Role::findByName("Super Admin");
-        $super_admin->givePermissionTo('request.allow');
-        $super_admin->givePermissionTo('request.deny');
 
     }
 
