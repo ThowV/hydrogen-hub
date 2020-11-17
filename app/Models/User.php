@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Trade::class);
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . " " . $this->last_name;
+    }
 }
