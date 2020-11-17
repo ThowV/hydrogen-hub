@@ -32,7 +32,7 @@ class MarketComponent extends Component
         'units_per_hour' => 'required|numeric|min:0|max:1000000',
         'duration' =>       'required|numeric',
         'price_per_unit' => 'required|numeric|min:0|max:1000000',
-        'mix_co2' =>        'required|numeric|min:0|max:1000000',
+        'mix_co2' =>        'required|numeric|min:0|max:100',
         'expires_at' =>     'required|numeric',
     ];
 
@@ -97,6 +97,17 @@ class MarketComponent extends Component
     public function closeRespondModal()
     {
         $this->isRespondModalOpen = false;
+    }
+
+    public function makeTrade(Trade $trade)
+    {
+        // Update trade to create deal
+        $trade->responder_id = auth()->id();
+        $trade->deal_made_at = now();
+
+        // Finalize
+        $trade->save();
+        $this->updateTrades();
     }
 
     private function updateTrades()

@@ -26,7 +26,6 @@ class TradeFactory extends Factory
         $durationVal = $this->faker->numberBetween(1, 12);
         return [
             'owner_id' => 1,
-            'responder_id' => 2,
             'trade_type' => $trades[array_rand($trades)],
             'hydrogen_type' => $enum[array_rand($enum)],
             'units_per_hour' => $this->faker->numberBetween(0, 1000),
