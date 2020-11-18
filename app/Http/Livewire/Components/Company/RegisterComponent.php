@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Company;
+namespace App\Http\Livewire\Components\Company;
 
 use App\Models\RegistrationRequest;
 use Exception;
@@ -37,8 +37,7 @@ class RegisterComponent extends Component
             RegistrationRequest::create($data);
         } catch (Exception $exception) {
             $this->addError('error', 'Something went wrong. Please try again later');
-            Log::info('Encountered an error while trying to create registration request');
-            Log::error($exception->getMessage());
+            Log::error('Encountered an error while trying to create registration request: '. $exception->getMessage());
 
             return $this->success = false;
         }
@@ -48,6 +47,6 @@ class RegisterComponent extends Component
 
     public function render()
     {
-        return view('livewire.company.register')->extends('layouts.app');
+        return view('livewire.components.company.register')->extends('layouts.app');
     }
 }

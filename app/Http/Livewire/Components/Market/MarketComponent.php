@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Components\Market;
 
 use App\Models\Trade;
 use Illuminate\Support\Carbon;

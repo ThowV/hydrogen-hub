@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Components\Registration;
+namespace App\Http\Livewire\Components\Admin;
 
 use App\Models\RegistrationRequest;
 use Livewire\Component;
@@ -16,6 +16,6 @@ class Requests extends Component
 
     public function render()
     {
-        return view('livewire.components.registration.requests');
+        return view('livewire.components.admin.requests');
     }
 }
