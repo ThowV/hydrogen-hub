@@ -22,13 +22,11 @@ class Companies extends Component
     public function updated()
     {
         $this->searchTerm = htmlspecialchars($this->searchTerm);
-        //Get companies matching name
-        $this->resultSet = $companies = Company::where('name', 'LIKE', '%' . $this->searchTerm . '%')->get();
-        //TODO this is a start in a good direction to also search companies on owner email, but i've stared at this for too long now.
-        //the feature can wait.
-        //        $companies = Company::with(['owner' => function ($query) {
-        //            $query->where('email', 'LIKE', "%mel%");
-        //        }])->get();
+
+        $this->resultSet = Company::where('name', 'LIKE', "%$this->searchTerm%")->get()->merge(
+             Company::whereHas('owner', function ($query) {
+                    $query->where('email', 'LIKE', "%$this->searchTerm%");
+            })->get());
     }
 
     public function render()

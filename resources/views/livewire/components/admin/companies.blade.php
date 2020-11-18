@@ -17,9 +17,10 @@
         </tr>
         </thead>
         <tbody>
+
         @foreach($resultSet as $result)
             <tr class="text-sm font-semibold">
-                <td>{{$result['name']}}</td>
+                <td>{{$result->name}}</td>
                 <td>{{$result->owner->email}}</td>
                 <td class="text-right py-1 pr-5"><i class="fa fa-cog fa-lg"></i></td>
             </tr>
