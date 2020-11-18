@@ -12,7 +12,7 @@
         
     <h1 class="col-start-3 row-start-1 items-end text-nav font-bold text-6xl sm:text-4xl flex justify-center">Log in</h1>
 
-    <form class="col-start-3 row-start-2 flex flex-col justify-center px-24 sm:px-1 md:px-1 text-nav" wire:submit.prevent="submit">
+    <form class="col-start-3 row-start-2 flex flex-col justify-center px-20 sm:px-1 md:px-1 text-nav" wire:submit.prevent="submit">
         
         <div class="mb-8">
             <input class="border-b-2 w-full py-2 font-bold xxl:text-2xl placeholder-nav hover:border-nav focus:border-nav transition duration-200" wire:model="email" id="email" type="text" placeholder="Email">
