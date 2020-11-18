@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->belongsTo(Company::class);
     }
 
+    public function isOwnerOf()
+    {
+        return $this->hasOne(Company::class, 'owner_id');
+    }
+
     public function trades()
     {
         return $this->hasMany(Trade::class);

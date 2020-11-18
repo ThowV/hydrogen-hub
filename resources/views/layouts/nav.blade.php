@@ -51,7 +51,7 @@
                         <path id="Icon_metro-wrench" data-name="Icon metro-wrench" d="M27.056,21.9,15.812,12.258A7.035,7.035,0,0,0,7.56,2.23l4.062,4.062a1.567,1.567,0,0,1,0,2.21L9.144,10.979a1.567,1.567,0,0,1-2.21,0L2.872,6.917A7.033,7.033,0,0,0,12.9,15.17l9.638,11.244a1.428,1.428,0,0,0,2.122.081l2.478-2.478a1.428,1.428,0,0,0-.081-2.122Z" transform="translate(-2.571 -1.928)" fill="#fff"/>
                     </svg>
 
-                    <a class="col-start-4" href="/">Admin</a>
+                    <a class="col-start-4" href="{{route('admin')}}">Admin</a>
 
                 </li>
                 @endrole()

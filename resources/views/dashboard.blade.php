@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    @livewire('components.registration.requests')
+    @livewire('components.admin.requests')
 @endsection

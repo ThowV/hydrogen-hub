@@ -6,12 +6,13 @@ use App\CreateCompanyAction;
 
 use App\Events\PermissionDenied;
 use App\Models\RegistrationRequest;
+use Illuminate\Support\Facades\Log;
 
 class RegistrationRequestController extends Controller
 {
     public function accept(RegistrationRequest $registrationRequest, CreateCompanyAction $action)
     {
-        if (!auth()->user()->hasPermissionTo('request.allow')) {
+        if (!auth()->user()->can('request.allow')) {
             //Notify user that he has no rights to perform this action.
             \event(new PermissionDenied());
             return back();
@@ -23,11 +24,13 @@ class RegistrationRequestController extends Controller
 
     public function deny(RegistrationRequest $registration_request)
     {
-        if (auth()->user()->hasPermissionTo('request.deny')) {
+        if (!auth()->user()->can('request.deny')) {
             $registration_request->deny();
-        } else {
-
+            \event(new PermissionDenied());
+            return back();
         }
+
+        $registration_request->deny();
 
         return back();
     }
