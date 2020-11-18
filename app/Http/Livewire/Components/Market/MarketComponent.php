@@ -66,7 +66,7 @@ class MarketComponent extends Component
 
     public function render()
     {
-        return view('livewire.market-component')->extends('layouts.app');
+        return view('livewire.components.market.market-component')->extends('layouts.app');
     }
 
     public function openCreateModal()
