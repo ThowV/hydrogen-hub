@@ -1,4 +1,4 @@
-@auth()
+
 <header>
 
     <div class="relative h-screen bg-nav grid grid-rows-6 ">
@@ -129,4 +129,3 @@
     </div>
 
 </header>
-@endauth
