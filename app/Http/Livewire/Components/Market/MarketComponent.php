@@ -8,56 +8,13 @@ use Livewire\Component;
 
 class MarketComponent extends Component
 {
-    public $trade_type;
-    public $hydrogen_type;
-    public $units_per_hour;
-    public $duration;
-    public $price_per_unit;
-    public $mix_co2;
-    public $expires_at;
-
-    // Default select does not work with livewire at the moment:
-    public $duration_type = "day";
-    public $expires_at_type = "day";
-
     public $isCreateModalOpen = false;
     public $isRespondModalOpen = false;
 
     public $trades;
     public $trade;
 
-    protected $rules = [
-        'trade_type' =>     'required',
-        'hydrogen_type' =>  'required',
-        'units_per_hour' => 'required|numeric|min:0|max:1000000',
-        'duration' =>       'required|numeric',
-        'price_per_unit' => 'required|numeric|min:0|max:1000000',
-        'mix_co2' =>        'required|numeric|min:0|max:100',
-        'expires_at' =>     'required|numeric',
-    ];
-
-    public function submit()
-    {
-        $data = $this->validate();
-
-        // Add owner_id value to data
-        $data['owner_id'] = auth()->id();
-
-        // Modify duration data
-        $data['duration'] = $data['duration'] . ' ' . $this->duration_type . ($data['duration'] > 1 ? 's' : '');
-
-        // Modify expires at data
-        $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
-
-        // Create trade
-        Trade::create($data);
-
-        // Close create modal
-        $this->closeCreateModal();
-
-        // Update trades since we added a new one
-        $this->updateTrades();
-    }
+    protected $listeners = ['listingCreated' => 'listingCreated'];
 
     public function mount()
     {
@@ -77,6 +34,15 @@ class MarketComponent extends Component
     public function closeCreateModal()
     {
         $this->isCreateModalOpen = false;
+    }
+
+    public function listingCreated()
+    {
+        // Close create modal
+        $this->closeCreateModal();
+
+        // Update trades since we added a new one
+        $this->updateTrades();
     }
 
     public function openRespondModal(Trade $trade)
