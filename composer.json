@@ -56,8 +56,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@/usr/local/bin/php artisan package:discover --ansi",
-            "@php artisan livewire:discover"
+            "@/usr/local/bin/php artisan package:discover --ansi"
         ],
         "post-root-package-install": [
             "@/usr/local/bin/php -r \"file_exists('.env') || copy('.env.example', '.env');\""
