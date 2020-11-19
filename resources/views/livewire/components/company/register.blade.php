@@ -1,5 +1,22 @@
-<div>
-    <form class="w-full max-w-sm" wire:submit.prevent="submit">
+<div class="grid grid-cols-4 grid-row-3 justify-center bg-white w-full h-full overflow-hidden">
+
+    <div class="relative col-start-1 w-3/4 h-full row-span-3 transition duration-500 ease-in-out transform origin-left hover:scale-150 hover:text-red">
+    
+        <div class="absolute inset-0 bg-auto bg-center" style="background-image: url(https://beeldbank.groningen-seaports.com/wp-content/uploads/IMG_9625.jpg)"></div>
+                
+        <div class="absolute inset-0 bg-nav opacity-75 h-full"></div> 
+
+        <div class="relative w-full h-full flex items-center justify-center text-center text-white font-bold md:text-xl lg:text-3xl xl:text-4xl xxl:text-6xl">GRONINGEN SEAPORTS</div> 
+
+    </div>
+
+    <div class="col-start-3 row-start-1 flex flex-col justify-end">
+        <h1 class="text-nav font-bold text-6xl sm:text-4xl  text-center">Register</h1>
+        <p class="text-center text-sm xxl:text-2xl sm:text-xxs">To use this platform you need permission from “Groningen Seaports”<P>
+    </div>
+  
+
+    <form class="col-start-3 row-start-2 flex flex-col justify-center px-20 sm:px-1 md:px-1 text-nav" wire:submit.prevent="submit">
         @if($success)
             <div class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3 rounded mb-3" role="alert">
                 <svg class="fill-current w-4 h-4 mr-2 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -10,71 +27,61 @@
             </div>
         @endif
 
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-company-name">
-                    Company Name
-                </label>
-            </div>
-            <div class="md:w-2/3">
-                <input wire:model="company_name"
-                       class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                       id="inline-company-name" type="text" placeholder="AcmeComp">
+        <div class="mb-12">
+            <input class="border-b-2 w-full py-2 font-bold xxl:text-2xl placeholder-nav hover:border-nav focus:border-nav transition duration-200" 
+                wire:model="company_name" id="inline-company-name" type="text" placeholder="Company name">
                 @error('company_name') <span class="error text-red-500">{{ $message }}</span> @enderror
-            </div>
         </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-email">
-                    Administrator Email
-                </label>
-            </div>
-            <div class="md:w-2/3">
-                <input wire:model="company_admin_email"
-                       class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                       id="inline-email" type="email" placeholder="mail@example.com">
+
+        <div class="mb-12">
+            <input class="border-b-2 w-full py-2 font-bold xxl:text-2xl placeholder-nav hover:border-nav focus:border-nav transition duration-200"                 
+                wire:model="company_admin_email"id="inline-email" type="email" placeholder="Administrator mail">
                 @error('company_admin_email') <span class="error text-red-500">{{ $message }}</span> @enderror
-
-            </div>
         </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-first-name">
-                    Administrator first name
-                </label>
-            </div>
-            <div class="md:w-2/3">
-                <input wire:model="company_admin_first_name"
-                       class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                       id="inline-first-name" type="text" placeholder="John">
+
+        <div class="mb-12">
+            <input class="border-b-2 w-full py-2 font-bold xxl:text-2xl placeholder-nav hover:border-nav focus:border-nav transition duration-200"
+                wire:model="company_admin_first_name" id="inline-first-name" type="text" placeholder="Administrator first name">
                 @error('company_admin_first_name') <span class="error text-red-500">{{ $message }}</span> @enderror
-
-            </div>
         </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-last-name">
-                    Administrator last name
-                </label>
-            </div>
-            <div class="md:w-2/3">
-                <input wire:model="company_admin_last_name"
-                       class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                       id="inline-last-name" type="text" placeholder="Doe">
+
+        <div class="mb-12">
+            <input class="border-b-2 w-full py-2 font-bold xxl:text-2xl placeholder-nav hover:border-nav focus:border-nav transition duration-200"
+                wire:model="company_admin_last_name" id="inline-last-name" type="text" placeholder="Administrator last name">
                 @error('company_admin_last_name') <span class="error text-red-500">{{ $message }}</span> @enderror
-            </div>
         </div>
         @error('error') <span class="error text-red-500 mb-3">{{ $message }}</span> @enderror
 
-        <div class="md:flex md:items-center">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3">
-                <button
-                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                    type="submit">
-                    Sign Up
-                </button>
-            </div>
+        <div class="w-full flex justify-center items-center mb-12">
+            <label class="px-8 py-2 bg-gray-200 flex justify-center items-center w-2/4 lg:w-3/4 md:w-3/4 sm:w-full rounded-md hover:font-bold transition duration-200 ease-in-out">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600 rounded">
+                <span class="ml-4 text-gray-600 text-sm xxl:text-xl">I am not a robot</span>
+            </label>
         </div>
+
+        <div class="w-full flex justify-center items-center">
+            <a href="/" class="text-gray-600 underline font-bold text-xs sm:text-xxs md:text-xxs xxl:text-xl cursor-pointer hover:text-blue-800">
+                By clicking “Send request”, you agree to the terms of use.
+            </a>
+        </div>
+
+        <div class="flex justify-center">
+            <button class="bg-nav hover:bg-hovBlue text-white text-xs xxl:text-2xl py-2 xxl:py-4 px-8 rounded-lg focus:outline-none focus:shadow-outline mt-12 transition duration-200 ease-in-out" type="submit">
+                Send request
+            </button>
+        </div>
+
     </form>
+   
+
+    <div class="col-start-3 row-start-3 grid justify-center items-end">
+        <a href="/" class="text-gray-600 underline font-bold text-xs sm:text-xxs xxl:text-xl  pb-4 cursor-pointer hover:text-blue-800">
+            Already have an account? Log in here!
+        </a>
+    </div>
+
+    <p class="col-start-4 row-start-3 grid justify-end items-end text-gray-500 text-xs sm:text-xxs xxl:text-xl  p-2">
+        &copy;2020 Hydrogenhub. All rights reserved.
+    </p>
+
 </div>
