@@ -56,9 +56,14 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $employee)
     {
-        //
+        if( !auth()->user('users.read') && $employee->id !== auth()->id()){
+            return false;
+        }
+
+
+        return view('employee.edit')->withEmployee($employee);
     }
 
     /**
