@@ -3,11 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\RegistrationRequestController;
 use App\Http\Controllers\WelcomeMessageController;
-use App\Http\Livewire\Company\RegisterComponent;
-use App\Http\Livewire\LoginComponent;
+use App\Http\Livewire\Components\Company\RegisterComponent;
+use App\Http\Livewire\Components\Login\LoginComponent;
 use Illuminate\Support\Facades\Route;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
 
@@ -41,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
     Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
+
+
+    Route::resource('employees',                          EmployeesController::class);
 });
 
 
