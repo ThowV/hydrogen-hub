@@ -158,10 +158,12 @@
 
                 </div>
 
-                <button
-                    class="col-start-1 col-span-4 m-auto row-start-6 bg-white text-personal px-8 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">
-                    Log out
-                </button>
+                <a href="{{route('logout')}}">
+                    <button
+                        class="col-start-1 col-span-4 m-auto row-start-6 bg-white text-personal px-8 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">
+                        Log out
+                    </button>
+                </a>
 
             </div>
 
