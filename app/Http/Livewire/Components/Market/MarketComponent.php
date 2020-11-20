@@ -6,7 +6,6 @@ use App\Models\Trade;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class MarketComponent extends Component
 {
@@ -22,26 +21,22 @@ class MarketComponent extends Component
     public $totalItems = 0;
 
     public $bounds = [
-        'units_per_hour_min'    => 0,
-        'units_per_hour_max'    => 0,
-        'duration_min'          => 0,
-        'duration_max'          => 0,
-        'total_volume_min'      => 0,
-        'total_volume_max'      => 0,
-        'price_per_unit_min'    => 0,
-        'price_per_unit_max'    => 0,
-        'mix_co2_min'           => 0,
-        'mix_co2_max'           => 0,
+        'units_per_hour' => 0,
+        'duration' => 0,
+        //'total_volume_min'    => 0,
+        //'total_volume_max'    => 0,
+        'price_per_unit' => 0,
+        'mix_co2' => 0,
     ];
 
     public $filter = [
-        'hydrogen_type'     => [],
-        'units_per_hour'    => '',
-        'duration'          => '',
-        'total_volume'      => '',
-        'price_per_unit'    => '',
-        'mix_co2'           => '',
-        'trade_type'        => [],
+        'hydrogen_type' => [],
+        'units_per_hour' => '',
+        'duration' => '',
+        //'total_volume'    => '',
+        'price_per_unit' => '',
+        'mix_co2' => '',
+        'trade_type' => [],
     ];
 
     protected $listeners = ['listingCreated' => 'listingCreated'];
@@ -108,42 +103,31 @@ class MarketComponent extends Component
 
     private function determineBounds()
     {
-        // Units per hour
-        $this->bounds['units_per_hour_min'] = Trade::min('units_per_hour');
-        $this->bounds['units_per_hour_max'] = Trade::max('units_per_hour');
+        foreach ($this->bounds as $key => $value) {
+            $this->bounds[$key] = [Trade::min($key), Trade::max($key)];
+        }
 
-        // Duration
-        $this->bounds['duration_min'] = Trade::min('duration');
-        $this->bounds['duration_max'] = Trade::max('duration');
-
-        // Total volume
-        $this->bounds['total_volume_min'] = Trade::min('units_per_hour') * Trade::min('duration');
-        $this->bounds['total_volume_max'] = Trade::max('units_per_hour') * Trade::max('duration');
-
-        // Price per unit
-        $this->bounds['price_per_unit_min'] = Trade::min('price_per_unit');
-        $this->bounds['price_per_unit_max'] = Trade::max('price_per_unit');
-
-        // Mix CO2
-        $this->bounds['mix_co2_min'] = Trade::min('mix_co2');
-        $this->bounds['mix_co2_max'] = Trade::max('mix_co2');
+        $this->bounds['total_volume'] = [
+            Trade::min('units_per_hour') * Trade::min('duration'),
+            Trade::max('units_per_hour') * Trade::max('duration')
+        ];
     }
 
     private function determineStartingFilters()
     {
         $this->filter = [
-            'hydrogen_type'     => [],
+            'hydrogen_type' => [],
             //'units_per_hour'  => round(($this->bounds['units_per_hour_min'] + $this->bounds['units_per_hour_max']) / 2),
-            'units_per_hour'    => $this->bounds['units_per_hour_max'],
+            'units_per_hour' => $this->bounds['units_per_hour'][1],
             //'duration'        => round(($this->bounds['duration_min'] + $this->bounds['duration_max']) / 2),
-            'duration'          => $this->bounds['duration_max'],
+            'duration' => $this->bounds['duration'][1],
             //'total_volume'    => round(($this->bounds['total_volume_min'] + $this->bounds['total_volume_max']) / 2),
-            'total_volume'      => $this->bounds['total_volume_max'],
+            'total_volume' => $this->bounds['total_volume'][1],
             //'price_per_unit'  => round(($this->bounds['price_per_unit_min'] + $this->bounds['price_per_unit_max']) / 2),
-            'price_per_unit'    => $this->bounds['price_per_unit_max'],
+            'price_per_unit' => $this->bounds['price_per_unit'][1],
             //'mix_co2'         => round(($this->bounds['mix_co2_min'] + $this->bounds['mix_co2_max']) / 2),
-            'mix_co2'           => $this->bounds['mix_co2_max'],
-            'trade_type'        => [],
+            'mix_co2' => $this->bounds['mix_co2'][1],
+            'trade_type' => [],
         ];
     }
 
