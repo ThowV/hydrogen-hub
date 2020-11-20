@@ -33,7 +33,7 @@ class MarketComponent extends Component
         'hydrogen_type' => [],
         'units_per_hour' => '',
         'duration' => '',
-        //'total_volume'    => '',
+        'total_volume'    => '',
         'price_per_unit' => '',
         'mix_co2' => '',
         'trade_type' => [],
