@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Components\Market;
 
 use App\Models\Trade;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use phpDocumentor\Reflection\Types\Boolean;
 
@@ -17,15 +18,15 @@ class MarketComponent extends Component
 
     public $paginator = [];
     public $page = 1;
-    public $itemsPerPage = 5;
+    public $itemsPerPage = 15;
 
     public $bounds = [
         'units_per_hour_min'    => 0,
         'units_per_hour_max'    => 0,
         'duration_min'          => 0,
         'duration_max'          => 0,
-        //'total_volume_min'    => 0,
-        //'total_volume_max'    => 0,
+        'total_volume_min'      => 0,
+        'total_volume_max'      => 0,
         'price_per_unit_min'    => 0,
         'price_per_unit_max'    => 0,
         'mix_co2_min'           => 0,
@@ -36,7 +37,7 @@ class MarketComponent extends Component
         'hydrogen_type'     => [],
         'units_per_hour'    => '',
         'duration'          => '',
-        //'total_volume'    => '',
+        'total_volume'      => '',
         'price_per_unit'    => '',
         'mix_co2'           => '',
         'trade_type'        => [],
@@ -87,17 +88,20 @@ class MarketComponent extends Component
 
     public function updateTrades($setup = false)
     {
+        // Determine the bounds and filters
         if ($setup)
         {
             $this->determineBounds();
             $this->determineStartingFilters();
         }
 
-        $this->trades = Trade::limit(10);
+        // Apply filters and pagination
+        $trades = $this->getFilteredListings();
 
-        $this->applyFilters();
+        $trades = $trades->paginate($this->itemsPerPage);
 
-        $this->trades = $this->trades->get()->toArray();
+        $this->paginator = $trades->toArray();
+        $this->trades = $trades->items();//->toArray();
     }
 
     private function determineBounds()
@@ -141,36 +145,35 @@ class MarketComponent extends Component
         ];
     }
 
-    private function applyFilters()
+    private function getFilteredListings()
     {
+        // Filter: Units per hour
+        $trades = Trade::where('units_per_hour', '<', $this->filter['units_per_hour']);
+
+        // Filter: Duration
+        $trades = $trades->where('duration', '<', $this->filter['duration']);
+
+        // Filter: Total volume
+        $trades = $trades->whereRaw('duration * units_per_hour < ?', $this->filter['total_volume']);
+
+        // Filter: Price per unit
+        $trades = $trades->where('price_per_unit', '<', $this->filter['price_per_unit']);
+
+        // Filter: mix CO2
+        $trades = $trades->where('mix_co2', '<', $this->filter['mix_co2']);
+
+        // Filter: Hydrogen types
         if (!empty($this->filter['hydrogen_type']))
         {
-            $this->trades = $this->trades->whereIn('hydrogen_type', $this->filter['hydrogen_type']);
+            $trades = $trades->whereIn('hydrogen_type', $this->filter['hydrogen_type']);
         }
 
-        if (!empty($this->filter['units_per_hour']))
-        {
-            $this->trades = $this->trades->where('units_per_hour', '<', $this->filter['units_per_hour']);
-        }
-
-        if (!empty($this->filter['duration']))
-        {
-            $this->trades = $this->trades->where('duration', '<', $this->filter['duration']);
-        }
-
-        if (!empty($this->filter['total_volume']))
-        {
-            $this->trades->whereRaw('duration * units_per_hour < ?', $this->filter['total_volume']);
-        }
-
-        if (!empty($this->filter['price_per_unit']))
-        {
-            $this->trades = $this->trades->where('price_per_unit', '<', $this->filter['price_per_unit']);
-        }
-
+        // Filter: Trade types
         if (!empty($this->filter['trade_type']))
         {
-            $this->trades = $this->trades->whereIn('trade_type', $this->filter['trade_type']);
+            $trades = $trades->whereIn('trade_type', $this->filter['trade_type']);
         }
+
+        return $trades;
     }
 }
