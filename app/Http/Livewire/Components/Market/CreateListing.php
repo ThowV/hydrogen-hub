@@ -42,7 +42,20 @@ class CreateListing extends Component
         $data['owner_id'] = auth()->id();
 
         // Modify duration data
-        $data['duration'] = $data['duration'] . ' ' . $this->duration_type . ($data['duration'] > 1 ? 's' : '');
+        $duration = $data['duration'] * 24;
+
+        if($this->duration_type == 'week' || $this->duration_type == 'month')
+        {
+            // 7 days
+            $duration *= 7;
+        }
+        else if($this->duration_type == 'month')
+        {
+            // 4 weeks
+            $duration *= 4;
+        }
+
+        $data['duration'] = $duration;
 
         // Modify expires at data
         $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
@@ -59,16 +72,16 @@ class CreateListing extends Component
 
     private function refresh()
     {
-        // Empty all fields
-        $this->trade_type = '';
-        $this->hydrogen_type = '';
-        $this->units_per_hour = '';
-        $this->duration_type = 'day';
-        $this->trade_type = '';
-        $this->price_per_unit = '';
-        $this->mix_co2 = '';
-        $this->expires_at = '';
-        $this->expires_at_type = 'day';
-        $this->trade_type = '';
+        // Empty/reset all fields
+        $this->fill([
+            'trade_type'        => '',
+            'hydrogen_type'     => '',
+            'units_per_hour'    => '',
+            'duration_type'     => 'day',
+            'price_per_unit'    => '',
+            'mix_co2'           => '',
+            'expires_at'        => '',
+            'expires_at_type'   => 'day'
+        ]);
     }
 }

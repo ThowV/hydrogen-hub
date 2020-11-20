@@ -21,7 +21,7 @@ class CreateTradesTable extends Migration
             $table->enum('trade_type', ['offer', 'request']);
             $table->enum('hydrogen_type', ['green', 'blue', 'grey', 'mix']);
             $table->unsignedBigInteger('units_per_hour')->default(0);
-            $table->string('duration');
+            $table->unsignedBigInteger('duration')->default(0);
             $table->unsignedBigInteger('price_per_unit')->default(0);
             $table->tinyInteger('mix_co2')->default(0);
             $table->dateTime('expires_at')->nullable();

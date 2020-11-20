@@ -20,16 +20,9 @@ class Trade extends Model
         'expires_at',
     ];
 
-    public function close()
+    public function getTotalVolumeAttribute()
     {
-        $this->open = false;
-        $this->save();
-    }
-
-    public function reopen()
-    {
-        $this->open = true;
-        $this->save();
+        return $this->duration * $this->units_per_hour;
     }
 
     public function owner()
