@@ -19,6 +19,7 @@ class MarketComponent extends Component
     public $paginator = [];
     public $page = 1;
     public $itemsPerPage = 15;
+    public $totalItems = 0;
 
     public $bounds = [
         'units_per_hour_min'    => 0,
@@ -98,10 +99,11 @@ class MarketComponent extends Component
         // Apply filters and pagination
         $trades = $this->getFilteredListings();
 
-        $trades = $trades->paginate($this->itemsPerPage);
+        $trades = $trades->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
 
+        $this->totalItems = $trades->total();
         $this->paginator = $trades->toArray();
-        $this->trades = $trades->items();//->toArray();
+        $this->trades = $trades->items();
     }
 
     private function determineBounds()
@@ -175,5 +177,31 @@ class MarketComponent extends Component
         }
 
         return $trades;
+    }
+
+    public function applyPagination($action, $value)
+    {
+        // Apply pagination
+        if ($action == 'page_previous' && $this->page > 1)
+        {
+            $this->page -= 1;
+        }
+        else if ($action == 'page_next')
+        {
+            $this->page += 1;
+        }
+        else if ($action == 'page')
+        {
+            $this->page = $value;
+        }
+
+        // Check if pagination is out of bounds
+        if ($this->page * $this->itemsPerPage > $this->totalItems)
+        {
+            $this->page = 1;
+        }
+
+        // Finalize
+        $this->updateTrades();
     }
 }

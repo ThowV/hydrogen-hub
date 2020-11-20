@@ -95,6 +95,44 @@
                 @endif
             </td>
         </tr>
+
+        <tr>
+            <td style="border: 1px solid black; padding: 10px;">
+                <ul>
+                    <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
+                        <button wire:click="applyPagination('page_previous', {{ $page-1 }})" >
+                            Previous
+                        </button>
+                    </li>
+
+                    <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
+                        <button wire:click="applyPagination('page_next', {{ $page+1 }})">
+                            Next
+                        </button>
+                    </li>
+
+                    <li>
+                        Jump to Page
+
+                        <select title="" wire:model="page" wire:change="updateTrades">
+                            @for($i = 1; $i <= $paginator['last_page']; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </li>
+
+                    <li>
+                        Items Per Page
+
+                        <select title="" wire:model="itemsPerPage" wire:change="applyPagination('', {{ $page }})">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
+                    </li>
+                </ul>
+            </td>
+        </tr>
     </table>
 </div>
 
