@@ -24,12 +24,13 @@
     <body class="bg-background font-sans">
 
         <div class="grid grid-cols-8 grid-rows-1 h-screen">
-
+            @auth()
             <div class="col-span-1 sm:col-span-2">
                     @include('layouts.nav')
             </div>
+            @endauth
 
-            <div class="col-span-7 sm:col-span-6">
+            <div class="@auth col-span-7 sm:col-span-6 @endauth @guest col-span-8  sm:col-span-8 @endguest">
                     @yield('content')
                     @livewireScripts
                     @stack('scripts')

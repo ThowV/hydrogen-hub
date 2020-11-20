@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\RegistrationRequestController;
 use App\Http\Controllers\WelcomeMessageController;
 use App\Http\Livewire\Components\Company\RegisterComponent;
@@ -37,7 +39,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
     Route::get('/market',                                     MarketComponent::class)->name('market');
     Route::get('/admin',                                            [AdminController::class, 'index'])->name('admin');
+    Route::get('/company',                                          [CompanyController::class, 'index'])->name('company');
+    Route::get('/company/portfolio',                                [CompanyController::class, 'portfolio'])->name('company.portfolio');
+    Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
     Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
+
+
+    Route::resource('employees',                          EmployeesController::class);
 });
 

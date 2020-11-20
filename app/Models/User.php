@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->first_name . " " . $this->last_name;
     }
+
+    public function getAvatarAttribute()
+    {
+        return $this->picture_url ?? "https://placehold.it/50x50";
+    }
 }
