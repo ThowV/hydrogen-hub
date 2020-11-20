@@ -35,31 +35,31 @@
 
                     <div>
                         <label for="units_per_hour" style="font-weight: bold">Units per hour</label>
-                        <input type="range" min="{{ $bounds["units_per_hour_min"] }}" max="{{ $bounds["units_per_hour_max"] }}" id="units_per_hour" wire:model="filter.units_per_hour">
+                        <input type="range" min="{{ $bounds["units_per_hour"][0] }}" max="{{ $bounds["units_per_hour"][1] }}" id="units_per_hour" wire:model="filter.units_per_hour">
                         <label>{{ $filter["units_per_hour"] }}</label>
                     </div>
 
                     <div>
                         <label for="duration" style="font-weight: bold">Duration (hours)</label>
-                        <input type="range" min="{{ $bounds["duration_min"] }}" max="{{ $bounds["duration_max"] }}" id="duration" wire:model="filter.duration">
+                        <input type="range" min="{{ $bounds["duration"][0] }}" max="{{ $bounds["duration"][1] }}" id="duration" wire:model="filter.duration">
                         <label>{{ $filter["duration"] }}</label>
                     </div>
 
                     <div>
                         <label style="font-weight: bold">Total volume (units)</label>
-                        <input type="range" min="{{ $bounds["total_volume_min"] }}" max="{{ $bounds["total_volume_max"] }}" id="total_volume" wire:model="filter.total_volume">
+                        <input type="range" min="{{ $bounds["total_volume"][0] }}" max="{{ $bounds["total_volume"][1] }}" id="total_volume" wire:model="filter.total_volume">
                         <label>{{ $filter["total_volume"] }}</label>
                     </div>
 
                     <div>
                         <label for="price_per_unit" style="font-weight: bold">Price per unit</label>
-                        <input type="range" min="{{ $bounds["price_per_unit_min"] }}" max="{{ $bounds["price_per_unit_max"] }}" id="price_per_unit" wire:model="filter.price_per_unit">
+                        <input type="range" min="{{ $bounds["price_per_unit"][0] }}" max="{{ $bounds["price_per_unit"][1] }}" id="price_per_unit" wire:model="filter.price_per_unit">
                         <label>{{ $filter["price_per_unit"] }}</label>
                     </div>
 
                     <div>
                         <label for="mix_co2" style="font-weight: bold">Mix CO2</label>
-                        <input type="range" min="{{ $bounds["mix_co2_min"] }}" max="{{ $bounds["mix_co2_max"] }}" value="50" id="mix_co2" wire:model="filter.mix_co2">
+                        <input type="range" min="{{ $bounds["mix_co2"][0] }}" max="{{ $bounds["mix_co2"][1] }}" value="50" id="mix_co2" wire:model="filter.mix_co2">
                         <label>{{ $filter["mix_co2"] }}</label>
                     </div>
 
