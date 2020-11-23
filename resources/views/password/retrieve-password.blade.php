@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="grid grid-cols-4 grid-row-3 justify-center bg-white w-full h-full overflow-hidden">
+<div class="grid grid-cols-4 grid-row-3 justify-center bg-white w-full h-screen overflow-hidden">
 
     <div class="relative col-start-1 w-3/4 h-full row-span-3 transition duration-500 ease-in-out transform origin-left hover:scale-150 hover:text-red">
     

@@ -22,9 +22,9 @@
 </head>
     <body class="bg-background font-sans">
 
-        <div class="grid grid-cols-8 grid-rows-1 h-screen">
+        <div class="grid grid-cols-8 grid-rows-1">
             @auth()
-            <div class="col-span-1 sm:col-span-2">
+            <div class="h-screen sticky top-0 col-span-1 sm:col-span-2">
                     @include('layouts.nav')
             </div>
             @endauth
@@ -34,7 +34,6 @@
                     @livewireScripts
                     @stack('scripts')
             </div>
-
 
         </div>
 
