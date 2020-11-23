@@ -1,5 +1,5 @@
 <div>
-    <button wire:click="openCreateModal">Open create</button>
+    <button wire:click="toggleCreateModal">Open create</button>
 
     <table style="border-collapse: collapse;">
         <tr>
@@ -7,7 +7,7 @@
                 @if($isCreateModalOpen)
                     @livewire('components.market.create-listing')
 
-                    <button wire:click="closeCreateModal">Close create modal</button>
+                    <button wire:click="toggleCreateModal">Close create modal</button>
                 @endif
             </td>
         </tr>

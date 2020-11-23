@@ -34,6 +34,21 @@ class CreateListing extends Component
         return view('livewire.components.market.create-listing');
     }
 
+    private function refresh()
+    {
+        // Empty/reset all fields
+        $this->fill([
+            'trade_type'        => '',
+            'hydrogen_type'     => '',
+            'units_per_hour'    => '',
+            'duration_type'     => 'day',
+            'price_per_unit'    => '',
+            'mix_co2'           => '',
+            'expires_at'        => '',
+            'expires_at_type'   => 'day'
+        ]);
+    }
+
     public function submit()
     {
         $data = $this->validate();
@@ -68,20 +83,5 @@ class CreateListing extends Component
 
         // Refresh the form
         $this->refresh();
-    }
-
-    private function refresh()
-    {
-        // Empty/reset all fields
-        $this->fill([
-            'trade_type'        => '',
-            'hydrogen_type'     => '',
-            'units_per_hour'    => '',
-            'duration_type'     => 'day',
-            'price_per_unit'    => '',
-            'mix_co2'           => '',
-            'expires_at'        => '',
-            'expires_at_type'   => 'day'
-        ]);
     }
 }

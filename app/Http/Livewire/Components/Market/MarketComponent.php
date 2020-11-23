@@ -50,14 +50,9 @@ class MarketComponent extends Component
         return view('livewire.components.market.market-component')->extends('layouts.app');
     }
 
-    public function openCreateModal()
+    public function toggleCreateModal()
     {
-        $this->isCreateModalOpen = true;
-    }
-
-    public function closeCreateModal()
-    {
-        $this->isCreateModalOpen = false;
+        $this->isCreateModalOpen = !$this->isCreateModalOpen;
     }
 
     public function openRespondModal(Trade $trade)
@@ -75,7 +70,7 @@ class MarketComponent extends Component
     public function listingCreated()
     {
         // Close create modal
-        $this->closeCreateModal();
+        $this->toggleCreateModal();
 
         // Update trades since we added a new one
         $this->updateTrades();
