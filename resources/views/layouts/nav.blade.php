@@ -1,5 +1,3 @@
-
-
 <aside class="flex h-screen sticky top-0 bg-nav grid grid-rows-6">
 
     <div

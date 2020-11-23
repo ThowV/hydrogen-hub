@@ -5,7 +5,7 @@
 
         <div class="grid justify-items-end items-start pt-5">
             <input class="truncate rounded-xl bg-gray-200 px-8 py-1 text-xs xxl:text-xl w-1/3 md:w-2/3 sm:w-2/3 text-center transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" type="text" wire:model="searchTerm"
-                placeholder="search a company name">
+                placeholder="search">
         </div>
 
     </div>
