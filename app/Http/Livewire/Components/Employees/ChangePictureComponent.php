@@ -27,6 +27,7 @@ class ChangePictureComponent extends Component
         $path = $this->photo->store('photos');
 
         auth()->user()->picture_url = URL::to('/') . Storage::url($path);
+        auth()->user()->touch();
         auth()->user()->save();
 
         return $this->mount();
