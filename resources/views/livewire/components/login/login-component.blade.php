@@ -4,13 +4,20 @@
         class="relative col-start-1 w-3/4 h-full row-span-3 transition duration-500 ease-in-out transform origin-left hover:scale-150 hover:text-red">
 
         <div class="absolute inset-0 bg-auto bg-center"
-             style="background-image: url(https://media-exp1.licdn.com/dms/image/C561BAQHxE9SHfKz_6g/company-background_10000/0?e=2159024400&v=beta&t=XlVltuksEsDRsDWMCskgcScmTKixqgUePDTBuqqbEYE)"></div>
+            style="background-image: url(https://media-exp1.licdn.com/dms/image/C561BAQHxE9SHfKz_6g/company-background_10000/0?e=2159024400&v=beta&t=XlVltuksEsDRsDWMCskgcScmTKixqgUePDTBuqqbEYE)"></div>
 
         <div class="absolute inset-0 bg-nav opacity-75 h-full"></div>
 
-        <div
-            class="relative w-full h-full flex items-center justify-center text-center text-white font-bold md:text-xl lg:text-3xl xl:text-4xl xxl:text-6xl">
+        <div class="relative flex-col w-full h-full flex items-center justify-center text-center text-white font-bold">
+
+            <div class="md:text-xl lg:text-3xl xl:text-4xl xxl:text-6xl">
+            HYDROGEN HUB
+            </div>
+
+            <div class="sm:text-xxs md:text-xs lg:text-sm xl:text-base xxl:text-xl">
             GRONINGEN SEAPORTS
+            </div>
+
         </div>
 
     </div>
