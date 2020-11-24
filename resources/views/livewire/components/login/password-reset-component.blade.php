@@ -1,5 +1,7 @@
 <div>
     <form wire:submit.prevent="submit">
+        <input class=" p-2 m-2" type="password" placeholder="old password" wire:model="password_old">
+        @error('password_old') <span class="error text-red-500">{{ $message }}</span> @enderror
         <input class=" p-2 m-2" type="password" placeholder="password" wire:model="password">
         <input class=" p-2 m-2" type="password" placeholder="password confirmation" wire:model="password_confirmation">
         <input type="submit" value="submit">
