@@ -29,7 +29,7 @@
 
     <div>
         <button type="submit">
-            {{ __('Save password and login') }}
+            {{ __('Save password and Login') }}
         </button>
     </div>
 </form>
