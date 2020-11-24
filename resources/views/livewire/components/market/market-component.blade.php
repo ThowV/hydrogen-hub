@@ -38,23 +38,7 @@
                     <div>
                         <label for="units_per_hour" style="font-weight: bold">Units per hour</label>
 
-                        <div class="m-b-30" wire:ignore x-data x-init="
-                            $('#units_per_hour').ionRangeSlider({
-                                skin: 'round',
-                                type: 'double',
-                                grid: true,
-                                min: {{ $filter["units_per_hour"][0] }},
-                                max: {{ $filter["units_per_hour"][1] }},
-                                from: {{ $filter["units_per_hour"][0] }},
-                                to: {{ $filter["units_per_hour"][1] }},
-                                prettify_enabled: true,
-                                prettify_separator: ' ',
-                                postfix: 'u/h',
-                                onChange: function(data) {
-                                    @this.set('filter.units_per_hour', [data.from, data.to])
-                                }
-                            });
-                        ">
+                        <div class="m-b-30" wire:ignore x-data x-init="initUnitsPerHourSlider">
                             <input type="text" id="units_per_hour" />
                         </div>
                     </div>
@@ -62,23 +46,7 @@
                     <div>
                         <label for="duration" style="font-weight: bold">Duration (hours)</label>
 
-                        <div class="m-b-30" wire:ignore x-data x-init="
-                            $('#duration').ionRangeSlider({
-                                skin: 'round',
-                                type: 'double',
-                                grid: true,
-                                min: {{ $filter["duration"][0] }},
-                                max: {{ $filter["duration"][1] }},
-                                from: {{ $filter["duration"][0] }},
-                                to: {{ $filter["duration"][1] }},
-                                prettify_enabled: true,
-                                prettify_separator: ' ',
-                                postfix: 'h',
-                                onChange: function(data) {
-                                    @this.set('filter.duration', [data.from, data.to])
-                                }
-                            });
-                        ">
+                        <div class="m-b-30" wire:ignore x-data x-init="initDurationSlider">
                             <input type="text" id="duration" />
                         </div>
                     </div>
@@ -86,23 +54,7 @@
                     <div>
                         <label style="font-weight: bold">Total volume (units)</label>
 
-                        <div class="m-b-30" wire:ignore x-data x-init="
-                            $('#total_volume').ionRangeSlider({
-                                skin: 'round',
-                                type: 'double',
-                                grid: true,
-                                min: {{ $filter["total_volume"][0] }},
-                                max: {{ $filter["total_volume"][1] }},
-                                from: {{ $filter["total_volume"][0] }},
-                                to: {{ $filter["total_volume"][1] }},
-                                prettify_enabled: true,
-                                prettify_separator: ' ',
-                                postfix: 'u',
-                                onChange: function(data) {
-                                    @this.set('filter.total_volume', [data.from, data.to])
-                                }
-                            });
-                        ">
+                        <div class="m-b-30" wire:ignore x-data x-init="initTotalVolumeSlider">
                             <input type="text" id="total_volume" />
                         </div>
                     </div>
@@ -110,23 +62,7 @@
                     <div>
                         <label for="price_per_unit" style="font-weight: bold">Price per unit</label>
 
-                        <div class="m-b-30" wire:ignore x-data x-init="
-                            $('#price_per_unit').ionRangeSlider({
-                                skin: 'round',
-                                type: 'double',
-                                grid: true,
-                                min: {{ $filter["price_per_unit"][0] }},
-                                max: {{ $filter["price_per_unit"][1] }},
-                                from: {{ $filter["price_per_unit"][0] }},
-                                to: {{ $filter["price_per_unit"][1] }},
-                                prettify_enabled: true,
-                                prettify_separator: ' ',
-                                prefix: '€ ',
-                                onChange: function(data) {
-                                    @this.set('filter.price_per_unit', [data.from, data.to])
-                                }
-                            });
-                        ">
+                        <div class="m-b-30" wire:ignore x-data x-init="initPricePerUnitSlider">
                             <input type="text" id="price_per_unit" />
                         </div>
                     </div>
@@ -134,23 +70,7 @@
                     <div>
                         <label for="mix_co2" style="font-weight: bold">Mix CO2</label>
 
-                        <div class="m-b-30" wire:ignore x-data x-init="
-                            $('#mix_co2').ionRangeSlider({
-                                skin: 'round',
-                                type: 'double',
-                                grid: true,
-                                min: {{ $filter["mix_co2"][0] }},
-                                max: {{ $filter["mix_co2"][1] }},
-                                from: {{ $filter["mix_co2"][0] }},
-                                to: {{ $filter["mix_co2"][1] }},
-                                prettify_enabled: true,
-                                prettify_separator: ' ',
-                                postfix: '%',
-                                onChange: function(data) {
-                                    @this.set('filter.mix_co2', [data.from, data.to])
-                                }
-                            });
-                        ">
+                        <div class="m-b-30" wire:ignore x-data x-init="initMixCO2Slider">
                             <input type="text" id="mix_co2" />
                         </div>
                     </div>
@@ -229,6 +149,98 @@
             </td>
         </tr>
     </table>
+
+    <script>
+        function initUnitsPerHourSlider() {
+            $('#units_per_hour').ionRangeSlider({
+                skin: 'round',
+                type: 'double',
+                grid: true,
+                min: {{ $filter["units_per_hour"][0] }},
+                max: {{ $filter["units_per_hour"][1] }},
+                from: {{ $filter["units_per_hour"][0] }},
+                to: {{ $filter["units_per_hour"][1] }},
+                prettify_enabled: true,
+                prettify_separator: ' ',
+                postfix: 'u/h',
+                onChange: function(data) {
+                @this.set('filter.units_per_hour', [data.from, data.to])
+                }
+            });
+        }
+
+        function initDurationSlider() {
+            $('#duration').ionRangeSlider({
+                skin: 'round',
+                type: 'double',
+                grid: true,
+                min: {{ $filter["duration"][0] }},
+                max: {{ $filter["duration"][1] }},
+                from: {{ $filter["duration"][0] }},
+                to: {{ $filter["duration"][1] }},
+                prettify_enabled: true,
+                prettify_separator: ' ',
+                postfix: 'h',
+                onChange: function(data) {
+                @this.set('filter.duration', [data.from, data.to])
+                }
+            });
+        }
+
+        function initTotalVolumeSlider() {
+            $('#total_volume').ionRangeSlider({
+                skin: 'round',
+                type: 'double',
+                grid: true,
+                min: {{ $filter["total_volume"][0] }},
+                max: {{ $filter["total_volume"][1] }},
+                from: {{ $filter["total_volume"][0] }},
+                to: {{ $filter["total_volume"][1] }},
+                prettify_enabled: true,
+                prettify_separator: ' ',
+                postfix: 'u',
+                onChange: function(data) {
+                @this.set('filter.total_volume', [data.from, data.to])
+                }
+            });
+        }
+
+        function initPricePerUnitSlider() {
+            $('#price_per_unit').ionRangeSlider({
+                skin: 'round',
+                type: 'double',
+                grid: true,
+                min: {{ $filter["price_per_unit"][0] }},
+                max: {{ $filter["price_per_unit"][1] }},
+                from: {{ $filter["price_per_unit"][0] }},
+                to: {{ $filter["price_per_unit"][1] }},
+                prettify_enabled: true,
+                prettify_separator: ' ',
+                prefix: '€ ',
+                onChange: function(data) {
+                @this.set('filter.price_per_unit', [data.from, data.to])
+                }
+            });
+        }
+
+        function initMixCO2Slider() {
+            $('#mix_co2').ionRangeSlider({
+                skin: 'round',
+                type: 'double',
+                grid: true,
+                min: {{ $filter["mix_co2"][0] }},
+                max: {{ $filter["mix_co2"][1] }},
+                from: {{ $filter["mix_co2"][0] }},
+                to: {{ $filter["mix_co2"][1] }},
+                prettify_enabled: true,
+                prettify_separator: ' ',
+                postfix: '%',
+                onChange: function(data) {
+                @this.set('filter.mix_co2', [data.from, data.to])
+                }
+            });
+        }
+    </script>
 </div>
 
 

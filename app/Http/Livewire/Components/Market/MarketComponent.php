@@ -21,13 +21,13 @@ class MarketComponent extends Component
     public $totalItems = 0;
 
     public $filter = [
-        'hydrogen_type'     => [],
+        'hydrogen_type'     => ['green', 'blue', 'grey', 'mix'],
         'units_per_hour'    => [0, 0],
         'duration'          => [0, 0],
         'total_volume'      => [0, 0],
         'price_per_unit'    => [0, 0],
         'mix_co2'           => [0, 0],
-        'trade_type'        => [],
+        'trade_type'        => ['offer', 'request'],
     ];
 
     protected $listeners = ['listingCreated' => 'listingCreated'];
@@ -90,8 +90,8 @@ class MarketComponent extends Component
     {
         // Determine bounds for database fields
         foreach ($this->filter as $key => $value) {
-            // Skip calculated fields
-            if ($key == 'total_volume')
+            // Skip calculated and enum fields
+            if ($key == 'hydrogen_type' || $key == 'trade_type' || $key == 'total_volume')
             {
                 continue;
             }
@@ -108,34 +108,40 @@ class MarketComponent extends Component
 
     private function getFilteredListings()
     {
-        // Filter: Units per hour
-        $trades = Trade::whereBetween('units_per_hour', $this->filter['units_per_hour']);
+        $trades = Trade::query();
 
-        // Filter: Duration
-        $trades = $trades->whereBetween('duration', $this->filter['duration']);
-
-        // Filter: Total volume
-        $trades = $trades
-            ->whereRaw('duration * units_per_hour >= ?', $this->filter['total_volume'][0])
-            ->whereRaw('duration * units_per_hour <= ?', $this->filter['total_volume'][1]);
-
-        // Filter: Price per unit
-        $trades = $trades->whereBetween('price_per_unit', $this->filter['price_per_unit']);
-
-        // Filter: mix CO2
-        $trades = $trades->whereBetween('mix_co2', $this->filter['mix_co2']);
-
-        // Filter: Hydrogen types
-        if (!empty($this->filter['hydrogen_type']))
+        // Make sure that the hydrogen types and trade types checkboxes are not all disabled
+        if (empty($this->filter['hydrogen_type']))
         {
-            $trades = $trades->whereIn('hydrogen_type', $this->filter['hydrogen_type']);
+            $this->filter['hydrogen_type'] = ['green', 'blue', 'grey', 'mix'];
         }
 
-        // Filter: Trade types
-        if (!empty($this->filter['trade_type']))
+        if (empty($this->filter['trade_type']))
         {
-            $trades = $trades->whereIn('trade_type', $this->filter['trade_type']);
+            $this->filter['trade_type'] = ['offer', 'request'];
         }
+
+        // Apply filter
+        foreach ($this->filter as $key => $value) {
+            // Skip calculated and enum fields
+            if ($key == 'total_volume')
+            {
+                // Apply filters for calculated fields
+                $trades = $trades
+                    ->whereRaw('duration * units_per_hour >= ?', $value[0])
+                    ->whereRaw('duration * units_per_hour <= ?', $value[1]);
+            }
+            elseif ($key == 'hydrogen_type' || $key == 'trade_type')
+            {
+                // Apply filters for enum fields
+                $trades = $trades->whereIn($key, $value);
+            }
+            else
+            {
+                $trades = $trades->whereBetween($key, $value);
+            }
+        }
+
 
         return $trades;
     }
