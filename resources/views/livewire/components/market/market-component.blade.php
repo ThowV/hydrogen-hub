@@ -35,32 +35,122 @@
 
                     <div>
                         <label for="units_per_hour" style="font-weight: bold">Units per hour</label>
-                        <input type="range" min="{{ $bounds["units_per_hour"][0] }}" max="{{ $bounds["units_per_hour"][1] }}" id="units_per_hour" wire:model="filter.units_per_hour">
-                        <label>{{ $filter["units_per_hour"] }}</label>
+
+                        <div class="m-b-30" wire:ignore x-data x-init="
+                            $('#units_per_hour').ionRangeSlider({
+                                skin: 'round',
+                                type: 'double',
+                                grid: true,
+                                min: {{ $filter["units_per_hour"][0] }},
+                                max: {{ $filter["units_per_hour"][1] }},
+                                from: {{ $filter["units_per_hour"][0] }},
+                                to: {{ $filter["units_per_hour"][1] }},
+                                prettify_enabled: true,
+                                prettify_separator: ' ',
+                                postfix: 'u/h',
+                                onChange: function(data) {
+                                    @this.set('filter.units_per_hour', [data.from, data.to])
+                                }
+                            });
+                        ">
+                            <input type="text" id="units_per_hour" />
+                        </div>
                     </div>
 
                     <div>
                         <label for="duration" style="font-weight: bold">Duration (hours)</label>
-                        <input type="range" min="{{ $bounds["duration"][0] }}" max="{{ $bounds["duration"][1] }}" id="duration" wire:model="filter.duration">
-                        <label>{{ $filter["duration"] }}</label>
+
+                        <div class="m-b-30" wire:ignore x-data x-init="
+                            $('#duration').ionRangeSlider({
+                                skin: 'round',
+                                type: 'double',
+                                grid: true,
+                                min: {{ $filter["duration"][0] }},
+                                max: {{ $filter["duration"][1] }},
+                                from: {{ $filter["duration"][0] }},
+                                to: {{ $filter["duration"][1] }},
+                                prettify_enabled: true,
+                                prettify_separator: ' ',
+                                postfix: 'h',
+                                onChange: function(data) {
+                                    @this.set('filter.duration', [data.from, data.to])
+                                }
+                            });
+                        ">
+                            <input type="text" id="duration" />
+                        </div>
                     </div>
 
                     <div>
                         <label style="font-weight: bold">Total volume (units)</label>
-                        <input type="range" min="{{ $bounds["total_volume"][0] }}" max="{{ $bounds["total_volume"][1] }}" id="total_volume" wire:model="filter.total_volume">
-                        <label>{{ $filter["total_volume"] }}</label>
+
+                        <div class="m-b-30" wire:ignore x-data x-init="
+                            $('#total_volume').ionRangeSlider({
+                                skin: 'round',
+                                type: 'double',
+                                grid: true,
+                                min: {{ $filter["total_volume"][0] }},
+                                max: {{ $filter["total_volume"][1] }},
+                                from: {{ $filter["total_volume"][0] }},
+                                to: {{ $filter["total_volume"][1] }},
+                                prettify_enabled: true,
+                                prettify_separator: ' ',
+                                postfix: 'u',
+                                onChange: function(data) {
+                                    @this.set('filter.total_volume', [data.from, data.to])
+                                }
+                            });
+                        ">
+                            <input type="text" id="total_volume" />
+                        </div>
                     </div>
 
                     <div>
                         <label for="price_per_unit" style="font-weight: bold">Price per unit</label>
-                        <input type="range" min="{{ $bounds["price_per_unit"][0] }}" max="{{ $bounds["price_per_unit"][1] }}" id="price_per_unit" wire:model="filter.price_per_unit">
-                        <label>{{ $filter["price_per_unit"] }}</label>
+
+                        <div class="m-b-30" wire:ignore x-data x-init="
+                            $('#price_per_unit').ionRangeSlider({
+                                skin: 'round',
+                                type: 'double',
+                                grid: true,
+                                min: {{ $filter["price_per_unit"][0] }},
+                                max: {{ $filter["price_per_unit"][1] }},
+                                from: {{ $filter["price_per_unit"][0] }},
+                                to: {{ $filter["price_per_unit"][1] }},
+                                prettify_enabled: true,
+                                prettify_separator: ' ',
+                                prefix: '€ ',
+                                onChange: function(data) {
+                                    @this.set('filter.price_per_unit', [data.from, data.to])
+                                }
+                            });
+                        ">
+                            <input type="text" id="price_per_unit" />
+                        </div>
                     </div>
 
                     <div>
                         <label for="mix_co2" style="font-weight: bold">Mix CO2</label>
-                        <input type="range" min="{{ $bounds["mix_co2"][0] }}" max="{{ $bounds["mix_co2"][1] }}" value="50" id="mix_co2" wire:model="filter.mix_co2">
-                        <label>{{ $filter["mix_co2"] }}</label>
+
+                        <div class="m-b-30" wire:ignore x-data x-init="
+                            $('#mix_co2').ionRangeSlider({
+                                skin: 'round',
+                                type: 'double',
+                                grid: true,
+                                min: {{ $filter["mix_co2"][0] }},
+                                max: {{ $filter["mix_co2"][1] }},
+                                from: {{ $filter["mix_co2"][0] }},
+                                to: {{ $filter["mix_co2"][1] }},
+                                prettify_enabled: true,
+                                prettify_separator: ' ',
+                                postfix: '%',
+                                onChange: function(data) {
+                                    @this.set('filter.mix_co2', [data.from, data.to])
+                                }
+                            });
+                        ">
+                            <input type="text" id="mix_co2" />
+                        </div>
                     </div>
 
                     <div>
