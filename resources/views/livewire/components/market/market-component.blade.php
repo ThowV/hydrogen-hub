@@ -4,6 +4,7 @@
     <table style="border-collapse: collapse;">
         <tr>
             <td style="border: 1px solid black; padding: 10px;">
+                <!--Create listing modal-->
                 @if($isCreateModalOpen)
                     @livewire('components.market.create-listing')
 
@@ -14,6 +15,7 @@
 
         <tr>
             <td style="border: 1px solid black; padding: 10px;">
+                <!--Filter listings form-->
                 <form wire:submit.prevent="updateTrades">
                     <div>
                         <label style="font-weight: bold">Hydrogen type</label>
@@ -170,14 +172,16 @@
             </td>
 
             <td style="border: 1px solid black; padding: 10px;">
+                <!--All listings-->
                 @foreach($trades as $trade)
                     <div wire:click="openRespondModal({{ $trade["id"] }})">
-                        <p>{{ $trade["id"] }} - {{ $trade["trade_type"] }} (click to open)</p>
+                        <p>{{ $trade["id"] }} - {{ $trade["hydrogen_type"] }} (click to open)</p>
                     </div>
                 @endforeach
             </td>
 
             <td style="border: 1px solid black; padding: 10px;">
+                <!--Open listing modal-->
                 @if($isRespondModalOpen)
                     @livewire('components.market.show-listing', ['trade' => $trade["id"]])
 
@@ -188,6 +192,7 @@
 
         <tr>
             <td style="border: 1px solid black; padding: 10px;">
+                <!--Pagination-->
                 <ul>
                     <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
                         <button wire:click="applyPagination('page_previous', {{ $page-1 }})" >
