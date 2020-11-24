@@ -3,8 +3,8 @@
 
     <table style="border-collapse: collapse;">
         <tr>
+            <!--Create listing modal-->
             <td style="border: 1px solid black; padding: 10px;">
-                <!--Create listing modal-->
                 @if($isCreateModalOpen)
                     @livewire('components.market.create-listing')
 
@@ -14,8 +14,8 @@
         </tr>
 
         <tr>
+            <!--Filter listings form-->
             <td style="border: 1px solid black; padding: 10px;">
-                <!--Filter listings form-->
                 <form wire:submit.prevent="updateTrades">
                     <div>
                         <label style="font-weight: bold">Hydrogen type</label>
@@ -91,7 +91,16 @@
                 </form>
             </td>
 
+            <!--All listings/Sorting-->
             <td style="border: 1px solid black; padding: 10px;">
+                <!--Sorting-->
+                <div>
+                    @foreach ($sort as $key => $value)
+                        <button wire:click="changeSort('{{$key}}')">
+                            {{ $value[0] }} {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }} |
+                        </button>
+                    @endforeach
+                </div>
                 <!--All listings-->
                 @foreach($trades as $trade)
                     <div wire:click="openRespondModal({{ $trade["id"] }})">
@@ -100,8 +109,8 @@
                 @endforeach
             </td>
 
+            <!--Open listing modal-->
             <td style="border: 1px solid black; padding: 10px;">
-                <!--Open listing modal-->
                 @if($isRespondModalOpen)
                     @livewire('components.market.show-listing', ['trade' => $trade["id"]])
 
@@ -111,8 +120,8 @@
         </tr>
 
         <tr>
+            <!--Pagination-->
             <td style="border: 1px solid black; padding: 10px;">
-                <!--Pagination-->
                 <ul>
                     <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
                         <button wire:click="applyPagination('page_previous', {{ $page-1 }})" >

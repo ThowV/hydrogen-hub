@@ -30,6 +30,16 @@ class MarketComponent extends Component
         'trade_type'        => ['offer', 'request'],
     ];
 
+    public $sort = [
+        'hydrogen_type'     => ['Hydrogen type', ''],
+        'units_per_hour'    => ['Units per hour', ''],
+        'duration'          => ['Duration', ''],
+        'total_volume'      => ['Total volume', ''],
+        'price_per_unit'    => ['Price per unit', ''],
+        'mix_co2'           => ['Mix % CO2', ''],
+        'trade_type'        => ['Trade type', ''],
+    ];
+
     protected $listeners = ['listingCreated' => 'listingCreated'];
 
     public function mount()
@@ -77,7 +87,7 @@ class MarketComponent extends Component
         }
 
         // Apply filters and pagination
-        $trades = $this->getFilteredListings();
+        $trades = $this->getListings();
 
         $trades = $trades->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
 
@@ -106,7 +116,7 @@ class MarketComponent extends Component
         ];
     }
 
-    private function getFilteredListings()
+    private function getListings()
     {
         $trades = Trade::query();
 
@@ -121,7 +131,7 @@ class MarketComponent extends Component
             $this->filter['trade_type'] = ['offer', 'request'];
         }
 
-        // Apply filter
+        // Apply filters
         foreach ($this->filter as $key => $value) {
             // Skip calculated and enum fields
             if ($key == 'total_volume')
@@ -142,6 +152,13 @@ class MarketComponent extends Component
             }
         }
 
+        // Apply sorting
+        foreach ($this->sort as $key => $value) {
+            if ($value[1] != '')
+            {
+                $trades->orderBy($key, $value[1]);
+            }
+        }
 
         return $trades;
     }
@@ -169,6 +186,24 @@ class MarketComponent extends Component
         }
 
         // Finalize
+        $this->updateTrades();
+    }
+
+    public function changeSort($key)
+    {
+        if ($this->sort[$key][1] == '')
+        {
+            $this->sort[$key][1] = 'ASC';
+        }
+        elseif ($this->sort[$key][1] == 'ASC')
+        {
+            $this->sort[$key][1] = 'DESC';
+        }
+        else
+        {
+            $this->sort[$key][1] = '';
+        }
+
         $this->updateTrades();
     }
 }
