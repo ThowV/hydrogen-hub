@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="grid grid-cols-4 grid-row-3 justify-center bg-white w-full h-full overflow-hidden">
+<div class="grid grid-cols-4 grid-row-3 justify-center bg-white w-full h-screen overflow-hidden">
 
     <div class="relative col-start-1 w-3/4 h-full row-span-3 transition duration-500 ease-in-out transform origin-left hover:scale-150 hover:text-red">
     
@@ -9,8 +9,17 @@
                 
         <div class="absolute inset-0 bg-nav opacity-75 h-full"></div> 
 
-        <div class="relative w-full h-full flex items-center justify-center text-center text-white font-bold md:text-xl lg:text-3xl xl:text-4xl xxl:text-6xl">GRONINGEN SEAPORTS</div> 
+        <div class="relative flex-col w-full h-full flex items-center justify-center text-center text-white font-bold">
 
+            <div class="md:text-xl lg:text-3xl xl:text-4xl xxl:text-6xl">
+            HYDROGEN HUB
+            </div>
+
+            <div class="sm:text-xxs md:text-xs lg:text-sm xl:text-base xxl:text-xl">
+            GRONINGEN SEAPORTS
+            </div>
+
+        </div>
     </div>
 
     <div class="col-start-3 row-start-1 flex flex-col justify-end">
