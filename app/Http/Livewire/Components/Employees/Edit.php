@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Components\Employees;
 
-use App\Actions\ChangeUserEmailAction;
+use App\Actions\StartUpdateUserEmailAction;
 use App\Models\User;
 use Livewire\Component;
 
@@ -16,15 +16,15 @@ class Edit extends Component
         'employee.email' => 'required|email:rfc|unique:users,email',
     ];
 
-    public function save()
+    public function save(StartUpdateUserEmailAction $action)
     {
         $this->validate();
-        $this->maybeStartChangeEmailProcedure();
+        $this->maybeStartChangeEmailProcedure($action);
         $this->employee->save();
         $this->mount($this->employee);
     }
 
-    protected function maybeStartChangeEmailProcedure(ChangeUserEmailAction $action)
+    protected function maybeStartChangeEmailProcedure($action)
     {
         if ($this->getStoredEmailForUser() !== $this->employee->email) {
             $action->execute($this->employee->email);

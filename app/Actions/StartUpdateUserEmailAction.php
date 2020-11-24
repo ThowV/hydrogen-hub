@@ -8,7 +8,7 @@ use App\Notifications\EmailChangeNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
-class ChangeUserEmailAction
+class StartUpdateUserEmailAction
 {
     public function execute($email)
     {

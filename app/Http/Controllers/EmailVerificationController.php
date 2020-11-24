@@ -17,6 +17,7 @@ class EmailVerificationController extends Controller
         $user = User::find($request->user);
         $user->update([
             'email' => $request->email,
+            'email_verified_at'=>now()
         ]);
 
         return response()->view('employee.email.change-complete');
