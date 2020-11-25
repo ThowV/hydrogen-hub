@@ -72,7 +72,7 @@ class CreateListing extends Component
         elseif ($this->duration_type == 'month') {
             $end->addMonths($data['duration']);
         }
-        
+
         $hoursDiff = $now->diffInHours($end);
         $data['duration'] = $hoursDiff;
 

@@ -12,10 +12,6 @@ class OffersRequestsComponent extends Component
     public function getListings()
     {
         $this->listings = auth()->user()->company->listings;
-
-        foreach ($this->listings as $listing) {
-
-        }
     }
 
     public function mount()
