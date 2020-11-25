@@ -3,8 +3,6 @@
 namespace App\Http\Livewire\Components\Market;
 
 use App\Models\Trade;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class MarketComponent extends Component
@@ -19,6 +17,7 @@ class MarketComponent extends Component
     public $page = 1;
     public $itemsPerPage = 15;
     public $totalItems = 0;
+    const  EXCLUDED_FILTERS = ['hydrogen_type', 'trade_type', 'total_volume'];
 
     public $filter = [
         'hydrogen_type'     => ['green', 'blue', 'grey', 'mix'],
@@ -80,8 +79,7 @@ class MarketComponent extends Component
     public function updateTrades($setup = false)
     {
         // Determine the bounds and filters
-        if ($setup)
-        {
+        if ($setup) {
             $this->determineStartingFilters();
         }
 
@@ -98,13 +96,7 @@ class MarketComponent extends Component
     private function determineStartingFilters()
     {
         // Determine bounds for database fields
-        foreach ($this->filter as $key => $value) {
-            // Skip calculated and enum fields
-            if ($key == 'hydrogen_type' || $key == 'trade_type' || $key == 'total_volume')
-            {
-                continue;
-            }
-
+        foreach (collect($this->filter)->except(self::EXCLUDED_FILTERS) as $key => $value) {
             $this->filter[$key] = [Trade::min($key), Trade::max($key)];
         }
 
@@ -117,70 +109,71 @@ class MarketComponent extends Component
 
     private function getListings()
     {
-        $trades = Trade::whereNull('responder_id');
+        $this->enableCheckboxes();
+        $trades = $this->getFilteredTrades();
+        $this->applySorting($trades);
 
+        return $trades;
+    }
+
+    protected function applySorting(&$trades)
+    {
+        foreach ($this->sort as $key => $value) {
+            if ($value[1] != '') {
+                $trades->orderBy($key, $value[1]);
+            }
+        }
+    }
+
+    protected function enableCheckboxes()
+    {
         // Make sure that the hydrogen types and trade types checkboxes are not all disabled
-        if (empty($this->filter['hydrogen_type']))
-        {
+        if (empty($this->filter['hydrogen_type'])) {
             $this->filter['hydrogen_type'] = ['green', 'blue', 'grey', 'mix'];
         }
 
-        if (empty($this->filter['trade_type']))
-        {
+        if (empty($this->filter['trade_type'])) {
             $this->filter['trade_type'] = ['offer', 'request'];
         }
+    }
 
-        // Apply filters
+    protected function getFilteredTrades()
+    {
+        $trades = Trade::whereNull('responder_id');
         foreach ($this->filter as $key => $value) {
             // Skip calculated and enum fields
-            if ($key == 'total_volume')
-            {
+            if ($key == 'total_volume') {
                 // Apply filters for calculated fields
                 $trades = $trades
                     ->whereRaw('duration * units_per_hour >= ?', $value[0])
                     ->whereRaw('duration * units_per_hour <= ?', $value[1]);
-            }
-            elseif ($key == 'hydrogen_type' || $key == 'trade_type')
-            {
+            } elseif ($key == 'hydrogen_type' || $key == 'trade_type') {
                 // Apply filters for enum fields
                 $trades = $trades->whereIn($key, $value);
-            }
-            else
-            {
+            } else {
                 $trades = $trades->whereBetween($key, $value);
             }
         }
-
-        // Apply sorting
-        foreach ($this->sort as $key => $value) {
-            if ($value[1] != '')
-            {
-                $trades->orderBy($key, $value[1]);
-            }
-        }
-
         return $trades;
     }
 
     public function applyPagination($action, $value)
     {
         // Apply pagination
-        if ($action == 'page_previous' && $this->page > 1)
-        {
+        if ($action == 'page_previous' && $this->page > 1) {
             $this->page -= 1;
-        }
-        else if ($action == 'page_next')
-        {
-            $this->page += 1;
-        }
-        else if ($action == 'page')
-        {
-            $this->page = $value;
+        } else {
+            if ($action == 'page_next') {
+                $this->page += 1;
+            } else {
+                if ($action == 'page') {
+                    $this->page = $value;
+                }
+            }
         }
 
         // Check if pagination is out of bounds
-        if ($this->page * $this->itemsPerPage > $this->totalItems)
-        {
+        if ($this->page * $this->itemsPerPage > $this->totalItems) {
             $this->page = 1;
         }
 
@@ -190,16 +183,11 @@ class MarketComponent extends Component
 
     public function changeSort($key)
     {
-        if ($this->sort[$key][1] == '')
-        {
+        if ($this->sort[$key][1] == '') {
             $this->sort[$key][1] = 'ASC';
-        }
-        elseif ($this->sort[$key][1] == 'ASC')
-        {
+        } elseif ($this->sort[$key][1] == 'ASC') {
             $this->sort[$key][1] = 'DESC';
-        }
-        else
-        {
+        } else {
             $this->sort[$key][1] = '';
         }
 
