@@ -27,6 +27,7 @@ module.exports = {
       background: '#F8F8F8',
       personal: '#0057BD',
       hovBlue: '#0099FF',
+      oranje: '#ff7600',
 
       gray: {
         100: '#f7fafc',

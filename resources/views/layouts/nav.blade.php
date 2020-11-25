@@ -114,24 +114,9 @@
     <div class="absolute bg-personal hidden row-start-5 w-full h-full rounded-t-xl text-white px-8 xxl:px-12 py-6"
             id="settings">
 
-        <div class="grid grid-cols-4 w-full h-full">
+        <div class="flex flex-col w-full h-full">
 
-            <div class="grid grid-rows-5 col-span-3 justify-items-start items-end gap-2 truncate">
-
-                <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2"
-                        src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg"
-                        alt="Andy Leverenz">
-
-                <p class="col-start-1 row-start-3 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
-
-                <p class="col-start-1 row-start-4 font-bold sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-xl">{{ auth()->user()->email  }}</p>
-
-                <p class="col-start-1 row-start-5 font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">
-                    *******</p>
-
-            </div>
-
-            <div class="grid grid-rows-5 col-start-4 justify-items-end items-end gap-2">
+            <div class="grid justify-items-end items-end">
 
                 <svg class="col-start-2 row-start-1 w-4 xxl:w-12 opacity-50 hover:opacity-100 cursor-pointer"
                         xmlns="http://www.w3.org/2000/svg" width="22.429" height="22.429" viewBox="0 0 22.429 22.429"
@@ -146,26 +131,43 @@
                     </g>
                 </svg>
 
-                <a class="col-start-2 row-start-2 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+            </div>
 
-                <a class="col-start-2 row-start-3 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+            <div class="flex justify-center py-6 sm:py-2 ">
 
-                <a class="col-start-2 row-start-4 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
-
-                <a class="col-start-2 row-start-5 cursor-pointer sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-md hover:font-bold">change</a>
+                <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2"
+                        src="https://pbs.twimg.com/profile_images/1128143121475342337/e8tkhRaz_normal.jpg"
+                        alt="Andy Leverenz">
 
             </div>
 
-        
+
+            <div>
+                <p class="text-center font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
+
+                <p class="text-center opacity-50 font-bold sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-xl">{{ auth()->user()->email  }}</p>
+
+            </div>
+
+
+            <div class="grid justify-center items-end h-full">
+
+                <a href="{{route('admin')}}"
+                    class="m-auto bg-personal border border-white text-white px-8 py-2 sm:px-4 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
+                    Personal settings
+                </a>
+            </div>
+
+            <div class="grid justify-center items-end h-full">
                 <a href="{{route('logout')}}"
-                    class="col-start-1 col-span-4 m-auto row-start-6 bg-white text-personal px-8 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white">
+                    class="m-auto bg-hovBlue text-white px-12 py-2 sm:px-6 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
                     Log out
                 </a>
-            
+            </div>
+
         </div>
 
     </div>
-
 
 </aside>
 

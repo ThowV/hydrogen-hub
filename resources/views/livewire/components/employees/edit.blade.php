@@ -1,24 +1,31 @@
-<div>
-    <h1 class="text-2xl">{{$employee->full_name}}</h1>
+<div class="grid grid-cols-4">
 
-    <div class="flex-row">
-        <input wire:dirty.class="border-red-500" class="form-control border rounded shadow "
+    <div class="flex flex-col gap-3">
+        <h1 class="font-bold text-sm sm:text-xs xxl:text-xl">First name:<h1>
+        <input wire:dirty.class="border-red-500" class="form-control rounded-xl bg-gray-200 w-4/5 px-4  py-1 text-base xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl"
                wire:model="employee.first_name" type="text">
         @error('employee.first_name') <span class="error">{{ $message }}</span> @enderror
     </div>
-    <div class="flex-row">
-        <input wire:dirty.class="border-red-500" class="form-control border rounded shadow "
+
+    <div class="flex flex-col gap-3">
+        <h1 class="font-bold text-sm sm:text-xs xxl:text-xl">Last name:<h1>
+        <input wire:dirty.class="border-red-500" class="form-control rounded-xl bg-gray-200 w-4/5 px-4  py-1 text-base xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl"
                wire:model="employee.last_name" type="text">
         @error('employee.last_name') <span class="error">{{ $message }}</span> @enderror
     </div>
-    IF YOU CHANGE THE EMAIL, VERIFY EMAIL PROCEDURE SHOULD START OVER
-    <div class="flex-row">
-        <input wire:dirty.class="border-red-500" class="form-control border rounded shadow w-full"
+
+    <div class="flex flex-col gap-3">
+        <h1 class="font-bold text-sm sm:text-xs xxl:text-xl">Email:<h1>
+        <input wire:dirty.class="border-red-500" class="form-control rounded-xl bg-gray-200 w-full px-4  py-1 text-base xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl"
                wire:model.debounce.10000ms="employee.email" type="text">
         @error('employee.email') <span class="error">{{ $message }}</span> @enderror
+        <p class="text-xxs xxl:text-sm font-medium mt-3 px-4">If you change your email, the verify email procedure starts over.</p>
     </div>
 
-    <button wire:click="save" class="bg-green-500 p-2 text-white hover:bg-green-400 rounded shadow m-3">
+    <div class="flex justify-center items-center sm:items-start">
+        <button wire:click="save" class="bg-hovBlue text-white px-6 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-nav transaction duration-300">
         Save
-    </button>
+        </button>
+    </div>
+
 </div>
