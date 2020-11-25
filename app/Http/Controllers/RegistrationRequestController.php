@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\CreateCompanyAction;
 
 use App\Events\PermissionDenied;
+use App\Mail\CompanyAccepted;
+use App\Mail\CompanyDenied;
 use App\Models\RegistrationRequest;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationRequestController extends Controller
 {
@@ -19,18 +21,22 @@ class RegistrationRequestController extends Controller
         }
         $action->execute($registrationRequest);
 
+
+        Mail::to($registrationRequest->company_admin_email)->send(new CompanyAccepted());
+
         return back();
     }
 
-    public function deny(RegistrationRequest $registration_request)
+    public function deny(RegistrationRequest $registrationRequest)
     {
         if (!auth()->user()->can('request.deny')) {
-            $registration_request->deny();
+            $registrationRequest->deny();
             \event(new PermissionDenied());
             return back();
         }
 
-        $registration_request->deny();
+        $registrationRequest->deny();
+        Mail::to($registrationRequest->company_admin_email)->send(new CompanyDenied());
 
         return back();
     }
