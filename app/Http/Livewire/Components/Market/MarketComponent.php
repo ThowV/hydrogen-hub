@@ -40,17 +40,7 @@ class MarketComponent extends Component
         'trade_type'        => ['Trade type', ''],
     ];
 
-    protected $listeners = ['listingCreated' => 'listingCreated'];
-
-    public function mount()
-    {
-        $this->updateTrades(true);
-    }
-
-    public function render()
-    {
-        return view('livewire.components.market.market-component')->extends('layouts.app');
-    }
+    protected $listeners = ['listingCreated' => 'listingCreated', 'tradeMade' => 'tradeMade'];
 
     public function toggleCreateModal()
     {
@@ -75,6 +65,15 @@ class MarketComponent extends Component
         $this->toggleCreateModal();
 
         // Update trades since we added a new one
+        $this->updateTrades();
+    }
+
+    public function tradeMade()
+    {
+        // Close respond modal
+        $this->closeRespondModal();
+
+        // Update trades since we removed one
         $this->updateTrades();
     }
 
@@ -118,7 +117,7 @@ class MarketComponent extends Component
 
     private function getListings()
     {
-        $trades = Trade::query();
+        $trades = Trade::whereNull('responder_id');
 
         // Make sure that the hydrogen types and trade types checkboxes are not all disabled
         if (empty($this->filter['hydrogen_type']))
@@ -205,5 +204,15 @@ class MarketComponent extends Component
         }
 
         $this->updateTrades();
+    }
+
+    public function mount()
+    {
+        $this->updateTrades(true);
+    }
+
+    public function render()
+    {
+        return view('livewire.components.market.market-component')->extends('layouts.app');
     }
 }
