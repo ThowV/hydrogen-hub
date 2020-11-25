@@ -13,11 +13,12 @@ class Edit extends Component
     protected $rules = [
         'employee.first_name' => 'required',
         'employee.last_name' => 'required',
-        'employee.email' => 'required|email:rfc|unique:users,email',
+        'employee.email' => 'required|email:rfc|unique:users,email'
     ];
 
     public function save(StartUpdateUserEmailAction $action)
     {
+        $this->rules['employee.email'] .= ','.$this->employee->id;
         $this->validate();
         $this->maybeStartChangeEmailProcedure($action);
         $this->employee->save();
