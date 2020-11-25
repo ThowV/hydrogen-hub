@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeesController extends Controller
 {
@@ -56,9 +57,14 @@ class EmployeesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $employee)
     {
-        //
+        if( !auth()->user()->can('users.read') && $employee->id !== auth()->id()){
+            return false;
+        }
+
+
+        return view('employee.edit')->withEmployee($employee);
     }
 
     /**
