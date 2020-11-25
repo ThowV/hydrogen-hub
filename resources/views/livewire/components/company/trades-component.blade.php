@@ -1,4 +1,6 @@
 <div>
+    <h1 class="text-xl">Trades</h1>
+
     @foreach($trades as $trade)
         <div>
             <span>{{ $trade['hydrogen_type'] }}</span>

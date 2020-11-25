@@ -8,7 +8,6 @@ use Livewire\Component;
 class TradesComponent extends Component
 {
     public $trades;
-    public $tradeInfo;
 
     public function getTrades()
     {
