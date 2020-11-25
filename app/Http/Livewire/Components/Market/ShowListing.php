@@ -42,6 +42,6 @@ class ShowListing extends Component
 
         // Finalize
         $trade->save();
-        $this->updateTrades();
+        $this->emit('tradeMade');
     }
 }

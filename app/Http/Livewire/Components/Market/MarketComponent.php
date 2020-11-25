@@ -39,13 +39,7 @@ class MarketComponent extends Component
         'trade_type'        => ['Trade type', ''],
     ];
 
-    protected $listeners = ['listingCreated' => 'listingCreated'];
-
-    public function mount()
-    {
-        $this->updateTrades(true);
-    }
-
+    protected $listeners = ['listingCreated' => 'listingCreated', 'tradeMade' => 'tradeMade'];
 
     public function toggleCreateModal()
     {
@@ -70,6 +64,15 @@ class MarketComponent extends Component
         $this->toggleCreateModal();
 
         // Update trades since we added a new one
+        $this->updateTrades();
+    }
+
+    public function tradeMade()
+    {
+        // Close respond modal
+        $this->closeRespondModal();
+
+        // Update trades since we removed one
         $this->updateTrades();
     }
 
@@ -109,7 +112,6 @@ class MarketComponent extends Component
         $this->enableCheckboxes();
         $trades = $this->getFilteredTrades();
         $this->applySorting($trades);
-        // Apply sorting
 
         return $trades;
     }
@@ -137,7 +139,7 @@ class MarketComponent extends Component
 
     protected function getFilteredTrades()
     {
-        $trades = Trade::query();
+        $trades = Trade::whereNull('responder_id');
         foreach ($this->filter as $key => $value) {
             // Skip calculated and enum fields
             if ($key == 'total_volume') {
@@ -190,6 +192,11 @@ class MarketComponent extends Component
         }
 
         $this->updateTrades();
+    }
+
+    public function mount()
+    {
+        $this->updateTrades(true);
     }
 
     public function render()
