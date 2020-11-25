@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Market;
 
 use App\Models\Trade;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class CreateListing extends Component
@@ -59,18 +60,21 @@ class CreateListing extends Component
         // Modify duration data
         $duration = $data['duration'] * 24;
 
-        if($this->duration_type == 'week' || $this->duration_type == 'month')
-        {
-            // 7 days
-            $duration *= 7;
-        }
-        else if($this->duration_type == 'month')
-        {
-            // 4 weeks
-            $duration *= 4;
-        }
+        $now = Carbon::now();
+        $end = $now->copy();
 
-        $data['duration'] = $duration;
+        if ($this->duration_type == 'day') {
+            $end->addDays($data['duration']);
+        }
+        elseif ($this->duration_type == 'week') {
+            $end->addWeeks($data['duration']);
+        }
+        elseif ($this->duration_type == 'month') {
+            $end->addMonths($data['duration']);
+        }
+        
+        $hoursDiff = $now->diffInHours($end);
+        $data['duration'] = $hoursDiff;
 
         // Modify expires at data
         $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
