@@ -31,6 +31,6 @@ class Company extends Model
 
     public function trades()
     {
-        return $this->hasManyThrough(Trade::class, User::class, null, 'owner_id');
+        return $this->hasManyThrough(Trade::class, User::class, '', 'responder_id');
     }
 }
