@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\CreateCompanyAction;
-
 use App\Events\PermissionDenied;
 use App\Mail\CompanyAccepted;
 use App\Mail\CompanyDenied;
@@ -19,9 +18,8 @@ class RegistrationRequestController extends Controller
             \event(new PermissionDenied());
             return back();
         }
+        
         $action->execute($registrationRequest);
-
-
         Mail::to($registrationRequest->company_admin_email)->send(new CompanyAccepted());
 
         return back();
