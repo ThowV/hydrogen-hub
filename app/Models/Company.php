@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Company extends Model
 {
@@ -11,7 +12,8 @@ class Company extends Model
 
     protected $fillable = [
         'name',
-        'owner_id'
+        'owner_id',
+        'usable_fund'
     ];
 
     public function owner()
@@ -29,13 +31,37 @@ class Company extends Model
         return $this->hasMany(CompanyDayLog::class);
     }
 
-    public function trades()
+    public function tradesAsResponder()
     {
         return $this->hasManyThrough(Trade::class, User::class, '', 'responder_id');
+    }
+
+    public function tradesAsOwner()
+    {
+        return $this->hasManyThrough(Trade::class, User::class, '', 'owner_id')->whereNotNull('responder_id');
+    }
+
+    public function getTradesAttribute()
+    {
+        return $this->tradesAsResponder->merge($this->tradesAsOwner);
     }
 
     public function listings()
     {
         return $this->hasManyThrough(Trade::class, User::class, '', 'owner_id');
+    }
+
+    public function getBoughtAttribute()
+    {
+        $boughtOffers = $this->tradesAsResponder->where('trade_type', 'offer')->sum('total_price');
+        $soldRequests = $this->tradesAsOwner->where('trade_type', 'request')->sum('total_price');
+        return $boughtOffers + $soldRequests;
+    }
+
+    public function getSoldAttribute()
+    {
+        $soldOffers = $this->tradesAsResponder->where('trade_type', 'request')->sum('total_price');
+        $BoughtRequests = $this->tradesAsOwner->where('trade_type', 'offer')->sum('total_price');
+        return $soldOffers + $BoughtRequests;
     }
 }

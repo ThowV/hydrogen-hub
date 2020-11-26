@@ -26,7 +26,8 @@ class ShowListing extends Component
     {
         // Turn trade object into an array
         $this->trade = $trade->toArray();
-        $this->trade['total_volume'] = $trade->total_volume;
+        $this->trade['total_volume'] = number_format($trade->total_volume, 0, '.', ' ');
+        $this->trade['total_price'] = number_format($trade->total_price, 0, '.', ' ');
 
         // Modify expires at data to create expires in value
         $expiresIn = (new Carbon($this->trade['expires_at']))->diff(now());

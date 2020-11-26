@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class OffersRequestsComponent extends Component
@@ -12,6 +13,11 @@ class OffersRequestsComponent extends Component
     public function getListings()
     {
         $this->listings = auth()->user()->company->listings;
+    }
+
+    public function getDate($listingPlacedAt)
+    {
+        return Carbon::parse($listingPlacedAt)->toDateString();
     }
 
     public function mount()

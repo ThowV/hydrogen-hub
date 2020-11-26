@@ -12,6 +12,8 @@ class Trade extends Model
 
     protected $fillable = [
         'owner_id',
+        'responder_id',
+        'deal_made_at',
         'trade_type',
         'hydrogen_type',
         'units_per_hour',
@@ -66,6 +68,11 @@ class Trade extends Model
         elseif ($daysDiff >= 1) {
             return $daysDiff . ' day' . ($daysDiff > 1 ? 's' : '');
         }
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->duration * $this->units_per_hour * $this->price_per_unit;
     }
 
     public function owner()
