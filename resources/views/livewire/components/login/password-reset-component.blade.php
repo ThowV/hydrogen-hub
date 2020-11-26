@@ -17,8 +17,8 @@
         <input class="rounded-xl bg-gray-200 w-full px-4 py-1 text-base xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" type="password" placeholder="password confirmation" wire:model="password_confirmation">
         </div>
 
-        <div class="flex justify-center items-center sm:items-start">
-            <input type="submit" value="Save" class="bg-hovBlue text-white px-6 py-1 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-nav transaction duration-300">
+        <div class="flex justify-center items-center">
+            <input type="submit" value="Save" class="bg-hovBlue text-white px-8 py-2 sm:px-6 sm:py-1 rounded sm:text-xxs md:text-xxs lg:text-xs xl:text-sm xxl:text:lg hover:bg-nav transaction duration-300">
             @error('password') <span class="error text-red-500">{{ $message }}</span> @enderror
         </div>
         

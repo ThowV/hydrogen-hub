@@ -40,11 +40,11 @@
                             </div>
                         </div> 
 
-                        <div class="w-full grid grid-rows-1 sm:grid-rows-2 grid-cols-2">
+                        <div class="w-full grid grid-rows-1 sm:grid-rows-2 grid-cols-6 xl:pt-20 xxl:pt-32">
 
-                            <div class="grid sm:col-span-2 sm:row-start-1">
-                                <h2 class="text-xl xxl:text-3xl font-bold sm:text-sm">Activity</h2>
-                                <div class="grid gap-2 lg:gap-4 xl:gap-4 xxl:gap-4 py-5 sm:text-xs md:text-sm lg:text-sm xl:text-base xxl:text-xl">
+                            <div class="grid sm:col-span-2 sm:row-start-1 col-start-2 col-span-3">
+                                <h2 class="text-xl xxl:text-4xl font-bold sm:text-sm">Activity</h2>
+                                <div class="grid gap-2 lg:gap-4 xl:gap-4 xxl:gap-8 py-5 sm:text-xs md:text-sm lg:text-sm xl:text-base xxl:text-2xl">
                                     <p>Bought <b>50.000/h</b> for <b>2 weeks</b> of <b>Green Hydrogen</b> at the price of <b>€4,312</b><p> 
                                     <p>Sold <b>2.000/h</b> for <b>1 week</b> of <b>Blue Hydrogen</b> at the price of <b>€2,456</b><p>
                                     <p>Placed a bid for<b>20.000/h</b> for <b>2 weeks</b> of <b>Green Hydrogen</b> at the price of <b>€4,312</b><p>
@@ -52,10 +52,10 @@
                                 </div>
                             </div>
                             
-                            <div class="grid sm:col-span-2 sm:row-start-2">
-                                <h2 class="text-xl xxl:text-3xl font-bold sm:text-sm">Stats</h2>
-                                <div class="flex flex-row gap-5 py-5 sm:text-xs md:text-sm lg:text-sm xl:text-base xxl:text-xl">
-                                    <div class="grid gap-2 lg:gap-4 xl:gap-4 xxl:gap-4">
+                            <div class="grid sm:col-span-2 sm:row-start-2 col-start-5">
+                                <h2 class="text-xl xxl:text-4xl font-bold sm:text-sm">Stats</h2>
+                                <div class="flex flex-row gap-5 py-5 sm:text-xs md:text-sm lg:text-sm xl:text-base xxl:text-2xl">
+                                    <div class="grid gap-2 lg:gap-4 xl:gap-4 xxl:gap-8">
                                         <p>Total trades:<p/>
                                         <p>Total offers:<p/>
                                         <p>Total bids:<p/>
