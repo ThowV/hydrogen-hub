@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/deploy', [\App\Http\Controllers\DeploymentController::class, 'deploy'])->name('deploy');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
