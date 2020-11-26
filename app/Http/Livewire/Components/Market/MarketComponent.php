@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Market;
 
 use App\Models\Trade;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class MarketComponent extends Component
@@ -115,11 +116,16 @@ class MarketComponent extends Component
         return $trades;
     }
 
-    protected function applySorting(&$trades)
+    protected function applySorting($trades)
     {
         foreach ($this->sort as $key => $value) {
             if ($value[1] != '') {
-                $trades->orderBy($key, $value[1]);
+                if ($key != 'total_volume') {
+                    $trades->orderBy($key, $value[1]);
+                }
+                else {
+                    $trades->orderBy(DB::raw('duration * units_per_hour'), $value[1]);
+                }
             }
         }
     }
