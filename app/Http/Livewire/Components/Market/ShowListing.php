@@ -8,19 +8,11 @@ use Livewire\Component;
 
 class ShowListing extends Component
 {
+    public $isOpen = false;
+
     public $trade;
 
-    protected $listeners = ['listingSelected' => 'openListing'];
-
-    public function mount(Trade $trade)
-    {
-        $this->openListing($trade);
-    }
-
-    public function render()
-    {
-        return view('livewire.components.market.show-listing');
-    }
+    protected $listeners = ['openRespondModal' => 'openListing'];
 
     public function openListing(Trade $trade)
     {
@@ -32,6 +24,8 @@ class ShowListing extends Component
         $expiresIn = (new Carbon($this->trade['expires_at']))->diff(now());
         $expiresIn = array('days'=>$expiresIn->d, 'hours'=>$expiresIn->h, 'minutes'=>$expiresIn->i);
         $this->trade['expires_in'] = $expiresIn;
+
+        $this->toggleModal();
     }
 
     public function makeTrade(Trade $trade)
@@ -43,5 +37,17 @@ class ShowListing extends Component
         // Finalize
         $trade->save();
         $this->emit('tradeMade');
+
+        $this->toggleModal();
+    }
+
+    public function toggleModal()
+    {
+        $this->isOpen = !$this->isOpen;
+    }
+
+    public function render()
+    {
+        return view('livewire.components.market.show-listing');
     }
 }

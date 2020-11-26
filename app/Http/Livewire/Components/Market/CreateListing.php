@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class CreateListing extends Component
 {
+    public $isOpen = false;
+
     public $trade_type;
     public $hydrogen_type;
     public $units_per_hour;
@@ -29,10 +31,7 @@ class CreateListing extends Component
         'expires_at' =>     'required|numeric',
     ];
 
-    public function render()
-    {
-        return view('livewire.components.market.create-listing');
-    }
+    protected $listeners = ['openCreateModal' => 'toggleModal'];
 
     private function refresh()
     {
@@ -49,7 +48,12 @@ class CreateListing extends Component
         ]);
     }
 
-    public function submit()
+    public function toggleModal()
+    {
+        $this->isOpen = !$this->isOpen;
+    }
+
+    public function createListing()
     {
         $data = $this->validate();
 
@@ -83,5 +87,10 @@ class CreateListing extends Component
 
         // Refresh the form
         $this->refresh();
+    }
+
+    public function render()
+    {
+        return view('livewire.components.market.create-listing');
     }
 }

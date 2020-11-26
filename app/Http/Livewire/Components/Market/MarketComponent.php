@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class MarketComponent extends Component
 {
-    public $isCreateModalOpen = false;
     public $isRespondModalOpen = false;
 
     public $trades;
@@ -43,14 +42,14 @@ class MarketComponent extends Component
 
     public function toggleCreateModal()
     {
-        $this->isCreateModalOpen = !$this->isCreateModalOpen;
+        $this->emit("openCreateModal");
     }
 
     public function openRespondModal(Trade $trade)
     {
         $this->trade = $trade;
         $this->isRespondModalOpen = true;
-        $this->emit('listingSelected', $trade);
+        $this->emit('openRespondModal', $trade);
     }
 
     public function closeRespondModal()
