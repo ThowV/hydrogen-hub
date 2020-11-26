@@ -25,7 +25,7 @@
 
         <p class="xxl:text-lg">Select your new profile picture</p>
 
-        <input class="text-xxs xxl:text-base" type="file" wire:model="photo">
+        <input class="text-xxs xxl:text-base" type="file" accept="image/*" wire:model="photo">
 
         @error('photo') <span class="error text-red-500">{{ $message }}</span> @enderror
 
