@@ -22,9 +22,10 @@ class Companies extends Component
         }
     }
 
-    public function toggleModal(Company $company = null){
+    public function toggleModal(Company $company = null)
+    {
         $this->modalOpen = !$this->modalOpen;
-        if($company == null){
+        if (!($company instanceof Company)) {
             return;
         }
 
@@ -36,8 +37,8 @@ class Companies extends Component
         $this->searchTerm = htmlspecialchars($this->searchTerm);
 
         $this->resultSet = Company::where('name', 'LIKE', "%$this->searchTerm%")->get()->merge(
-             Company::whereHas('owner', function ($query) {
-                    $query->where('email', 'LIKE', "%$this->searchTerm%");
+            Company::whereHas('owner', function ($query) {
+                $query->where('email', 'LIKE', "%$this->searchTerm%");
             })->get());
     }
 
