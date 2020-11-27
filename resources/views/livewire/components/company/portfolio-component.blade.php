@@ -1,4 +1,7 @@
 <div class="flex w-full h-full flex-col">
+    <!--Trade info modal-->
+    @livewire('components.company.trade-and-listing-info-modal-component')
+
     <!--Header-->
     <div class="w-full h-24 grid grid-col-2 grid-rows-2">
         <div class="col-start-1 flex flex-row items-baseline py-8 xxl:py-10">

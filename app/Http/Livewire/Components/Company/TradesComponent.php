@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Company;
 
+use App\Models\Trade;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -18,6 +19,11 @@ class TradesComponent extends Component
     public function getDate($dealMadeAt)
     {
         return Carbon::parse($dealMadeAt)->toDateString();
+    }
+
+    public function openTrade(Trade $trade)
+    {
+        $this->emit('openTradeAndListingInfoModal', $trade);
     }
 
     /*public function getUserName($id)

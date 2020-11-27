@@ -28,7 +28,7 @@
                             {{ $listing['total_volume'] }}
                         </td>
                         <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                            <a href="#">Info</a>
+                            <button wire:click="openListing({{ $listing }})">Info</button>
                         </td>
                     </tr>
                 @endforeach

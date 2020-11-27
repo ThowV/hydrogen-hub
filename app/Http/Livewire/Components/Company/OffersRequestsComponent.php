@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Company;
 
+use App\Models\Trade;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -13,6 +14,11 @@ class OffersRequestsComponent extends Component
     public function getListings()
     {
         $this->listings = auth()->user()->company->listings;
+    }
+
+    public function openListing(Trade $trade)
+    {
+        $this->emit('openTradeAndListingInfoModal', $trade);
     }
 
     public function getDate($listingPlacedAt)

@@ -39,7 +39,9 @@
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
                         {{ $trade['end'] }}
                     </td>
-                    <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl"><a href="#">Info</a></td>
+                    <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
+                        <button wire:click="openTrade({{ $trade }})">Info</button>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
