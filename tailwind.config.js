@@ -27,6 +27,12 @@ module.exports = {
       background: '#F8F8F8',
       personal: '#0057BD',
       hovBlue: '#0099FF',
+      butOrange: '#FF7600',
+
+      typeGreen:'#4CD35D',
+      typeBlue: '#0099FF',
+      typeGrey: '#909090',
+      typeMix: '#CEB076',
 
       gray: {
         100: '#f7fafc',
@@ -827,5 +833,7 @@ module.exports = {
     animation: ['responsive'],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/custom-forms'),
+  ],
 }

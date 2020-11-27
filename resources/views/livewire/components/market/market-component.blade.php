@@ -17,155 +17,191 @@
     </div>
 
     <!--Content-->
-    <div class="z-0 h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
-        <div class="flex flex-row flex-nowrap min-h-full sm:flex-col">
-            <div class="rounded-lg px-10 ml-4 w-full sm:w-full sm:ml-0 sm:mt-4 md:w-2/4 bg-white text-gray-700">
-                <!--Filter listings-->
-                <div>
-                    <form wire:submit.prevent="updateTrades">
-                        <div>
-                            <label style="font-weight: bold">Hydrogen type</label>
+    <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
 
-                            <fieldset>
-                                <input type="checkbox" id="green" value="green" wire:model="filter.hydrogen_type">
-                                <label for="green">green</label>
+        <div class="rounded-lg px-10 bg-white text-gray-700 flex-grow min-h-full overflow-auto">
 
-                                <input type="checkbox" id="blue" value="blue" wire:model="filter.hydrogen_type">
-                                <label for="blue">blue</label>
+            <div class="w-full h-24 xxl:h-32 grid grid-rows-1 grid-cols-2">
 
-                                <input type="checkbox" id="grey" value="grey" wire:model="filter.hydrogen_type">
-                                <label for="grey">grey</label>
-
-                                <input type="checkbox" id="mix" value="mix" wire:model="filter.hydrogen_type">
-                                <label for="mix">mix</label>
-                            </fieldset>
-                        </div>
-
-                        <div>
-                            <label for="units_per_hour" style="font-weight: bold">Units per hour</label>
-
-                            <div class="m-b-30" wire:ignore x-data x-init="initUnitsPerHourSlider">
-                                <input type="text" id="units_per_hour" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="duration" style="font-weight: bold">Duration (hours)</label>
-
-                            <div class="m-b-30" wire:ignore x-data x-init="initDurationSlider">
-                                <input type="text" id="duration" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label style="font-weight: bold">Total volume (units)</label>
-
-                            <div class="m-b-30" wire:ignore x-data x-init="initTotalVolumeSlider">
-                                <input type="text" id="total_volume" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="price_per_unit" style="font-weight: bold">Price per unit</label>
-
-                            <div class="m-b-30" wire:ignore x-data x-init="initPricePerUnitSlider">
-                                <input type="text" id="price_per_unit" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="mix_co2" style="font-weight: bold">Mix CO2</label>
-
-                            <div class="m-b-30" wire:ignore x-data x-init="initMixCO2Slider">
-                                <input type="text" id="mix_co2" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <label style="font-weight: bold">Trade type</label>
-
-                            <fieldset>
-                                <input type="checkbox" id="offer" value="offer" wire:model="filter.trade_type">
-                                <label for="offer">offer</label>
-
-                                <input type="checkbox" id="request" value="request" wire:model="filter.trade_type">
-                                <label for="request">request</label>
-                            </fieldset>
-                        </div>
-
-                        <button type="submit">Apply</button>
-                    </form>
-                </div>
-
-                <hr><hr><hr>
+                <h2 class="grid items-center text-xl xxl:text-3xl font-bold">Filters</h2>
 
                 <!--Create modal button-->
-                <button wire:click="toggleCreateModal">Sell/Request</button>
+                <div class="grid justify-items-end items-start pt-5">                            
+                    <button class="flex justify-end items-center bg-butOrange hover:bg-orange-700 text-white text-xs xxl:text-2xl py-2 px-8 xxl:py-4 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out" wire:click="toggleCreateModal">Sell/Request</button>
+                </div>                
+            </div>    
+                
+            <!--Filter listings-->
+            <form class="flex flex-row justify-between flex-wrap sm:gap-6 md:gap-4 w-full" wire:submit.prevent="updateTrades">
+                <div class="w-40 xxl:w-64">
+                    <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Hydrogen type</label>
 
-                <hr><hr><hr>
-
-                <!--Sorting-->
-                <div>
-                    @foreach ($sort as $key => $value)
-                        <button wire:click="changeSort('{{$key}}')">
-                            {{ $value[0] }}
-                            {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
-                        </button>
-                    @endforeach
-                </div>
-
-                <hr><hr><hr>
-
-                <!--All listings-->
-                <div>
-                    @foreach($trades as $trade)
-                        <div wire:click="openRespondModal({{ $trade["id"] }})">
-                            <p>{{ $trade["id"] }} - {{ $trade["hydrogen_type"] }} (click to open)</p>
+                    <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 xxl:text-xl">
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeGreen cursor-pointer" id="green" value="green" wire:model="filter.hydrogen_type">
+                            <label for="green">green</label>
                         </div>
-                    @endforeach
+
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="blue" value="blue" wire:model="filter.hydrogen_type">
+                            <label for="blue">blue</label>
+                        </div>
+
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeGrey cursor-pointer" id="grey" value="grey" wire:model="filter.hydrogen_type">
+                            <label for="grey">grey</label>
+                        </div>
+
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeMix cursor-pointer" id="mix" value="mix" wire:model="filter.hydrogen_type">
+                            <label for="mix">mix</label>
+                        </div>
+                    </fieldset>
                 </div>
 
-                <hr><hr><hr>
+                <div class="w-40 xxl:w-64">
+                    <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per hour</label>
+
+                    <div class="m-b-30" wire:ignore x-data x-init="initUnitsPerHourSlider">
+                        <input type="text" id="units_per_hour" />
+                    </div>
+                </div>
+
+                <div class="w-40 xxl:w-64">
+                    <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration (hours)</label>
+
+                    <div class="m-b-30" wire:ignore x-data x-init="initDurationSlider">
+                        <input type="text" id="duration" />
+                    </div>
+                </div>
+
+                <div class="w-40 xxl:w-64">
+                    <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
+
+                    <div class="m-b-30" wire:ignore x-data x-init="initTotalVolumeSlider">
+                        <input type="text" id="total_volume" />
+                    </div>
+                </div>
+
+                <div class="w-40 xxl:w-64">
+                    <label for="price_per_unit"class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per unit</label>
+
+                    <div class="m-b-30" wire:ignore x-data x-init="initPricePerUnitSlider">
+                        <input type="text" id="price_per_unit" />
+                    </div>
+                </div>
+
+                <div class="w-40 xxl:w-64">
+                    <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
+
+                    <div class="m-b-30" wire:ignore x-data x-init="initMixCO2Slider">
+                        <input type="text" id="mix_co2" />
+                    </div>
+                </div>
+
+                <div class="w-40 pl-10 xxl:w-64">
+                    <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Trade type</label>
+
+                    <fieldset class="flex flex-col gap-2 pt-2 sm:flex-row xxl:text-xl">
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeBlue" id="offer" value="offer" wire:model="filter.trade_type">
+                            <label for="offer">offer</label>
+                        
+                        </div>
+                
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeBlue" id="request" value="request" wire:model="filter.trade_type">
+                            <label for="request">request</label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="flex justify-center items-center md:w-full pt-5 ">
+                    <button class="bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out" type="submit">Apply</button>
+                </div>
+            </form>
+
+            
+
+            <!-- Table -->
+            <table class="relative w-full overflow-scroll"> 
+                <thead>  
+                    <!--Sorting-->
+                    <tr class="w-full border-b-2">
+                        <th class="flex flex-row pt-8 pb-2 justify-between flex-nowrap">
+                            @foreach ($sort as $key => $value)
+                                <button class="font-medium text-top text-xs xxl:text-xl w-40 text-left md:w-20 sm:w-10" wire:click="changeSort('{{$key}}')">
+                                    {{ $value[0] }}
+                                    {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
+                                </button>
+                            @endforeach
+                            <div class="font-medium text-left items text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64">Expire</div>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="flex flex-col flex-nowrap overflow-auto xxl:h-3/5" style="height: 60vh">
+                    <!--All listings-->
+                    <tr class="">
+                        @foreach($trades as $trade)
+                            <td class="flex flex-row py-8 justify-between items-center text-sm sm:text-xs xxl:text-2xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
+                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
+                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["units_per_hour"] }}/h</p>
+                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["duration"] }}</p>
+                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">Total volume units</p>
+                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">€{{ $trade["price_per_unit"] }}</p>
+                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["mix_co2"] }}%</p>
+                                <button class="w-40 md:w-20 sm:w-10 text-left xxl:w-64">(click to open)</button>
+                                <p class="w-40 md:w-20 text-xs xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
+                            </td>
+                        @endforeach
+                    </tr>
+                </tbody>
+            </table>
 
                 <!--Pagination-->
-                <div>
-                    <ul>
-                        <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                            <button wire:click="applyPagination('page_previous', {{ $page-1 }})" >
-                                Previous
-                            </button>
-                        </li>
+                <div class="flex self-end w-full xl:h-24 xxl:h-full flex flex-row pt-5">
+                    <ul class="w-full grid grid-cols-3 grid-rows-1">
+                        <div class="col-start-2 flex justify-center items-center xxl:text-3xl">
+                            <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
+                                <button class="" wire:click="applyPagination('page_previous', {{ $page-1 }})" >
+                                    Previous
+                                </button>
+                            </li>
 
-                        <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                            <button wire:click="applyPagination('page_next', {{ $page+1 }})">
-                                Next
-                            </button>
-                        </li>
+                            <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
+                                <button class="" wire:click="applyPagination('page_next', {{ $page+1 }})">
+                                    Next
+                                </button>
+                            </li>
+                        </div>
 
-                        <li>
-                            Jump to Page
+                        <div class="col-start-3 flex flex-row justify-end items-center gap-4">
+                            <li class="text-xs xxl:text-2xl">
+                                Jump to Page
 
-                            <select title="" wire:model="page" wire:change="updateTrades">
-                                @for($i = 1; $i <= $paginator['last_page']; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                        </li>
+                                <select class="cursor-pointer" title="" wire:model="page" wire:change="updateTrades">
+                                    @for($i = 1; $i <= $paginator['last_page']; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </li>
 
-                        <li>
-                            Items Per Page
+                            <li class="text-xs xxl:text-2xl">
+                                Items per Page
 
-                            <select title="" wire:model="itemsPerPage" wire:change="applyPagination('', {{ $page }})">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                            </select>
-                        </li>
+                                <select class="cursor-pointer" title="" wire:model="itemsPerPage" wire:change="applyPagination('', {{ $page }})">
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                </select>
+                            </li>
+                        </div>
                     </ul>
                 </div>
-            </div>
         </div>
-    </div>
+    </div>   
+</div>
 
     <script>
         function initUnitsPerHourSlider() {
