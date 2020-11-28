@@ -36,7 +36,7 @@
                 <div class="w-40 xxl:w-64">
                     <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Hydrogen type</label>
 
-                    <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 xxl:text-xl">
+                    <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 xxl:text-2xl">
                         <div class="">
                             <input type="checkbox" class="form-checkbox text-typeGreen cursor-pointer" id="green" value="green" wire:model="filter.hydrogen_type">
                             <label for="green">green</label>
@@ -102,7 +102,7 @@
                 <div class="w-40 pl-10 xxl:w-64">
                     <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Trade type</label>
 
-                    <fieldset class="flex flex-col gap-2 pt-2 sm:flex-row xxl:text-xl">
+                    <fieldset class="flex flex-col gap-2 pt-2 sm:flex-row xxl:text-2xl">
                         <div class="">
                             <input type="checkbox" class="form-checkbox text-typeBlue" id="offer" value="offer" wire:model="filter.trade_type">
                             <label for="offer">offer</label>
@@ -140,11 +140,11 @@
                     </tr>
                 </thead>
 
-                <tbody class="flex flex-col flex-nowrap overflow-auto xxl:h-3/5" style="height: 60vh">
+                <tbody class="flex flex-col flex-nowrap overflow-auto h-vh60 xl:h-vh65 xxl:h-vh70">
                     <!--All listings-->
                     <tr class="">
                         @foreach($trades as $trade)
-                            <td class="flex flex-row py-8 justify-between items-center text-sm sm:text-xs xxl:text-2xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
+                            <td class="flex flex-row py-8 xxl:py-12 justify-between items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["units_per_hour"] }}/h</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["duration"] }}</p>
@@ -152,7 +152,7 @@
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">€{{ $trade["price_per_unit"] }}</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["mix_co2"] }}%</p>
                                 <button class="w-40 md:w-20 sm:w-10 text-left xxl:w-64">(click to open)</button>
-                                <p class="w-40 md:w-20 text-xs xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
+                                <p class="w-40 md:w-20 text-xs xl:text-sm xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
                             </td>
                         @endforeach
                     </tr>
@@ -162,15 +162,15 @@
                 <!--Pagination-->
                 <div class="flex self-end w-full xl:h-24 xxl:h-full flex flex-row pt-5">
                     <ul class="w-full grid grid-cols-3 grid-rows-1">
-                        <div class="col-start-2 flex justify-center items-center xxl:text-3xl">
+                        <div class="col-start-2 flex justify-center items-center xxl:text-3xl gap-10">
                             <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                                <button class="" wire:click="applyPagination('page_previous', {{ $page-1 }})" >
+                                <button class="font-normal hover:font-bold" wire:click="applyPagination('page_previous', {{ $page-1 }})" >
                                     Previous
                                 </button>
                             </li>
 
                             <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                                <button class="" wire:click="applyPagination('page_next', {{ $page+1 }})">
+                                <button class="font-normal hover:font-bold" wire:click="applyPagination('page_next', {{ $page+1 }})">
                                     Next
                                 </button>
                             </li>
