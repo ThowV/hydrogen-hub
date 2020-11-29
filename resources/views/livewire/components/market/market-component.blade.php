@@ -128,14 +128,14 @@
                 <thead class="w-full sticky top-0 bg-white">  
                     <!--Sorting-->
                     <tr class="border-b-2 flex">
-                        <th class="w-full flex flex-row pt-8 pb-2 justify-between flex-nowrap">
+                        <th class="w-full pt-8 pb-2 justify-between flex flex-wrap">
                             @foreach ($sort as $key => $value)
                                 <button class="font-medium text-top text-xs xxl:text-xl text-left w-40 md:w-20 sm:w-10 xxl:w-64" wire:click="changeSort('{{$key}}')">
                                     {{ $value[0] }}
                                     {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
                                 </button>
                             @endforeach
-                            <div class="font-medium text-left items text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64">Expire</div>
+                            <div class="font-medium text-left text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64">Expire</div>
                         </th>
                     </tr>
                 </thead>
@@ -147,8 +147,8 @@
                             <td class="flex flex-row py-8 xxl:py-12 justify-between items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
                                 
                                 <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
-                                    <svg class="fill-current text-gray-400" height="30" width="50">
-                                        <circle cx="10" cy="15" r="6" />
+                                    <svg class="fill-current text-gray-400" height="24" width="50">
+                                        <circle cx="10" cy="12" r="6" />
                                     </svg> 
                                     <p class="xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
                                 </div>
@@ -160,7 +160,7 @@
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["mix_co2"] }}%</p>
 
                                 <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
-                                    <button class="w-2/3 bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">Open</button>
+                                    <button class="w-2/3 sm:w-full md:w-full bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">Open</button>
                                 </div>
 
                                 <p class="w-40 md:w-20 text-xs xl:text-sm xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
@@ -171,7 +171,7 @@
             </table>
 
                 <!--Pagination-->
-                <div class="flex self-end w-full xl:h-20 xxl:h-32 flex flex-row pt-5">
+                <div class="flex self-end w-full xl:h-16 xxl:h-32 flex flex-row pt-5">
                     <ul class="w-full grid grid-cols-3 grid-rows-1">
                         <div class="col-start-2 flex justify-center items-center xxl:text-3xl gap-10">
                             <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
@@ -212,14 +212,13 @@
                 </div>
         </div>
     </div>   
-</div>
 
+    <!-- Rangeslider -->
     <script>
         function initUnitsPerHourSlider() {
             $('#units_per_hour').ionRangeSlider({
                 skin: 'round',
                 type: 'double',
-                grid: true,
                 min: {{ $filter["units_per_hour"][0] }},
                 max: {{ $filter["units_per_hour"][1] }},
                 from: {{ $filter["units_per_hour"][0] }},
@@ -237,7 +236,6 @@
             $('#duration').ionRangeSlider({
                 skin: 'round',
                 type: 'double',
-                grid: true,
                 min: {{ $filter["duration"][0] }},
                 max: {{ $filter["duration"][1] }},
                 from: {{ $filter["duration"][0] }},
@@ -255,7 +253,6 @@
             $('#total_volume').ionRangeSlider({
                 skin: 'round',
                 type: 'double',
-                grid: true,
                 min: {{ $filter["total_volume"][0] }},
                 max: {{ $filter["total_volume"][1] }},
                 from: {{ $filter["total_volume"][0] }},
@@ -273,7 +270,6 @@
             $('#price_per_unit').ionRangeSlider({
                 skin: 'round',
                 type: 'double',
-                grid: true,
                 min: {{ $filter["price_per_unit"][0] }},
                 max: {{ $filter["price_per_unit"][1] }},
                 from: {{ $filter["price_per_unit"][0] }},
@@ -291,7 +287,6 @@
             $('#mix_co2').ionRangeSlider({
                 skin: 'round',
                 type: 'double',
-                grid: true,
                 min: {{ $filter["mix_co2"][0] }},
                 max: {{ $filter["mix_co2"][1] }},
                 from: {{ $filter["mix_co2"][0] }},
