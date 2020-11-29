@@ -320,6 +320,7 @@ module.exports = {
       vh60: '60vh',
       vh65: '65vh',
       vh70: '70vh',
+      vh75: '75vh',
       vh80: '80vh',
       vh90: '90vh',
     }),

@@ -124,13 +124,13 @@
             
 
             <!-- Table -->
-            <table class="relative w-full overflow-scroll"> 
-                <thead>  
+            <table class="relative w-full flex flex-col flex-nowrap overflow-auto h-vh65 xl:h-vh70 xxl:h-vh70"> 
+                <thead class="w-full sticky top-0 bg-white">  
                     <!--Sorting-->
-                    <tr class="w-full border-b-2">
-                        <th class="flex flex-row pt-8 pb-2 justify-between flex-nowrap">
+                    <tr class="border-b-2 flex">
+                        <th class="w-full flex flex-row pt-8 pb-2 justify-between flex-nowrap">
                             @foreach ($sort as $key => $value)
-                                <button class="font-medium text-top text-xs xxl:text-xl w-40 text-left md:w-20 sm:w-10" wire:click="changeSort('{{$key}}')">
+                                <button class="font-medium text-top text-xs xxl:text-xl text-left w-40 md:w-20 sm:w-10 xxl:w-64" wire:click="changeSort('{{$key}}')">
                                     {{ $value[0] }}
                                     {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
                                 </button>
@@ -140,18 +140,29 @@
                     </tr>
                 </thead>
 
-                <tbody class="flex flex-col flex-nowrap overflow-auto h-vh60 xl:h-vh65 xxl:h-vh70">
+                <tbody class="flex flex-col flex-nowrap">
                     <!--All listings-->
-                    <tr class="">
+                    <tr class="w-full">
                         @foreach($trades as $trade)
                             <td class="flex flex-row py-8 xxl:py-12 justify-between items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
-                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
+                                
+                                <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
+                                    <svg class="fill-current text-gray-400" height="30" width="50">
+                                        <circle cx="10" cy="15" r="6" />
+                                    </svg> 
+                                    <p class="xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
+                                </div>
+                           
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["units_per_hour"] }}/h</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["duration"] }}</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">Total volume units</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">€{{ $trade["price_per_unit"] }}</p>
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["mix_co2"] }}%</p>
-                                <button class="w-40 md:w-20 sm:w-10 text-left xxl:w-64">(click to open)</button>
+
+                                <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
+                                    <button class="w-2/3 bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">Open</button>
+                                </div>
+
                                 <p class="w-40 md:w-20 text-xs xl:text-sm xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
                             </td>
                         @endforeach
@@ -160,7 +171,7 @@
             </table>
 
                 <!--Pagination-->
-                <div class="flex self-end w-full xl:h-24 xxl:h-full flex flex-row pt-5">
+                <div class="flex self-end w-full xl:h-20 xxl:h-32 flex flex-row pt-5">
                     <ul class="w-full grid grid-cols-3 grid-rows-1">
                         <div class="col-start-2 flex justify-center items-center xxl:text-3xl gap-10">
                             <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
