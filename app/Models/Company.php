@@ -96,8 +96,9 @@ class Company extends Model
     /**
      * Get the activities based on the specific action performed
      *
+     * @param $array
      * @param $action
-     * @return array
+     * @return void
      */
     public function getAllSpecificActivities(&$array, $action)
     {
