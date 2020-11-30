@@ -4,7 +4,6 @@
     @endif
 
     <div class="w-full h-24 xxl:h-32 grid grid-rows-1 grid-cols-2">
-
         <h2 class="grid items-center text-xl xxl:text-3xl font-bold">Platform companies</h2>
 
         <div class="grid justify-items-end items-start pt-5">
@@ -13,7 +12,6 @@
                 type="text" wire:model="searchTerm"
                 placeholder="search">
         </div>
-
     </div>
 
 

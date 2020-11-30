@@ -58,7 +58,12 @@ class User extends Authenticatable
 
     public function trades()
     {
-        return $this->hasMany(Trade::class);
+        return $this->hasMany(Trade::class, 'responder_id');
+    }
+
+    public function offersAndRequests()
+    {
+        return $this->hasMany(Trade::class, 'owner_id');
     }
 
     public function getFullNameAttribute()
