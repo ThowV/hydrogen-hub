@@ -49,6 +49,10 @@ class DatabaseSeeder extends Seeder
             ["name" => "request.deny", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "companies.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "companies.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "users.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "users.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "users.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "users.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
 
             ["name" => "listing.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "listing.buy", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
