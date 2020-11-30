@@ -12,18 +12,22 @@ class FinancialsComponent extends Component
 
     public function saveEdits()
     {
-        $this->company->usable_fund = $this->usableFund;
-        $this->company->save();
+        if (auth()->user()->can('company.portfolio.write')) {
+            $this->company->usable_fund = $this->usableFund;
+            $this->company->save();
+        }
 
         $this->toggleEditState();
     }
 
     public function toggleEditState()
     {
-        $this->editState = !$this->editState;
+        if (auth()->user()->can('company.portfolio.write')) {
+            $this->editState = !$this->editState;
 
-        if ($this->editState) {
-            $this->usableFund = $this->company['usable_fund'];
+            if ($this->editState) {
+                $this->usableFund = $this->company['usable_fund'];
+            }
         }
     }
 

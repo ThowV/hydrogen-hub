@@ -47,6 +47,10 @@
                         <p><b>Expires at:</b>           {{ $trade["expires_at"] }}</p>
                     </div>
 
+                    @if ($trade["responder"])
+                        <a wire:click="downloadPdf">Download pdf (click to download)</a>
+                    @endif
+
                     <!--Footer-->
                     <div class="flex justify-end pt-2">
                         <button wire:click="toggleModal" class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
