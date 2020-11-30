@@ -20,16 +20,20 @@
 
             <p>Activity</p>
             <ul>
-                @foreach($companyInModal->getActivities(true) as $key => $activity)
+                @foreach($companyInModal->getAllActivities(true) as $key => $activity)
                     <li class="@if($key % 2 == 0) bg-gray-300 @endif">
                         <span class="font-bold">{{ucfirst($activity[0])}}</span> <span
                             class="font-bold">{{$activity[1]}}</span>/h for <span
                             class="font-bold">{{$activity[2]}}</span> of <span class="font-bold">{{$activity[3]}}</span>
                         hydrogen at
                         the price of € <span class="font-bold">{{$activity[4] / 100}}</span>/unit
+                        <span class="font-bold">{{ \Carbon\Carbon::parse( $activity[5])->diffForHumans()}}</span>
                     </li>
                 @endforeach
             </ul>
+
+            <p class="text-2xl">Stats</p>
+
         </div>
     </div>
 </div>

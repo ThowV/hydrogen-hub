@@ -80,33 +80,38 @@ class Company extends Model
     }
 
     /**
-     * Gets the activities for a company, either as an activity string, or an array
+     * Gets the activities for a company as an array
      *
-     * @param  bool  $asArray
      * @return array
      */
-    public function getActivities($asArray = true)
+    public function getAllActivities()
     {
-        $activities = [];
-        foreach ($this->boughtTrades as $trade) {
-            if ($trade instanceof Trade) {
-                if($asArray){
-                    $activities[] = ["bought",$trade->units_per_hour,$trade->end,$trade->hydrogen_type,($trade->price_per_unit / 100)];
-                }else{
-                    $activities[] = "bought ".$trade->units_per_hour."/h for ".$trade->end." of ".$trade->hydrogen_type." hydrogen at the price of €".($trade->price_per_unit / 100).'/unit';
-                }
-            }
-        }
-        foreach ($this->soldTrades as $trade) {
-            if ($trade instanceof Trade) {
-                if($asArray){
-                    $activities[] = ["sold",$trade->units_per_hour,$trade->end,$trade->hydrogen_type,($trade->price_per_unit / 100)];
-                }else{
-                    $activities[] = "sold ".$trade->units_per_hour."/h for ".$trade->end." of ".$trade->hydrogen_type." hydrogen at the price of €".($trade->price_per_unit / 100).'/unit';
-                }
-            }
-        }
+        $activities = collect();
+        $this->getAllSpecificActivities($activities, 'bought');
+        $this->getAllSpecificActivities($activities, 'sold');
 
-        return $activities;
+        return array_values($activities->sortByDesc(5)->toArray());
+    }
+
+    /**
+     * Get the activities based on the specific action performed
+     *
+     * @param $action
+     * @return array
+     */
+    public function getAllSpecificActivities(&$array, $action)
+    {
+        $property = $action."Trades";
+        foreach ($this->$property as $trade) {
+            if (!$trade instanceof Trade) continue;
+            $array[] = [
+                $action,
+                $trade->units_per_hour,
+                $trade->end,
+                $trade->hydrogen_type,
+                ($trade->price_per_unit / 100),
+                $trade->deal_made_at
+            ];
+        }
     }
 }
