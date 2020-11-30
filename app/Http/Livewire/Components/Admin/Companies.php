@@ -25,7 +25,7 @@ class Companies extends Component
     public function toggleModal(Company $company = null)
     {
         $this->modalOpen = !$this->modalOpen;
-        if (!($company instanceof Company)) {
+        if (!$company->exists) {
             return;
         }
 
