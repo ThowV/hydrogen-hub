@@ -29,10 +29,18 @@ module.exports = {
       hovBlue: '#0099FF',
       butOrange: '#FF7600',
 
-      typeGreen:'#4CD35D',
-      typeBlue: '#0099FF',
-      typeGrey: '#909090',
-      typeMix: '#CEB076',
+      typeGreen: {
+        500: '#4CD35D'
+      },
+      typeBlue: {
+        500: '#0099FF'
+      },
+      typeGrey: {
+        500: '#909090'
+      },
+      typeMix: {
+        500:'#CEB076'
+      },
 
       gray: {
         100: '#f7fafc',

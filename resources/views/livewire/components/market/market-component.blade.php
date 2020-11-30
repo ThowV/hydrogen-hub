@@ -38,63 +38,63 @@
 
                     <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 xxl:text-2xl">
                         <div class="">
-                            <input type="checkbox" class="form-checkbox text-typeGreen cursor-pointer" id="green" value="green" wire:model="filter.hydrogen_type">
+                            <input type="checkbox" class="form-checkbox text-typeGreen-500 cursor-pointer" id="green" value="green" wire:model="filter.hydrogen_type">
                             <label for="green">green</label>
                         </div>
 
                         <div class="">
-                            <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="blue" value="blue" wire:model="filter.hydrogen_type">
+                            <input type="checkbox" class="form-checkbox text-typeBlue-500 cursor-pointer" id="blue" value="blue" wire:model="filter.hydrogen_type">
                             <label for="blue">blue</label>
                         </div>
 
                         <div class="">
-                            <input type="checkbox" class="form-checkbox text-typeGrey cursor-pointer" id="grey" value="grey" wire:model="filter.hydrogen_type">
+                            <input type="checkbox" class="form-checkbox text-typeGrey-500 cursor-pointer" id="grey" value="grey" wire:model="filter.hydrogen_type">
                             <label for="grey">grey</label>
                         </div>
 
                         <div class="">
-                            <input type="checkbox" class="form-checkbox text-typeMix cursor-pointer" id="mix" value="mix" wire:model="filter.hydrogen_type">
+                            <input type="checkbox" class="form-checkbox text-typeMix-500 cursor-pointer" id="mix" value="mix" wire:model="filter.hydrogen_type">
                             <label for="mix">mix</label>
                         </div>
                     </fieldset>
                 </div>
 
-                <div class="w-40 xxl:w-64">
+                <div class="w-40 xxl:w-64 grid">
                     <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per hour</label>
 
-                    <div class="m-b-30" wire:ignore x-data x-init="initUnitsPerHourSlider">
+                    <div class="grid items-end" wire:ignore x-data x-init="initUnitsPerHourSlider">
                         <input type="text" id="units_per_hour" />
                     </div>
                 </div>
 
-                <div class="w-40 xxl:w-64">
+                <div class="w-40 xxl:w-64 grid">
                     <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration (hours)</label>
 
-                    <div class="m-b-30" wire:ignore x-data x-init="initDurationSlider">
+                    <div class="grid items-end" wire:ignore x-data x-init="initDurationSlider">
                         <input type="text" id="duration" />
                     </div>
                 </div>
 
-                <div class="w-40 xxl:w-64">
+                <div class="w-40 xxl:w-64 grid">
                     <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
 
-                    <div class="m-b-30" wire:ignore x-data x-init="initTotalVolumeSlider">
+                    <div class="grid items-end" wire:ignore x-data x-init="initTotalVolumeSlider">
                         <input type="text" id="total_volume" />
                     </div>
                 </div>
 
-                <div class="w-40 xxl:w-64">
+                <div class="w-40 xxl:w-64 grid">
                     <label for="price_per_unit"class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per unit</label>
 
-                    <div class="m-b-30" wire:ignore x-data x-init="initPricePerUnitSlider">
+                    <div class="grid items-end" wire:ignore x-data x-init="initPricePerUnitSlider">
                         <input type="text" id="price_per_unit" />
                     </div>
                 </div>
 
-                <div class="w-40 xxl:w-64">
+                <div class="w-40 xxl:w-64 grid">
                     <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
 
-                    <div class="m-b-30" wire:ignore x-data x-init="initMixCO2Slider">
+                    <div class="grid items-end" wire:ignore x-data x-init="initMixCO2Slider">
                         <input type="text" id="mix_co2" />
                     </div>
                 </div>
@@ -106,7 +106,6 @@
                         <div class="">
                             <input type="checkbox" class="form-checkbox text-typeBlue" id="offer" value="offer" wire:model="filter.trade_type">
                             <label for="offer">offer</label>
-                        
                         </div>
                 
                         <div class="">
@@ -147,7 +146,7 @@
                             <td class="flex flex-row py-8 xxl:py-12 justify-between items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
                                 
                                 <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
-                                    <svg class="fill-current text-gray-400" height="24" width="50">
+                                    <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500" height="24" width="50">
                                         <circle cx="10" cy="12" r="6" />
                                     </svg> 
                                     <p class="xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
@@ -160,7 +159,7 @@
                                 <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["mix_co2"] }}%</p>
 
                                 <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
-                                    <button class="w-2/3 sm:w-full md:w-full bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">Open</button>
+                                    <button class="w-2/3 sm:w-full md:w-full bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs sm:border-0 xxl:text-2xl py-1 px-6 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">{{ ucfirst($trade["trade_type"]) }}</button>
                                 </div>
 
                                 <p class="w-40 md:w-20 text-xs xl:text-sm xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
