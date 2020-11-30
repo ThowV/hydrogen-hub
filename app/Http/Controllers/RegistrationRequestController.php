@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CreateCompanyAction;
+use App\Actions\CreateCompanyAction;
 use App\Events\PermissionDenied;
 use App\Mail\CompanyAccepted;
 use App\Mail\CompanyDenied;

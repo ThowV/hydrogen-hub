@@ -25,7 +25,7 @@ class TradeFactory extends Factory
         $trades = ['offer', 'request'];
 
         return [
-            'owner_id' => 1,
+            'owner_id' => rand(0,10),
             'trade_type' => $trades[array_rand($trades)],
             'hydrogen_type' => $enum[array_rand($enum)],
             'units_per_hour' => $this->faker->numberBetween(0, 1000),

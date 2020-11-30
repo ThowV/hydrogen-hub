@@ -1,4 +1,4 @@
-<div wire:poll.15000ms="mount">
+<div>
     @if($modalOpen)
         <x-admin.company-modal :companyInModal="$companyInModal"/>
     @endif
