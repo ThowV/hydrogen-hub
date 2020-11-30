@@ -1,31 +1,75 @@
-<div class="z-40">
+<div class="z-40 w-full text-gray-700">
     @if($isOpen)
-        <div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
-            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" wire:click="toggleModal"></div>
+        <div class="modal fixed top-0 h-full w-full grid grid-cols-8 grid-rows-6">
 
-            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
+
+            <div class="modal-container max-w-full min-h-full grid col-start-1 row-start-2 col-span-7 mx-10 row-span-4 bg-white rounded shadow-lg z-50 ">
                 <!-- Add margin if you want to see some of the overlay behind the modal-->
-                <div class="modal-content py-4 text-left px-6">
+                <div class="modal-content flex flex-col p-8 text-left w-full h-full">
                     <!--Title-->
-                    <div class="flex justify-between items-center pb-3">
-                        <p class="text-2xl font-bold">Listing</p>
-                        <div wire:click="toggleModal" class="modal-close cursor-pointer z-50">
-                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                    <div class="flex justify-between items-center pb-5">
+                        <p class="text-2xl font-bold">{{ $trade["trade_type"] === "offer" ? "Buy" : "Sell" }}</p>
+                        <div wire:click="toggleModal" class="modal-close cursor-pointer h-full z-50">
+                            <svg class="fill-current text-gray-600 hover:text-gray-900 transaction duration-300" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 18 18">
                                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
                             </svg>
                         </div>
                     </div>
 
+                    <div class="flex justify-center font-bold pb-12 text-xl">Overview</div>
+
                     <!--Body-->
-                    <div>
-                        <p><b>Trade type:</b>           {{ $trade["trade_type"] }}</p>
-                        <p><b>Hydrogen type:</b>        {{ $trade["hydrogen_type"] }}</p>
-                        <p><b>Units per hour:</b>       {{ $trade["units_per_hour"] }}</p>
-                        <p><b>Duration (hours):</b>     {{ $trade["duration"] }}</p>
-                        <p><b>Total volume:</b>         {{ $trade["total_volume"] }}</p>
-                        <p><b>Price per unit:</b>       {{ $trade["price_per_unit"] }}</p>
-                        <p><b>Mix CO2:</b>              {{ $trade["mix_co2"] }}%</p>
-                        <p><b>Expires at:</b>           {{ $trade["expires_at"] }}</p>
+                    <div class="grid grid-cols-6 grid-rows-4 gap-10">
+                        <div class="graph row-span-3 col-span-2">
+                            <img class="w-full h-full px-10 object-fit" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Hydrogen type:</p>
+                            <div class="flex flex-row">
+                                <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500" height="24" width="50">
+                                    <circle cx="10" cy="12" r="6" />
+                                </svg> 
+                            <p class="text-lg"><b> {{ $trade["hydrogen_type"] }} </b></p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Units per hour:</p>
+                            <p class="text-lg"><b> {{ $trade["units_per_hour"] }}/h </b></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Duration (hours):</p>
+                            <p class="text-lg"><b> {{ $trade["duration"] }}</b></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Mix CO2:</p>
+                            <p class="text-lg"><b> {{ $trade["mix_co2"] }}%</b></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Total volume:</p>
+                            <p class="text-lg"><b> {{ $trade["total_volume"] }} units</b></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Price per unit:</p>
+                            <p class="text-lg"><b> €{{ $trade["price_per_unit"] }}</b></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Trade type:</p>
+                            <p class="text-lg"><b> {{ $trade["trade_type"] }}</b></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3">
+                            <p class="text-sm">Expires at:</p>
+                            <p class="text-base"><b> {{ $trade["expires_at"] }}</b></p>
+                        </div>
+
                         <t/><p>
                             <b>Expires in:</b>
                             {{ $trade["expires_in"]["days"] }} days
@@ -35,16 +79,18 @@
                     </div>
 
                     <!--Footer-->
-                    <div class="flex justify-end pt-2">
-                        @if(!$trade["responder_id"] && $trade["owner_id"] != auth()->id())
-                            <button
-                                class="px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2"
-                                wire:click="makeTrade({{ $trade["id"] }})"
-                            >
-                                {{ $trade["trade_type"] === "offer" ? "Buy" : "Sell" }}
-                            </button>
-                        @endif
-                        <button wire:click="toggleModal" class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+                    <div class="h-full w-full">
+                        <div class="m-auto w-full h-full flex justify-center items-center gap-10">
+                            @if(!$trade["responder_id"] && $trade["owner_id"] != auth()->id())
+                                <button
+                                    class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                    wire:click="makeTrade({{ $trade["id"] }})"
+                                >
+                                    {{ $trade["trade_type"] === "offer" ? "Buy" : "Sell" }}
+                                </button>
+                            @endif
+                            <button wire:click="toggleModal" class="modal-close bg-white border-2 border-hovBlue hover:bg-gray-400 hover:border-gray-400 text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

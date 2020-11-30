@@ -1,4 +1,4 @@
-<div class="flex w-full h-full flex-col">
+<div class="flex w-full h-full flex-col relative">
     <!--Create listing modal-->
     @livewire('components.market.create-listing')
 
