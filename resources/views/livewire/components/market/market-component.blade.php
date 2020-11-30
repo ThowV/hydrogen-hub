@@ -36,7 +36,7 @@
                 <div class="w-40 xxl:w-64">
                     <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Hydrogen type</label>
 
-                    <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 xxl:text-2xl">
+                    <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 text-sm xl:text-base xxl:text-2xl">
                         <div class="">
                             <input type="checkbox" class="form-checkbox text-typeGreen-500 cursor-pointer" id="green" value="green" wire:model="filter.hydrogen_type">
                             <label for="green">green</label>
@@ -102,7 +102,7 @@
                 <div class="w-40 pl-10 xxl:w-64">
                     <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Trade type</label>
 
-                    <fieldset class="flex flex-col gap-2 pt-2 sm:flex-row xxl:text-2xl">
+                    <fieldset class="flex flex-col gap-2 pt-2 sm:flex-row text-sm xl:text-base  xxl:text-2xl">
                         <div class="">
                             <input type="checkbox" class="form-checkbox text-typeBlue" id="offer" value="offer" wire:model="filter.trade_type">
                             <label for="offer">offer</label>
