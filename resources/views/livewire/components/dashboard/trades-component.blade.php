@@ -18,19 +18,19 @@
         @foreach($trades as $trade)
             <tr>
                 <td wire:poll.1s class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                    {{ $trade['time_since_deal'] }}
+                    {{ $trade->time_since_deal }}
                 </td>
                 <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                    {{ $trade['hydrogen_type'] }}
+                    {{ $trade->hydrogen_type }}
                 </td>
                 <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                    {{ number_format($trade['total_volume'], 0, '.', ' ') }} units
+                    {{ number_format($trade->total_volume, 0, '.', ' ') }} units
                 </td>
                 <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                    € {{ number_format($trade['price_per_unit'], 0, '.', ' ') }}
+                    € {{ number_format($trade->price_per_unit, 0, '.', ' ') }}
                 </td>
                 <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                    {{ $trade['end'] }}
+                    {{ $trade->end }}
                 </td>
             </tr>
         @endforeach
