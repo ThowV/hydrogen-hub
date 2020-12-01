@@ -16,15 +16,7 @@ class ShowListing extends Component
 
     public function openListing(Trade $trade)
     {
-        // Turn trade object into an array
-        $this->trade = $trade->toArray();
-        $this->trade['total_volume'] = $trade->total_volume;
-
-        // Modify expires at data to create expires in value
-        $expiresIn = (new Carbon($this->trade['expires_at']))->diff(now());
-        $expiresIn = array('days'=>$expiresIn->d, 'hours'=>$expiresIn->h, 'minutes'=>$expiresIn->i);
-        $this->trade['expires_in'] = $expiresIn;
-
+        $this->trade = $trade;
         $this->toggleModal();
     }
 

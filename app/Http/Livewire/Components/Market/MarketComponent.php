@@ -8,10 +8,7 @@ use Livewire\Component;
 
 class MarketComponent extends Component
 {
-    public $isRespondModalOpen = false;
-
     public $trades;
-    public $trade;
 
     public $paginator = [];
     public $page = 1;
@@ -36,44 +33,19 @@ class MarketComponent extends Component
         'total_volume'      => ['Total volume', ''],
         'price_per_unit'    => ['Price per unit', ''],
         'mix_co2'           => ['Mix % CO2', ''],
-        'trade_type'        => ['Trade type', ''],
+        'trade_type'        => ['Type', ''],
     ];
 
-    protected $listeners = ['listingCreated' => 'listingCreated', 'tradeMade' => 'tradeMade'];
+    protected $listeners = ['listingCreated' => 'updateTrades', 'tradeMade' => 'updateTrades'];
 
-    public function toggleCreateModal()
+    public function openCreateModal()
     {
         $this->emit("openCreateModal");
     }
 
     public function openRespondModal(Trade $trade)
     {
-        $this->trade = $trade;
-        $this->isRespondModalOpen = true;
         $this->emit('openRespondModal', $trade);
-    }
-
-    public function closeRespondModal()
-    {
-        $this->isRespondModalOpen = false;
-    }
-
-    public function listingCreated()
-    {
-        // Close create modal
-        $this->toggleCreateModal();
-
-        // Update trades since we added a new one
-        $this->updateTrades();
-    }
-
-    public function tradeMade()
-    {
-        // Close respond modal
-        $this->closeRespondModal();
-
-        // Update trades since we removed one
-        $this->updateTrades();
     }
 
     public function updateTrades($setup = false)
