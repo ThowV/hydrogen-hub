@@ -1,16 +1,12 @@
 <div wire:poll.15000ms="mount">
     <div class="w-full h-24 xxl:h-32 grid grid-rows-1 grid-cols-2">
-
         <h2 class="grid items-center text-xl xxl:text-3xl font-bold">Platform companies</h2>
 
         <div class="grid justify-items-end items-start pt-5">
             <input class="truncate rounded-xl bg-gray-200 px-8 py-1 text-xs xxl:text-xl w-1/3 md:w-2/3 sm:w-2/3 text-center transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" type="text" wire:model="searchTerm"
                 placeholder="search">
         </div>
-
     </div>
-
-
 
     <table class="w-full">
         <thead>

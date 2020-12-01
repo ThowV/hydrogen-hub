@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Livewire\Components\Company;
+
+use App\Models\Trade;
+use App\Models\User;
+use Carbon\Carbon;
+use Livewire\Component;
+
+class TradesComponent extends Component
+{
+    public $trades;
+
+    public function getTrades()
+    {
+        $this->trades = auth()->user()->company->trades;
+    }
+
+    public function getDate($dealMadeAt)
+    {
+        return Carbon::parse($dealMadeAt)->toDateString();
+    }
+
+    public function openTrade(Trade $trade)
+    {
+        $this->emit('openTradeAndListingInfoModal', $trade);
+    }
+
+    public function mount()
+    {
+        $this->getTrades();
+    }
+
+    public function render()
+    {
+        return view('livewire.components.company.trades-component');
+    }
+}
