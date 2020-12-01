@@ -12,6 +12,6 @@ npm-debug.log
 yarn-error.log
 .idea/
 
-.phpstorm.meta.php
-
 _ide_helper_models.php
+
+.phpstorm.meta.php
