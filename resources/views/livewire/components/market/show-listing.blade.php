@@ -4,6 +4,7 @@
     <p><b>Units per hour:</b>       {{ $trade["units_per_hour"] }}</p>
     <p><b>Duration (hours):</b>     {{ $trade["duration"] }}</p>
     <p><b>Total volume:</b>         {{ $trade["total_volume"] }}</p>
+    <p><b>Total price:</b>         {{ $trade["total_price"] }}</p>
     <p><b>Price per unit:</b>       {{ $trade["price_per_unit"] }}</p>
     <p><b>Mix CO2:</b>              {{ $trade["mix_co2"] }}%</p>
     <p><b>Expires at:</b>           {{ $trade["expires_at"] }}</p>

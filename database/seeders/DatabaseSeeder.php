@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         $u_2 = User::create(['email'=>"t.l.visscher@outlook.com", "password"=> Hash::make('thomas123'), "company_id" => rand(1,10), "first_name"=>"Thomas","last_name"=>"Visscher"]);
         $u_3 = User::create(['email' => "martijnjongman9@gmail.com", "password" => Hash::make('martijn123'), "company_id" => rand(1,10), "first_name" => "Martijn", "last_name" => "Jongman"]);
 
-        \App\Models\User::factory(25)->create();
+        User::factory(25)->create();
         Company::factory(10)->create();
         CompanyDayLog::factory(50)->create();
         Trade::factory(50)->create();
@@ -60,7 +60,8 @@ class DatabaseSeeder extends Seeder
             ["name" => "listings.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "listing.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "listing.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
-            ["name" => "comapny.portfolio.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.portfolio.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.portfolio.write", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "company.users.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "company.users.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "company.users.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
