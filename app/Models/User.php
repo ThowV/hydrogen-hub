@@ -56,12 +56,22 @@ class User extends Authenticatable
         return $this->hasOne(Company::class, 'owner_id');
     }
 
-    public function trades()
+    public function tradesAsResponder()
     {
         return $this->hasMany(Trade::class, 'responder_id');
     }
 
-    public function offersAndRequests()
+    public function tradesAsOwner()
+    {
+        return $this->hasMany(Trade::class, 'owner_id')->whereNotNull('responder_id');
+    }
+
+    public function getTradesAttribute()
+    {
+        return $this->tradesAsResponder->merge($this->tradesAsOwner);
+    }
+
+    public function listings()
     {
         return $this->hasMany(Trade::class, 'owner_id');
     }

@@ -24,7 +24,7 @@
 
             @if (!$editState)
                 <h2 class="grid items-center text-xl xxl:text-3xl">
-                    € {{ number_format($this->company['usable_fund'], 0, '.', ' ') }}
+                    € {{ number_format($this->company->usable_fund, 0, '.', ' ') }}
                 </h2>
             @else
                 <label for="usableFundInput">€</label>
@@ -35,14 +35,14 @@
         <div>
             <p class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Bought</p>
             <h2 class="grid items-center text-xl xxl:text-3xl">
-                € {{ number_format($this->company['bought'], 0, '.', ' ') }}
+                € {{ number_format($this->company->bought, 0, '.', ' ') }}
             </h2>
         </div>
 
         <div>
             <p class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Sold</p>
             <h2 class="grid items-center text-xl xxl:text-3xl">
-                € {{ number_format($company['sold'], 0, '.', ' ') }}
+                € {{ number_format($company->sold, 0, '.', ' ') }}
             </h2>
         </div>
     </div>

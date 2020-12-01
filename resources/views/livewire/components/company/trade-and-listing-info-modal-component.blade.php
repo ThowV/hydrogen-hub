@@ -8,7 +8,7 @@
                 <div class="modal-content py-4 text-left px-6">
                     <!--Title-->
                     <div class="flex justify-between items-center pb-3">
-                        @if ($trade["responder"])
+                        @if ($trade->responder)
                             <p class="text-2xl font-bold">Trade</p>
                         @else
                             <p class="text-2xl font-bold">Listing</p>
@@ -22,32 +22,42 @@
 
                     <!--Body-->
                     <div>
-                        @if ($trade["responder"])
-                            <p><b>Deal made at:</b>         {{ $trade["deal_made_at"] }}</p>
-                        @endif
-                        <p><b>Listing created at:</b>   {{ $trade["created_at"] }}</p>
-
-                        <p><b>Hydrogen {{ $trade["trade_type"] == 'offer' ? 'offered' : 'requested' }} by:</b>
-                            {{ $trade["owner"]['full_name'] }} - {{ $trade["owner"]['company']['name'] }}
-                        </p>
-                        @if ($trade["responder"])
-                            <p><b>Hydrogen {{ $trade["trade_type"] == 'offer' ? 'bought' : 'sold' }} by:</b>
-                                {{ $trade["responder"]['full_name'] }} - {{ $trade["responder"]['company']['name'] }}
+                        @if ($trade->responder)
+                            <p>
+                                <b>Deal made at:</b>
+                                {{ $trade->deal_made_at }}
                             </p>
                         @endif
 
-                        <p><b>Trade type:</b>           {{ $trade["trade_type"] }}</p>
-                        <p><b>Hydrogen type:</b>        {{ $trade["hydrogen_type"] }}</p>
-                        <p><b>Units per hour:</b>       {{ number_format($trade['units_per_hour'], 0, '.', ' ') }}</p>
-                        <p><b>Price per unit:</b> €     {{ number_format($trade['price_per_unit'], 0, '.', ' ') }}</p>
-                        <p><b>Duration:</b>             {{ $trade["end"] }}</p>
-                        <p><b>Total volume:</b>         {{ number_format($trade['total_volume'], 0, '.', ' ') }} units</p>
-                        <p><b>Total price:</b> €        {{ number_format($trade['total_price'], 0, '.', ' ') }}</p>
-                        <p><b>Mix CO2:</b>              {{ $trade["mix_co2"] }}%</p>
-                        <p><b>Expires at:</b>           {{ $trade["expires_at"] }}</p>
+                        <p>
+                            <b>Listing created at:</b>
+                            {{ $trade->created_at }}
+                        </p>
+
+                        <p>
+                            <b>Hydrogen {{ $trade->trade_type == 'offer' ? 'offered' : 'requested' }} by:</b>
+                            {{ $trade->owner->full_name }} - {{ $trade->owner->company->name }}
+                        </p>
+
+                        @if ($trade->responder)
+                            <p>
+                                <b>Hydrogen {{ $trade->trade_type == 'offer' ? 'bought' : 'sold' }} by:</b>
+                                {{ $trade->responder->full_name }} - {{ $trade->responder->company->name }}
+                            </p>
+                        @endif
+
+                        <p><b>Trade type:</b>           {{ $trade->trade_type }}</p>
+                        <p><b>Hydrogen type:</b>        {{ $trade->hydrogen_type }}</p>
+                        <p><b>Units per hour:</b>       {{ number_format($trade->units_per_hour, 0, '.', ' ') }}</p>
+                        <p><b>Price per unit:</b> €     {{ number_format($trade->price_per_unit, 0, '.', ' ') }}</p>
+                        <p><b>Duration:</b>             {{ $trade->end }}</p>
+                        <p><b>Total volume:</b>         {{ number_format($trade->total_volume, 0, '.', ' ') }} units</p>
+                        <p><b>Total price:</b> €        {{ number_format($trade->total_price, 0, '.', ' ') }}</p>
+                        <p><b>Mix CO2:</b>              {{ $trade->mix_co2 }}%</p>
+                        <p><b>Expires at:</b>           {{ $trade->expires_at }}</p>
                     </div>
 
-                    @if ($trade["responder"])
+                    @if ($trade->responder)
                         <a wire:click="downloadPdf">Download pdf (click to download)</a>
                     @endif
 

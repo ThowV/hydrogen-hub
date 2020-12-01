@@ -22,22 +22,22 @@
             @foreach($trades as $trade)
                 <tr>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                        {{ $this->getDate($trade['deal_made_at']) }}
+                        {{ $this->getDate($trade->deal_made_at) }}
                     </td>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                        {{ $trade['hydrogen_type'] }}
+                        {{ $trade->hydrogen_type }}
                     </td>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                        {{ $trade['trade_type'] }}
+                        {{ $trade->trade_type }}
                     </td>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                        {{ number_format($trade['total_volume'], 0, '.', ' ') }}
+                        {{ number_format($trade->total_volume, 0, '.', ' ') }}
                     </td>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                        {{ number_format($trade['total_price'], 0, '.', ' ') }}
+                        {{ number_format($trade->total_price, 0, '.', ' ') }}
                     </td>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
-                        {{ $trade['end'] }}
+                        {{ $trade->end }}
                     </td>
                     <td class="py-3 xxl:py-5 sm:text-xxs text-xs xl:text-sm xxl:text-2xl">
                         <button wire:click="openTrade({{ $trade }})">Info</button>

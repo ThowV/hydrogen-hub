@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Company;
 
+use App\Events\PermissionDenied;
 use Livewire\Component;
 
 class FinancialsComponent extends Component
@@ -12,22 +13,28 @@ class FinancialsComponent extends Component
 
     public function saveEdits()
     {
-        if (auth()->user()->can('company.portfolio.write')) {
-            $this->company->usable_fund = $this->usableFund;
-            $this->company->save();
+        $this->toggleEditState();
+
+        if (!auth()->user()->can('company.portfolio.write')) {
+            \event(new PermissionDenied());
+            return back();
         }
 
-        $this->toggleEditState();
+        $this->company->usable_fund = $this->usableFund;
+        $this->company->save();
     }
 
     public function toggleEditState()
     {
-        if (auth()->user()->can('company.portfolio.write')) {
-            $this->editState = !$this->editState;
+        if (!auth()->user()->can('company.portfolio.write')) {
+            \event(new PermissionDenied());
+            return back();
+        }
 
-            if ($this->editState) {
-                $this->usableFund = $this->company['usable_fund'];
-            }
+        $this->editState = !$this->editState;
+
+        if ($this->editState) {
+            $this->usableFund = $this->company['usable_fund'];
         }
     }
 
