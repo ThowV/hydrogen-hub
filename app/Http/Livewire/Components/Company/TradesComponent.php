@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Models\Trade;
-use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -25,12 +24,6 @@ class TradesComponent extends Component
     {
         $this->emit('openTradeAndListingInfoModal', $trade);
     }
-
-    /*public function getUserName($id)
-    {
-        $user = User::where('id', $id)->first();
-        return $user->first_name . ' ' . $user->last_name;
-    }*/
 
     public function mount()
     {
