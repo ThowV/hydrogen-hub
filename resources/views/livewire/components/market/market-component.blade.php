@@ -19,7 +19,7 @@
     <!--Content-->
     <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
 
-        <div class="rounded-lg px-10 bg-white text-gray-700 flex-grow min-h-full overflow-auto">
+        <div class="rounded-lg px-10 bg-white text-gray-700 h-full w-full">
 
             <div class="w-full h-24 xxl:h-32 grid grid-rows-1 grid-cols-2">
 
@@ -116,99 +116,124 @@
                 </div>
 
                 <div class="flex justify-center items-center md:w-full pt-5 ">
-                    <button class="bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out" type="submit">Apply</button>
+                    <button class="bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out" 
+                    type="submit">Apply</button>
                 </div>
             </form>
 
-            
+            <!-- table  -->
+            <div class="flex flex-col h-vh65 xl:h-vh70 xxl:h-vh75">
 
-            <!-- Table -->
-            <table class="relative w-full flex flex-col flex-nowrap overflow-auto h-vh65 xl:h-vh70 xxl:h-vh70"> 
-                <thead class="w-full sticky top-0 bg-white">  
-                    <!--Sorting-->
-                    <tr class="border-b-2 flex">
-                        <th class="w-full pt-8 pb-2 justify-between flex flex-wrap">
-                            @foreach ($sort as $key => $value)
-                                <button class="font-medium text-top text-xs xxl:text-xl text-left w-40 md:w-20 sm:w-10 xxl:w-64" wire:click="changeSort('{{$key}}')">
-                                    {{ $value[0] }}
-                                    {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
-                                </button>
-                            @endforeach
-                            <div class="font-medium text-left text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64">Expire</div>
-                        </th>
-                    </tr>
-                </thead>
+                <div class="flex-grow overflow-auto">
 
-                <tbody class="flex flex-col flex-nowrap">
-                    <!--All listings-->
-                    <tr class="w-full">
+                    <table class="relative w-full">   
+                        <!-- Table head -->
+                        <thead class="sticky top-0 w-full bg-white">
+                            <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 text-left">
+                                <!--Sorting-->
+                                @foreach ($sort as $key => $value)
+                                    <th class="w-full">
+                                        <button class="font-medium text-top text-xs xxl:text-xl" wire:click="changeSort('{{$key}}')">
+                                            {{ $value[0] }}
+                                            {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
+                                        </button>
+                                    </th>
+                                @endforeach
+                                <th class="font-medium text-left text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64 w-full">
+                                    Expire
+                                </th>
+                            </tr>
+                        </thead>
+                
+                        <!-- Table content -->
+                        <tbody class="divide-y">
                         @foreach($trades as $trade)
-                            <td class="flex flex-row py-8 xxl:py-12 justify-between items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-b-2 border-gray-200 font-medium" wire:click="openRespondModal({{ $trade["id"] }})">
-                                
-                                <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
-                                    <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500" height="24" width="50">
-                                        <circle cx="10" cy="12" r="6" />
-                                    </svg> 
-                                    <p class="xxl:w-64">{{ $trade["hydrogen_type"] }}</p>
-                                </div>
-                           
-                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["units_per_hour"] }}/h</p>
-                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["duration"] }}</p>
-                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">Total volume units</p>
-                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">€{{ $trade["price_per_unit"] }}</p>
-                                <p class="w-40 md:w-20 sm:w-10 xxl:w-64">{{ $trade["mix_co2"] }}%</p>
+                            <tr class="w-full flex flex-row py-8 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200 font-medium">
+                                    <td class="flex flex-row w-full">
+                                        <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500" height="24" width="50">
+                                            <circle cx="10" cy="12" r="6" />
+                                        </svg> 
+                                        <p class="">{{ $trade["hydrogen_type"] }}</p>
+                                    </td>
+        
+                                    <td class=" w-full">
+                                        {{ $trade["units_per_hour"] }}/h
+                                    </td>
 
-                                <div class="w-40 md:w-20 sm:w-10 xxl:w-64 flex items-center">
-                                    <button class="w-2/3 sm:w-full md:w-full bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs sm:border-0 xxl:text-2xl py-1 px-6 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">{{ ucfirst($trade["trade_type"]) }}</button>
-                                </div>
+                                    <td class="w-full">
+                                        {{ $trade["duration"] }}
+                                    </td>
 
-                                <p class="w-40 md:w-20 text-xs xl:text-sm xxl:text-xl sm:w-10 xxl:w-64">{{ $trade["expires_at"] }}</p>
-                            </td>
+                                    <td class="w-full">
+                                        Total volume units
+                                    </td>
+
+                                    <td class="w-full">
+                                        €{{ $trade["price_per_unit"] }}
+                                    </td>
+
+                                    <td class="w-full">
+                                        {{ $trade["mix_co2"] }}%
+                                    </td>
+
+                                    <td class="flex items-center w-full">
+                                        <button class="w-2/4 sm:w-full md:w-full bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-6 md:px-3 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out" 
+                                            wire:click="openRespondModal({{ $trade["id"] }})">
+                                            {{ ucfirst($trade["trade_type"]) }}
+                                        </button>
+                                    </td>
+
+                                    <td class="text-xs xl:text-sm xxl:text-xl w-full">
+                                        {{ $trade["expires_at"] }}
+                                    <td>    
+                            </tr>
                         @endforeach
-                    </tr>
-                </tbody>
-            </table>
-
-                <!--Pagination-->
-                <div class="flex self-end w-full xl:h-16 xxl:h-32 flex flex-row pt-5">
-                    <ul class="w-full grid grid-cols-3 grid-rows-1">
-                        <div class="col-start-2 flex justify-center items-center xxl:text-3xl gap-10">
-                            <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                                <button class="font-normal hover:font-bold" wire:click="applyPagination('page_previous', {{ $page-1 }})" >
-                                    Previous
-                                </button>
-                            </li>
-
-                            <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                                <button class="font-normal hover:font-bold" wire:click="applyPagination('page_next', {{ $page+1 }})">
-                                    Next
-                                </button>
-                            </li>
-                        </div>
-
-                        <div class="col-start-3 flex flex-row justify-end items-center gap-4">
-                            <li class="text-xs xxl:text-2xl">
-                                Jump to Page
-
-                                <select class="cursor-pointer" title="" wire:model="page" wire:change="updateTrades">
-                                    @for($i = 1; $i <= $paginator['last_page']; $i++)
-                                        <option value="{{ $i }}">{{ $i }}</option>
-                                    @endfor
-                                </select>
-                            </li>
-
-                            <li class="text-xs xxl:text-2xl">
-                                Items per Page
-
-                                <select class="cursor-pointer" title="" wire:model="itemsPerPage" wire:change="applyPagination('', {{ $page }})">
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                </select>
-                            </li>
-                        </div>
-                    </ul>
+                        <tbody>
+                    </table>
                 </div>
+            </div>
+      
+
+            <!--Pagination-->
+            <div class="flex self-end w-full xl:h-16 xxl:h-32 flex flex-row pt-5">
+                <ul class="w-full grid grid-cols-3 grid-rows-1">
+                    <div class="col-start-2 flex justify-center items-center xxl:text-3xl gap-10">
+                        <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
+                            <button class="font-normal hover:font-bold" wire:click="applyPagination('page_previous', {{ $page-1 }})" >
+                                Previous
+                            </button>
+                        </li>
+
+                        <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
+                            <button class="font-normal hover:font-bold" wire:click="applyPagination('page_next', {{ $page+1 }})">
+                                Next
+                            </button>
+                        </li>
+                    </div>
+
+                    <div class="col-start-3 flex flex-row justify-end items-center gap-4">
+                        <li class="text-xs xxl:text-2xl">
+                            Jump to Page
+
+                            <select class="cursor-pointer" title="" wire:model="page" wire:change="updateTrades">
+                                @for($i = 1; $i <= $paginator['last_page']; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </li>
+
+                        <li class="text-xs xxl:text-2xl">
+                            Items per Page
+
+                            <select class="cursor-pointer" title="" wire:model="itemsPerPage" wire:change="applyPagination('', {{ $page }})">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+                        </li>
+                    </div>
+                </ul>
+            </div>
         </div>
     </div>   
 
