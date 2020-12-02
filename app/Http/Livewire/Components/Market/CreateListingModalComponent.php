@@ -43,6 +43,7 @@ class CreateListingModalComponent extends Component
             'trade_type'        => '',
             'hydrogen_type'     => '',
             'units_per_hour'    => '',
+            'duration'          => '',
             'duration_type'     => 'day',
             'price_per_unit'    => '',
             'mix_co2'           => '',
@@ -54,6 +55,7 @@ class CreateListingModalComponent extends Component
     public function toggleModal()
     {
         $this->isOpen = !$this->isOpen;
+        $this->refresh();
     }
 
     public function createListing()
@@ -64,7 +66,7 @@ class CreateListingModalComponent extends Component
         $data['owner_id'] = auth()->id();
 
         // Modify duration data
-        $data['duration'] = $this->getDuration();
+        $data['duration'] = $this->getDuration($this->duration, $this->duration_type);
 
         // Modify expires at data
         $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
@@ -75,8 +77,8 @@ class CreateListingModalComponent extends Component
         // Emit an event telling the parent component that the listing has been created
         $this->emit('listingCreated');
 
-        // Refresh the form
-        $this->refresh();
+        // Hide the form
+        $this->toggleModal();
     }
 
     private function getDuration($duration, $type)

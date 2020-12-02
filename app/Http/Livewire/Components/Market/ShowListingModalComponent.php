@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class ShowListingModalComponent extends Component
 {
+
     public $isOpen = false;
+    public $confirmationStage = false;
 
     public $trade;
 
@@ -18,6 +20,11 @@ class ShowListingModalComponent extends Component
     {
         $this->trade = $trade;
         $this->toggleModal();
+    }
+
+    public function toggleConfirmationStage()
+    {
+        $this->confirmationStage = !$this->confirmationStage;
     }
 
     public function makeTrade(Trade $trade)
