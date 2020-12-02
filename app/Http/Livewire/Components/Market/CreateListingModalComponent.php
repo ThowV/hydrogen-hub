@@ -18,6 +18,8 @@ class CreateListingModalComponent extends Component
     public $mix_co2;
     public $expires_at;
 
+    public $trade;
+
     // Default select does not work with livewire at the moment:
     public $duration_type = "day";
     public $expires_at_type = "day";
@@ -62,23 +64,7 @@ class CreateListingModalComponent extends Component
         $data['owner_id'] = auth()->id();
 
         // Modify duration data
-        $duration = $data['duration'] * 24;
-
-        $now = Carbon::now();
-        $end = $now->copy();
-
-        if ($this->duration_type == 'day') {
-            $end->addDays($data['duration']);
-        }
-        elseif ($this->duration_type == 'week') {
-            $end->addWeeks($data['duration']);
-        }
-        elseif ($this->duration_type == 'month') {
-            $end->addMonths($data['duration']);
-        }
-
-        $hoursDiff = $now->diffInHours($end);
-        $data['duration'] = $hoursDiff;
+        $data['duration'] = $this->getDuration();
 
         // Modify expires at data
         $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
@@ -91,6 +77,69 @@ class CreateListingModalComponent extends Component
 
         // Refresh the form
         $this->refresh();
+    }
+
+    private function getDuration($duration, $type)
+    {
+        $now = Carbon::now();
+        $end = $now->copy();
+
+        if ($type == 'day') {
+            $end->addDays($duration);
+        }
+        elseif ($type == 'week') {
+            $end->addWeeks($duration);
+        }
+        elseif ($type == 'month') {
+            $end->addMonths($duration);
+        }
+
+        return $now->diffInHours($end);
+    }
+
+    public function getTotalPriceReadable()
+    {
+        if ($this->duration && $this->duration_type && $this->units_per_hour && $this->price_per_unit) {
+            $total_price = $this->getDuration($this->duration, $this->duration_type) * $this->units_per_hour * $this->price_per_unit;
+            return '€ ' . number_format($total_price, 0, '.', ' ');
+        }
+
+        return 'Not provided';
+    }
+
+    public function getTotalVolumeReadable()
+    {
+        if ($this->duration && $this->duration_type && $this->units_per_hour) {
+            $total_volume = $this->getDuration($this->duration, $this->duration_type) * $this->units_per_hour;
+            return number_format($total_volume, 0, '.', ' ') . ' unit' . ($total_volume > 1 ? 's' : '');
+        }
+
+        return 'Not provided';
+    }
+
+    public function getDurationReadable()
+    {
+        if ($this->duration && $this->duration_type && is_numeric($this->duration)) {
+            return $this->duration . ' ' . $this->duration_type . ($this->duration > 1 ? 's' : '');
+        }
+
+        return 'Not provided';
+    }
+
+    public function getExpiresAtReadable()
+    {
+        if ($this->expires_at && $this->expires_at_type)
+        {
+            return Carbon::now()->addHours($this->getDuration($this->expires_at, $this->expires_at_type))->toDateString();
+        }
+
+        return 'Not provided';
+    }
+
+    public function mount()
+    {
+        $this->trade = new Trade();
+        $this->trade->fill(['units_per_hour' => 0]);
     }
 
     public function render()

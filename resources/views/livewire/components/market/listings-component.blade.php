@@ -139,7 +139,7 @@
                                      height="24" width="50">
                                     <circle cx="10" cy="12" r="6"/>
                                 </svg>
-                                <p class="">{{ $trade->hydrogen_type }}</p>
+                                <p>{{ $trade->hydrogen_type }}</p>
                             </td>
 
                             <td class=" w-full">
