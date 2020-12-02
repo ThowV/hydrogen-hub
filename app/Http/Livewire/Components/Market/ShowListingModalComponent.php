@@ -6,7 +6,7 @@ use App\Models\Trade;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
-class ShowListing extends Component
+class ShowListingModalComponent extends Component
 {
     public $isOpen = false;
 
@@ -40,6 +40,6 @@ class ShowListing extends Component
 
     public function render()
     {
-        return view('livewire.components.market.show-listing');
+        return view('livewire.components.market.show-listing-modal-component');
     }
 }

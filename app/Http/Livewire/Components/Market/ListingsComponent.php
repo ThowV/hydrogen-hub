@@ -3,18 +3,21 @@
 namespace App\Http\Livewire\Components\Market;
 
 use App\Models\Trade;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class MarketComponent extends Component
+class ListingsComponent extends Component
 {
-    public $trades;
+    const EXCLUDED_FILTERS = ['hydrogen_type', 'trade_type', 'total_volume'];
+
+    protected $listeners = ['listingCreated' => 'updateTrades', 'tradeMade' => 'updateTrades'];
 
     public $paginator = [];
     public $page = 1;
     public $itemsPerPage = 10;
     public $totalItems = 0;
-    const  EXCLUDED_FILTERS = ['hydrogen_type', 'trade_type', 'total_volume'];
+    public $trades_coll;
 
     public $filter = [
         'hydrogen_type'     => ['green', 'blue', 'grey', 'mix'],
@@ -35,35 +38,6 @@ class MarketComponent extends Component
         'mix_co2'           => ['Mix % CO2', ''],
         'trade_type'        => ['Type', ''],
     ];
-
-    protected $listeners = ['listingCreated' => 'updateTrades', 'tradeMade' => 'updateTrades'];
-
-    public function openCreateModal()
-    {
-        $this->emit("openCreateModal");
-    }
-
-    public function openRespondModal(Trade $trade)
-    {
-        $this->emit('openRespondModal', $trade);
-    }
-
-    public function updateTrades($setup = false)
-    {
-        // Determine the bounds and filters
-        if ($setup) {
-            $this->determineStartingFilters();
-        }
-
-        // Apply filters and pagination
-        $trades = $this->getListings();
-
-        $trades = $trades->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
-
-        $this->totalItems = $trades->total();
-        $this->paginator = $trades->toArray();
-        $this->trades = $trades->items();
-    }
 
     private function determineStartingFilters()
     {
@@ -102,6 +76,19 @@ class MarketComponent extends Component
         }
     }
 
+    public function changeSort($key)
+    {
+        if ($this->sort[$key][1] == '') {
+            $this->sort[$key][1] = 'ASC';
+        } elseif ($this->sort[$key][1] == 'ASC') {
+            $this->sort[$key][1] = 'DESC';
+        } else {
+            $this->sort[$key][1] = '';
+        }
+
+        $this->updateTrades();
+    }
+
     protected function enableCheckboxes()
     {
         // Make sure that the hydrogen types and trade types checkboxes are not all disabled
@@ -117,6 +104,7 @@ class MarketComponent extends Component
     protected function getFilteredTrades()
     {
         $trades = Trade::whereNull('responder_id');
+
         foreach ($this->filter as $key => $value) {
             // Skip calculated and enum fields
             if ($key == 'total_volume') {
@@ -154,17 +142,36 @@ class MarketComponent extends Component
         $this->updateTrades();
     }
 
-    public function changeSort($key)
+    public function openCreateModal()
     {
-        if ($this->sort[$key][1] == '') {
-            $this->sort[$key][1] = 'ASC';
-        } elseif ($this->sort[$key][1] == 'ASC') {
-            $this->sort[$key][1] = 'DESC';
-        } else {
-            $this->sort[$key][1] = '';
+        $this->emit("openCreateModal");
+    }
+
+    public function openListing(Trade $trade)
+    {
+        $this->emit('openRespondModal', $trade);
+    }
+
+    public function updateTrades($setup = false)
+    {
+        // Determine the bounds and filters
+        if ($setup) {
+            $this->determineStartingFilters();
         }
 
-        $this->updateTrades();
+        // Apply filters and pagination
+        $trades = $this->getListings();
+
+        $trades = $trades->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
+
+        $this->totalItems = $trades->total();
+        $this->paginator = $trades->toArray();
+        $this->trades_coll = $trades->items();
+    }
+
+    public function getTrade($trade_id)
+    {
+        return Trade::where('id', $trade_id)->get();
     }
 
     public function mount()
@@ -174,6 +181,8 @@ class MarketComponent extends Component
 
     public function render()
     {
-        return view('livewire.components.market.market-component')->extends('layouts.app');
+        return view('livewire.components.market.listings-component', [
+            'trades' => $this->getListings()->paginate($this->itemsPerPage, ['*'], 'page', $this->page)->items(),
+        ]);
     }
 }

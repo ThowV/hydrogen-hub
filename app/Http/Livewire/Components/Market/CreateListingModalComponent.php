@@ -6,7 +6,7 @@ use App\Models\Trade;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class CreateListing extends Component
+class CreateListingModalComponent extends Component
 {
     public $isOpen = false;
 
@@ -95,6 +95,6 @@ class CreateListing extends Component
 
     public function render()
     {
-        return view('livewire.components.market.create-listing');
+        return view('livewire.components.market.create-listing-modal-component');
     }
 }
