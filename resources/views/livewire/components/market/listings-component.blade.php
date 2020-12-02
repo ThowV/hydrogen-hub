@@ -113,7 +113,7 @@
                 <table class="relative w-full">
                     <!-- Table head -->
                     <thead class="sticky top-0 w-full bg-white">
-                    <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 text-left">
+                    <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 sticky top-0 text-left bg-white">
                         <!--Sorting-->
                         @foreach ($sort as $key => $value)
                             <th class="w-full">
@@ -170,7 +170,7 @@
                                 </button>
                             </td>
 
-                            <td class="text-xs xl:text-sm xxl:text-xl w-full">
+                            <td class="w-full">
                                 {{ $trade->expires_at }}%
                             </td>
                         </tr>

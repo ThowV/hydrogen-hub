@@ -108,9 +108,9 @@
 
                     <p class="flex justify-center font-bold pb-12 sm:pb-4 text-xl xxl:text-2xl">Overview</p>
 
-                    <div class="flex flex-row h-full">
+                    <div class="flex flex-row h-full sm:flex-col">
                         <div class="w-1/3 flex justify-center items-start">
-                            <img class="object-scale-down w-4/6 h-4/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">                        
+                            <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">                        
                         </div>
 
                         <div class="w-2/3 h-full grid grid-cols-4 grid-rows-3 text-sm sm:text-xxs xxl:text-2xl">
