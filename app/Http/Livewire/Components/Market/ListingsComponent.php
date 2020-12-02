@@ -64,8 +64,12 @@ class ListingsComponent extends Component
 
     protected function applySorting($trades)
     {
+        $sorted = false;
+
         foreach ($this->sort as $key => $value) {
             if ($value[1] != '') {
+                $sorted = true;
+
                 if ($key != 'total_volume') {
                     $trades->orderBy($key, $value[1]);
                 }
@@ -73,6 +77,10 @@ class ListingsComponent extends Component
                     $trades->orderBy(DB::raw('duration * units_per_hour'), $value[1]);
                 }
             }
+        }
+
+        if (!$sorted) {
+            $trades->orderBy('created_at', 'DESC');
         }
     }
 
