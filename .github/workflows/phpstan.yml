@@ -25,4 +25,4 @@ jobs:
     - name: PHPStan
       uses: docker://oskarstark/phpstan-ga
       with:
-        args: analyse App/
+        args: analyse 
