@@ -112,7 +112,7 @@
             <div class="{{ count($trades) < $itemsPerPage ? '' : 'flex-grow' }} overflow-auto">
                 <table class="relative w-full h-full">
                     <!-- Table head -->
-                    <thead class="w-full bg-white">
+                    <thead class="sticky top-0 w-full bg-white">
                         <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 sticky top-0 text-left bg-white">
                             <!--Sorting-->
                             @foreach ($sort as $key => $value)
