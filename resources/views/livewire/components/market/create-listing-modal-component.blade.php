@@ -99,9 +99,9 @@
                                 @error('trade_type') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row flex-wrap items-start place-content-start">
-                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="expires_at">
-                                <select class="w-full pt-1" name="expires_at_type" wire:model="expires_at_type">
+                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row items-start place-content-start">
+                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="expires_at">
+                                <select class="w-2/4 pt-1" name="expires_at_type" wire:model="expires_at_type">
                                     <option value="day">Days</option>
                                     <option value="week">Weeks</option>
                                     <option value="month">Months</option>
