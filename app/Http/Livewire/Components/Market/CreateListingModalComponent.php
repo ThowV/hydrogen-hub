@@ -9,6 +9,7 @@ use Livewire\Component;
 class CreateListingModalComponent extends Component
 {
     public $isOpen = false;
+    public $confirmationStage = false;
 
     public $trade_type;
     public $hydrogen_type;
@@ -58,6 +59,15 @@ class CreateListingModalComponent extends Component
         $this->refresh();
     }
 
+    public function toggleConfirmationStage()
+    {
+        if (!$this->confirmationStage) {
+            $this->validate();
+        }
+
+        $this->confirmationStage = !$this->confirmationStage;
+    }
+
     public function createListing()
     {
         $data = $this->validate();
@@ -78,6 +88,7 @@ class CreateListingModalComponent extends Component
         $this->emit('listingCreated');
 
         // Hide the form
+        $this->toggleConfirmationStage();
         $this->toggleModal();
     }
 
@@ -106,7 +117,7 @@ class CreateListingModalComponent extends Component
             return '€ ' . number_format($total_price, 0, '.', ' ');
         }
 
-        return 'Not provided';
+        return 'Not provided.';
     }
 
     public function getTotalVolumeReadable()
@@ -116,7 +127,7 @@ class CreateListingModalComponent extends Component
             return number_format($total_volume, 0, '.', ' ') . ' unit' . ($total_volume > 1 ? 's' : '');
         }
 
-        return 'Not provided';
+        return 'Not provided.';
     }
 
     public function getDurationReadable()
@@ -125,7 +136,7 @@ class CreateListingModalComponent extends Component
             return $this->duration . ' ' . $this->duration_type . ($this->duration > 1 ? 's' : '');
         }
 
-        return 'Not provided';
+        return 'Not provided.';
     }
 
     public function getExpiresAtReadable()
@@ -135,7 +146,7 @@ class CreateListingModalComponent extends Component
             return Carbon::now()->addHours($this->getDuration($this->expires_at, $this->expires_at_type))->toDateString();
         }
 
-        return 'Not provided';
+        return 'Not provided.';
     }
 
     public function mount()

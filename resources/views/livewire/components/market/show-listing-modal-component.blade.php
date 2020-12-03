@@ -45,12 +45,12 @@
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="sm:text-xxs xxl:text-xl">Units per hour:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b> {{ $trade->units_per_hour }}/h </b></p>
+                                    <p class="sm:text-xs xxl:text-2xl"><b> {{ $trade->units_per_hour }} </b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Duration:</p>
-                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->duration }} hours</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->end }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
@@ -75,11 +75,11 @@
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Expires at:</p>
-                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->expires_at }}</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->expires_at_readable }}</b></p>
                                 </div>
 
                                 <div class="flex flex-row gap-5 sm:gap-3 col-start-2 col-span-2 mx-auto">
-                                    <p class="sm:text-xxs xxl:text-xl">Total value contract</p>
+                                    <p class="sm:text-xxs xxl:text-xl">Total value contract:</p>
                                     <p class="text-sm sm:text-xs xxl:text-2xl"><b> € {{ number_format($trade->total_price, 0, '.', ' ') }}</b></p>
                                 </div>
                             </div>
