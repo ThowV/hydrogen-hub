@@ -53,7 +53,7 @@ class ListingsComponent extends Component
         ];
     }
 
-    private function getListings()
+    private function getFilteredSortedListings()
     {
         $this->enableCheckboxes();
         $trades = $this->getFilteredTrades();
@@ -131,6 +131,18 @@ class ListingsComponent extends Component
         return $trades;
     }
 
+    public function updatePaginator($trades = null)
+    {
+        if (!$trades) {
+            $trades = $this->getFilteredSortedListings();
+            $trades = $trades->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
+        }
+
+        $this->totalItems = $trades->total();
+        $this->paginator = $trades->toArray();
+        $this->trades_coll = $trades->items();
+    }
+
     public function applyPagination($action, $value)
     {
         // Apply pagination
@@ -168,14 +180,14 @@ class ListingsComponent extends Component
             $this->determineStartingFilters();
         }
 
-        // Apply filters and pagination
-        $trades = $this->getListings();
+        // Get filtered and sorted listings
+        $trades = $this->getFilteredSortedListings();
 
+        // Paginate
         $trades = $trades->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
 
-        $this->totalItems = $trades->total();
-        $this->paginator = $trades->toArray();
-        $this->trades_coll = $trades->items();
+        // Update paginator
+        $this->updatePaginator($trades);
     }
 
     public function getTrade($trade_id)
@@ -196,7 +208,7 @@ class ListingsComponent extends Component
     public function render()
     {
         return view('livewire.components.market.listings-component', [
-            'trades' => $this->getListings()->paginate($this->itemsPerPage, ['*'], 'page', $this->page)->items(),
+            'trades' => $this->getFilteredSortedListings()->paginate($this->itemsPerPage, ['*'], 'page', $this->page)->items(),
         ]);
     }
 }

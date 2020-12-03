@@ -181,48 +181,50 @@
         </div>
 
         <!--Pagination-->
-        <div class="flex w-full h-14 md:h-32 xl:h-20 xxl:h-32 flex flex-row pt-5">
-            <ul class="w-full h-full grid grid-cols-3 grid-rows-1">
-                <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
-                    <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                        <button class="font-normal hover:font-bold"
-                                wire:click="applyPagination('page_previous', {{ $page-1 }})">
-                            Previous
-                        </button>
-                    </li>
+        @if (!(count($trades) < $itemsPerPage) || (count($trades) < $itemsPerPage && $page != 1))
+            <div class="flex w-full h-14 md:h-32 xl:h-20 xxl:h-32 flex flex-row pt-5">
+                <ul class="w-full h-full grid grid-cols-3 grid-rows-1">
+                    <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
+                        <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
+                            <button class="font-normal hover:font-bold"
+                                    wire:click="applyPagination('page_previous', {{ $page-1 }})">
+                                Previous
+                            </button>
+                        </li>
 
-                    <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                        <button class="font-normal hover:font-bold"
-                                wire:click="applyPagination('page_next', {{ $page+1 }})">
-                            Next
-                        </button>
-                    </li>
-                </div>
+                        <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
+                            <button class="font-normal hover:font-bold"
+                                    wire:click="applyPagination('page_next', {{ $page+1 }})">
+                                Next
+                            </button>
+                        </li>
+                    </div>
 
-                <div class="col-start-3 flex flex-row justify-end items-end gap-4">
-                    <li class="text-xs xxl:text-2xl">
-                        Jump to Page
+                    <div class="col-start-3 flex flex-row justify-end items-end gap-4">
+                        <li class="text-xs xxl:text-2xl">
+                            Jump to Page
 
-                        <select class="cursor-pointer" title="" wire:model="page" wire:change="updateTrades">
-                            @for($i = 1; $i <= $paginator['last_page']; $i++)
-                                <option value="{{ $i }}">{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </li>
+                            <select class="cursor-pointer" title="" wire:click="updateTrades" wire:model="page" wire:change="updateTrades">
+                                @for($i = 1; $i <= $paginator['last_page']; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </li>
 
-                    <li class="text-xs xxl:text-2xl">
-                        Items per Page
+                        <li class="text-xs xxl:text-2xl">
+                            Items per Page
 
-                        <select class="cursor-pointer" title="" wire:model="itemsPerPage"
-                                wire:change="applyPagination('', {{ $page }})">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                        </select>
-                    </li>
-                </div>
-            </ul>
-        </div>
+                            <select class="cursor-pointer" title="" wire:model="itemsPerPage"
+                                    wire:change="applyPagination('', {{ $page }})">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        @endif
     </div>
 </div>
 
