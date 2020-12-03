@@ -107,6 +107,7 @@ class Company extends Model
     {
         $boughtOffers = $this->tradesAsResponder->where('trade_type', 'offer')->sum('total_price');
         $soldRequests = $this->tradesAsOwner->where('trade_type', 'request')->sum('total_price');
+
         return $boughtOffers + $soldRequests;
     }
 
@@ -114,6 +115,7 @@ class Company extends Model
     {
         $soldOffers = $this->tradesAsResponder->where('trade_type', 'request')->sum('total_price');
         $BoughtRequests = $this->tradesAsOwner->where('trade_type', 'offer')->sum('total_price');
+
         return $soldOffers + $BoughtRequests;
     }
 

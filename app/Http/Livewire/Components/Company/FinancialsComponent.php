@@ -15,8 +15,9 @@ class FinancialsComponent extends Component
     {
         $this->toggleEditState();
 
-        if (!auth()->user()->can('company.portfolio.write')) {
+        if (! auth()->user()->can('company.portfolio.write')) {
             \event(new PermissionDenied());
+
             return back();
         }
 
@@ -26,12 +27,13 @@ class FinancialsComponent extends Component
 
     public function toggleEditState()
     {
-        if (!auth()->user()->can('company.portfolio.write')) {
+        if (! auth()->user()->can('company.portfolio.write')) {
             \event(new PermissionDenied());
+
             return back();
         }
 
-        $this->editState = !$this->editState;
+        $this->editState = ! $this->editState;
 
         if ($this->editState) {
             $this->usableFund = $this->company['usable_fund'];

@@ -9,7 +9,6 @@ use Livewire\WithFileUploads;
 
 class ChangePictureComponent extends Component
 {
-
     use WithFileUploads;
 
     public $photo;

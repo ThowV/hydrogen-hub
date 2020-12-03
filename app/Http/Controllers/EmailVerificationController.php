@@ -11,13 +11,13 @@ class EmailVerificationController extends Controller
     {
         $request->validate([
             'email' => 'required|email|unique:users',
-            'user' => 'required|exists:users,id'
+            'user' => 'required|exists:users,id',
         ]);
 
         $user = User::find($request->user);
         $user->update([
             'email' => $request->email,
-            'email_verified_at'=>now()
+            'email_verified_at' => now(),
         ]);
 
         return response()->view('employee.email.change-complete');

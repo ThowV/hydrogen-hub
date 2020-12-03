@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
         $u_1 = User::create(['email' => "melchiorkokernoot@gmail.com", "password" => Hash::make('melchior123'), "company_id" => 1, "first_name" => "Melchior", "last_name" => "kokernoot"]);
         $u_2 = User::create(['email'=>"t.l.visscher@outlook.com", "password"=> Hash::make('thomas123'), "company_id" => rand(1,10), "first_name"=>"Thomas","last_name"=>"Visscher"]);
         $u_3 = User::create(['email' => "martijnjongman9@gmail.com", "password" => Hash::make('martijn123'), "company_id" => rand(1,10), "first_name" => "Martijn", "last_name" => "Jongman"]);
+        $u_4 = User::create(['email' => "h.zwetsloot@groningen-seaports.com", "password" => Hash::make('Henk123!@#'), "company_id" => rand(1,10), "first_name" => "Henk", "last_name" => "Zwetsloot"]);
+        $u_5 = User::create(['email' => "rdewolf300@gmail.com", "password" => Hash::make('Rob123!@#'), "company_id" => rand(1,10), "first_name" => "Rob", "last_name" => "de Wolf"]);
 
         User::factory(25)->create();
         Company::factory(10)->create();
@@ -40,6 +42,8 @@ class DatabaseSeeder extends Seeder
         $u_1->assignRole('Super Admin');
         $u_2->assignRole('Super Admin');
         $u_3->assignRole('Super Admin');
+        $u_4->assignRole('Super Admin');
+        $u_5->assignRole('Super Admin');
     }
 
     public function createPermissions()

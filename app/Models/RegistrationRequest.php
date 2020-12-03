@@ -37,13 +37,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class RegistrationRequest extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         "company_name",
         "company_admin_email",
         "company_admin_first_name",
-        "company_admin_last_name"
+        "company_admin_last_name",
     ];
 
     public function accept()

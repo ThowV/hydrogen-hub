@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class Companies extends Component
 {
-
     public $resultSet;
     public $searchTerm;
     public $modalOpen;
@@ -38,8 +37,9 @@ class Companies extends Component
 
         $this->resultSet = Company::where('name', 'LIKE', "%$this->searchTerm%")->get()->merge(
             Company::whereHas('owner', function ($query) {
-                $query->where('email', 'LIKE', "%$this->searchTerm%");
-            })->get());
+                 $query->where('email', 'LIKE', "%$this->searchTerm%");
+             })->get()
+        );
     }
 
     public function render()

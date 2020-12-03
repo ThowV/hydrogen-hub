@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class OverviewComponent extends Component
 {
-
     public $employees;
     public $updateMode;
     public $employeeToUpdate;
@@ -17,7 +16,7 @@ class OverviewComponent extends Component
         'employeeToUpdate.last_name' => 'required',
         'employeeToUpdate.email' => 'required',
         'employeeToUpdate.picture_url' => 'required',
-        'employeeToUpdate.created_at' => 'required'
+        'employeeToUpdate.created_at' => 'required',
     ];
 
     protected $listeners = ["updateModeEnabled" => "updateMode"];

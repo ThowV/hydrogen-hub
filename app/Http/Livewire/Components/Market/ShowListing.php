@@ -31,7 +31,7 @@ class ShowListing extends Component
 
         // Modify expires at data to create expires in value
         $expiresIn = (new Carbon($this->trade['expires_at']))->diff(now());
-        $expiresIn = array('days'=>$expiresIn->d, 'hours'=>$expiresIn->h, 'minutes'=>$expiresIn->i);
+        $expiresIn = ['days' => $expiresIn->d, 'hours' => $expiresIn->h, 'minutes' => $expiresIn->i];
         $this->trade['expires_in'] = $expiresIn;
     }
 

@@ -10,11 +10,9 @@ use Spatie\WelcomeNotification\WelcomeController as BaseWelcomeController;
 class WelcomeMessageController extends BaseWelcomeController
 {
 
-
     public function showWelcomeForm(Request $request, User $user)
+
     {
         return view('welcomeNotification::welcome');
     }
-
-
 }

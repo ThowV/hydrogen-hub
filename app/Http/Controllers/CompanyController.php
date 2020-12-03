@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Events\PermissionDenied;
 use App\Models\Company;
 use Illuminate\Http\Request;
