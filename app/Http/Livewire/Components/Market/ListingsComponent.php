@@ -20,13 +20,13 @@ class ListingsComponent extends Component
     public $trades_coll;
 
     public $filter = [
-        'hydrogen_type'     => ['green', 'blue', 'grey', 'mix'],
-        'units_per_hour'    => [0, 0],
-        'duration'          => [0, 0],
-        'total_volume'      => [0, 0],
-        'price_per_unit'    => [0, 0],
-        'mix_co2'           => [0, 0],
-        'trade_type'        => ['offer', 'request'],
+        'hydrogen_type' => ['green', 'blue', 'grey', 'mix'],
+        'units_per_hour' => [0, 0],
+        'duration' => [0, 0],
+        'total_volume' => [0, 0],
+        'price_per_unit' => [0, 0],
+        'mix_co2' => [0, 0],
+        'trade_type' => ['offer', 'request'],
     ];
 
     public $sort = [
@@ -49,7 +49,7 @@ class ListingsComponent extends Component
         // Determine bounds for calculated fields
         $this->filter['total_volume'] = [
             Trade::min('units_per_hour') * Trade::min('duration'),
-            Trade::max('units_per_hour') * Trade::max('duration')
+            Trade::max('units_per_hour') * Trade::max('duration'),
         ];
     }
 
@@ -127,6 +127,7 @@ class ListingsComponent extends Component
                 $trades = $trades->whereBetween($key, $value);
             }
         }
+
         return $trades;
     }
 

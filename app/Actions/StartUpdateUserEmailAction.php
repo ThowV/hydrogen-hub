@@ -3,7 +3,6 @@
 
 namespace App\Actions;
 
-
 use App\Notifications\EmailChangeNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -18,7 +17,7 @@ class StartUpdateUserEmailAction
 
         // Return the view
         return back()->with([
-            'email_changed' => $email
+            'email_changed' => $email,
         ]);
     }
 }

@@ -7,12 +7,11 @@ use Livewire\Component;
 
 class ForgotPasswordComponent extends Component
 {
-
     public $email;
     public $status;
 
     protected $rules = [
-        'email' => 'required|email'
+        'email' => 'required|email',
     ];
 
     public function mount()
@@ -33,7 +32,6 @@ class ForgotPasswordComponent extends Component
         "Password reset link has been sent to your email" :
         $this->addError('errors', 'We had some trouble sending the reset link to your mail, please try again later');
     }
-
 
     public function render()
     {

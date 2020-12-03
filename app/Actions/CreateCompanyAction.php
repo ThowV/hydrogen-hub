@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App;
+namespace App\Actions;
 
-
+use App\CompanyNameNotUniqueException;
 use App\Exceptions\EmailNotUniqueException;
 use App\Models\Company;
 use App\Models\RegistrationRequest;
@@ -16,9 +16,7 @@ class CreateCompanyAction
 {
     public function execute(RegistrationRequest $registration_request)
     {
-
         DB::transaction(function () use ($registration_request) {
-
             if (Company::whereName($registration_request->company_name)->first()) {
                 throw new CompanyNameNotUniqueException();
             }
@@ -33,7 +31,7 @@ class CreateCompanyAction
                     "first_name" => $registration_request->company_admin_first_name,
                     "last_name" => $registration_request->company_admin_last_name,
                     "email" => $registration_request->company_admin_email,
-                    "password" => Hash::make(Str::random(8))
+                    "password" => Hash::make(Str::random(8)),
                 ]))->id,
                 //           ->sendWelcomeNotification(now()->addDay());;
             ]);
