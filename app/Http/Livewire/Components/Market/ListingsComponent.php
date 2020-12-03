@@ -182,6 +182,11 @@ class ListingsComponent extends Component
         return Trade::where('id', $trade_id)->get();
     }
 
+    public function getReadableDate(Trade $trade)
+    {
+        return $trade->expires_at->toDateString();
+    }
+
     public function mount()
     {
         $this->updateTrades(true);

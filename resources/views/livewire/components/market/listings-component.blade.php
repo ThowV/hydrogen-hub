@@ -171,7 +171,7 @@
                             </td>
 
                             <td class="w-full">
-                                {{ $trade->expires_at }}%
+                                {{ $trade->expires_at }}
                             </td>
                         </tr>
                     @endforeach

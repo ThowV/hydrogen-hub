@@ -49,8 +49,8 @@
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
-                                    <p class="text-sm sm:text-xxs xxl:text-xl">Duration (hours):</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->duration }}</b></p>
+                                    <p class="text-sm sm:text-xxs xxl:text-xl">Duration:</p>
+                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->duration }} hours</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
@@ -60,12 +60,12 @@
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Total volume:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->total_volume }} units</b></p>
+                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ number_format($trade->total_volume, 0, '.', ' ') }} units</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Price per unit:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> €{{ $trade->price_per_unit }}</b></p>
+                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> € {{ $trade->price_per_unit }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
@@ -80,10 +80,7 @@
 
                                 <div class="flex flex-col gap-5 sm:gap-3 col-start-2 col-span-2 text-sm sm:text-xxs xxl:text-xl">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Total value contract</p>
-                                    <p class="font-bold text-base sm:text-xs xxl:text-2xl"></p>
-                                </div>
-
-                                <div class="flex flex-col gap-5 sm:gap-3 col-start-4 text-sm sm:text-xxs xxl:text-xl">
+                                    <p class="text-base sm:text-xs xxl:text-2xl"><b> € {{ number_format($trade->total_price, 0, '.', ' ') }}</b></p>
                                 </div>
                             </div>
                         </div>
@@ -104,13 +101,13 @@
                     @else
                         <div class="flex flex-row w-full h-full justify-center">
                             <div class="flex items-center gap-10">
-                                <button 
+                                <button
                                     class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
                                     wire:click="makeTrade({{ $trade->id }})">
                                     Confirm
                                 </button>
 
-                                <button 
+                                <button
                                     class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
                                     wire:click="toggleConfirmationStage">
                                     Cancel
