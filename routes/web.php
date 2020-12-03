@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/market',                                     MarketComponent::class)->name('market');
     Route::get('/admin',                                            [AdminController::class, 'index'])->name('admin');
     Route::get('/company',                                          [CompanyController::class, 'index'])->name('company');
+    Route::delete('/company/{company}',                             [CompanyController::class, 'destroy'])->name('company.destroy');
     Route::get('/company/portfolio',                                [CompanyController::class, 'portfolio'])->name('company.portfolio');
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
