@@ -181,7 +181,7 @@
                             Place
                         </button>
                         <button
-                            class="modal-close bg-white border-2 border-butOrange hover:bg-gray-400 hover:border-gray-400 text-butOrange hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-8  rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                            class="modal-close text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
                             wire:click="toggleModal">
                             Close
                         </button>

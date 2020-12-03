@@ -99,16 +99,24 @@
                                 </button>
                             @endif
 
-                            <button wire:click="toggleModal" class="modal-close bg-white border-2 border-hovBlue hover:bg-gray-400 hover:border-gray-400 text-hovBlue hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-8  rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out">Close</button>
+                            <button wire:click="toggleModal" class="modal-close text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out">Close</button>
                         </div>
                     @else
-                        <button wire:click="toggleConfirmationStage">
-                            Cancel
-                        </button>
+                        <div class="flex flex-row w-full h-full justify-center">
+                            <div class="flex items-center gap-10">
+                                <button 
+                                    class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                    wire:click="makeTrade({{ $trade->id }})">
+                                    Confirm
+                                </button>
 
-                        <button wire:click="makeTrade({{ $trade->id }})">
-                            Confirm
-                        </button>
+                                <button 
+                                    class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
+                                    wire:click="toggleConfirmationStage">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>

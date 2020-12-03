@@ -164,7 +164,7 @@
 
                             <td class="flex items-center w-full">
                                 <button
-                                    class="w-2/4 sm:w-full md:w-full bg-white border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-6 md:px-3 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                    class="w-2/4 sm:w-full md:w-full bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-6 md:px-3 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
                                     wire:click="openListing({{ $trade }})">
                                     {{ $trade->trade_type === "offer" ? "Buy" : "Sell" }}
                                 </button>
