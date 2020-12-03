@@ -1,11 +1,11 @@
-<div class="z-40">
+<div class="z-40 w-full text-gray-700">
     @if($isOpen)
-        <div class="modal fixed w-full h-full top-0 left-0 flex items-center justify-center">
-            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50" wire:click="toggleModal"></div>
+        <div class="modal fixed top-0 h-full w-full grid grid-cols-8 grid-rows-6">
 
-            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                <!-- Add margin if you want to see some of the overlay behind the modal-->
-                <div class="modal-content py-4 text-left px-6">
+            <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
+
+            <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded shadow-lg z-50">
+                <div class="modal-content flex flex-col w-full h-full p-12 sm:p-4 xxl:p-16 text-left">
                     <!--Title-->
                     <div class="flex justify-between items-center pb-3">
                         @if ($trade->responder)
@@ -61,9 +61,13 @@
                         <a wire:click="downloadPdf">Download pdf (click to download)</a>
                     @endif
 
-                    <!--Footer-->
-                    <div class="flex justify-end pt-2">
-                        <button wire:click="toggleModal" class="modal-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+                <!--Footer-->
+                    <div class="flex justify-center gap-10 pt-2">
+                        <button
+                            class="modal-close bg-white border-2 border-butOrange hover:bg-gray-400 hover:border-gray-400 text-butOrange hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-8  rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                            wire:click="toggleModal">
+                            Close
+                        </button>
                     </div>
                 </div>
             </div>
