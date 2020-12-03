@@ -3,10 +3,8 @@
 
 namespace App\Exceptions;
 
-
 class EmailNotUniqueException extends \Exception
 {
-
     /**
      * EmailNotUniqueException constructor.
      * @param string $message

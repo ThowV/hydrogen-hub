@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Actions\ForceFillUserPasswordAction;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Str;
 
 class PasswordResetsController extends Controller
 {
-
     public function showForm(Request $request)
     {
         return view('password.reset-password');
@@ -28,7 +24,7 @@ class PasswordResetsController extends Controller
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) use ($action, $request) {
-                $action->execute($user,$password);
+                $action->execute($user, $password);
             }
         );
 
