@@ -109,25 +109,25 @@
 
         <!--Listings table-->
         <div class="flex flex-col h-vh60 md:h-vh55 xl:h-vh70 xxl:h-vh70">
-            <div class="flex-grow overflow-auto">
+            <div class="{{ count($trades) < $itemsPerPage ? '' : 'flex-grow' }} overflow-auto">
                 <table class="relative w-full h-full">
                     <!-- Table head -->
-                    <thead class="sticky top-0 w-full bg-white">
-                    <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 sticky top-0 text-left bg-white">
-                        <!--Sorting-->
-                        @foreach ($sort as $key => $value)
-                            <th class="w-full">
-                                <button class="font-medium text-top text-xs xxl:text-xl"
-                                        wire:click="changeSort('{{$key}}')">
-                                    {{ $value[0] }}
-                                    {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
-                                </button>
+                    <thead class="w-full bg-white">
+                        <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 sticky top-0 text-left bg-white">
+                            <!--Sorting-->
+                            @foreach ($sort as $key => $value)
+                                <th class="w-full">
+                                    <button class="font-medium text-top text-xs xxl:text-xl"
+                                            wire:click="changeSort('{{$key}}')">
+                                        {{ $value[0] }}
+                                        {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
+                                    </button>
+                                </th>
+                            @endforeach
+                            <th class="font-medium text-left text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64 w-full">
+                                Expires at
                             </th>
-                        @endforeach
-                        <th class="font-medium text-left text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64 w-full">
-                            Expires at
-                        </th>
-                    </tr>
+                        </tr>
                     </thead>
 
                     <!-- Table content -->
@@ -142,7 +142,7 @@
                                 <p>{{ $trade->hydrogen_type }}</p>
                             </td>
 
-                            <td class=" w-full">
+                            <td class="w-full">
                                 {{ number_format($trade->units_per_hour, 0, '.', ' ') }}/h
                             </td>
 
@@ -182,7 +182,7 @@
 
         <!--Pagination-->
         @if (!(count($trades) < $itemsPerPage) || (count($trades) < $itemsPerPage && $page != 1))
-            <div class="flex w-full h-14 md:h-32 xl:h-20 xxl:h-32 flex flex-row pt-5">
+            <div class="flex w-full h-14 md:h-32 xl:h-18 xxl:h-32 flex flex-row pt-5">
                 <ul class="w-full h-full grid grid-cols-3 grid-rows-1">
                     <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
                         <li style="display: {{ $page == 1 ? 'none' : 'block'}}">

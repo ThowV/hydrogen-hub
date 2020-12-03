@@ -126,49 +126,49 @@
 
                                         <p class="flex items-center">{{ $hydrogen_type }}</p>
                                     @else
-                                        <p class="font-medium">Not provided.</p>
+                                        <p class="sm:text-xs xxl:text-2xl"><b>Not provided.</b></p>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Units per hour:</p>
-                                <p class="font-medium">{{ is_numeric($units_per_hour) ? number_format($units_per_hour, 0, '.', ' ') . ' units' : 'Not provided.' }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ is_numeric($units_per_hour) ? number_format($units_per_hour, 0, '.', ' ') . ' units' : 'Not provided.' }}</b></p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Duration (hours):</p>
-                                <p class="font-medium">{{ $this->getDurationReadable() }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getDurationReadable() }}</b></p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Mix CO2:</p>
-                                <p class="font-medium">{{ is_numeric($mix_co2) ? $mix_co2 . '%' : 'Not provided.' }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ is_numeric($mix_co2) ? $mix_co2 . '%' : 'Not provided.' }}</b></p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Total volume:</p>
-                                <p class="font-medium">{{ $this->getTotalVolumeReadable() }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getTotalVolumeReadable() }}</b></p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Price per unit:</p>
-                                <p class="font-medium">{{ is_numeric($price_per_unit) ? '€ ' . number_format($price_per_unit, 0, '.', ' ') : 'Not provided.' }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ is_numeric($price_per_unit) ? '€ ' . number_format($price_per_unit, 0, '.', ' ') : 'Not provided.' }}</b></p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Trade type:</p>
-                                <p class="font-medium">{{ $trade_type ? $trade_type : 'Not provided.' }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ $trade_type ? $trade_type : 'Not provided.' }}</b></p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Expires at:</p>
-                                <p class="font-medium">{{ $this->getExpiresAtReadable() }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getExpiresAtReadable() }}</b></p>
                             </div>
 
                             <div class="col-start-2 col-span-2 flex flex-row m-auto gap-5">
                                 <p>Total value contract:</p>
-                                <p class="font-medium">{{ $this->getTotalPriceReadable() }}</p>
+                                <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getTotalPriceReadable() }}</b></p>
                             </div>
                         </div>
                     </div>

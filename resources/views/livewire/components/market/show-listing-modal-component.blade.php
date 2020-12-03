@@ -31,7 +31,7 @@
                                 <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
                             </div>
 
-                            <div class="w-2/4 sm:w-full h-full grid grid-cols-4 grid-rows-3">
+                            <div class="w-2/4 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Hydrogen type:</p>
@@ -39,48 +39,48 @@
                                         <svg class="fill-current text-type{{ ucfirst($trade->hydrogen_type) }}-500" height="24" width="24">
                                             <circle cx="10" cy="12" r="6" />
                                         </svg>
-                                        <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->hydrogen_type }} </b></p>
+                                        <p class="sm:text-xs xxl:text-2xl"><b> {{ $trade->hydrogen_type }} </b></p>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
-                                    <p class="text-sm sm:text-xxs xxl:text-xl">Units per hour:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->units_per_hour }}/h </b></p>
+                                    <p class="sm:text-xxs xxl:text-xl">Units per hour:</p>
+                                    <p class="sm:text-xs xxl:text-2xl"><b> {{ $trade->units_per_hour }}/h </b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Duration:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->duration }} hours</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->duration }} hours</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Mix CO2:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->mix_co2 }}%</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->mix_co2 }}%</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Total volume:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ number_format($trade->total_volume, 0, '.', ' ') }} units</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ number_format($trade->total_volume, 0, '.', ' ') }} units</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Price per unit:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> € {{ $trade->price_per_unit }}</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> € {{ $trade->price_per_unit }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Trade type:</p>
-                                    <p class="text-lg sm:text-xs xxl:text-2xl"><b> {{ $trade->trade_type }}</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->trade_type }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Expires at:</p>
-                                    <p class="text-base sm:text-xs xxl:text-2xl"><b> {{ $trade->expires_at }}</b></p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> {{ $trade->expires_at }}</b></p>
                                 </div>
 
-                                <div class="flex flex-row gap-5 sm:gap-3 col-start-2 col-span-2 mx-auto text-sm sm:text-xxs xxl:text-xl ">
-                                    <p class="text-sm sm:text-xxs xxl:text-xl pt-1">Total value contract</p>
-                                    <p class="text-base sm:text-xs xxl:text-2xl"><b> € {{ number_format($trade->total_price, 0, '.', ' ') }}</b></p>
+                                <div class="flex flex-row gap-5 sm:gap-3 col-start-2 col-span-2 mx-auto">
+                                    <p class="sm:text-xxs xxl:text-xl">Total value contract</p>
+                                    <p class="text-sm sm:text-xs xxl:text-2xl"><b> € {{ number_format($trade->total_price, 0, '.', ' ') }}</b></p>
                                 </div>
                             </div>
                         </div>
