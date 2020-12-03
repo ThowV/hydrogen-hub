@@ -1,8 +1,9 @@
 <?php
 
 
-namespace App;
+namespace App\Actions;
 
+use App\CompanyNameNotUniqueException;
 use App\Exceptions\EmailNotUniqueException;
 use App\Models\Company;
 use App\Models\RegistrationRequest;

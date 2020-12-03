@@ -9,13 +9,26 @@ class Companies extends Component
 {
     public $resultSet;
     public $searchTerm;
+    public $modalOpen;
+    public $companyInModal;
 
     public function mount()
     {
+        $this->companyInModal = null;
         if (empty($this->searchTerm)) {
             $this->resultSet = Company::all();
             $this->searchTerm = "";
         }
+    }
+
+    public function toggleModal(Company $company = null)
+    {
+        $this->modalOpen = !$this->modalOpen;
+        if (!$company->exists) {
+            return;
+        }
+
+        $this->companyInModal = $company;
     }
 
     public function updated()

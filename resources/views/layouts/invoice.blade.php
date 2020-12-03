@@ -37,6 +37,17 @@
         </tr>
     </table>
 
+    <h2>Payment method</h2>
+    <hr/>
+    <table>
+        <tr>
+            <th>Options could be: Per unit / Instant / Afterpay</th>
+        </tr>
+        <tr>
+            <th>Options could be: Middle man (safe) / Direct (Not as safe)</th>
+        </tr>
+    </table>
+
     <h2>Listing</h2>
     <hr/>
     <table>

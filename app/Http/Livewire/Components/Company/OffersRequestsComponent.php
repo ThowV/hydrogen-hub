@@ -11,23 +11,17 @@ class OffersRequestsComponent extends Component
     public $listings;
 
     public function getListings()
-    {
-        $this->listings = auth()->user()->company->listings;
+    {$this->listings = auth()->user()->company->listings;
     }
 
     public function openListing(Trade $trade)
-    {
-        $this->emit('openTradeAndListingInfoModal', $trade);
+    {$this->emit('openTradeAndListingInfoModal', $trade);
     }
 
-    public function getDate($listingPlacedAt)
-    {
-        return Carbon::parse($listingPlacedAt)->toDateString();
+    public function getDate($listingPlacedAt) {return Carbon::parse($listingPlacedAt)->toDateString();
     }
 
-    public function mount()
-    {
-        $this->getListings();
+    public function mount(){$this->getListings();
     }
 
     public function render()
