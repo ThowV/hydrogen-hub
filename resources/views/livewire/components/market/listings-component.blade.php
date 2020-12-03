@@ -108,9 +108,9 @@
         </form>
 
         <!--Listings table-->
-        <div class="flex flex-col h-vh65 xl:h-vh70 xxl:h-vh75">
+        <div class="flex flex-col h-vh60 md:h-vh55 xl:h-vh70 xxl:h-vh70">
             <div class="flex-grow overflow-auto">
-                <table class="relative w-full">
+                <table class="relative w-full h-full">
                     <!-- Table head -->
                     <thead class="sticky top-0 w-full bg-white">
                     <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 sticky top-0 text-left bg-white">
@@ -164,7 +164,7 @@
 
                             <td class="flex items-center w-full">
                                 <button
-                                    class="w-2/4 sm:w-full md:w-full bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-6 md:px-3 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                    class="w-2/4 sm:w-full md:w-3/4 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-6 md:px-3 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
                                     wire:click="openListing({{ $trade }})">
                                     {{ $trade->trade_type === "offer" ? "Buy" : "Sell" }}
                                 </button>
@@ -181,9 +181,9 @@
         </div>
 
         <!--Pagination-->
-        <div class="flex self-end w-full xl:h-16 xxl:h-32 flex flex-row pt-5">
-            <ul class="w-full grid grid-cols-3 grid-rows-1">
-                <div class="col-start-2 flex justify-center items-center xxl:text-3xl gap-10">
+        <div class="flex w-full h-14 md:h-32 xl:h-20 xxl:h-32 flex flex-row pt-5">
+            <ul class="w-full h-full grid grid-cols-3 grid-rows-1">
+                <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
                     <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
                         <button class="font-normal hover:font-bold"
                                 wire:click="applyPagination('page_previous', {{ $page-1 }})">
@@ -199,7 +199,7 @@
                     </li>
                 </div>
 
-                <div class="col-start-3 flex flex-row justify-end items-center gap-4">
+                <div class="col-start-3 flex flex-row justify-end items-end gap-4">
                     <li class="text-xs xxl:text-2xl">
                         Jump to Page
 

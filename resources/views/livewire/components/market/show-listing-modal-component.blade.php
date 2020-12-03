@@ -78,8 +78,8 @@
                                     <p class="text-base sm:text-xs xxl:text-2xl"><b> {{ $trade->expires_at }}</b></p>
                                 </div>
 
-                                <div class="flex flex-col gap-5 sm:gap-3 col-start-2 col-span-2 text-sm sm:text-xxs xxl:text-xl">
-                                    <p class="text-sm sm:text-xxs xxl:text-xl">Total value contract</p>
+                                <div class="flex flex-row gap-5 sm:gap-3 col-start-2 col-span-2 mx-auto text-sm sm:text-xxs xxl:text-xl ">
+                                    <p class="text-sm sm:text-xxs xxl:text-xl pt-1">Total value contract</p>
                                     <p class="text-base sm:text-xs xxl:text-2xl"><b> € {{ number_format($trade->total_price, 0, '.', ' ') }}</b></p>
                                 </div>
                             </div>

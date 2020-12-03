@@ -30,7 +30,7 @@
                     <!--Creation form-->
                     <form class="flex flex-row justify-between pt-5 flex-wrap text-sm xxl:text-3xl" wire:submit.prevent="submit">
                         <div class="w-40 md:w-28 xxl:w-64">
-                            <fieldset class="flex flex-col sm:flex-row sm:flex-wrap gap-5">
+                            <fieldset class="grid grid-cols-2 grid-rows-2">
                                 <div>
                                     <input class="form-radio bg-gray-200 text-typeGreen-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="green">
                                     <label class="pl-4">green</label>
@@ -41,12 +41,12 @@
                                     <label class="pl-4">blue</label>
                                 </div>
 
-                                <div class="">
+                                <div class="pt-2">
                                     <input class="form-radio bg-gray-200 text-typeGrey-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="grey">
                                     <label class="pl-4">grey</label>
                                 </div>
 
-                                <div class="">
+                                <div class="pt-2">
                                     <input class="form-radio bg-gray-200 text-typeMix-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="mix">
                                     <label class="pl-4">mix</label>
                                 </div>
@@ -106,7 +106,7 @@
                     </form>
 
                     <!--Overview-->
-                    <p class="flex justify-center font-bold pb-12 sm:pb-4 text-xl xxl:text-2xl">Overview</p>
+                    <p class="flex justify-center font-bold pb-12 sm:pb-4 lg:pb-8 lg:pt-8 xl:pt-12 text-xl xxl:text-2xl">Overview</p>
 
                     <div class="flex flex-row h-full sm:flex-col">
                         <div class="w-1/3 flex justify-center items-start">
@@ -117,58 +117,58 @@
                             <div class="flex flex-col gap-5">
                                 <p>Hydrogen type:</p>
 
-                                <div class="flex flex-row gap-0">
+                                <div class="flex flex-row">
                                     @if ($hydrogen_type)
                                         <svg class="fill-current text-type{{ ucfirst($hydrogen_type) }}-500"
-                                             height="24" width="50">
+                                             height="24" width="32">
                                             <circle cx="10" cy="12" r="6"/>
                                         </svg>
 
-                                        <p>{{ $hydrogen_type }}</p>
+                                        <p class="flex items-center">{{ $hydrogen_type }}</p>
                                     @else
-                                        <p>Not provided.</p>
+                                        <p class="font-medium">Not provided.</p>
                                     @endif
                                 </div>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Units per hour:</p>
-                                <p>{{ is_numeric($units_per_hour) ? number_format($units_per_hour, 0, '.', ' ') . ' units' : 'Not provided.' }}</p>
+                                <p class="font-medium">{{ is_numeric($units_per_hour) ? number_format($units_per_hour, 0, '.', ' ') . ' units' : 'Not provided.' }}</p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Duration (hours):</p>
-                                <p>{{ $this->getDurationReadable() }}</p>
+                                <p class="font-medium">{{ $this->getDurationReadable() }}</p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Mix CO2:</p>
-                                <p>{{ is_numeric($mix_co2) ? $mix_co2 . '%' : 'Not provided.' }}</p>
+                                <p class="font-medium">{{ is_numeric($mix_co2) ? $mix_co2 . '%' : 'Not provided.' }}</p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Total volume:</p>
-                                <p>{{ $this->getTotalVolumeReadable() }}</p>
+                                <p class="font-medium">{{ $this->getTotalVolumeReadable() }}</p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Price per unit:</p>
-                                <p>{{ is_numeric($price_per_unit) ? '€ ' . number_format($price_per_unit, 0, '.', ' ') : 'Not provided.' }}</p>
+                                <p class="font-medium">{{ is_numeric($price_per_unit) ? '€ ' . number_format($price_per_unit, 0, '.', ' ') : 'Not provided.' }}</p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Trade type:</p>
-                                <p>{{ $trade_type ? $trade_type : 'Not provided.' }}</p>
+                                <p class="font-medium">{{ $trade_type ? $trade_type : 'Not provided.' }}</p>
                             </div>
 
                             <div class="flex flex-col gap-5">
                                 <p>Expires at:</p>
-                                <p>{{ $this->getExpiresAtReadable() }}</p>
+                                <p class="font-medium">{{ $this->getExpiresAtReadable() }}</p>
                             </div>
 
-                            <div class="col-start-2 col-span-2">
+                            <div class="col-start-2 col-span-2 flex flex-row m-auto gap-5">
                                 <p>Total value contract:</p>
-                                <p>{{ $this->getTotalPriceReadable() }}</p>
+                                <p class="font-medium">{{ $this->getTotalPriceReadable() }}</p>
                             </div>
                         </div>
                     </div>
