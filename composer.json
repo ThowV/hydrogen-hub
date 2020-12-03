@@ -65,6 +65,8 @@
         ],
         "post-create-project-cmd": [
             "@/usr/local/bin/php artisan key:generate --ansi"
-        ]
+        ],
+        "lint": "php-cs-fixer fix --diff --dry-run",
+        "fix": "php-cs-fixer fix"
     }
 }
