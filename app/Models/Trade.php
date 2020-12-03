@@ -44,28 +44,24 @@ class Trade extends Model
             $endWithMonths = $now->copy()->addMonths($monthsDiff);
             $extraDays = $endWithMonths->diffInDays($endWithDays);
 
-            if ($extraDays > 0)
-            {
+            if ($extraDays > 0) {
                 $diffMsg .= ' and ' . $extraDays . ' day' . ($extraDays > 1 ? 's' : '');
             }
 
             return $diffMsg;
-        }
-        elseif ($weeksDiff >= 1) {
+        } elseif ($weeksDiff >= 1) {
             $diffMsg = $weeksDiff . ' week' . ($weeksDiff > 1 ? 's' : '');
 
             $endWithDays = $now->copy()->addDays($daysDiff);
             $endWithWeeks = $now->copy()->addWeeks($weeksDiff);
             $extraDays = $endWithWeeks->diffInDays($endWithDays);
 
-            if ($extraDays > 0)
-            {
+            if ($extraDays > 0) {
                 $diffMsg .= ' and ' . $extraDays . ' day' . ($extraDays > 1 ? 's' : '');
             }
 
             return $diffMsg;
-        }
-        elseif ($daysDiff >= 1) {
+        } elseif ($daysDiff >= 1) {
             return $daysDiff . ' day' . ($daysDiff > 1 ? 's' : '');
         }
     }

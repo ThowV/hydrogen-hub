@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class LoginComponent extends Component
 {
-
     public $email;
     public $password;
 
@@ -26,7 +25,7 @@ class LoginComponent extends Component
     public function submit()
     {
         $data = collect($this->validate());
-        if (!Auth::attempt(["email" => $this->email, "password" => $this->password])) {
+        if (! Auth::attempt(["email" => $this->email, "password" => $this->password])) {
             return $this->addError('credentials', 'The credentials you supplied are invalid');
         }
 

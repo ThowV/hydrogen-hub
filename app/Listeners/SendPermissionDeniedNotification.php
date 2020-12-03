@@ -3,10 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\PermissionDenied;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
-use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class SendPermissionDeniedNotification
 {

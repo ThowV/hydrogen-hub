@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class RegisterComponent extends Component
 {
-
     public $company_name;
     public $company_admin_email;
     public $company_admin_last_name;

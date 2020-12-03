@@ -20,30 +20,30 @@ class MarketComponent extends Component
     const  EXCLUDED_FILTERS = ['hydrogen_type', 'trade_type', 'total_volume'];
 
     public $filter = [
-        'hydrogen_type'     => ['green', 'blue', 'grey', 'mix'],
-        'units_per_hour'    => [0, 0],
-        'duration'          => [0, 0],
-        'total_volume'      => [0, 0],
-        'price_per_unit'    => [0, 0],
-        'mix_co2'           => [0, 0],
-        'trade_type'        => ['offer', 'request'],
+        'hydrogen_type' => ['green', 'blue', 'grey', 'mix'],
+        'units_per_hour' => [0, 0],
+        'duration' => [0, 0],
+        'total_volume' => [0, 0],
+        'price_per_unit' => [0, 0],
+        'mix_co2' => [0, 0],
+        'trade_type' => ['offer', 'request'],
     ];
 
     public $sort = [
-        'hydrogen_type'     => ['Hydrogen type', ''],
-        'units_per_hour'    => ['Units per hour', ''],
-        'duration'          => ['Duration', ''],
-        'total_volume'      => ['Total volume', ''],
-        'price_per_unit'    => ['Price per unit', ''],
-        'mix_co2'           => ['Mix % CO2', ''],
-        'trade_type'        => ['Trade type', ''],
+        'hydrogen_type' => ['Hydrogen type', ''],
+        'units_per_hour' => ['Units per hour', ''],
+        'duration' => ['Duration', ''],
+        'total_volume' => ['Total volume', ''],
+        'price_per_unit' => ['Price per unit', ''],
+        'mix_co2' => ['Mix % CO2', ''],
+        'trade_type' => ['Trade type', ''],
     ];
 
     protected $listeners = ['listingCreated' => 'listingCreated', 'tradeMade' => 'tradeMade'];
 
     public function toggleCreateModal()
     {
-        $this->isCreateModalOpen = !$this->isCreateModalOpen;
+        $this->isCreateModalOpen = ! $this->isCreateModalOpen;
     }
 
     public function openRespondModal(Trade $trade)
@@ -103,7 +103,7 @@ class MarketComponent extends Component
         // Determine bounds for calculated fields
         $this->filter['total_volume'] = [
             Trade::min('units_per_hour') * Trade::min('duration'),
-            Trade::max('units_per_hour') * Trade::max('duration')
+            Trade::max('units_per_hour') * Trade::max('duration'),
         ];
     }
 
@@ -154,6 +154,7 @@ class MarketComponent extends Component
                 $trades = $trades->whereBetween($key, $value);
             }
         }
+
         return $trades;
     }
 

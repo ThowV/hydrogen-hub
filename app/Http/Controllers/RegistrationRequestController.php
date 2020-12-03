@@ -14,8 +14,9 @@ class RegistrationRequestController extends Controller
 {
     public function accept(RegistrationRequest $registrationRequest, CreateCompanyAction $action)
     {
-        if (!auth()->user()->can('request.allow')) {
+        if (! auth()->user()->can('request.allow')) {
             \event(new PermissionDenied());
+
             return back();
         }
 
@@ -30,9 +31,10 @@ class RegistrationRequestController extends Controller
 
     public function deny(RegistrationRequest $registrationRequest)
     {
-        if (!auth()->user()->can('request.deny')) {
+        if (! auth()->user()->can('request.deny')) {
             $registrationRequest->deny();
             \event(new PermissionDenied());
+
             return back();
         }
 

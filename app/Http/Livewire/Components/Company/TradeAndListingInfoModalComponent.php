@@ -33,7 +33,7 @@ class TradeAndListingInfoModalComponent extends Component
 
     public function toggleModal()
     {
-        $this->isOpen = !$this->isOpen;
+        $this->isOpen = ! $this->isOpen;
     }
 
     public function render()

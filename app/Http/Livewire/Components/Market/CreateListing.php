@@ -21,13 +21,13 @@ class CreateListing extends Component
     public $expires_at_type = "day";
 
     protected $rules = [
-        'trade_type' =>     'required',
-        'hydrogen_type' =>  'required',
+        'trade_type' => 'required',
+        'hydrogen_type' => 'required',
         'units_per_hour' => 'required|numeric|min:0|max:1000000',
-        'duration' =>       'required|numeric',
+        'duration' => 'required|numeric',
         'price_per_unit' => 'required|numeric|min:0|max:1000000',
-        'mix_co2' =>        'required|numeric|min:0|max:100',
-        'expires_at' =>     'required|numeric',
+        'mix_co2' => 'required|numeric|min:0|max:100',
+        'expires_at' => 'required|numeric',
     ];
 
     public function render()
@@ -39,14 +39,14 @@ class CreateListing extends Component
     {
         // Empty/reset all fields
         $this->fill([
-            'trade_type'        => '',
-            'hydrogen_type'     => '',
-            'units_per_hour'    => '',
-            'duration_type'     => 'day',
-            'price_per_unit'    => '',
-            'mix_co2'           => '',
-            'expires_at'        => '',
-            'expires_at_type'   => 'day'
+            'trade_type' => '',
+            'hydrogen_type' => '',
+            'units_per_hour' => '',
+            'duration_type' => 'day',
+            'price_per_unit' => '',
+            'mix_co2' => '',
+            'expires_at' => '',
+            'expires_at_type' => 'day',
         ]);
     }
 
@@ -65,11 +65,9 @@ class CreateListing extends Component
 
         if ($this->duration_type == 'day') {
             $end->addDays($data['duration']);
-        }
-        elseif ($this->duration_type == 'week') {
+        } elseif ($this->duration_type == 'week') {
             $end->addWeeks($data['duration']);
-        }
-        elseif ($this->duration_type == 'month') {
+        } elseif ($this->duration_type == 'month') {
             $end->addMonths($data['duration']);
         }
 

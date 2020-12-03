@@ -43,10 +43,9 @@ class EmailChangeNotification extends Notification
     {
         return (new MailMessage)->markdown('mail.email-reset', [
             'notifiable' => $notifiable,
-            'route' => $this->verifyRoute($notifiable)
+            'route' => $this->verifyRoute($notifiable),
         ]);
     }
-
 
     /**
      * Returns the Reset URl to send in the Email
@@ -58,7 +57,7 @@ class EmailChangeNotification extends Notification
     {
         return URL::temporarySignedRoute('login.email-change-verify', 60 * 60, [
             'user' => $this->user_id,
-            'email' => $notifiable->routes['mail']
+            'email' => $notifiable->routes['mail'],
         ]);
     }
 }
