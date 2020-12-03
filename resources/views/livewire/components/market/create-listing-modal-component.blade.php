@@ -4,7 +4,7 @@
 
             <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-            <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded shadow-lg z-50">
+            <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 sm:row-span-5 bg-white rounded shadow-lg z-50">
                 <div class="modal-content flex flex-col w-full h-full p-12 sm:p-4 xxl:p-16 text-left">
                     <!--Title-->
                     <div class="flex justify-between items-center pb-5 sm:pb-2">
@@ -56,32 +56,32 @@
                                         <label class="pl-4">mix</label>
                                     </div>
                                 </fieldset>
-                                @error('hydrogen_type') <span>{{ $message }}</span> @enderror
+                                @error('hydrogen_type') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64">
                                 <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="units_per_hour">
-                                @error('units_per_hour') <span>{{ $message }}</span> @enderror
+                                @error('units_per_hour') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row items-start">
+                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row flex-wrap items-start place-content-start">
                                 <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="duration">
                                 <select class="w-2/4 px-2 py-1" name="duration_type" wire:model="duration_type">
                                     <option value="day">Days</option>
                                     <option value="week">Weeks</option>
                                     <option value="month">Months</option>
                                 </select>
-                                @error('duration') <span>{{ $message }}</span> @enderror
+                                @error('duration') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64">
                                 <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="price_per_unit">
-                                @error('price_per_unit') <span>{{ $message }}</span> @enderror
+                                @error('price_per_unit') <span class="text-red-600 text-xs pt-4">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64">
                                 <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="mix_co2">
-                                @error('mix_co2') <span>{{ $message }}</span> @enderror
+                                @error('mix_co2') <span class="text-red-600 text-xs pt-4">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64">
@@ -96,29 +96,29 @@
                                         <label class="pl-4">request</label>
                                     </div>
                                 </fieldset>
-                                @error('trade_type') <span>{{ $message }}</span> @enderror
+                                @error('trade_type') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row items-start">
-                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="expires_at">
-                                <select class="w2/4 pt-1" name="expires_at_type" wire:model="expires_at_type">
+                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row flex-wrap items-start place-content-start">
+                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="expires_at">
+                                <select class="w-full pt-1" name="expires_at_type" wire:model="expires_at_type">
                                     <option value="day">Days</option>
                                     <option value="week">Weeks</option>
                                     <option value="month">Months</option>
                                 </select>
-                                @error('expires_at') <span>{{ $message }}</span> @enderror
+                                @error('expires_at') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
                         </form>
 
                         <!--Overview-->
-                        <p class="flex justify-center font-bold pb-12 sm:pb-4 lg:pb-8 lg:pt-8 xl:pt-12 text-xl xxl:text-2xl">Overview</p>
+                        <p class="flex justify-center font-bold pb-12 sm:pb-4 lg:pb-8 lg:pt-8 xl:pt-12 text-xl sm:text-sm xxl:text-2xl">Overview</p>
 
-                        <div class="flex flex-row h-full sm:flex-col">
-                            <div class="w-1/3 flex justify-center items-start">
-                                <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
+                        <div class="flex flex-row sm:flex-col h-full">
+                            <div class="w-1/3 sm:w-full flex justify-center items-start">
+                                <img class="object-contain w-4/6 sm:w-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
                             </div>
 
-                            <div class="w-2/3 h-full grid grid-cols-4 grid-rows-3 text-sm sm:text-xxs xxl:text-2xl">
+                            <div class="w-2/3 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm sm:text-xxs xxl:text-2xl">
                                 <div class="flex flex-col gap-5">
                                     <p>Hydrogen type:</p>
 
@@ -138,42 +138,42 @@
 
                                 <div class="flex flex-col gap-5">
                                     <p>Units per hour:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ is_numeric($units_per_hour) ? number_format($units_per_hour, 0, '.', ' ') : 'Not provided.' }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ is_numeric($units_per_hour) ? number_format($units_per_hour, 0, '.', ' ') : 'Not provided.' }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5">
                                     <p>Duration:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getDurationReadable() }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ $this->getDurationReadable() }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5">
                                     <p>Mix CO2:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ is_numeric($mix_co2) ? $mix_co2 . '%' : 'Not provided.' }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ is_numeric($mix_co2) ? $mix_co2 . '%' : 'Not provided.' }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5">
                                     <p>Total volume:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getTotalVolumeReadable() }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ $this->getTotalVolumeReadable() }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5">
                                     <p>Price per unit:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ is_numeric($price_per_unit) ? '€ ' . number_format($price_per_unit, 0, '.', ' ') : 'Not provided.' }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ is_numeric($price_per_unit) ? '€ ' . number_format($price_per_unit, 0, '.', ' ') : 'Not provided.' }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5">
                                     <p>Trade type:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ $trade_type ? $trade_type : 'Not provided.' }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ $trade_type ? $trade_type : 'Not provided.' }}</b></p>
                                 </div>
 
                                 <div class="flex flex-col gap-5">
                                     <p>Expires at:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getExpiresAtReadable() }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ $this->getExpiresAtReadable() }}</b></p>
                                 </div>
 
                                 <div class="col-start-2 col-span-2 flex flex-row m-auto gap-5">
                                     <p>Total value contract:</p>
-                                    <p class="sm:text-xs xxl:text-2xl"><b>{{ $this->getTotalPriceReadable() }}</b></p>
+                                    <p class="sm:text-xxs xxl:text-2xl"><b>{{ $this->getTotalPriceReadable() }}</b></p>
                                 </div>
                             </div>
                         </div>
