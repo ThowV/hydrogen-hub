@@ -110,6 +110,11 @@ class Trade extends Model
         return $this->duration * $this->units_per_hour * $this->price_per_unit;
     }
 
+    public function getExpiresAtReadableAttribute()
+    {
+        return Carbon::parse($this->expires_at)->toDateString();
+    }
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');

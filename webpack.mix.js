@@ -21,5 +21,3 @@ mix.postCss('resources/css/app.css', 'public/css', [
 ])
 
 
-mix.browserSync('hydrogen-hub.test');
-

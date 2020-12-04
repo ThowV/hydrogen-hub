@@ -33,7 +33,7 @@
             </div>
             @endauth
 
-            <div class="@auth col-span-7 sm:col-span-6 @endauth @guest col-span-8  sm:col-span-8 @endguest">
+            <div class="@auth col-span-7 sm:col-span-6 @endauth @guest col-span-8 sm:col-span-8 @endguest">
                     @yield('content')
                     @livewireScripts
                     @stack('scripts')
