@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
@@ -19,13 +20,13 @@ class CompanyFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+public function definition()
     {
         return [
             'name' => $this->faker->company,
-            'email' => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'owner_id' => User::whereDoesntHave('isOwnerOf')->first()->id == 1 ? rand(1,10): 1,
+            'logo_path'=>"https://picsum.photos/200/".rand(185,200),
+            'usable_fund' => $this->faker->numberBetween(0, 9000000)
         ];
     }
 }
