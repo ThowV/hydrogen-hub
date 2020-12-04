@@ -17,14 +17,14 @@ class CreateTradesTable extends Migration
             $table->id();
             $table->foreignId('owner_id');
             $table->foreignId('responder_id')->nullable();
+            $table->dateTime('deal_made_at')->nullable();
             $table->enum('trade_type', ['offer', 'request']);
-            $table->enum('hydrogen_type', ['green', 'blue', 'grey']);
+            $table->enum('hydrogen_type', ['green', 'blue', 'grey', 'mix']);
             $table->unsignedBigInteger('units_per_hour')->default(0);
-            $table->unsignedBigInteger('volumes')->default(0);
+            $table->unsignedBigInteger('duration')->default(0);
             $table->unsignedBigInteger('price_per_unit')->default(0);
             $table->tinyInteger('mix_co2')->default(0);
-            $table->dateTime('ends_at');
-            $table->dateTime('deal_made_at')->nullable();
+            $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });
     }
