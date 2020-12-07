@@ -3,10 +3,6 @@
 
         <h2 class="grid items-center text-xl xxl:text-3xl font-bold">Requests</h2>
 
-        <div class="grid justify-items-end items-start pt-5">
-            <input class="truncate rounded-xl bg-gray-200 px-8 py-1 text-xs xxl:text-xl w-2/3 text-center transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" type="text" wire:model="searchTerm"
-                placeholder="search">
-        </div>
     </div>
 
     <table class="w-full">
