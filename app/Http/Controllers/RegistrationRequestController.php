@@ -20,11 +20,11 @@ class RegistrationRequestController extends Controller
             return back();
         }
 
-        Mail::to($registrationRequest->company_admin_email)->send(new CompanyAccepted());
-        Password::sendResetLink(
-            ["email" => $registrationRequest->company_admin_email]
-        );
         if (false !== $action->execute($registrationRequest)) {
+            Mail::to($registrationRequest->company_admin_email)->send(new CompanyAccepted());
+            Password::sendResetLink(
+                ["email" => $registrationRequest->company_admin_email]
+            );
             return back();
         } else {
             return back()->withStatus('An error has occurred. Please try again later');
