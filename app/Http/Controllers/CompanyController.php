@@ -17,21 +17,7 @@ class CompanyController extends Controller
 
     public function portfolio()
     {
-        $date = Carbon::now();
-        $period = CarbonPeriod::create($date->copy()->startOfWeek(), $date->copy()->endOfWeek());
-        foreach ($period as $periodPart) {
-            $return[] = $periodPart->toFormattedDateString();
-            //For now, let's imagine the demands look like this:
-            //TODO get the data for the company
-
-            $demands[] = $looped_demands = rand(0,100);
-            $produced [] = $looped_produced = rand(0,25);
-            $stored [] = $looped_stored = rand(10,50);
-            $unsettled [] = ($looped_demands - ($looped_stored + $looped_produced)) ;
-        }
-
-
-        return view('company.portfolio')->withPeriod($return)->withDemands($demands)->withProduced($produced)->withStored($stored)->withUnsettled($unsettled);
+        return view('company.portfolio');
     }
 
     public function overview()

@@ -18,8 +18,10 @@
 
         <!--Content-->
         <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
-            <div class="background-white">
-                <canvas id="canvas"></canvas>
+            <div class="rounded-lg px-10 mr-4 w-full sm:w-full sm:mr-0 md:w-2/4 bg-white text-gray-700">
+                <div class="w-2/3">
+                    @livewire('components.company.graph-overview')
+                </div>
             </div>
         </div>
         <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
@@ -39,105 +41,3 @@
         </div>
     </div>
 @endsection()
-
-
-@push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-            integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-            crossorigin="anonymous"></script>
-
-    <script>
-        var barChartData = {
-            // labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            labels: @json($period),
-            datasets: [
-                {
-                    data: @json($demands),
-                    type: 'line',
-                    label: 'Demand',
-                    fill: true,
-                    backgroundColor: "#00ff0000",
-                    borderColor: "#70cbf4",
-                    borderCapStyle: 'butt',
-                    borderDash: [10],
-                    borderDashOffset: 0.0,
-                    borderJoinStyle: 'round',
-                    lineTension: 0.7,
-                    pointBackgroundColor: "#fff",
-                    pointBorderColor: "#70cbf4",
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "#70cbf4",
-                    pointHoverBorderColor: "#70cbf4",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10
-                },
-                {
-                    label: 'Produced',
-                    backgroundColor: "#ffe100",
-                    borderColor: "#00ff0000",
-                    yAxisID: "bar-y-axis",
-                    data: @json($produced)
-                },
-                {
-                    label: 'Stored',
-                    backgroundColor: "#0068ff",
-                    borderColor: "#00ff0000",
-                    yAxisID: "bar-y-axis",
-                    data: @json($stored)
-                },
-                {
-                    label: 'Unsettled',
-                    backgroundColor: "#ff0000",
-                    borderColor: "#00ff0000",
-                    yAxisID: "bar-y-axis",
-                    data: @json($unsettled)
-                },
-            ],
-        };
-
-        window.onload = function () {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: barChartData,
-                options: {
-                    title: {
-                        display: true,
-                        text: "Chart.js Bar Chart - Stacked"
-                    },
-                    tooltips: {
-                        mode: 'label'
-                    },
-                    responsive: true,
-                    scales: {
-                        xAxes: [{
-                            stacked: true,
-                            categoryPercentage: 1.0,
-                            barPercentage: 1.0
-                        }],
-                        yAxes: [{
-                            stacked: false,
-                            ticks: {
-                                beginAtZero: true,
-                                min: 0,
-                                max: 100
-                            },
-                        }, {
-                            id: "bar-y-axis",
-                            stacked: true,
-                            display: false, //optional
-                            ticks: {
-                                beginAtZero: true,
-                                min: 0,
-                                max: 100
-                            },
-                            type: 'linear'
-                        }]
-                    }
-                }
-            });
-        };
-    </script>
-@endpush

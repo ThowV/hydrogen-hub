@@ -86,7 +86,7 @@ class Company extends Model
 
     public function listings()
     {
-        return $this->hasManyThrough(Trade::class, User::class, '', 'owner_id');
+        return $this->hasManyThrough(Trade::class, User::class, '', 'owner_id')->whereNull('responder_id');
     }
 
     public function getBoughtTradesAttribute()
