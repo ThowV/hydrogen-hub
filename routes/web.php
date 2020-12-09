@@ -5,13 +5,13 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\PasswordResetsController;
 use App\Http\Controllers\RegistrationRequestController;
 use App\Http\Controllers\WelcomeMessageController;
 use App\Http\Livewire\Components\Company\RegisterComponent;
 use App\Http\Livewire\Components\Login\ForgotPasswordComponent;
 use App\Http\Livewire\Components\Login\LoginComponent;
-use App\Http\Livewire\Components\Market\MarketComponent;
 use App\Http\Livewire\Components\Login\PasswordResetComponent;
 use Illuminate\Support\Facades\Route;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
@@ -46,9 +46,10 @@ Route::group(['middleware' =>                                           ['web', 
 Route::middleware(['auth'])->group(function () {
     Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
     Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
-    Route::get('/market',                                     MarketComponent::class)->name('market');
+    Route::get('/market',                                           [MarketplaceController::class, 'index'])->name('market');
     Route::get('/admin',                                            [AdminController::class, 'index'])->name('admin');
     Route::get('/company',                                          [CompanyController::class, 'index'])->name('company');
+    Route::delete('/company/{company}',                             [CompanyController::class, 'destroy'])->name('company.destroy');
     Route::get('/company/portfolio',                                [CompanyController::class, 'portfolio'])->name('company.portfolio');
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');

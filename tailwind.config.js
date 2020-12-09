@@ -27,7 +27,20 @@ module.exports = {
       background: '#F8F8F8',
       personal: '#0057BD',
       hovBlue: '#0099FF',
-      butOrange: '#ff7600',
+      butOrange: '#FF7600',
+
+      typeGreen: {
+        500: '#4CD35D'
+      },
+      typeBlue: {
+        500: '#0099FF'
+      },
+      typeGrey: {
+        500: '#909090'
+      },
+      typeMix: {
+        500:'#CEB076'
+      },
 
       gray: {
         100: '#f7fafc',
@@ -154,6 +167,7 @@ module.exports = {
       '10': '2.5rem',
       '11': '2.75rem',
       '12': '3rem',
+      '14': '3.5rem',
       '16': '4rem',
       '20': '5rem',
       '24': '6rem',
@@ -162,6 +176,9 @@ module.exports = {
       '48': '12rem',
       '56': '14rem',
       '64': '16rem',
+      '72': '18rem',
+      '80': '20rem',
+      '96': '24rem',
     },
     backgroundColor: theme => theme('colors'),
     backgroundImage: {
@@ -306,6 +323,19 @@ module.exports = {
       ...theme('spacing'),
       full: '100%',
       screen: '100vh',
+
+      vh10: '10vh',
+      vh20: '20vh',
+      vh30: '30vh',
+      vh40: '40vh',
+      vh50: '50vh',
+      vh55: '55vh',
+      vh60: '60vh',
+      vh65: '65vh',
+      vh70: '70vh',
+      vh75: '75vh',
+      vh80: '80vh',
+      vh90: '90vh',
     }),
     inset: {
       '0': '0',
@@ -461,6 +491,16 @@ module.exports = {
       '11/12': '91.666667%',
       full: '100%',
       screen: '100vw',
+
+      vw10: '10vw',
+      vw20: '20vw',
+      vw30: '30vw',
+      vw40: '40vw',
+      vw50: '50vw',
+      vw60: '60vw',
+      vw70: '70vw',
+      vw80: '80vw',
+      vw90: '90vw',
     }),
     zIndex: {
       auto: 'auto',
@@ -828,5 +868,7 @@ module.exports = {
     animation: ['responsive'],
   },
   corePlugins: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/custom-forms'),
+  ],
 }

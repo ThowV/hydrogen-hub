@@ -3,11 +3,8 @@
 
 namespace App;
 
-
 class CompanyNameNotUniqueException extends \Exception
 {
-
-
     /**
      * CompanyNameNotUniqueException constructor.
      * @param string $message

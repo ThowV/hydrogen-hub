@@ -59,7 +59,7 @@ class EmployeesController extends Controller
      */
     public function edit(User $employee)
     {
-        if( !auth()->user()->can('users.read') && $employee->id !== auth()->id()){
+        if (! auth()->user()->can('users.read') && $employee->id !== auth()->id()) {
             return false;
         }
 
@@ -88,6 +88,7 @@ class EmployeesController extends Controller
     public function destroy(User $employee)
     {
         $employee->delete();
+
         return back();
     }
 }

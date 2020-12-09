@@ -6,6 +6,45 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Trade
+ *
+ * @property int $id
+ * @property int $owner_id
+ * @property int|null $responder_id
+ * @property string|null $deal_made_at
+ * @property string $trade_type
+ * @property string $hydrogen_type
+ * @property int $units_per_hour
+ * @property int $duration
+ * @property int $price_per_unit
+ * @property int $mix_co2
+ * @property string|null $expires_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $end
+ * @property-read mixed $total_price
+ * @property-read mixed $total_volume
+ * @property-read \App\Models\User $owner
+ * @property-read \App\Models\User|null $responder
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereDealMadeAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereDuration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereHydrogenType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereMixCo2($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade wherePricePerUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereResponderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereTradeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereUnitsPerHour($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Trade whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Trade extends Model
 {
     use HasFactory;
@@ -30,7 +69,7 @@ class Trade extends Model
 
     public function getEndAttribute()
     {
-        return $this->datesDiffToReadable(Carbon::now(), Carbon::now()->addHour($this->duration));
+        return $this->datesDiffToReadable(Carbon::parse($this->deal_made_at), Carbon::now()->addHours($this->duration));
     }
 
     public function getTimeSinceDealAttribute()
@@ -85,6 +124,11 @@ class Trade extends Model
     public function getTotalPriceAttribute()
     {
         return $this->duration * $this->units_per_hour * $this->price_per_unit;
+    }
+
+    public function getExpiresAtReadableAttribute()
+    {
+        return Carbon::parse($this->expires_at)->toDateString();
     }
 
     public function owner()
