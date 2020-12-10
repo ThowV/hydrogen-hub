@@ -45,7 +45,7 @@
                             stacked: false,
                             ticks: {
                                 beginAtZero: true,
-                                min: 0,
+                                min: {{ $minLoad }},
                                 max: {{ $maxLoad }}
                             },
                         }, {
@@ -54,7 +54,7 @@
                             display: false, //optional
                             ticks: {
                                 beginAtZero: true,
-                                min: 0,
+                                min: {{ $minLoad }},
                                 max: {{ $maxLoad }}
                             },
                             type: 'linear'

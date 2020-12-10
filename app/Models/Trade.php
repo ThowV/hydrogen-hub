@@ -69,12 +69,26 @@ class Trade extends Model
 
     public function getEndAttribute()
     {
-        return $this->datesDiffToReadable(Carbon::parse($this->deal_made_at), Carbon::now()->addHours($this->duration));
+        if ($this->deal_made_at) {
+            // If the trade has been closed we should count down
+            return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at)->addHours($this->duration));
+        }
+        else {
+            // If the trade has not been closed yet the duration should stay the same
+            return $this->datesDiffToReadable(Carbon::now(), Carbon::now()->addHours($this->duration));
+        }
     }
 
     public function getEndRawAttribute()
     {
-        return Carbon::now()->addHours($this->duration);
+        if ($this->deal_made_at) {
+            // If the trade has been closed we should count down
+            return Carbon::parse($this->deal_made_at)->addHours($this->duration);
+        }
+        else {
+            // If the trade has not been closed yet the duration should stay the same
+            return Carbon::now()->addHours($this->duration);
+        }
     }
 
     public function getTimeSinceDealAttribute()
@@ -145,7 +159,7 @@ class Trade extends Model
 
         if ($now->diffInDays($end) == 0) {
             // Only a part of today the company will be provided with the units
-            $durationToday = $now->diffInHours($end);
+            $durationToday = ceil($now->diffInMinutes($end) / 60);
         }
 
         return $this->units_per_hour * $durationToday;
@@ -159,5 +173,27 @@ class Trade extends Model
     public function responder()
     {
         return $this->belongsTo(User::class, 'responder_id');
+    }
+
+    public function supplier() {
+        if ($this->trade_type == 'offer') {
+            // An offer means the owner is supplying hydrogen
+            return $this->owner();
+        }
+        else {
+            // A request means the responder is supplying hydrogen
+            return $this->responder();
+        }
+    }
+
+    public function demander() {
+        if ($this->trade_type == 'offer') {
+            // An offer means the responder is demanding hydrogen
+            return $this->responder();
+        }
+        else {
+            // A request means the owner is demanding hydrogen
+            return $this->owner();
+        }
     }
 }
