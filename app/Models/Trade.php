@@ -69,7 +69,14 @@ class Trade extends Model
 
     public function getEndAttribute()
     {
-        return $this->datesDiffToReadable(Carbon::parse($this->deal_made_at), Carbon::now()->addHours($this->duration));
+        if ($this->deal_made_at) {
+            // If the trade has been closed we should count down
+            return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at)->addHours($this->duration));
+        }
+        else {
+            // If the trade has not been closed yet the duration should stay the same
+            return $this->datesDiffToReadable(Carbon::now(), Carbon::now()->addHours($this->duration));
+        }
     }
 
     public function getTimeSinceDealAttribute()
