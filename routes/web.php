@@ -15,6 +15,7 @@ use App\Http\Livewire\Components\Login\LoginComponent;
 use App\Http\Livewire\Components\Login\PasswordResetComponent;
 use Illuminate\Support\Facades\Route;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
+use App\Http\Livewire\Components\Admin\RoleManagerComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::group(['middleware' =>                                           ['web', 
     Route::get('welcome/{user}',                                    [WelcomeMessageController::class, 'showWelcomeForm'])->name('welcome');
     Route::post('welcome/{user}',                                   [WelcomeMessageController::class, 'savePassword'])->name('welcome.post');
 });
+
+Route::get('/roles',                                                RoleManagerComponent::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
