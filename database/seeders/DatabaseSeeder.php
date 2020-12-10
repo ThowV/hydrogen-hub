@@ -57,6 +57,12 @@ class DatabaseSeeder extends Seeder
             ["name" => "users.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "users.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "users.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.roles.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.roles.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
 
             ["name" => "listing.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "listing.buy", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
