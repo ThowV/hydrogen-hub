@@ -69,40 +69,63 @@ class Trade extends Model
 
     public function getEndAttribute()
     {
-        $now = Carbon::now();
-        $end = $now->copy()->addHours($this->duration);
-
-        $daysDiff = $now->diffInDays($end);
-        $weeksDiff = $now->diffInWeeks($end);
-        $monthsDiff = $now->diffInMonths($end);
-
-        if ($monthsDiff >= 1) {
-            $diffMsg = $monthsDiff . ' month' . ($monthsDiff > 1 ? 's' : '');
-
-            $endWithDays = $now->copy()->addDays($daysDiff);
-            $endWithMonths = $now->copy()->addMonths($monthsDiff);
-            $extraDays = $endWithMonths->diffInDays($endWithDays);
-
-            if ($extraDays > 0) {
-                $diffMsg .= ' and ' . $extraDays . ' day' . ($extraDays > 1 ? 's' : '');
-            }
-
-            return $diffMsg;
-        } elseif ($weeksDiff >= 1) {
-            $diffMsg = $weeksDiff . ' week' . ($weeksDiff > 1 ? 's' : '');
-
-            $endWithDays = $now->copy()->addDays($daysDiff);
-            $endWithWeeks = $now->copy()->addWeeks($weeksDiff);
-            $extraDays = $endWithWeeks->diffInDays($endWithDays);
-
-            if ($extraDays > 0) {
-                $diffMsg .= ' and ' . $extraDays . ' day' . ($extraDays > 1 ? 's' : '');
-            }
-
-            return $diffMsg;
-        } elseif ($daysDiff >= 1) {
-            return $daysDiff . ' day' . ($daysDiff > 1 ? 's' : '');
+        if ($this->deal_made_at) {
+            // If the trade has been closed we should count down
+            return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at)->addHours($this->duration));
         }
+        else {
+            // If the trade has not been closed yet the duration should stay the same
+            return $this->datesDiffToReadable(Carbon::now(), Carbon::now()->addHours($this->duration));
+        }
+    }
+
+    public function getTimeSinceDealAttribute()
+    {
+        return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at));
+    }
+
+    private function datesDiffToReadable(Carbon $dateStart, Carbon $dateEnd)
+    {
+        /*
+         * Tells us whether or not the date was or has to be added to the output message.
+         * Makes sure we get the following formats:
+         *      years, months, days
+         *      months, days
+         *      days, hours
+         *      hours, minutes
+         *      minutes, seconds
+         *      seconds
+         *
+         * idx => [carbon notation (cn), readable notation (rn), [next accepted message values]]
+         */
+        $diffMsgModifiers = [
+            ['y',   'year',     [true, true, true, false, false, false]],
+            ['m',   'month',    [false, true, true, false, false, false]],
+            ['d',   'day',      [false, false, true, true, false, false]],
+            ['h',   'hour',     [false, false, false, true, true, false]],
+            ['i',   'minute',   [false, false, false, false, true, true]],
+            ['s',   'second',   []],
+        ];
+        $activeModifierPointer = 0;
+
+        $diff = $dateStart->diff($dateEnd); // Holds y, m, d, h, i, s
+        $diffMsg = '';
+
+        // Assemble the message
+        foreach ($diffMsgModifiers as $idx => $diffMsgModifier) {
+            $cn = $diffMsgModifier[0]; // Carbon notation
+            $rn = $diffMsgModifier[1]; // Readable notation
+            $namv = $diffMsgModifiers[$activeModifierPointer][2]; // Next accepted message values
+
+            if ($namv[$idx] && $diff->$cn >= 1) {
+                $diffMsg .= $diff->$cn . ' ' . $rn . ($diff->$cn > 1 ? 's' : '') . ' ';
+            }
+            else {
+                $activeModifierPointer += 1;
+            }
+        }
+
+        return $diffMsg;
     }
 
     public function getTotalPriceAttribute()
