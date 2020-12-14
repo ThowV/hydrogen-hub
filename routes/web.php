@@ -44,7 +44,7 @@ Route::group(['middleware' =>                                           ['web', 
     Route::post('welcome/{user}',                                   [WelcomeMessageController::class, 'savePassword'])->name('welcome.post');
 });
 
-Route::get('/roles',                                                RoleManagerComponent::class);
+Route::get('/roles/{user}',                                                RoleManagerComponent::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
