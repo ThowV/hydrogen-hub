@@ -1,5 +1,8 @@
 <div>
     <canvas id="canvas"></canvas>
+    @if($shortage)
+        <p>{{ $shortage }}</p>
+    @endif
 </div>
 
 @push('scripts')
@@ -17,24 +20,24 @@
                     label: 'Demand',
                     fill: true,
                     backgroundColor: "#00ff0000",
-                    borderColor: "#70cbf4",
+                    borderColor: "#003399",
                     borderCapStyle: 'butt',
                     borderJoinStyle: 'round',
                     lineTension: 0.1,
                     pointBackgroundColor: "#fff",
-                    pointBorderColor: "#70cbf4",
+                    pointBorderColor: "#003399",
                     pointBorderWidth: 1,
                     pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "#70cbf4",
-                    pointHoverBorderColor: "#70cbf4",
+                    pointHoverBackgroundColor: "#003399",
+                    pointHoverBorderColor: "#003399",
                     pointHoverBorderWidth: 2,
                     pointRadius: 4,
                     pointHitRadius: 10
                 },
                 {
                     label: 'Total load',
-                    backgroundColor: "#ffe100",
-                    borderColor: "#00ff0000",
+                    backgroundColor: "#CBE4FD",
+                    borderColor: "#CBE4FD",
                     yAxisID: "bar-y-axis",
                     data: @json($totalLoads)
                 },

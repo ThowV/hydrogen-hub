@@ -10,7 +10,10 @@ class GraphOverview extends Component
 {
     public function render()
     {
-        $maxLoad = $minLoad = 0;
+        $maxLoad = 100;
+        $minLoad = 0;
+
+        $shortage = null;
 
         $now = Carbon::now();
         $periodEnd = $now->copy()->addDays(6);
@@ -68,9 +71,15 @@ class GraphOverview extends Component
             if ($demands[$index] < $minLoad) {
                 $maxLoad = $demands[$index] + ceil(0.15 * $demands[$index]);
             }
+
+            # Get the shortage if it wasn't already present
+            if (!$shortage && $totalLoad < $demands[$index]) {
+                $shortage = $date->format('M d') . ' - ' . ($demands[$index] - $totalLoad) . ' units short';
+            }
         }
 
         return view('livewire.components.company.graph-overview')
-            ->withLabels($dayLabels)->withMax($maxLoad)->withMin($minLoad)->withTotalLoads($totalLoads)->withDemands($demands);
+            ->withLabels($dayLabels)->withMax($maxLoad)->withMin($minLoad)->withTotalLoads($totalLoads)
+            ->withDemands($demands)->withShortage($shortage);
     }
 }
