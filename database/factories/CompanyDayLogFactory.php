@@ -22,10 +22,8 @@ class CompanyDayLogFactory extends Factory
     public function definition()
     {
         return [
-            'produced' => $this->faker->numberBetween(0, 1000000),
-            'company_id' => 1,
-            'demand' => $this->faker->numberBetween(0, 1000000),
-            'stored' => $this->faker->numberBetween(0, 1000000),
+            'company_id' => $this->faker->numberBetween(0, 10),
+            'date' => $this->faker->dateTimeBetween('now-1 days', '+9 days')
         ];
     }
 }
