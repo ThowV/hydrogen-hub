@@ -12,11 +12,31 @@
             labels: @json($labels),
             datasets: [
                 {
+                    data: @json($demands),
+                    type: 'line',
+                    label: 'Demand',
+                    fill: true,
+                    backgroundColor: "#00ff0000",
+                    borderColor: "#70cbf4",
+                    borderCapStyle: 'butt',
+                    borderJoinStyle: 'round',
+                    lineTension: 0.1,
+                    pointBackgroundColor: "#fff",
+                    pointBorderColor: "#70cbf4",
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "#70cbf4",
+                    pointHoverBorderColor: "#70cbf4",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10
+                },
+                {
                     label: 'Total load',
                     backgroundColor: "#ffe100",
                     borderColor: "#00ff0000",
                     yAxisID: "bar-y-axis",
-                    data: @json($totalLoad)
+                    data: @json($totalLoads)
                 },
             ],
         };
@@ -45,8 +65,8 @@
                             stacked: false,
                             ticks: {
                                 beginAtZero: true,
-                                min: {{ $minLoad }},
-                                max: {{ $maxLoad }}
+                                min: {{ $min }},
+                                max: {{ $max }}
                             },
                         }, {
                             id: "bar-y-axis",
@@ -54,8 +74,8 @@
                             display: false, //optional
                             ticks: {
                                 beginAtZero: true,
-                                min: {{ $minLoad }},
-                                max: {{ $maxLoad }}
+                                min: {{ $min }},
+                                max: {{ $max }}
                             },
                             type: 'linear'
                         }]
