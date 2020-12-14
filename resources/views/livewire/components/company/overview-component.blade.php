@@ -1,13 +1,19 @@
 <div class="flex flex-col h-full">
     <div class="flex flex-none w-full justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Employees</h2>
-        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600"> + Add employee</button>
+        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600"
+                wire:click="toggleEmployeeCreationModal"> + Add employee
+        </button>
     </div>
 
     @if($modalOpen)
         <x-company.overview-modal :employeeToUpdate="$employeeToUpdate"></x-company.overview-modal>
     @endif
 
+    @if($addEmployeeModalOpen)
+        <x-components.company.employee-creation-modal></x-components.company.employee-creation-modal>
+    @endif
+    @include('components.session-messages')
     <table class="table w-full flex-1 h-full">
         <tbody class="flex flex-wrap p-12 xxl:p-20 gap-x-16 xxl:gap-x-24">
         @foreach($employees as $employee)
@@ -18,7 +24,8 @@
                 <td class="text-sm xxl:text-2xl font-bold pt-2 xxl:pt-4">{{$employee->full_name}}</td>
                 <td class="text-xs xxl:text-xl">{{$employee->email}}</td>
                 <td class="pt-4 xxl:pt-8">
-                    <a wire:click="toggleModal({{$employee->id}})" class="rounded-lg px-2 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
+                    <a wire:click="toggleModal({{$employee->id}})"
+                       class="rounded-lg px-2 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
                         <button>View</button>
                     </a>
                 </td>
