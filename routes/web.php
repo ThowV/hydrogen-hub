@@ -15,6 +15,7 @@ use App\Http\Livewire\Components\Login\LoginComponent;
 use App\Http\Livewire\Components\Login\PasswordResetComponent;
 use Illuminate\Support\Facades\Route;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
+use App\Http\Livewire\Components\Admin\RoleManagerComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
     Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
-
 
     Route::resource('employees',                          EmployeesController::class);
 });
