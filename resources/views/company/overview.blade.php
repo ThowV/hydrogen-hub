@@ -15,29 +15,29 @@
     </div>
 
     <!-- Company stats -->
-    <div class="px-10 xxl:px-20 pb-5 xxl:pb-20 xxl:pt-10">
+    <div class="px-10 xxl:px-20 pb-5 xxl:pb-10 xxl:pt-10">
         <div class="flex flex-row flex-nowrap h-vh10">
-            <div class="rounded-lg px-10 w-full bg-white text-gray-700">
-                <div class="w-full h-full flex flex-row justify-between items-center">
+            <div class="rounded-lg px-10 xxl:px-24 w-full bg-white text-gray-700">
+                <div class="w-full h-full flex flex-row flex-wrap justify-between items-center">
 
-                    <h2 class="text-base xxl:text-xl font-bold">Statistics</h2>
+                    <h2 class="text-base xxl:text-3xl font-bold">Statistics</h2>
 
-                    <div class="flex flex-row gap-4 text-sm">
+                    <div class="flex flex-row gap-4 text-sm xxl:text-2xl">
                         <p>Upload picture here</p>
                         <p class="font-bold">HydroActive</p>
                     </div>
 
-                    <div class="flex flex-row gap-4 text-sm">
+                    <div class="flex flex-row gap-4 text-sm xxl:text-2xl">
                         <p>Total volumes traded:</p>
                         <p class="font-bold">17.234.324</p>
                     </div>
 
-                    <div class="flex flex-row gap-4 text-sm">
+                    <div class="flex flex-row gap-4 text-sm xxl:text-2xl">
                         <p>Total trades:</p>
                         <p class="font-bold">1.625</p>
                     </div>
 
-                    <div class="flex flex-row gap-4 text-sm">
+                    <div class="flex flex-row gap-4 text-sm xxl:text-2xl">
                         <p>Total employees:</p>
                         <p class="font-bold">4</p>
                     </div>
@@ -49,7 +49,7 @@
     <!-- Company employees -->
     <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
         <div class="flex flex-row flex-nowrap h-full">
-            <div class="rounded-lg px-10 w-full bg-white text-gray-700">
+            <div class="rounded-lg p-10 xxl:px-24 xxl:py-24 w-full bg-white text-gray-700">
                 <div class="w-full h-full">
                     @livewire('components.company.overview-component')
                 </div>
