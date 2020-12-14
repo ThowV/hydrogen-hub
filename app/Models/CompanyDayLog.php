@@ -36,4 +36,9 @@ class CompanyDayLog extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function sections()
+    {
+        return $this->hasMany(CompanyDayLogSection::class);
+    }
 }

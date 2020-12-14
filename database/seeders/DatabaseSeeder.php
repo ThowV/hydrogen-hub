@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\CompanyDayLog;
+use App\Models\CompanyDayLogSection;
 use App\Models\RegistrationRequest;
 use App\Models\Trade;
 use App\Models\User;
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         User::factory(25)->create();
         Company::factory(10)->create();
         CompanyDayLog::factory(100)->create();
+        CompanyDayLogSection::factory(200)->create();
         Trade::factory(50)->create();
         RegistrationRequest::factory(10)->create();
 
