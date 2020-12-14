@@ -1,7 +1,7 @@
 <div class="flex flex-col h-full">
     <div class="flex flex-none w-full justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Employees</h2>
-        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600"> + Add employee</button>
+        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transition duration-200 ease-in-out"> + Add employee</button>
     </div>
 
     @if($modalOpen)
@@ -9,7 +9,7 @@
     @endif
 
     <table class="table w-full flex-1 h-full">
-        <tbody class="flex flex-wrap p-12 xxl:p-20 gap-x-16 xxl:gap-x-24">
+        <tbody class="flex flex-wrap justify-between p-12 xxl:p-20 gap-16 xxl:gap-24">
         @foreach($employees as $employee)
             <tr class="flex flex-col text-center">
                 <td align="center">
