@@ -44,8 +44,6 @@ Route::group(['middleware' =>                                           ['web', 
     Route::post('welcome/{user}',                                   [WelcomeMessageController::class, 'savePassword'])->name('welcome.post');
 });
 
-Route::get('/roles/{user}',                                                RoleManagerComponent::class);
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/',                                                 [DashboardController::class, 'show'])->name('home');
     Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
@@ -57,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');
     Route::get('/company_request/{registration_request}/accept',    [RegistrationRequestController::class, 'accept'])->name('request.accept');
     Route::get('/company_request/{registration_request}/deny',      [RegistrationRequestController::class, 'deny'])->name('request.deny');
-
 
     Route::resource('employees',                          EmployeesController::class);
 });
