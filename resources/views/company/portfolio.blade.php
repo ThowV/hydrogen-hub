@@ -18,6 +18,13 @@
 
         <!--Content-->
         <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
+            <div class="rounded-lg px-10 mr-4 w-full sm:w-full sm:mr-0 md:w-2/4 bg-white text-gray-700">
+                <div class="w-2/3">
+                    @livewire('components.company.chart-overview')
+                </div>
+            </div>
+        </div>
+        <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
             <div class="flex flex-row flex-nowrap min-h-full sm:flex-col">
                 <div class="rounded-lg px-10 mr-4 w-3/6 sm:w-full sm:mr-0 md:w-2/4 bg-white text-gray-700">
                     @livewire('components.company.trades-component')
