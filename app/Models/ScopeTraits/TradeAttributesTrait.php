@@ -8,11 +8,21 @@ use Carbon\Carbon;
 
 class TradeAttributesTrait
 {
+    /**
+     * Get the total volume of hydrogen of this trade
+     *
+     * @return float|int
+     */
     public function getTotalVolumeAttribute()
     {
         return $this->duration * $this->units_per_hour;
     }
 
+    /**
+     * Get the end date of this trade in string format
+     *
+     * @return string
+     */
     public function getEndAttribute()
     {
         if ($this->deal_made_at) {
@@ -25,6 +35,11 @@ class TradeAttributesTrait
         }
     }
 
+    /**
+     * Get the end date of this trade in Carbon format
+     *
+     * @return Carbon
+     */
     public function getEndRawAttribute()
     {
         if ($this->deal_made_at) {
@@ -36,16 +51,31 @@ class TradeAttributesTrait
         }
     }
 
+    /**
+     * Set time since deal attribute on the model instance
+     *
+     * @return mixed
+     */
     public function getTimeSinceDealAttribute()
     {
         return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at));
     }
 
+    /**
+     * Set trade's total price attribute on the model instance
+     *
+     * @return float|int
+     */
     public function getTotalPriceAttribute()
     {
         return $this->duration * $this->units_per_hour * $this->price_per_unit;
     }
 
+    /**
+     * Set the trade's expires at attribute in readable format
+     *
+     * @return string
+     */
     public function getExpiresAtReadableAttribute()
     {
         return Carbon::parse($this->expires_at)->toDateString();
