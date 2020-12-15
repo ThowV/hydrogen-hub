@@ -19,7 +19,7 @@ class RoleManagerComponent extends Component
     {
         //User should be able to change roles `
         $this->dodgeIfUserDoesNotHavePermissionToChangeRoles();
-        $this->dodgeIfUserDoesNotBelongToCompany();
+        $this->dodgeIfUserDoesNotBelongToCompany($user);
 
         $this->roles = Role::where('name', '!=', 'Super Admin')->get();
         $this->user = $user;
@@ -35,6 +35,7 @@ class RoleManagerComponent extends Component
 
     private function dodgeIfUserDoesNotBelongToCompany($user)
     {
+       
         if ($user->company_id !== auth()->user()->company_id) {
             event(new PermissionDenied());
             return $this->redirect(route('home'));

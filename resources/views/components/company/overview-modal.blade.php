@@ -21,7 +21,6 @@
                 </div>
 
                 <div class="flex flex-1 flex-row py-10 sm:py-1">
-
                     <div class="w-1/3 flex flex-col gap-y-5">
                         <div align="center" class="w-full">
                             <img class="rounded-full w-32 xxl:w-46" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2016%2F08%2F08%2F09%2F17%2Favatar-1577909_960_720.png&f=1&nofb=1" alt="">
@@ -36,24 +35,24 @@
 
                     <form class="w-2/3 h-full" wire:submit.prevent="saveUpdate">
                         <ul class="h-full flex flex-col justify-between">
-                            <div class="flex flex-none justify-between flex-wrap gap-2">
+                            <div class="flex flex-none justify-between flex-wrap gap-2 text-sm">
                                 <li class="flex flex-col gap-3">
-                                    <label class="text-sm" for="">First name:</label>
-                                    <input class="rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" wire:model="employeeToUpdate.first_name"
+                                    <label class="" for="">First name:</label>
+                                    <input class="font-semibold rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" wire:model="employeeToUpdate.first_name"
                                             type="text"/>
                                     @error('employeeToUpdate.first_name') <span
                                         class="error text-red-500">{{ $message }}</span> @enderror
                                 </li>
                                 <li class="flex flex-col gap-3">
-                                    <label class="text-sm" for="">Last name: </label>
-                                    <input class="rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" wire:model="employeeToUpdate.last_name"
-                                            type="text"/>
+                                    <label class="" for="">Last name: </label>
+                                    <input class="font-semibold rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" wire:model="employeeToUpdate.last_name"
+                                       @if(!auth()->user()->hasAnyRole('Super Admin|Admin'))disabled @endif  type="text"/>
                                     @error('employeeToUpdate.last_name') <span
                                         class="error text-red-500">{{ $message }}</span> @enderror
                                 </li>
                                 <li class="flex flex-col gap-3">
-                                    <label class="text-sm" for="">Email: </label>
-                                    <input class="rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" wire:model="employeeToUpdate.email" type="text"/>
+                                    <label class="" for="">Email: </label>
+                                    <input class="font-semibold rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" wire:model="employeeToUpdate.email" type="text"/>
                                     @error('employeeToUpdate.email') <span
                                         class="error text-red-500">{{ $message }}</span> @enderror
                                 </li>
@@ -64,46 +63,30 @@
                                     </button>
                                 </li>
                             </div>
-                            
-                            <li class="flex flex-auto pt-10 sm:pt-4 text-sm">
-                                <div>
-                                    Roles:
-                                    <ul class="rounded-xl bg-gray-200 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl">
-                                        @if(count($employeeToUpdate->roles) !== 0 )
-                                            @foreach($employeeToUpdate->roles as $role)
-                                                <li>{{$role->name}}</li>
-                                            @endforeach
-                                        @else
-                                            <li>No roles yet</li>
-                                        @endif
 
-
-                                    </ul>
-                                    @if(auth()->user()->can('employees.roles.read'))
-                                    <div class="pt-5">
-                                        Todo create Rolemanager
-                                        <a class="py-1 px-2 bg-orange-400 rounded text-white">Change </a>
-                                    </div>
-                                    @endif
-                                </div>
-                            </li>
+                            <!-- Roles -->
+                            <li class="flex flex-auto pt-10 sm:pt-4 text-sm">               
+                                @hasanyrole('Super Admin|Admin')
+                                    @livewire('components.admin.role-manager-component', ['user'=>$this->employeeToUpdate])
+                                @endhasanyrole                       
+                            </li> 
                         </ul>
                     </form>
                 </div>
 
                 <div class="flex flex-auto">
-                    <div class="flex flex-row w-full sm:text-sm">
-                        <div class="w-3/4 flex flex-col gap-3">
+                    <div class="flex flex-row w-full text-sm sm:text-xs xxl:text-xl">
+                        <div class="w-3/4 flex flex-col gap-3 sm:gap-1">
                             <span class="font-semibold">Activity</span>
-                            <ul class="flex flex-col gap-3">
+                            <ul class="flex flex-col gap-3 sm:gap-1">
                                 <li>Total Trades: {{count($employeeToUpdate->trades)}}</li>
                                 <li>Total Offers: {{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</li>
                                 <li>Total Sold: {{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</li>
                             </ul>
                         </div>
-                        <div class="w-1/4 flex flex-col gap-3">
+                        <div class="w-1/4 flex flex-col gap-3 sm:gap-1">
                             <span class="font-semibold">Stats</span>
-                            <ul class="flex flex-col gap-3">
+                            <ul class="flex flex-col gap-3 sm:gap-1">
                                 <li>Total trades: {{count($employeeToUpdate->trades)}}</li>
                                 <li>Total offers: {{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</li>
                                 <li>Total sold: {{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</li>
