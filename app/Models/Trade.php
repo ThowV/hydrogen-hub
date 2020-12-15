@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ScopeTraits\TradeAttributesTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -48,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
 class Trade extends Model
 {
     use HasFactory;
+    use TradeAttributesTrait;
 
     protected $fillable = [
         'owner_id',
