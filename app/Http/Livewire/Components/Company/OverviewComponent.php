@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire\Components\Company;
 
+use App\Actions\BindRoleToUserAction;
 use App\Actions\StartUpdateUserEmailAction;
 use App\CreateEmployeeAction;
 use App\Models\User;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class OverviewComponent extends Component
 {
@@ -25,6 +27,7 @@ class OverviewComponent extends Component
         'employeeToCreate.first_name' => 'sometimes|required',
         'employeeToCreate.last_name' => 'sometimes|required',
         'employeeToCreate.email' => 'sometimes|required|email:rfc',
+        'employeeToCreate.roles' => 'sometimes|required',
 
     ];
 
@@ -33,20 +36,29 @@ class OverviewComponent extends Component
         $this->addEmployeeModalOpen = !$this->addEmployeeModalOpen;
     }
 
-    public function submitCreateUser(StartUpdateUserEmailAction $emailAction, CreateEmployeeAction $employeeAction)
-    {
+    public function submitCreateUser(
+        StartUpdateUserEmailAction $emailAction,
+        BindRoleToUserAction $bindRoleToUserAction,
+        CreateEmployeeAction $employeeAction
+    ) {
         $data = $this->validate()['employeeToCreate'];
         $data['company_id'] = auth()->user()->company_id;
-
         $emailAction->execute($data['email']);
-        if ($employeeAction->execute($data)) {
+        if ($id = $employeeAction->execute($data)) {
+            $bindRoleToUserAction->execute($data['roles'], $id);
             session()->flash('message', ['green', 'Account has been created!']);
             return $this->mount();
         } else {
-            session()->flash('message', ['red', 'Account has been created!']);
+            session()->flash('message', ['red', 'Account has not been created!']);
             return $this->mount();
         }
     }
+
+    public function getRoleDisplayProperty()
+    {
+        return Role::where('name', '!=', 'Super Admin')->get();
+    }
+
 
     public function toggleModal(User $user = null)
     {

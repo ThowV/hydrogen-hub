@@ -14,8 +14,8 @@ class CreateEmployeeAction
     public function execute($data )
     {
         try {
-            DB::transaction(function () use ($data) {
-                $employeeToCreate = new User($data);
+            $employeeToCreate = new User($data);
+            DB::transaction(function () use (&$employeeToCreate, $data) {
                 $employeeToCreate->company_id = $data['company_id'];
                 $employeeToCreate->password = \Hash::make('ThisIsATemporaryPasswordWhichWillImmediatelyBeInvalidated');
                 $employeeToCreate->save();
@@ -25,9 +25,9 @@ class CreateEmployeeAction
 
             Password::RESET_LINK_SENT ? "Password reset link has been sent to your email" : $this->addError('errors', 'We had some trouble sending the reset link to your mail, please try again later');
             });
-            return true;
+
+            return $employeeToCreate->id;
         } catch (Exception $exception) {
-            dd($exception);
             DB::rollBack();
             return false;
         }

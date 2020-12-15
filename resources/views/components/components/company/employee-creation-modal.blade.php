@@ -15,6 +15,12 @@
 
                 <input type="email" wire:model="employeeToCreate.email" >
                 @error('employeeToCreate.email') <span class="error text-red-500">{{ $message }}</span> @enderror
+
+
+                @foreach($this->roleDisplay as $role)
+                    <input type="checkbox" id="{{$loop->index}}" value="{{$role->name}}" wire:model="employeeToCreate.roles.{{$loop->index}}">{{$role->name}}
+                @endforeach
+                @error('employeeToCreate.role') <span class="error text-red-500">{{ $message }}</span> @enderror
                 <input type="submit">
             </form>
         </div>
