@@ -8,8 +8,8 @@ use Livewire\Component;
 
 class ChartOverview extends Component
 {
-    private $chart_types = ['blue', 'green', 'grey'];
-    private $chart_data = [];
+    private $chartTypes = ['blue', 'green', 'grey'];
+    private $chartData = [];
     private $dayLabels = [];
 
     private function buildChart()
@@ -26,9 +26,9 @@ class ChartOverview extends Component
         }
 
         // Loop through each chart type and get the data associated to this type
-        foreach ($this->chart_types as $chart_type) {
+        foreach ($this->chartTypes as $chart_type) {
             // Create a new set of data for this chart type so we can modify it
-            $this->chart_data[$chart_type] = [
+            $this->chartData[$chart_type] = [
                 'hydrogen_type' => $chart_type,
                 'min' => 0,
                 'max' => 100,
@@ -62,7 +62,7 @@ class ChartOverview extends Component
                     }
                 }
 
-                $this->chart_data[$chart_type]['totalLoads'][] = $totalLoad;
+                $this->chartData[$chart_type]['totalLoads'][] = $totalLoad;
                 $boundaries[] = $totalLoad;
 
                 # Get demand for the given date
@@ -72,29 +72,29 @@ class ChartOverview extends Component
                 if ($dayLog && !$dayLog->sections->isEmpty() && !$dayLog->sections->where('hydrogen_type', '=', $chart_type)->isEmpty()) {
                     # Get first because we don't have type splitting yet
                     $section = $dayLog->sections->where('hydrogen_type', '=', $chart_type)->first();
-                    $this->chart_data[$chart_type]['demands'][] = $section->demand;
+                    $this->chartData[$chart_type]['demands'][] = $section->demand;
                     $boundaries[] = $section->demand;
                 }
                 else {
-                    $this->chart_data[$chart_type]['demands'][] = 0;
+                    $this->chartData[$chart_type]['demands'][] = 0;
                 }
 
                 # Update the minimum and maximum
                 foreach ($boundaries as $boundary) {
-                    if ($boundary > $this->chart_data[$chart_type]['max']) {
-                        $this->chart_data[$chart_type]['max'] = $boundary + ceil(0.15 * $boundary);
+                    if ($boundary > $this->chartData[$chart_type]['max']) {
+                        $this->chartData[$chart_type]['max'] = $boundary + ceil(0.15 * $boundary);
                     }
-                    if ($boundary < $this->chart_data[$chart_type]['min']) {
-                        $this->chart_data[$chart_type]['min'] = $boundary + ceil(0.15 * $boundary);
+                    if ($boundary < $this->chartData[$chart_type]['min']) {
+                        $this->chartData[$chart_type]['min'] = $boundary + ceil(0.15 * $boundary);
                     }
                 }
 
                 # Get the shortage if it wasn't already present
-                $shortage = $this->chart_data[$chart_type]['shortage'];
-                $demand = $this->chart_data[$chart_type]['demands'][$index];
+                $shortage = $this->chartData[$chart_type]['shortage'];
+                $demand = $this->chartData[$chart_type]['demands'][$index];
 
                 if (!$shortage && $totalLoad < $demand) {
-                    $this->chart_data[$chart_type]['shortage'] = $date->format('M d') . ' - ' . ($demand - $totalLoad) . ' units short';
+                    $this->chartData[$chart_type]['shortage'] = $date->format('M d') . ' - ' . ($demand - $totalLoad) . ' units short';
                 }
             }
         }
@@ -105,6 +105,6 @@ class ChartOverview extends Component
         $this->buildChart();
 
         return view('livewire.components.company.chart-overview')
-            ->withLabels($this->dayLabels)->withChartData($this->chart_data);
+            ->withLabels($this->dayLabels)->withChartData($this->chartData);
     }
 }
