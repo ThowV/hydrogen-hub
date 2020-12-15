@@ -3,9 +3,9 @@
 @section('content')
     <div class="flex w-full h-full flex-col">
         <!--Trade info modal-->
-    @livewire('components.company.trade-and-listing-info-modal-component')
+        @livewire('components.company.trade-and-listing-info-modal-component')
 
-    <!--Header-->
+        <!--Header-->
         <div class="w-full h-24 grid grid-col-2 grid-rows-2">
             <div class="col-start-1 flex flex-row items-baseline py-8 xxl:py-10">
                 <h1 class="font-bold text-2xl xxl:text-4xl mr-4 pl-10 xxl:pl-20">Company portfolio</h1>
@@ -20,7 +20,7 @@
         <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
             <div class="rounded-lg px-10 mr-4 w-full sm:w-full sm:mr-0 md:w-2/4 bg-white text-gray-700">
                 <div class="w-2/3">
-                    @livewire('components.company.graph-overview')
+                    @livewire('components.company.chart-overview')
                 </div>
             </div>
         </div>
