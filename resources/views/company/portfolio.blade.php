@@ -16,25 +16,27 @@
             </div>
         </div>
 
-        <!--Content-->
-        <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
-            <div class="rounded-lg px-10 mr-4 w-full sm:w-full sm:mr-0 md:w-2/4 bg-white text-gray-700">
-                <div class="w-2/3">
+        <!--Graphs-->
+        <div class="flex flex-none px-10 xxl:px-20 pb-5 xxl:pb-20 xxl:pt-10">
+            <div class="rounded-lg p-10 w-full h-full bg-white text-gray-700">
+                <div class="max-w-full h-full">
                     @livewire('components.company.chart-overview')
                 </div>
             </div>
         </div>
-        <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
-            <div class="flex flex-row flex-nowrap min-h-full sm:flex-col">
-                <div class="rounded-lg px-10 mr-4 w-3/6 sm:w-full sm:mr-0 md:w-2/4 bg-white text-gray-700">
+
+        <!-- Stats -->
+        <div class="flex flex-auto w-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
+            <div class="flex flex-row flex-nowrap w-full h-full sm:flex-col">
+                <div class="rounded-lg p-10 mr-2 w-3/6 sm:w-full sm:mr-0 bg-white text-gray-700">
                     @livewire('components.company.trades-component')
                 </div>
 
-                <div class="rounded-lg px-10 ml-4 w-2/6 sm:w-full sm:ml-0 sm:mt-4 md:w-2/4 bg-white text-gray-700">
+                <div class="rounded-lg p-10 mr-2 ml-3 w-2/6 sm:w-full sm:ml-0 sm:mt-4 bg-white text-gray-700">
                     @livewire('components.company.offers-requests-component')
                 </div>
 
-                <div class="rounded-lg px-10 ml-4 w-1/6 sm:w-full sm:ml-0 sm:mt-4 md:w-2/4 bg-white text-gray-700">
+                <div class="rounded-lg p-10 ml-3 w-1/6 sm:w-full sm:ml-0 sm:mt-4 bg-white text-gray-700">
                     @livewire('components.company.financials-component')
                 </div>
             </div>

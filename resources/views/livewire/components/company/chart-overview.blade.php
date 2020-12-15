@@ -1,10 +1,26 @@
-<div>
+<div class="flex flex-col max-w-full h-full">
+    <div class="flex flex-none w-full justify-between">
+        <h2 class="text-base xxl:text-3xl font-bold">Portfolio</h2>
+        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
+                wire:click="toggleEmployeeCreationModal"> + Add graph
+        </button>
+    </div>
+
+    <div class="h-full flex flex-auto sm:flex-col text-center">
     @foreach($chartData as $chart)
-        <canvas id="canvas-{{ $chart['hydrogen_type'] }}"></canvas>
-        @if($chart['shortage'])
-            <p>{{ $chart['shortage'] }}</p>
-        @endif
+        <div class="flex flex-col w-1/3 sm:w-full h-full">
+            <canvas id="canvas-{{ $chart['hydrogen_type'] }}" class="flex"></canvas>
+            @if($chart['shortage'])
+            <p class="flex flex-none pt-8 justify-center text-xs gap-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                    <path id="Icon_material-error-outline" data-name="Icon material-error-outline" d="M11.1,14.7h1.8v1.8H11.1Zm0-7.2h1.8v5.4H11.1ZM11.991,3A9,9,0,1,0,21,12,9,9,0,0,0,11.991,3ZM12,19.2A7.2,7.2,0,1,1,19.2,12,7.2,7.2,0,0,1,12,19.2Z" transform="translate(-3 -3)" fill="#f05959"/>
+                </svg>
+                {{ $chart['shortage'] }}
+            </p>
+            @endif
+        </div>
     @endforeach
+    </div>
 </div>
 
 @push('scripts')
