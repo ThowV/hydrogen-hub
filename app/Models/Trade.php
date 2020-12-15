@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ScopeTraits\TradeAttributesTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -48,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
 class Trade extends Model
 {
     use HasFactory;
+    use TradeAttributesTrait;
 
     protected $fillable = [
         'owner_id',
@@ -61,40 +63,6 @@ class Trade extends Model
         'mix_co2',
         'expires_at',
     ];
-
-    public function getTotalVolumeAttribute()
-    {
-        return $this->duration * $this->units_per_hour;
-    }
-
-    public function getEndAttribute()
-    {
-        if ($this->deal_made_at) {
-            // If the trade has been closed we should count down
-            return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at)->addHours($this->duration));
-        }
-        else {
-            // If the trade has not been closed yet the duration should stay the same
-            return $this->datesDiffToReadable(Carbon::now(), Carbon::now()->addHours($this->duration));
-        }
-    }
-
-    public function getEndRawAttribute()
-    {
-        if ($this->deal_made_at) {
-            // If the trade has been closed we should count down
-            return Carbon::parse($this->deal_made_at)->addHours($this->duration);
-        }
-        else {
-            // If the trade has not been closed yet the duration should stay the same
-            return Carbon::now()->addHours($this->duration);
-        }
-    }
-
-    public function getTimeSinceDealAttribute()
-    {
-        return $this->datesDiffToReadable(Carbon::now(), Carbon::parse($this->deal_made_at));
-    }
 
     private function datesDiffToReadable(Carbon $dateStart, Carbon $dateEnd)
     {
@@ -111,12 +79,12 @@ class Trade extends Model
          * idx => [carbon notation (cn), readable notation (rn), [next accepted message values]]
          */
         $diffMsgModifiers = [
-            ['y',   'year',     [true, true, true, false, false, false]],
-            ['m',   'month',    [false, true, true, false, false, false]],
-            ['d',   'day',      [false, false, true, true, false, false]],
-            ['h',   'hour',     [false, false, false, true, true, false]],
-            ['i',   'minute',   [false, false, false, false, true, true]],
-            ['s',   'second',   []],
+            ['y', 'year', [true, true, true, false, false, false]],
+            ['m', 'month', [false, true, true, false, false, false]],
+            ['d', 'day', [false, false, true, true, false, false]],
+            ['h', 'hour', [false, false, false, true, true, false]],
+            ['i', 'minute', [false, false, false, false, true, true]],
+            ['s', 'second', []],
         ];
         $activeModifierPointer = 0;
 
@@ -130,39 +98,13 @@ class Trade extends Model
             $namv = $diffMsgModifiers[$activeModifierPointer][2]; // Next accepted message values
 
             if ($namv[$idx] && $diff->$cn >= 1) {
-                $diffMsg .= $diff->$cn . ' ' . $rn . ($diff->$cn > 1 ? 's' : '') . ' ';
-            }
-            else {
+                $diffMsg .= $diff->$cn.' '.$rn.($diff->$cn > 1 ? 's' : '').' ';
+            } else {
                 $activeModifierPointer += 1;
             }
         }
 
         return $diffMsg;
-    }
-
-    public function getTotalPriceAttribute()
-    {
-        return $this->duration * $this->units_per_hour * $this->price_per_unit;
-    }
-
-    public function getExpiresAtReadableAttribute()
-    {
-        return Carbon::parse($this->expires_at)->toDateString();
-    }
-
-    public function getUnitsTodayAttribute()
-    {
-        $now = Carbon::now();
-        $dealMadeAt = Carbon::parse($this->deal_made_at);
-        $end = $dealMadeAt->copy()->addHours($this->duration);
-        $durationToday = 24;
-
-        if ($now->diffInDays($end) == 0) {
-            // Only a part of today the company will be provided with the units
-            $durationToday = ceil($now->diffInMinutes($end) / 60);
-        }
-
-        return $this->units_per_hour * $durationToday;
     }
 
     public function owner()
