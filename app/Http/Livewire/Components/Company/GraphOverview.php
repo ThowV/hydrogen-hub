@@ -10,8 +10,8 @@ class GraphOverview extends Component
 {
     public function render()
     {
-        $maxLoad = 100;
         $minLoad = 0;
+        $maxLoad = 100;
 
         $shortage = null;
 
@@ -23,7 +23,7 @@ class GraphOverview extends Component
         $trades = auth()->user()->company->trades->where('end_raw', '>=', $now->copy());
 
         // Get every demand between now and the next 7 days or longer
-        $demandsColl = auth()->user()->company->dayLogs->where('date', '>=', $now->copy())->where('date', '<=', $periodEnd->copy());
+        $dayLogs = auth()->user()->company->dayLogs->where('date', '>=', $now->copy())->where('date', '<=', $periodEnd->copy());
 
         foreach ($period as $index=>$date) {
             # Get date labels
@@ -44,32 +44,30 @@ class GraphOverview extends Component
                 }
             }
             $totalLoads[] = $totalLoad;
+            $boundaries[] = $totalLoad;
 
             # Get demands
             # Get first because faker generates multiple day logs with the same date, normally this isn't possible
-            $dayLog = $demandsColl->where('date', '=', $date->toDateString())->first();
+            $dayLog = $dayLogs->where('date', '=', $date->toDateString())->first();
 
-            if ($dayLog) {
-                $demands[] = $dayLog->demand;
+            if ($dayLog && !$dayLog->sections->isEmpty()) {
+                # Get first because we don't have type splitting yet
+                $section = $dayLog->sections()->first();
+                $demands[] = $section->demand;
+                $boundaries[] = $section->demand;
             }
             else {
                 $demands[] = 0;
             }
 
-            # Update the maximum
-            if ($totalLoad > $maxLoad) {
-                $maxLoad = $totalLoad + ceil(0.15 * $totalLoad);
-            }
-            if ($demands[$index] > $maxLoad) {
-                $maxLoad = $demands[$index] + ceil(0.15 * $demands[$index]);
-            }
-
-            # Update the minimum
-            if ($totalLoad < $minLoad) {
-                $minLoad = $totalLoad + floor(0.15 * $totalLoad);
-            }
-            if ($demands[$index] < $minLoad) {
-                $maxLoad = $demands[$index] + ceil(0.15 * $demands[$index]);
+            # Update the minimum and maximum
+            foreach ($boundaries as $boundary) {
+                if ($boundary > $maxLoad) {
+                    $maxLoad = $boundary + ceil(0.15 * $boundary);
+                }
+                if ($boundary < $minLoad) {
+                    $minLoad = $boundary + ceil(0.15 * $boundary);
+                }
             }
 
             # Get the shortage if it wasn't already present

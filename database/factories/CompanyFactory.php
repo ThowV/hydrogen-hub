@@ -24,7 +24,7 @@ public function definition()
     {
         return [
             'name' => $this->faker->company,
-            'owner_id' => User::whereDoesntHave('isOwnerOf')->first()->id == 1 ? rand(1,10): 1,
+            'owner_id' => User::whereDoesntHave('isOwnerOf')->first()->id == 1 ? rand(1,2): 1,
             'logo_path'=>"https://picsum.photos/200/".rand(185,200),
             'usable_fund' => $this->faker->numberBetween(0, 9000000)
         ];
