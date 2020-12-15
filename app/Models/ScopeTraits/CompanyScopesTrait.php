@@ -6,6 +6,7 @@ namespace App\Models\ScopeTraits;
 
 use App\Models\Trade;
 use App\Models\User;
+use Carbon\Carbon;
 
 trait CompanyScopesTrait
 {
@@ -59,4 +60,14 @@ trait CompanyScopesTrait
         return $soldOffers + $BoughtRequests;
     }
 
+
+    public function dayLogsBetweenCarbonDates(Carbon $start, Carbon $end)
+    {
+        return $this->dayLogs->where('date', '>=', $start)->where('date', '<=', $end);
+    }
+
+    public function tradesAfterCarbonDate(Carbon $start)
+    {
+        return $this->trades->where('end_raw', '>=', $start);
+    }
 }
