@@ -2,14 +2,14 @@
     <div class="flex flex-none w-full justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Portfolio</h2>
         <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
-                wire:click="toggleEmployeeCreationModal"> + Add graph
+                wire:click="openSelectionModal"> + Add graph
         </button>
     </div>
 
     <div class="h-full flex flex-auto sm:flex-col text-center">
     @foreach($chartData as $chart)
         <div class="flex flex-col w-1/3 sm:w-full h-full">
-            <canvas id="canvas-{{ $chart['hydrogen_type'] }}" class="flex"></canvas>
+            <canvas wire:ignore id="canvas-{{ $chart['hydrogen_type'] }}" class="flex"></canvas>
             @if($chart['shortage'])
             <p class="flex flex-none pt-8 justify-center text-xs gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -73,7 +73,7 @@
                     options: {
                         title: {
                             display: true,
-                            text: "Chart {{ $chart['hydrogen_type'] }}"
+                            text: "{{ ucfirst($chart['hydrogen_type']) }}"
                         },
                         tooltips: {
                             mode: 'label'
@@ -95,7 +95,7 @@
                             }, {
                                 id: "bar-y-axis",
                                 stacked: true,
-                                display: false, //optional
+                                display: false,
                                 ticks: {
                                     beginAtZero: true,
                                     min: {{ $chart['min'] }},

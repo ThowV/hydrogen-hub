@@ -72,4 +72,9 @@ class Company extends Model
     {
         return $this->hasMany(CompanyDayLog::class);
     }
+
+    public function hydrogenInterests()
+    {
+        return $this->hasMany(CompanyHydrogenInterest::class);
+    }
 }
