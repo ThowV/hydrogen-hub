@@ -1,7 +1,7 @@
 <div class="flex flex-col h-full">
     <div class="flex flex-none w-full justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Employees</h2>
-        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600"
+        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
                 wire:click="toggleEmployeeCreationModal"> + Add employee
         </button>
     </div>
@@ -25,7 +25,7 @@
                 <td class="text-xs xxl:text-xl">{{$employee->email}}</td>
                 <td class="pt-4 xxl:pt-8">
                     <a wire:click="toggleModal({{$employee->id}})"
-                       class="rounded-lg px-2 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
+                       class="rounded-lg px-4 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
                         <button>View</button>
                     </a>
                 </td>
