@@ -6,7 +6,7 @@ namespace App\Models\ScopeTraits;
 
 use Carbon\Carbon;
 
-class TradeAttributesTrait
+trait TradeAttributesTrait
 {
     /**
      * Get the total volume of hydrogen of this trade
