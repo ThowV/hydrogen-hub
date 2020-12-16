@@ -1,5 +1,5 @@
 <div class="w-full h-full">
-    <div class="w-full h-12 xxl:h-24 flex justify-between">
+    <div class="w-full h-8 xxl:h-12 flex justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Financials</h2>
 
         @if (auth()->user()->can('company.portfolio.write'))
@@ -20,11 +20,11 @@
         @endif
     </div>
 
-    <div class="flex flex-col justify-between h-full pb-12">
+    <div class="flex flex-col justify-around h-full">
         <div class="text-left">
-            <p class="font-semibold text-gray-600 text-xs xxl:text-xl mb-4">Usable fund</p>
+            <p class="font-semibold text-gray-600 text-xs xxl:text-xl mb-1">Usable fund</p>
             @if (!$editState)
-                <h2 class="text-lg xxl:text-3xl">
+                <h2 class="text-base xxl:text-3xl">
                     € {{ number_format($this->company->usable_fund, 0, '.', ' ') }}
                 </h2>
             @else
@@ -34,15 +34,15 @@
         </div>
 
         <div class="text-left">
-            <p class="font-semibold text-gray-600 text-xs xxl:text-xl my-4">Bought</p>
-            <h2 class="text-lg xxl:text-3xl">
+            <p class="font-semibold text-gray-600 text-xs xxl:text-xl my-1">Bought</p>
+            <h2 class="text-base xxl:text-3xl">
                 € {{ number_format($this->company->bought, 0, '.', ' ') }}
             </h2>
         </div>
 
         <div class="text-left">
-            <p class="font-semibold text-gray-600 text-xs xxl:text-xl my-4">Sold</p>
-            <h2 class="text-lg xxl:text-3xl">
+            <p class="font-semibold text-gray-600 text-xs xxl:text-xl my-1">Sold</p>
+            <h2 class="text-base xxl:text-3xl">
                 € {{ number_format($company->sold, 0, '.', ' ') }}
             </h2>
         </div>
