@@ -24,25 +24,25 @@
         <div class="text-left">
             <p class="font-semibold text-gray-600 text-xs xxl:text-xl mb-1">Usable fund</p>
             @if (!$editState)
-                <h2 class="text-base xxl:text-3xl">
+                <h2 class="text-sm xxl:text-3xl">
                     € {{ number_format($this->company->usable_fund, 0, '.', ' ') }}
                 </h2>
             @else
                 <label for="usableFundInput">€</label>
-                <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-lg transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="usableFund" type="text" id="usableFundInput" name="usableFundInput">
+                <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="usableFund" type="text" id="usableFundInput" name="usableFundInput">
             @endif
         </div>
 
         <div class="text-left">
             <p class="font-semibold text-gray-600 text-xs xxl:text-xl my-1">Bought</p>
-            <h2 class="text-base xxl:text-3xl">
+            <h2 class="text-sm xxl:text-3xl">
                 € {{ number_format($this->company->bought, 0, '.', ' ') }}
             </h2>
         </div>
 
         <div class="text-left">
             <p class="font-semibold text-gray-600 text-xs xxl:text-xl my-1">Sold</p>
-            <h2 class="text-base xxl:text-3xl">
+            <h2 class="text-sm xxl:text-3xl">
                 € {{ number_format($company->sold, 0, '.', ' ') }}
             </h2>
         </div>
