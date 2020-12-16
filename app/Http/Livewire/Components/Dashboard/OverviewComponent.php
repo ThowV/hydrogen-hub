@@ -13,6 +13,12 @@ class OverviewComponent extends Component
     public $priceGraphLabels;
     private $limit = 10;
     private $period = null;
+    public $colspan = 'w-1/3';
+    public $open = [
+      "prices"  => true,
+      "volumes"  => false,
+      "mixh2"  => false,
+    ];
 
     public $chartProperties = [
         'limits' => [
@@ -60,10 +66,19 @@ class OverviewComponent extends Component
 
     private function displayPriceGraph()
     {
+        $this->determineColSpan();
         $this->getDataForGraph();
         $this->setLabels();
         $this->setLimitMax();
         $this->setLimitMin();
+    }
+
+    public function determineColSpan(){
+        if(count(array_filter($this->open)) > 1){
+            $this->colspan = 'w-1/'.count(array_filter($this->open));
+        }else{
+            $this->colspan = 'w-full';
+        }
     }
 
     public function render()

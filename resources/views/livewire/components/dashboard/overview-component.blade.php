@@ -1,13 +1,19 @@
 <div class="min-h-full flex flex-row">
-    <div class="w-1/3">
-        <canvas wire:ignore id="canvas-price"></canvas>
-    </div>
-    <div class="w-1/3">
-        <canvas wire:ignore id="canvas-volumes"></canvas>
-    </div>
-    <div class="w-1/3">
-        <canvas wire:ignore id="canvas-mixH2"></canvas>
-    </div>
+    @if($open['prices'])
+        <div class="{{$colspan}}">
+            <canvas wire:ignore id="canvas-price"></canvas>
+        </div>
+    @endif
+    @if($open['volumes'])
+        <div class="{{$colspan}}">
+            <canvas wire:ignore id="canvas-volumes"></canvas>
+        </div>
+    @endif
+    @if($open['mixh2'])
+        <div class="{{$colspan}}">
+            <canvas wire:ignore id="canvas-mixH2"></canvas>
+        </div>
+    @endif
 </div>
 
 @push('scripts')
@@ -16,7 +22,7 @@
             crossorigin="anonymous"></script>
 
     <script>
-        var dataset = {
+        @if($open['prices'])var dataset = {
             labels: @json($priceGraphLabels),
             datasets: [
                     @foreach($lineProperties as $priceGraphLine)
@@ -42,8 +48,8 @@
                 },
                 @endforeach
             ],
-        };
-        var dataset2 = {
+        };@endif
+        @if($open['volumes'])var dataset2 = {
             labels: @json($priceGraphLabels),
             datasets: [
                     @foreach($lineProperties as $priceGraphLine)
@@ -69,8 +75,8 @@
                 },
                 @endforeach
             ],
-        };
-        var dataset3 = {
+        };@endif
+        @if($open['mixh2'])var dataset3 = {
             labels: @json($priceGraphLabels),
             datasets: [
                 {
@@ -79,7 +85,7 @@
                     label: '{{$priceGraphLine['label']}}',
                     fill: true,
                     backgroundColor: '#00ff0000',
-                    borderColor: '{{$priceGraphLine['borderColor']}}',
+                    borderColor: '#676767',
                     borderCapStyle: 'butt',
                     borderJoinStyle: 'round',
                     lineTension: 0,
@@ -95,8 +101,10 @@
                 },
             ],
         };
+        @endif
 
-        window.onload = function () {
+            window.onload = function () {
+            @if($open['prices'])
             var ctx = document.getElementById("canvas-price").getContext("2d");
             window.myLine = new Chart(ctx, {
                 type: 'line',
@@ -127,7 +135,9 @@
                     }
                 }
             });
+            @endif
 
+            @if($open['volumes'])
             var ctx2 = document.getElementById("canvas-volumes").getContext("2d");
             window.myLine2 = new Chart(ctx2, {
                 type: 'line',
@@ -158,7 +168,9 @@
                     }
                 }
             });
+            @endif
 
+            @if($open['mixh2'])
             var ctx3 = document.getElementById("canvas-mixH2").getContext("2d");
             window.myLine3 = new Chart(ctx3, {
                 type: 'line',
@@ -189,6 +201,8 @@
                     }
                 }
             });
+            @endif
+
         };
     </script>
     <script>
