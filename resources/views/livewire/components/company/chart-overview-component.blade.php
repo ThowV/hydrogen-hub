@@ -1,4 +1,4 @@
-<div class="flex flex-col max-w-full h-full">
+<div class="flex flex-col max-w-full max-h-full">
     <div class="flex flex-none w-full justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Portfolio</h2>
         <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
@@ -6,10 +6,10 @@
         </button>
     </div>
 
-    <div class="h-full flex flex-auto sm:flex-col text-center">
+    <div class="flex flex-auto flex-wrap justify-around sm:items-center sm:flex-col text-center">
     @foreach($chartData as $chart)
-        <div class="flex flex-col w-1/3 sm:w-full h-full">
-            <canvas wire:ignore id="canvas-{{ $chart['hydrogen_type'] }}" class="flex"></canvas>
+        <div class="flex flex-col w-1/4 sm:w-3/4">
+            <canvas wire:ignore id="canvas-{{ $chart['hydrogen_type'] }}" class="flex flex-auto"></canvas>
             @if($chart['shortage'])
             <p class="flex flex-none pt-8 justify-center text-xs gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -79,6 +79,8 @@
                             mode: 'label'
                         },
                         responsive: true,
+                    
+                        aspectRatio: 1,
                         scales: {
                             xAxes: [{
                                 stacked: true,

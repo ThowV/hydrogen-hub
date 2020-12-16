@@ -21,16 +21,16 @@
 
         <!--Graphs-->
         <div class="flex flex-none px-10 xxl:px-20 pb-5 xxl:pb-20 xxl:pt-10">
-            <div class="rounded-lg p-10 w-full h-full bg-white text-gray-700">
-                <div class="max-w-full h-full">
+            <div class="rounded-lg p-10 w-full bg-white text-gray-700">
+                <div class="max-w-full">
                     @livewire('components.company.chart-overview-component')
                 </div>
             </div>
         </div>
 
         <!-- Stats -->
-        <div class="flex flex-auto w-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
-            <div class="flex flex-row flex-nowrap w-full h-full sm:flex-col">
+        <div class="flex flex-auto w-full h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
+            <div class="flex flex-row flex-nowrap w-full max-h-full sm:flex-col">
                 <div class="rounded-lg p-10 mr-2 w-3/6 sm:w-full sm:mr-0 bg-white text-gray-700">
                     @livewire('components.company.trades-and-listings-component', ['componentType' => 'trades'])
                 </div>
