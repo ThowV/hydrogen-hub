@@ -9,16 +9,51 @@ use Livewire\Component;
 class TradesListingsComponent extends Component
 {
     public $componentType;
-    public $tradeEntries;
+    public $tradeEntries = [];
+
+    public $paginator = [];
+    public $page = 1;
+    public $itemsPerPage = 5;
+    public $totalItems = 0;
 
     public function getTradeEntries()
     {
+        $tradeEntriesPaginator = null;
+
         if ($this->componentType == 'listings') {
-            $this->tradeEntries = auth()->user()->company->listings;
+            // Paginate querybuilder
+            $tradeEntriesPaginator = auth()->user()->company->listings()->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
         }
         elseif ($this->componentType == 'trades') {
-            $this->tradeEntries = auth()->user()->company->trades;
+            // Paginatie collection using custom service
+            $tradeEntriesPaginator = auth()->user()->company->trades->paginate($this->itemsPerPage, $this->page);
         }
+
+        if ($tradeEntriesPaginator) {
+            $this->totalItems = $tradeEntriesPaginator->total();
+            $this->paginator = $tradeEntriesPaginator->toArray();
+            $this->tradeEntries = $tradeEntriesPaginator->items();
+        }
+    }
+
+    public function applyPagination($action, $value)
+    {
+        // Apply pagination
+        if ($action == 'page_previous' && $this->page > 1) {
+            $this->page -= 1;
+        } elseif ($action == 'page_next') {
+            $this->page += 1;
+        } elseif ($action == 'page') {
+            $this->page = $value;
+        }
+
+        // Check if pagination is out of bounds
+        if (($this->page - 1) * $this->itemsPerPage > $this->totalItems) {
+            $this->page = 1;
+        }
+
+        // Finalize
+        $this->getTradeEntries();
     }
 
     public function openTradeEntry(Trade $trade)
