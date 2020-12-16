@@ -49,89 +49,36 @@
             }
         });
 
-        @if($open['prices'])var dataset = {
-            labels: @json($priceGraphLabels),
-            datasets: [
-                    @foreach($lineProperties as $priceGraphLine)
-                {
-                    data: @json($priceGraphLine['data']),
-                    type: 'LineWithLine',
-                    label: '{{$priceGraphLine['label']}}',
-                    fill: true,
-                    backgroundColor: '#00ff0000',
-                    borderColor: '{{$priceGraphLine['borderColor']}}',
-                    borderCapStyle: 'butt',
-                    borderJoinStyle: 'round',
-                    lineTension: 0,
-                    pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
-                    pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
-                    pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10
-                },
-                @endforeach
-            ],
-        };@endif
-        @if($open['volumes'])var dataset2 = {
-            labels: @json($priceGraphLabels),
-            datasets: [
-                    @foreach($lineProperties as $priceGraphLine)
-                {
-                    data: @json($priceGraphLine['data']),
-                    type: 'LineWithLine',
-                    label: '{{$priceGraphLine['label']}}',
-                    fill: true,
-                    backgroundColor: '#00ff0000',
-                    borderColor: '{{$priceGraphLine['borderColor']}}',
-                    borderCapStyle: 'butt',
-                    borderJoinStyle: 'round',
-                    lineTension: 0,
-                    pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
-                    pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
-                    pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10
-                },
-                @endforeach
-            ],
-        };@endif
-        @if($open['mixh2'])var dataset3 = {
-            labels: @json($priceGraphLabels),
-            datasets: [
-                {
-                    data: @json($priceGraphLine['data']),
-                    type: 'LineWithLine',
-                    label: '{{$priceGraphLine['label']}}',
-                    fill: true,
-                    backgroundColor: '#00ff0000',
-                    borderColor: '#676767',
-                    borderCapStyle: 'butt',
-                    borderJoinStyle: 'round',
-                    lineTension: 0,
-                    pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
-                    pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
-                    pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10
-                },
-            ],
-        };
-        @endif
-
-            window.onload = function () {
+        window.onload = function () {
             @if($open['prices'])
+
+            var dataset = {
+                labels: @json($priceGraphLabels),
+                datasets: [
+                        @foreach($lineProperties as $priceGraphLine)
+                    {
+                        data: @json($priceGraphLine['data']),
+                        type: 'LineWithLine',
+                        label: '{{$priceGraphLine['label']}}',
+                        fill: true,
+                        backgroundColor: '#00ff0000',
+                        borderColor: '{{$priceGraphLine['borderColor']}}',
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
+                        pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
+                        pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    @endforeach
+                ],
+            };
             var ctx = document.getElementById("canvas-price").getContext("2d");
             window.myLine = new Chart(ctx, {
                 type: 'line',
@@ -162,9 +109,38 @@
                     }
                 }
             });
+
             @endif
 
             @if($open['volumes'])
+
+            var dataset2 = {
+                labels: @json($priceGraphLabels),
+                datasets: [
+                        @foreach($lineProperties as $priceGraphLine)
+                    {
+                        data: @json($priceGraphLine['data']),
+                        type: 'LineWithLine',
+                        label: '{{$priceGraphLine['label']}}',
+                        fill: true,
+                        backgroundColor: '#00ff0000',
+                        borderColor: '{{$priceGraphLine['borderColor']}}',
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
+                        pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
+                        pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    @endforeach
+                ],
+            };
             var ctx2 = document.getElementById("canvas-volumes").getContext("2d");
             window.myLine2 = new Chart(ctx2, {
                 type: 'line',
@@ -195,9 +171,35 @@
                     }
                 }
             });
-            @endif
 
+            @endif
             @if($open['mixh2'])
+
+            var dataset3 = {
+                labels: @json($priceGraphLabels),
+                datasets: [
+                    {
+                        data: @json($priceGraphLine['data']),
+                        type: 'LineWithLine',
+                        label: '{{$priceGraphLine['label']}}',
+                        fill: true,
+                        backgroundColor: '#00ff0000',
+                        borderColor: '#676767',
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
+                        pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
+                        pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                ],
+            };
             var ctx3 = document.getElementById("canvas-mixH2").getContext("2d");
             window.myLine3 = new Chart(ctx3, {
                 type: 'line',
@@ -228,6 +230,7 @@
                     }
                 }
             });
+
             @endif
 
         };
