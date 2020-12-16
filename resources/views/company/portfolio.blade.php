@@ -32,11 +32,11 @@
         <div class="flex flex-auto w-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
             <div class="flex flex-row flex-nowrap w-full h-full sm:flex-col">
                 <div class="rounded-lg p-10 mr-2 w-3/6 sm:w-full sm:mr-0 bg-white text-gray-700">
-                    @livewire('components.company.trades-component')
+                    @livewire('components.company.trades-listings-component', ['componentType' => 'trades'])
                 </div>
 
                 <div class="rounded-lg p-10 mr-2 ml-3 w-2/6 sm:w-full sm:ml-0 sm:mt-4 bg-white text-gray-700">
-                    @livewire('components.company.offers-requests-component')
+                    @livewire('components.company.trades-listings-component', ['componentType' => 'listings'])
                 </div>
 
                 <div class="rounded-lg p-10 ml-3 w-1/6 sm:w-full sm:ml-0 sm:mt-4 bg-white text-gray-700">
