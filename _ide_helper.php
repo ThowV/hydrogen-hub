@@ -14514,6 +14514,25 @@
         class Str {
          
     }
+            /**
+     * 
+     *
+     */ 
+        class Collection {
+                    /**
+         * 
+         *
+         * @param mixed $perPage
+         * @param mixed $page
+         * @param mixed $options
+         * @static 
+         */ 
+        public static function paginate($perPage = 15, $page = null, $options = [])
+        {
+                        return \Illuminate\Support\Collection::paginate($perPage, $page, $options);
+        }
+         
+    }
      
 }
 
