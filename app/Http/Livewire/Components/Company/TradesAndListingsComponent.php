@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Models\Trade;
-use Carbon\Carbon;
 use Livewire\Component;
 
 class TradesAndListingsComponent extends Component
@@ -65,11 +64,6 @@ class TradesAndListingsComponent extends Component
         $this->getTradeEntries();
 
         $this->emit('openTradeAndListingInfoModal', $trade);
-    }
-
-    public function getDate($listingPlacedAt)
-    {
-        return Carbon::parse($listingPlacedAt)->toDateString();
     }
 
     public function mount()

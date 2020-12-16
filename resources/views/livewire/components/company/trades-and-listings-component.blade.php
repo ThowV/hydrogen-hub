@@ -29,7 +29,7 @@
                 @foreach($tradeEntries as $tradeEntry)
                     <tr class="text-xs xl:text-sm xxl:text-2xl">
                         <td class="py-2 xxl:py-4">
-                            {{ $this->getDate($componentType == 'trades' ? $tradeEntry->deal_made_at : $tradeEntry->created_at) }}
+                            {{ Carbon\Carbon::parse($componentType == 'trades' ? $tradeEntry->deal_made_at : $tradeEntry->created_at)->toDateString() }}
                         </td>
                         @if($componentType == 'trades')
                             <td class="py-3 xxl:py-5">
