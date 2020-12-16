@@ -31,7 +31,7 @@ class OverviewComponent extends Component
         "green" => [
             "data" => [],
             "label" => "Green",
-            "borderColor" => "#63ff00",
+            "borderColor" => "#48AE60",
             "pointBackgroundColor" => "#fff",
             "pointBorderColor" => "#beffba",
             "pointHoverBackgroundColor" => "#d3ffb7",
@@ -40,7 +40,7 @@ class OverviewComponent extends Component
         "blue" => [
             "data" => [],
             "label" => "Blue",
-            "borderColor" => "#3300AA",
+            "borderColor" => "#1B42AE",
             "pointBackgroundColor" => "#fff",
             "pointBorderColor" => "#beffba",
             "pointHoverBackgroundColor" => "#d3ffb7",
@@ -49,7 +49,7 @@ class OverviewComponent extends Component
         "grey" => [
             "data" => [],
             "label" => "Grey",
-            "borderColor" => "#AA3300",
+            "borderColor" => "#676767",
             "pointBackgroundColor" => "#fff",
             "pointBorderColor" => "#beffba",
             "pointHoverBackgroundColor" => "#d3ffb7",
