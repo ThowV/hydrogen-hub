@@ -22,13 +22,40 @@
             crossorigin="anonymous"></script>
 
     <script>
+        //Add vertical line to hover effect
+        Chart.defaults.LineWithLine = Chart.defaults.line;
+        Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+            draw: function (ease) {
+                Chart.controllers.line.prototype.draw.call(this, ease);
+
+                if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+                    var activePoint = this.chart.tooltip._active[0],
+                        ctx = this.chart.ctx,
+                        x = activePoint.tooltipPosition().x,
+                        topY = this.chart.legend.bottom,
+                        bottomY = this.chart.chartArea.bottom;
+
+                    // draw line
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(x, topY);
+                    ctx.lineTo(x, bottomY);
+                    ctx.lineWidth = 1;
+                    //HOVER VERTICAL LINE COLOR
+                    ctx.strokeStyle = '#07C';
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+        });
+
         @if($open['prices'])var dataset = {
             labels: @json($priceGraphLabels),
             datasets: [
                     @foreach($lineProperties as $priceGraphLine)
                 {
                     data: @json($priceGraphLine['data']),
-                    type: 'line',
+                    type: 'LineWithLine',
                     label: '{{$priceGraphLine['label']}}',
                     fill: true,
                     backgroundColor: '#00ff0000',
@@ -55,7 +82,7 @@
                     @foreach($lineProperties as $priceGraphLine)
                 {
                     data: @json($priceGraphLine['data']),
-                    type: 'line',
+                    type: 'LineWithLine',
                     label: '{{$priceGraphLine['label']}}',
                     fill: true,
                     backgroundColor: '#00ff0000',
@@ -81,7 +108,7 @@
             datasets: [
                 {
                     data: @json($priceGraphLine['data']),
-                    type: 'line',
+                    type: 'LineWithLine',
                     label: '{{$priceGraphLine['label']}}',
                     fill: true,
                     backgroundColor: '#00ff0000',

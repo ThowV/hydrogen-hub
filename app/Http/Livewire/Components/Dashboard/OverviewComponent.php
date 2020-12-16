@@ -16,8 +16,8 @@ class OverviewComponent extends Component
     public $colspan = 'w-1/3';
     public $open = [
       "prices"  => true,
-      "volumes"  => false,
-      "mixh2"  => false,
+      "volumes"  => true,
+      "mixh2"  => true,
     ];
 
     public $chartProperties = [
