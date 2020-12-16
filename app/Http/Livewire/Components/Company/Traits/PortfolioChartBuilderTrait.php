@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Http\Livewire\Components\Company;
+namespace App\Http\Livewire\Components\Company\Traits;
 
 
-trait ChartBuilderTrait
+trait PortfolioChartBuilderTrait
 {
     /**
      * Build the labels for a chart in a given carbon period

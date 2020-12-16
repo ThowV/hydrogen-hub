@@ -3,13 +3,14 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Events\PermissionDenied;
+use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class ChartOverviewComponent extends Component
 {
-    use ChartBuilderTrait;
+    use PortfolioChartBuilderTrait;
 
     public $chartTypes = ['blue', 'green', 'grey'];
     public $chartData = [];
