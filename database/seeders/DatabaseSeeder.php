@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         Company::factory(10)->create();
         CompanyDayLog::factory(100)->create();
         CompanyDayLogSection::factory(200)->create();
-        Trade::factory(50)->create();
+        Trade::factory(1000)->create();
         RegistrationRequest::factory(10)->create();
 
         $this->createCompanyInterest([1, 2]);
