@@ -6,7 +6,7 @@
 
     <nav class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-xl xxl:text-3xl">
         <ul class="text-white font-bold">
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer   {{ Request::is('/') ? 'opacity-100' : '' }}"
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('/') ? 'opacity-100' : 'opacity-25' }}"
                 href="/">
                 <svg class="xxl:mx-10 sm:w-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
                     height="25" viewBox="0 0 25 25">
@@ -17,7 +17,7 @@
                 <a class="grid col-start-4" href="{{route('home')}}">Dashboard</a>
             </li>
 
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer   {{ Request::is('market') ? 'opacity-100' : '' }}"
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Route::is('market') ? 'opacity-100' : 'opacity-25' }}"
                 href="/market">
                 <svg class="xxl:mx-10 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg"
                      width="25" height="25" viewBox="0 0 25 25" href="/market">
@@ -28,7 +28,7 @@
                 <a class="col-start-4" href="{{route('market')}}">Marketplace</a>
             </li>
 
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('company.portfolio') ? 'opacity-100' : '' }}">
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 hover:opacity-100 transaction duration-300 cursor-pointer {{ Route::is('company.*') ? 'opacity-100' : 'opacity-25' }}">
                 <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5 " xmlns="http://www.w3.org/2000/svg"
                     width="19.495" height="25.344" viewBox="0 0 19.495 25.344">
                     <g id="Icon_ionic-ios-business" data-name="Icon ionic-ios-business" opacity="1">
@@ -41,18 +41,18 @@
                     </g>
                 </svg>
                 <a class="col-start-4" href="{{route('company.portfolio')}}">Company</a>
-            </li>
 
-            <ul class="flex flex-col items-end w-3/4 col-start-4 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20">
-                <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
-                    <a class="col-start-4 opacity-25 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company.portfolio') ? 'opacity-100' : '' }}"
-                    href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
-                </li>
-                <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
-                    <a class="opacity-25 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company.overview') ? 'opacity-100' : '' }}"
-                    href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
-                </li>
-            </ul>
+                <ul class="flex flex-col items-start w-3/4 col-start-4 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20">
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                        <a class="col-start-4 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.portfolio') ? 'opacity-100' : 'opacity-25') }}"
+                           href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
+                    </li>
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                        <a class="hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.overview') ? 'opacity-100' : 'opacity-25') }}"
+                           href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
+                    </li>
+                </ul>
+            </li>
 
             @role('Super Admin')
             <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16  xxl:px-16 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('admin') ? 'opacity-100' : '' }}"">
