@@ -23,35 +23,39 @@
             </thead>
 
             <tbody>
-            @foreach($tradeEntries as $tradeEntry)
-                <tr class="text-xs xl:text-sm xxl:text-2xl">
-                    <td class="py-2 xxl:py-4">
-                        {{ $this->getDate($componentType == 'trades' ? $tradeEntry->deal_made_at : $tradeEntry->created_at) }}
-                    </td>
-                    @if($componentType == 'trades')
-                        <td class="py-3 xxl:py-5">
-                            {{ $tradeEntry->trade_type }}
+            @if(!$tradeEntries)
+                <p>tfdsfsdfdfs</p>
+            @else
+                @foreach($tradeEntries as $tradeEntry)
+                    <tr class="text-xs xl:text-sm xxl:text-2xl">
+                        <td class="py-2 xxl:py-4">
+                            {{ $this->getDate($componentType == 'trades' ? $tradeEntry->deal_made_at : $tradeEntry->created_at) }}
                         </td>
-                    @endif
-                    <td class="py-2 xxl:py-4">
-                        {{ $tradeEntry->hydrogen_type }}
-                    </td>
-                    <td class="py-2 xxl:py-4">
-                        {{ number_format($tradeEntry->total_volume, 0, '.', ' ') }} units
-                    </td>
-                    @if($componentType == 'trades')
-                        <td class="py-3 xxl:py-5">
-                            € {{ number_format($tradeEntry->total_price, 0, '.', ' ') }}
+                        @if($componentType == 'trades')
+                            <td class="py-3 xxl:py-5">
+                                {{ $tradeEntry->trade_type }}
+                            </td>
+                        @endif
+                        <td class="py-2 xxl:py-4">
+                            {{ $tradeEntry->hydrogen_type }}
                         </td>
-                        <td class="py-3 xxl:py-5">
-                            {{ $tradeEntry->end }}
+                        <td class="py-2 xxl:py-4">
+                            {{ number_format($tradeEntry->total_volume, 0, '.', ' ') }} units
                         </td>
-                    @endif
-                    <td class="py-2 xxl:py-4">
-                        <button class="font-semibold" wire:click="openTradeEntry({{ $tradeEntry }})">Info</button>
-                    </td>
-                </tr>
-            @endforeach
+                        @if($componentType == 'trades')
+                            <td class="py-3 xxl:py-5">
+                                € {{ number_format($tradeEntry->total_price, 0, '.', ' ') }}
+                            </td>
+                            <td class="py-3 xxl:py-5">
+                                {{ $tradeEntry->end }}
+                            </td>
+                        @endif
+                        <td class="py-2 xxl:py-4">
+                            <button class="font-semibold" wire:click="openTradeEntry({{ $tradeEntry }})">Info</button>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     @endif

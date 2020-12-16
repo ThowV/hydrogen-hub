@@ -6,7 +6,7 @@ use App\Models\Trade;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class TradesListingsComponent extends Component
+class TradesAndListingsComponent extends Component
 {
     public $componentType;
     public $tradeEntries = [];
@@ -58,6 +58,12 @@ class TradesListingsComponent extends Component
 
     public function openTradeEntry(Trade $trade)
     {
+        /*
+         * We call get trades because livewire is dumb and just "forgets" all the trade entries
+         * when ANY function is called inside wire:click
+         */
+        $this->getTradeEntries();
+
         $this->emit('openTradeAndListingInfoModal', $trade);
     }
 
@@ -73,6 +79,6 @@ class TradesListingsComponent extends Component
 
     public function render()
     {
-        return view('livewire.components.company.trades-listings-component');
+        return view('livewire.components.company.trades-and-listings-component');
     }
 }
