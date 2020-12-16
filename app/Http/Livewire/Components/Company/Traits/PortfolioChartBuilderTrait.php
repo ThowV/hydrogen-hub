@@ -32,7 +32,7 @@ trait PortfolioChartBuilderTrait
     {
         // Create a new set of data for this chart type so we can modify it
         $this->chartData[$chartType] = [
-            'hydrogen_type' => $chartType,
+            'hydrogenType' => $chartType,
             'min' => null,
             'max' => null,
             'totalLoads' => [],
