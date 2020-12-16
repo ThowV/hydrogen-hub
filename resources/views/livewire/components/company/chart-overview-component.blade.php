@@ -8,8 +8,8 @@
 
     <div class="flex flex-auto flex-wrap justify-around sm:items-center sm:flex-col text-center">
     @foreach($chartData as $chart)
-        <div class="flex flex-col w-1/4 sm:w-3/4">
-            <canvas wire:ignore id="canvas-{{ $chart['hydrogen_type'] }}" class="flex flex-auto"></canvas>
+        <div class="flex flex-col w-1/4 sm:w-full h-full">
+            <canvas wire:ignore id="canvas-{{ $chart['hydrogenType'] }}" class="flex flex-auto"></canvas>
             @if($chart['shortage'])
             <p class="flex flex-none pt-8 justify-center text-xs gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
@@ -30,7 +30,7 @@
 
     <script>
         @foreach($chartData as $chart)
-            var data_{{ $chart['hydrogen_type'] }} = {
+            var data_{{ $chart['hydrogenType'] }} = {
                 labels: @json($labels),
                 datasets: [
                     {
@@ -39,24 +39,44 @@
                         label: 'Demand',
                         fill: true,
                         backgroundColor: "#00ff0000",
-                        borderColor: "#003399",
+                        pointBackgroundColor: "#fff",
+                        @if($chart['hydrogenType'] == 'green')
+                            borderColor: "#4CD35D",
+                            pointHoverBackgroundColor: "#4CD35D",
+                            pointBorderColor: "#4CD35D",
+                            pointHoverBorderColor: "#4CD35D",
+                        @elseif($chart['hydrogenType'] == 'blue')
+                            borderColor: "#003399",
+                            pointHoverBackgroundColor: "#003399",
+                            pointBorderColor: "#003399",
+                            pointHoverBorderColor: "#003399",
+                        @elseif($chart['hydrogenType'] == 'grey')
+                            borderColor: "#909090",
+                            pointHoverBackgroundColor: "#909090",
+                            pointBorderColor: "#909090",
+                            pointHoverBorderColor: "#909090",
+                        @endif
                         borderCapStyle: 'butt',
                         borderJoinStyle: 'round',
                         lineTension: 0,
-                        pointBackgroundColor: "#fff",
-                        pointBorderColor: "#003399",
                         pointBorderWidth: 1,
                         pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "#003399",
-                        pointHoverBorderColor: "#003399",
                         pointHoverBorderWidth: 2,
                         pointRadius: 4,
                         pointHitRadius: 10
                     },
                     {
                         label: 'Total load',
-                        backgroundColor: "#CBE4FD",
-                        borderColor: "#CBE4FD",
+                        @if($chart['hydrogenType'] == 'green')
+                            backgroundColor: "#d3fdd8",
+                            borderColor: "#d3fdd8",
+                        @elseif($chart['hydrogenType'] == 'blue')
+                            backgroundColor: "#cbe4fd",
+                            borderColor: "#cbe4fd",
+                        @elseif($chart['hydrogenType'] == 'grey')
+                            backgroundColor: "#e8e8e8",
+                            borderColor: "#e8e8e8",
+                        @endif
                         yAxisID: "bar-y-axis",
                         data: @json($chart['totalLoads'])
                     },
@@ -66,14 +86,14 @@
 
         window.onload = function () {
             @foreach($chartData as $chart)
-                var ctx = document.getElementById("canvas-{{ $chart['hydrogen_type'] }}").getContext("2d");
+                var ctx = document.getElementById("canvas-{{ $chart['hydrogenType'] }}").getContext("2d");
                 window.myBar = new Chart(ctx, {
                     type: 'bar',
-                    data: data_{{ $chart['hydrogen_type'] }},
+                    data: data_{{ $chart['hydrogenType'] }},
                     options: {
                         title: {
                             display: true,
-                            text: "{{ ucfirst($chart['hydrogen_type']) }}"
+                            text: "{{ ucfirst($chart['hydrogenType']) }}"
                         },
                         tooltips: {
                             mode: 'label'
