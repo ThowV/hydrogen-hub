@@ -8,21 +8,18 @@
     <nav
         class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-xl xxl:text-3xl">
         <ul class="text-white font-bold">
-
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer   {{ Request::is('/') ? 'opacity-100' : '' }}"
-                href="/"
-            ">
-            <svg class="xxl:mx-10 sm:w-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
-                 height="25" viewBox="0 0 25 25">
-                <path id="Icon_material-dashboard" data-name="Icon material-dashboard"
-                      d="M4.5,18.389H15.611V4.5H4.5ZM4.5,29.5H15.611V21.167H4.5Zm13.889,0H29.5V15.611H18.389Zm0-25v8.333H29.5V4.5Z"
-                      transform="translate(-4.5 -4.5)" fill="#fff" opacity="1"/>
-            </svg>
-            <a class="grid col-start-4" href="{{route('home')}}">Dashboard</a>
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('/') ? 'opacity-100' : 'opacity-25' }}"
+                href="/">
+                <svg class="xxl:mx-10 sm:w-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
+                    height="25" viewBox="0 0 25 25">
+                    <path id="Icon_material-dashboard" data-name="Icon material-dashboard"
+                        d="M4.5,18.389H15.611V4.5H4.5ZM4.5,29.5H15.611V21.167H4.5Zm13.889,0H29.5V15.611H18.389Zm0-25v8.333H29.5V4.5Z"
+                        transform="translate(-4.5 -4.5)" fill="#fff" opacity="1"/>
+                </svg>
+                <a class="grid col-start-4" href="{{route('home')}}">Dashboard</a>
             </li>
 
-
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer   {{ Request::is('market') ? 'opacity-100' : '' }}"
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Route::is('market') ? 'opacity-100' : 'opacity-25' }}"
                 href="/market">
                 <svg class="xxl:mx-10 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg"
                      width="25" height="25" viewBox="0 0 25 25" href="/market">
@@ -33,33 +30,30 @@
                 <a class="col-start-4" href="{{route('market')}}">Marketplace</a>
             </li>
 
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 hover:opacity-100 transaction duration-300 cursor-pointer {{ Route::is('company.*') ? 'opacity-100' : 'opacity-25' }}">
+                <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5 " xmlns="http://www.w3.org/2000/svg"
+                    width="19.495" height="25.344" viewBox="0 0 19.495 25.344">
+                    <g id="Icon_ionic-ios-business" data-name="Icon ionic-ios-business" opacity="1">
+                        <path id="Path_6" data-name="Path 6"
+                            d="M10.1,5.287H23.5a1.1,1.1,0,0,0,1.1-1.1h0a1.1,1.1,0,0,0-1.1-1.1H10.1A1.1,1.1,0,0,0,9,4.19H9A1.1,1.1,0,0,0,10.1,5.287Z"
+                            transform="translate(-7.05 -3.094)" fill="#fff"/>
+                        <path id="Path_7" data-name="Path 7"
+                            d="M25.149,7.031H7.847a1.1,1.1,0,0,0-.122,2.193V27.5a1.466,1.466,0,0,0,1.462,1.462h5.361a.489.489,0,0,0,.487-.487V26.039a.489.489,0,0,1,.487-.487h1.95a.489.489,0,0,1,.487.487v2.437a.489.489,0,0,0,.487.487h5.361A1.466,1.466,0,0,0,25.27,27.5V9.224a1.1,1.1,0,0,0-.122-2.193ZM12.6,23.115a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Z"
+                            transform="translate(-6.75 -3.62)" fill="#fff"/>
+                    </g>
+                </svg>
+                <a class="col-start-4" href="{{route('company.portfolio')}}">Company</a>
 
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16  xxl:px-16  sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('company/') ? 'opacity-100' : '' }}"
-            ">
-
-            <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5 " xmlns="http://www.w3.org/2000/svg"
-                 width="19.495" height="25.344" viewBox="0 0 19.495 25.344">
-                <g id="Icon_ionic-ios-business" data-name="Icon ionic-ios-business" opacity="1">
-                    <path id="Path_6" data-name="Path 6"
-                          d="M10.1,5.287H23.5a1.1,1.1,0,0,0,1.1-1.1h0a1.1,1.1,0,0,0-1.1-1.1H10.1A1.1,1.1,0,0,0,9,4.19H9A1.1,1.1,0,0,0,10.1,5.287Z"
-                          transform="translate(-7.05 -3.094)" fill="#fff"/>
-                    <path id="Path_7" data-name="Path 7"
-                          d="M25.149,7.031H7.847a1.1,1.1,0,0,0-.122,2.193V27.5a1.466,1.466,0,0,0,1.462,1.462h5.361a.489.489,0,0,0,.487-.487V26.039a.489.489,0,0,1,.487-.487h1.95a.489.489,0,0,1,.487.487v2.437a.489.489,0,0,0,.487.487h5.361A1.466,1.466,0,0,0,25.27,27.5V9.224a1.1,1.1,0,0,0-.122-2.193ZM12.6,23.115a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Z"
-                          transform="translate(-6.75 -3.62)" fill="#fff"/>
-                </g>
-            </svg>
-            <a class="col-start-4" href="{{route('company')}}">Company</a>
-
-            <ul class="items-center col-start-4">
-                <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
-                    <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company.portfolio') ? 'opacity-100' : '' }}"
-                       href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
-                </li>
-                <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
-                    <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company.overview') ? 'opacity-100' : '' }}"
-                       href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
-                </li>
-            </ul>
+                <ul class="flex flex-col items-start w-3/4 col-start-4 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20">
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                        <a class="col-start-4 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.portfolio') ? 'opacity-100' : 'opacity-25') }}"
+                           href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
+                    </li>
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                        <a class="hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.overview') ? 'opacity-100' : 'opacity-25') }}"
+                           href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
+                    </li>
+                </ul>
             </li>
 
             @role('Super Admin')
