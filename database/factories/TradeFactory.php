@@ -35,7 +35,7 @@ class TradeFactory extends Factory
         ];
 
         if(rand(0,1)){
-            $arr['deal_made_at'] = $this->faker->dateTimeBetween( '-2 months', 'now');
+            $arr['deal_made_at'] = $this->faker->dateTimeBetween( '-1 year', 'now');
         }
         return $arr;
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Components\Dashboard;
 
 use App\Http\Livewire\Components\Dashboard\Traits\PriceGraphTrait;
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class OverviewComponent extends Component
@@ -10,14 +12,15 @@ class OverviewComponent extends Component
 
     use PriceGraphTrait;
 
-    public $priceGraphLabels;
-    private $limit = 10;
+
+    public $labels;
+    private $limit = 50;
     private $period = null;
     public $colspan = 'w-1/3';
     public $open = [
-      "prices"  => true,
-      "volumes"  => true,
-      "mixh2"  => true,
+        "prices" => true,
+        "volumes" => true,
+        "mixh2" => true,
     ];
 
     public $chartProperties = [
@@ -28,55 +31,82 @@ class OverviewComponent extends Component
     ];
 
     public $lineProperties = [
-        "green" => [
-            "data" => [],
-            "label" => "Green",
-            "borderColor" => "#48AE60",
-            "pointBackgroundColor" => "#fff",
-            "pointBorderColor" => "#beffba",
-            "pointHoverBackgroundColor" => "#d3ffb7",
-            "pointHoverBorderColor" => "#b1ff53",
+        "prices" => [
+            "green" => [
+                "data" => [],
+                "label" => "Green",
+                "borderColor" => "#48AE60",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53",
+            ],
+            "blue" => [
+                "data" => [],
+                "label" => "Blue",
+                "borderColor" => "#1B42AE",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53",
+            ],
+            "grey" => [
+                "data" => [],
+                "label" => "Grey",
+                "borderColor" => "#676767",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53",
+
+            ],
+            "callback" => "getAveragePriceForDayAndH2TypeInCents",
         ],
-        "blue" => [
-            "data" => [],
-            "label" => "Blue",
-            "borderColor" => "#1B42AE",
-            "pointBackgroundColor" => "#fff",
-            "pointBorderColor" => "#beffba",
-            "pointHoverBackgroundColor" => "#d3ffb7",
-            "pointHoverBorderColor" => "#b1ff53",
+        "volumes" => [
+            "callback" => "getAveragePriceForDayAndH2TypeInCents",
+
         ],
-        "grey" => [
-            "data" => [],
-            "label" => "Grey",
-            "borderColor" => "#676767",
-            "pointBackgroundColor" => "#fff",
-            "pointBorderColor" => "#beffba",
-            "pointHoverBackgroundColor" => "#d3ffb7",
-            "pointHoverBorderColor" => "#b1ff53",
+        "mix" => [
+            "callback" => "getAveragePriceForDayAndH2TypeInCents",
+
         ]
     ];
 
     public function mount()
     {
+        $this->determineColSpan();
         $this->setPeriod();
+        $this->setLabels();
         //display price graph
         $this->displayPriceGraph();
+
     }
 
     private function displayPriceGraph()
     {
-        $this->determineColSpan();
-        $this->getDataForGraph();
-        $this->setLabels();
-        $this->setLimitMax();
-        $this->setLimitMin();
+        foreach ($this->lineProperties as $typeOfGraph => $graphData) {
+            $this->getDataForGraph($typeOfGraph, [$this, $graphData['callback']]);
+            $this->setLimits($typeOfGraph);
+        }
     }
 
-    public function determineColSpan(){
-        if(count(array_filter($this->open)) > 1){
+    private function setPeriod()
+    {
+        $this->period = CarbonPeriod::create(Carbon::now()->subDays($this->limit - 1), Carbon::now());
+    }
+
+    private function setLabels()
+    {
+        foreach ($this->period as $day) {
+            $this->labels[] = $day->format('M d');
+        }
+    }
+
+    public function determineColSpan()
+    {
+        if (count(array_filter($this->open)) > 1) {
             $this->colspan = 'w-1/'.count(array_filter($this->open));
-        }else{
+        } else {
             $this->colspan = 'w-full';
         }
     }
