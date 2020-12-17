@@ -48,14 +48,12 @@
                 }
             }
         });
-
         window.onload = function () {
             @if($open['prices'])
-
             var dataset = {
-                labels: @json($priceGraphLabels),
+                labels: @json($labels),
                 datasets: [
-                        @foreach($lineProperties as $priceGraphLine)
+                        @foreach(collect($lineProperties['prices'])->except('callback') as $priceGraphLine)
                     {
                         data: @json($priceGraphLine['data']),
                         type: 'LineWithLine',
@@ -102,8 +100,8 @@
                             stacked: false,
                             ticks: {
                                 beginAtZero: true,
-                                min: {{$chartProperties['limits']['min']}},
-                                max: {{$chartProperties['limits']['max']}}
+                                min: {{$chartProperties['prices']['limits']['min']}},
+                                max: {{$chartProperties['prices']['limits']['max']}}
                             },
                         }]
                     }
@@ -111,13 +109,12 @@
             });
 
             @endif
-
             @if($open['volumes'])
 
             var dataset2 = {
-                labels: @json($priceGraphLabels),
+                labels: @json($labels),
                 datasets: [
-                        @foreach($lineProperties as $priceGraphLine)
+                        @foreach(collect($lineProperties['volumes'])->except('callback') as $priceGraphLine)
                     {
                         data: @json($priceGraphLine['data']),
                         type: 'LineWithLine',
@@ -164,8 +161,8 @@
                             stacked: false,
                             ticks: {
                                 beginAtZero: true,
-                                min: {{$chartProperties['limits']['min']}},
-                                max: {{$chartProperties['limits']['max']}}
+                                min: {{$chartProperties['volumes']['limits']['min']}},
+                                max: {{$chartProperties['volumes']['limits']['max']}}
                             },
                         }]
                     }
@@ -176,7 +173,7 @@
             @if($open['mixh2'])
 
             var dataset3 = {
-                labels: @json($priceGraphLabels),
+                labels: @json($labels),
                 datasets: [
                     {
                         data: @json($priceGraphLine['data']),
@@ -223,8 +220,8 @@
                             stacked: false,
                             ticks: {
                                 beginAtZero: true,
-                                min: {{$chartProperties['limits']['min']}},
-                                max: {{$chartProperties['limits']['max']}}
+                                min: {{$chartProperties['mix']['limits']['min']}},
+                                max: {{$chartProperties['mix']['limits']['max']}}
                             },
                         }]
                     }
