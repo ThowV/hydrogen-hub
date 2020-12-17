@@ -22,7 +22,7 @@
                             <th>Total price</th>
                             <th>Duration</th>
                         @endif
-                        <th>Info</th>
+                        <th class="opacity-0">Info</th>
                     </tr>
                 </thead>
 
@@ -40,7 +40,11 @@
                                     {{ $tradeEntry->trade_type }}
                                 </td>
                             @endif
-                            <td class="py-2 xxl:py-4">
+                            <td class="flex items-center py-2 xxl:py-4">
+                                <svg class="fill-current text-type{{ ucfirst($tradeEntry["hydrogen_type"]) }}-500"
+                                     height="24" width="24">
+                                    <circle cx="10" cy="12" r="4"/>
+                                </svg>
                                 {{ $tradeEntry->hydrogen_type }}
                             </td>
                             <td class="py-2 xxl:py-4">
@@ -55,7 +59,7 @@
                                 </td>
                             @endif
                             <td class="py-2 xxl:py-4">
-                                <button class="font-semibold" wire:click="openTradeEntry({{ $tradeEntry }})">Info</button>
+                                <button class="font-semibold underline" wire:click="openTradeEntry({{ $tradeEntry }})">Info</button>
                             </td>
                         </tr>
                     @endforeach
