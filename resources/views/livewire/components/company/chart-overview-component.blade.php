@@ -9,7 +9,14 @@
     <div class="h-full flex flex-auto sm:flex-col text-center">
     @foreach($chartData as $chart)
         <div class="flex flex-col w-1/3 sm:w-full h-full">
-            <canvas wire:ignore id="canvas-{{ $chart['hydrogenType'] }}" class="flex"></canvas>
+            <div class="relative flex flex-col">
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col">
+                    <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
+                </div>
+
+                <canvas wire:ignore id="canvas-{{ $chart['hydrogenType'] }}" class="flex z-0"></canvas>
+            </div>
+
             @if($chart['shortage'])
             <p class="flex flex-none pt-8 justify-center text-xs gap-5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
