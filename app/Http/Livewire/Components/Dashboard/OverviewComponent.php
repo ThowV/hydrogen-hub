@@ -20,14 +20,14 @@ class OverviewComponent extends Component
     public $open = [
         "prices" => true,
         "volumes" => true,
-        "mixh2" => true,
+        "mix" => true,
     ];
 
     public $chartProperties = [
         'limits' => [
             'min' => 0,
             'max' => 1000
-        ]
+        ]d
     ];
 
     public $lineProperties = [
@@ -63,12 +63,46 @@ class OverviewComponent extends Component
             "callback" => "getAveragePriceForDayAndH2TypeInCents",
         ],
         "volumes" => [
-            "callback" => "getAveragePriceForDayAndH2TypeInCents",
-
+            "green" => [
+                "data" => [],
+                "label" => "Green",
+                "borderColor" => "#48AE60",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53",
+            ],
+            "blue" => [
+                "data" => [],
+                "label" => "Blue",
+                "borderColor" => "#1B42AE",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53",
+            ],
+            "grey" => [
+                "data" => [],
+                "label" => "Grey",
+                "borderColor" => "#676767",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53",
+            ],
+            "callback" => "temp_random_array",
         ],
         "mix" => [
-            "callback" => "getAveragePriceForDayAndH2TypeInCents",
-
+            "grey" => [
+                "data" => [],
+                "label" => "Grey",
+                "borderColor" => "#676767",
+                "pointBackgroundColor" => "#fff",
+                "pointBorderColor" => "#beffba",
+                "pointHoverBackgroundColor" => "#d3ffb7",
+                "pointHoverBorderColor" => "#b1ff53"
+            ],
+            "callback" => "temp_random_array",
         ]
     ];
 
@@ -78,11 +112,11 @@ class OverviewComponent extends Component
         $this->setPeriod();
         $this->setLabels();
         //display price graph
-        $this->displayPriceGraph();
+        $this->displayGraphs();
 
     }
 
-    private function displayPriceGraph()
+    private function displayGraphs()
     {
         foreach ($this->lineProperties as $typeOfGraph => $graphData) {
             $this->getDataForGraph($typeOfGraph, [$this, $graphData['callback']]);

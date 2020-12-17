@@ -8,7 +8,8 @@ use App\Models\Trade;
 
 trait PriceGraphTrait
 {
-    private function setLimits($typeOfGraph){
+    private function setLimits($typeOfGraph)
+    {
         $this->setLimitMax($typeOfGraph);
         $this->setLimitMin($typeOfGraph);
     }
@@ -26,7 +27,7 @@ trait PriceGraphTrait
     {
         //Get the lowest value for price per unit in the specified period
         $min = $this->determineLimit($typeOfGraph, "min");
-            //Add a small margin to make sure the outer bounds have enough space
+        //Add a small margin to make sure the outer bounds have enough space
         $limit = ($min - ($min * 0.05));
         $this->chartProperties[$typeOfGraph]['limits']['min'] = $limit;
     }
@@ -44,24 +45,13 @@ trait PriceGraphTrait
                         [$this->period->getStartDate(), $this->period->getEndDate()])->min('price_per_unit');
                 }
             }
+            case "mix":
             case "volumes":
             {
                 if ($minOrMax == "max") {
-                    return Trade::whereBetween('deal_made_at',
-                        [$this->period->getStartDate(), $this->period->getEndDate()])->max('price_per_unit');
+                    return 1500;
                 } else {
-                    return Trade::whereBetween('deal_made_at',
-                        [$this->period->getStartDate(), $this->period->getEndDate()])->min('price_per_unit');
-                }
-            }
-            case "mix":
-            {
-                if ($minOrMax == "max") {
-                    return Trade::whereBetween('deal_made_at',
-                        [$this->period->getStartDate(), $this->period->getEndDate()])->max('price_per_unit');
-                } else {
-                    return Trade::whereBetween('deal_made_at',
-                        [$this->period->getStartDate(), $this->period->getEndDate()])->min('price_per_unit');
+                    return 300;
                 }
             }
         }
@@ -96,5 +86,10 @@ trait PriceGraphTrait
         }
 
         return $ceiledAverage;
+    }
+
+    private function temp_random_array()
+    {
+        return rand(580, 840);
     }
 }

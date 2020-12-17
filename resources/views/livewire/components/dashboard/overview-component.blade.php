@@ -9,9 +9,9 @@
             <canvas wire:ignore id="canvas-volumes"></canvas>
         </div>
     @endif
-    @if($open['mixh2'])
+    @if($open['mix'])
         <div class="{{$colspan}}">
-            <canvas wire:ignore id="canvas-mixH2"></canvas>
+            <canvas wire:ignore id="canvas-mix"></canvas>
         </div>
     @endif
 </div>
@@ -170,41 +170,41 @@
             });
 
             @endif
-            @if($open['mixh2'])
+            @if($open['mix'])
 
             var dataset3 = {
                 labels: @json($labels),
                 datasets: [
                     {
-                        data: @json($priceGraphLine['data']),
+                        data: @json($lineProperties['mix']['grey']['data']),
                         type: 'LineWithLine',
-                        label: '{{$priceGraphLine['label']}}',
+                        label: '{{$lineProperties['mix']['grey']['label']}}',
                         fill: true,
                         backgroundColor: '#00ff0000',
                         borderColor: '#676767',
                         borderCapStyle: 'butt',
                         borderJoinStyle: 'round',
                         lineTension: 0,
-                        pointBackgroundColor: '{{$priceGraphLine['pointBackgroundColor']}}',
-                        pointBorderColor: '{{$priceGraphLine['pointBorderColor']}}',
+                        pointBackgroundColor: '{{$lineProperties['mix']['grey']['pointBackgroundColor']}}',
+                        pointBorderColor: '{{$lineProperties['mix']['grey']['pointBorderColor']}}',
                         pointBorderWidth: 1,
                         pointHoverRadius: 5,
-                        pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
-                        pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
+                        pointHoverBackgroundColor: '{{$lineProperties['mix']['grey']['pointHoverBackgroundColor']}}',
+                        pointHoverBorderColor: '{{$lineProperties['mix']['grey']['pointHoverBorderColor']}}',
                         pointHoverBorderWidth: 2,
                         pointRadius: 4,
                         pointHitRadius: 10
                     },
                 ],
             };
-            var ctx3 = document.getElementById("canvas-mixH2").getContext("2d");
+            var ctx3 = document.getElementById("canvas-mix").getContext("2d");
             window.myLine3 = new Chart(ctx3, {
                 type: 'line',
                 data: dataset3,
                 options: {
                     title: {
                         display: true,
-                        text: "mixH2"
+                        text: "mix"
                     },
                     tooltips: {
                         mode: 'label'
