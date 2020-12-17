@@ -18,6 +18,11 @@ class ChartOverviewComponent extends Component
 
     protected $listeners = ['chartTypesUpdated' => 'chartTypesUpdated'];
 
+    public function openEnlargedChart($chartType)
+    {
+        $this->emit("openEnlargedChart", $chartType);
+    }
+
     public function chartTypesUpdated()
     {
         // ChartJS bugs out if you do not refresh the page
