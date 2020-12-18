@@ -27,7 +27,7 @@ class OverviewComponent extends Component
         'limits' => [
             'min' => 0,
             'max' => 1000
-        ]d
+        ]
     ];
 
     public $lineProperties = [
