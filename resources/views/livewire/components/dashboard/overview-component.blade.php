@@ -71,7 +71,7 @@
                         pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
                         pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
                         pointHoverBorderWidth: 2,
-                        pointRadius: 4,
+                        pointRadius: 2,
                         pointHitRadius: 10
                     },
                     @endforeach
@@ -84,7 +84,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: "Price"
+                        text: "Average price"
                     },
                     tooltips: {
                         mode: 'label'
@@ -132,7 +132,7 @@
                         pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
                         pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
                         pointHoverBorderWidth: 2,
-                        pointRadius: 4,
+                        pointRadius: 2,
                         pointHitRadius: 10
                     },
                     @endforeach
@@ -145,7 +145,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: "Volumes"
+                        text: "Average Volumes"
                     },
                     tooltips: {
                         mode: 'label'
@@ -192,7 +192,7 @@
                         pointHoverBackgroundColor: '{{$lineProperties['mix']['grey']['pointHoverBackgroundColor']}}',
                         pointHoverBorderColor: '{{$lineProperties['mix']['grey']['pointHoverBorderColor']}}',
                         pointHoverBorderWidth: 2,
-                        pointRadius: 4,
+                        pointRadius: 2,
                         pointHitRadius: 10
                     },
                 ],
@@ -204,7 +204,7 @@
                 options: {
                     title: {
                         display: true,
-                        text: "mix"
+                        text: "Average mix CO2"
                     },
                     tooltips: {
                         mode: 'label'

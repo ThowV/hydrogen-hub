@@ -2,34 +2,52 @@
 
 namespace App\Http\Livewire\Components\Dashboard;
 
-use App\Http\Livewire\Components\Dashboard\Traits\PriceGraphTrait;
+use App\Http\Livewire\Components\Dashboard\Traits\DashboardGraphTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class OverviewComponent extends Component
 {
+    use DashboardGraphTrait;
 
-    use PriceGraphTrait;
-
-
+    /**
+     * @var []
+     */
     public $labels;
-    private $limit = 50;
+
+    /**
+     * @var int
+     */
+    private $limit = 30;
+    /**
+     * @var CarbonPeriod
+     */
     private $period = null;
+
+    /**
+     * @var string
+     */
     public $colspan = 'w-1/3';
+    /**
+     * Describes which charts are open / closed
+     * @var bool[]
+     */
     public $open = [
         "prices" => true,
         "volumes" => true,
         "mix" => true,
     ];
 
-    public $chartProperties = [
-        'limits' => [
-            'min' => 0,
-            'max' => 1000
-        ]
-    ];
+    /**
+     * Holds the limits on for the graphs
+     */
+    public $chartProperties;
 
+    /**
+     * Contains properties for the lines in the graphs
+     * @var array[]
+     */
     public $lineProperties = [
         "prices" => [
             "green" => [
@@ -90,7 +108,7 @@ class OverviewComponent extends Component
                 "pointHoverBackgroundColor" => "#d3ffb7",
                 "pointHoverBorderColor" => "#b1ff53",
             ],
-            "callback" => "temp_random_array",
+            "callback" => "getAllRunningTradesWithCalculatedEndDate",
         ],
         "mix" => [
             "grey" => [
@@ -102,10 +120,13 @@ class OverviewComponent extends Component
                 "pointHoverBackgroundColor" => "#d3ffb7",
                 "pointHoverBorderColor" => "#b1ff53"
             ],
-            "callback" => "temp_random_array",
+            "callback" => "getAverageAmountOfMixTradedForDay",
         ]
     ];
 
+    /**
+     * Component constructor
+     */
     public function mount()
     {
         $this->determineColSpan();
@@ -116,6 +137,9 @@ class OverviewComponent extends Component
 
     }
 
+    /**
+     * Execute all the actions that need to be performed to build the graphs
+     */
     private function displayGraphs()
     {
         foreach ($this->lineProperties as $typeOfGraph => $graphData) {
@@ -124,11 +148,17 @@ class OverviewComponent extends Component
         }
     }
 
+    /**
+     * Set a CarbonPeriod in the $period property
+     */
     private function setPeriod()
     {
         $this->period = CarbonPeriod::create(Carbon::now()->subDays($this->limit - 1), Carbon::now());
     }
 
+    /**
+     * Fills the labels property with the formatted labels
+     */
     private function setLabels()
     {
         foreach ($this->period as $day) {
@@ -136,6 +166,9 @@ class OverviewComponent extends Component
         }
     }
 
+    /**
+     * Determine how wide a graph columns can be, based on active graphs
+     */
     public function determineColSpan()
     {
         if (count(array_filter($this->open)) > 1) {
@@ -145,6 +178,10 @@ class OverviewComponent extends Component
         }
     }
 
+    /**
+     * Render the component
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         return view('livewire.components.dashboard.overview-component');
