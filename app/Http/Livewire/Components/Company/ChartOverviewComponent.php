@@ -18,9 +18,9 @@ class ChartOverviewComponent extends Component
 
     protected $listeners = ['chartTypesUpdated' => 'chartTypesUpdated'];
 
-    public function openEnlargedChart($chartType)
+    public function openChartExpandedModal($chartType)
     {
-        $this->emit("openEnlargedChart", $chartType);
+        $this->emit("openChartExpandedModal", $chartType);
     }
 
     public function chartTypesUpdated()

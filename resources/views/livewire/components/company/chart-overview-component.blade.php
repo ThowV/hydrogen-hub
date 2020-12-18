@@ -10,7 +10,7 @@
     @foreach($chartData as $chart)
         <div class="w-1/4 sm:w-full max-h-40 flex flex-col items-center">
             <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 24vw; height: 28vh;">
-                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openEnlargedChart('{{ $chart['hydrogenType'] }}')">
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openChartExpandedModal('{{ $chart['hydrogenType'] }}')">
                     <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
                 </div>
 
