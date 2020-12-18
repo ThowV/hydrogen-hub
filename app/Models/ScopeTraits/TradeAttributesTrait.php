@@ -82,7 +82,7 @@ trait TradeAttributesTrait
     }
 
     /**
-     * Set the trade's units at carbon date attribute on the model instance
+     * Get the trade's units at carbon date
      *
      * @param $date
      * @return float|int
