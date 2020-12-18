@@ -8,7 +8,7 @@
 
     <div class="flex flex-auto flex-wrap justify-around sm:items-center sm:flex-col text-center">
     @foreach($chartData as $chart)
-        <div class="flex flex-col w-1/3 sm:w-full h-full">
+        <div class="flex flex-col w-1/4 sm:w-full h-full">
             <div class="relative flex flex-col">
                 <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openEnlargedChart('{{ $chart['hydrogenType'] }}')">
                     <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
