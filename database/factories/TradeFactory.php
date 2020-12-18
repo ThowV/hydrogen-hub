@@ -25,11 +25,11 @@ class TradeFactory extends Factory
         $trades = ['offer', 'request'];
 
         return [
-            'owner_id' => rand(0,10),
+            'owner_id' => rand(1,2),
             'trade_type' => $trades[array_rand($trades)],
             'hydrogen_type' => $enum[array_rand($enum)],
             'units_per_hour' => $this->faker->numberBetween(0, 1000),
-            'duration' => $this->faker->numberBetween(1, 8760),
+            'duration' => $this->faker->numberBetween(1, 168),
             'price_per_unit' => $this->faker->numberBetween(0, 1000),
             'mix_co2' => $this->faker->numberBetween(0, 100),
             'expires_at' => $this->faker->dateTimeBetween('now', '+1 years'),

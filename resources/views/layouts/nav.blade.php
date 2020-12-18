@@ -4,7 +4,7 @@
         HydroActive
     </div>
 
-    <nav class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-xl xxl:text-3xl">
+    <nav class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-base xxl:text-3xl">
         <ul class="text-white font-bold">
             <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('/') ? 'opacity-100' : 'opacity-25' }}"
                 href="/">
@@ -43,11 +43,11 @@
                 <a class="col-start-4" href="{{route('company.portfolio')}}">Company</a>
 
                 <ul class="flex flex-col items-start w-3/4 col-start-4 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20">
-                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
                         <a class="col-start-4 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.portfolio') ? 'opacity-100' : 'opacity-25') }}"
                            href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
                     </li>
-                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
                         <a class="hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.overview') ? 'opacity-100' : 'opacity-25') }}"
                            href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
                     </li>

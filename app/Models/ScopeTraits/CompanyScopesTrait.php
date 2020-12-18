@@ -91,7 +91,7 @@ trait CompanyScopesTrait
     /**
      * The sum of the amount of all the trades where this company sent hydrogen
      *
-     * @return mixed
+     * @return float|int
      */
     public function getSoldAttribute()
     {
@@ -99,6 +99,22 @@ trait CompanyScopesTrait
         $BoughtRequests = $this->tradesAsOwner->where('trade_type', 'offer')->sum('total_price');
 
         return $soldOffers + $BoughtRequests;
+    }
+
+    /**
+     * The hydrogen interests in array format
+     *
+     * @return array
+     */
+    public function getHydrogenInterestsAsArrayAttribute()
+    {
+        $interests = [];
+
+        foreach ($this->hydrogenInterests as $hydrogenInterest) {
+            $interests[] = $hydrogenInterest->interest;
+        }
+
+        return $interests;
     }
 
     /**

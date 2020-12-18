@@ -22,7 +22,7 @@ class CompanyDayLogFactory extends Factory
     public function definition()
     {
         return [
-            'company_id' => $this->faker->numberBetween(0, 10),
+            'company_id' => rand(1,2),
             'date' => $this->faker->dateTimeBetween('now-1 days', '+9 days')
         ];
     }
