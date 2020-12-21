@@ -16,7 +16,11 @@ class OverviewComponent extends Component
     public $employeeToUpdate;
     public $modalOpen;
     public $addEmployeeModalOpen;
-    public $employeeToCreate;
+    public $employeeToCreate = [
+         "roles"=>[
+
+         ]
+    ];
 
     protected $rules = [
         'employeeToUpdate.first_name' => 'sometimes|required',
