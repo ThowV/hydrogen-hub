@@ -24,12 +24,12 @@
                     <!-- Logo and names -->
                     <div class="flex flex-row w-full pr-20" style="height: 20vh">
 
-                        <img class="w-2/4" src="{{$companyInModal->logo_path}}" alt="">
+                        <img class="w-2/4" src="{{$companyInModal->logo_path}}" alt="Logo">
                     
                         <div class="w-2/4 grid grid-cols-2 grid-rows-2 text-sm xl:text-base xxl:text-2xl">
                             <div class="flex flex-col gap-3">
                                 <p>Company name:</p>
-                                <p class="font-bold"> {{$companyInModal->name}}</p>
+                                <p class="font-bold"> {{ $companyInModal->name }}</p>
                             </div>
 
                             <div class="flex flex-col gap-3">
