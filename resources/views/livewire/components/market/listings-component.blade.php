@@ -132,7 +132,7 @@
                     <!-- Table content -->
                     <tbody class="divide-y">
                     @foreach($trades as $trade)
-                        <tr class="w-full flex flex-row py-8 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200 font-medium">
+                        <tr class="w-full flex flex-row py-8 md:py-5 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200 ">
                             <td class="flex w-full">
                                 <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500"
                                      height="24" width="50">
@@ -203,7 +203,7 @@
                     </li>
 
                     <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                        <button class="font-normal hover:font-bold"
+                        <button class="text-sm font-normal hover:font-bold"
                                 wire:click="applyPagination('page_next', {{ $page+1 }})">
                             Next
                         </button>
