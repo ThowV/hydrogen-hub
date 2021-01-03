@@ -196,14 +196,14 @@
 
                 <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
                     <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                        <button class="font-normal hover:font-bold"
+                        <button class="font-normal hover:font-bold transaction duration-300"
                                 wire:click="applyPagination('page_previous', {{ $page-1 }})">
                             Previous
                         </button>
                     </li>
 
                     <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                        <button class="text-sm font-normal hover:font-bold"
+                        <button class="text-sm font-normal hover:font-bold transaction duration-300"
                                 wire:click="applyPagination('page_next', {{ $page+1 }})">
                             Next
                         </button>

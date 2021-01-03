@@ -13,9 +13,9 @@
         </thead>
         <tbody>
         @foreach($requests as $request)
-            <tr class="text-gray-700 font-semibold">
-                <td class="text-left py-3 text-xs sm:text-xxs xl:text-sm xxl:text-2xl">{{$request->company_name}}</td>
-                <td class="text-left py-3 text-xs sm:text-xxs xl:text-sm xxl:text-2xl">{{$request->company_admin_email}}</td>
+            <tr class="text-gray-700 font-semibold text-xs xl:text-sm xxl:text-2xl">
+                <td class="py-3">{{$request->company_name}}</td>
+                <td class="py-3">{{$request->company_admin_email}}</td>
                 <td class="text-center">
                     <a href="{{route('request.accept', $request->id)}}">
                         <button

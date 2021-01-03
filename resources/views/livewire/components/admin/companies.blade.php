@@ -14,10 +14,10 @@
     </div>
     <table class="w-full">
         <thead>
-        <tr class="border-b-2 text-gray-600">
-            <th class="text-left text-sm sm:text-xs xxl:text-xl">Company Name</th>
-            <th class="text-left text-sm sm:text-xs xxl:text-xl">Company Owner</th>
-            <th class="text-right text-gray-600 text-sm sm:text-xxs md:text-xxs xxl:text-lg hover:text-nav transaction duration-300">
+        <tr class="border-b-2 text-gray-600 text-sm sm:text-xs xxl:text-xl">
+            <th class="text-left">Company Name</th>
+            <th class="text-left">Company Owner</th>
+            <th class="text-right text-gray-600 text-sm sm:text-xxs md:text-xs xxl:text-lg hover:text-nav transaction duration-300">
                 <a href="{{route('company.register')}}">
                     + Add company
                 </a>
@@ -27,7 +27,7 @@
         
         <tbody>
         @foreach($resultSet as $result)
-            <tr class="text-xs sm:text-xxs xl:text-sm xxl:text-2xl font-semibold text-gray-700 ">
+            <tr class="text-xs xl:text-sm xxl:text-2xl font-semibold text-gray-700">
                 <td class="py-3 xxl:py-5">{{$result->name}}</td>
                 <td class="py-3 xxl:py-5">{{$result->owner->email}}</td>
                 <td class="flex justify-end items-center pr-5 py-3 xxl:py-5">
