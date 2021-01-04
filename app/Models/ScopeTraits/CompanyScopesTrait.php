@@ -68,7 +68,7 @@ trait CompanyScopesTrait
      *
      * @return mixed
      */
-    public function getSoldTradesttribute()
+    public function getSoldTradesAttribute()
     {
         $soldOffers = $this->tradesAsResponder->where('trade_type', 'request');
         $BoughtRequests = $this->tradesAsOwner->where('trade_type', 'offer');
