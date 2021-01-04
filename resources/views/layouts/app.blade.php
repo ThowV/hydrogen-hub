@@ -21,6 +21,7 @@
 
         @stack('styles')
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+        <script src="https://kit.fontawesome.com/d7f253ad4b.js" crossorigin="anonymous"></script>
         @livewireStyles
     </head>
 
