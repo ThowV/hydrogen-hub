@@ -30,111 +30,101 @@
     </div>
 </div>
 
-@push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-            integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-            crossorigin="anonymous"></script>
 
-    <script>
-        @foreach($chartData as $chart)
-            var data_{{ $chart['hydrogenType'] }} = {
-                labels: @json($labels),
-                datasets: [
-                    {
-                        data: @json($chart['demands']),
-                        type: 'line',
-                        label: 'Demand',
-                        fill: true,
-                        backgroundColor: "#00ff0000",
-                        pointBackgroundColor: "#fff",
-                        @if($chart['hydrogenType'] == 'green')
-                            borderColor: "#4CD35D",
-                            pointHoverBackgroundColor: "#4CD35D",
-                            pointBorderColor: "#4CD35D",
-                            pointHoverBorderColor: "#4CD35D",
-                        @elseif($chart['hydrogenType'] == 'blue')
-                            borderColor: "#003399",
-                            pointHoverBackgroundColor: "#003399",
-                            pointBorderColor: "#003399",
-                            pointHoverBorderColor: "#003399",
-                        @elseif($chart['hydrogenType'] == 'grey')
-                            borderColor: "#909090",
-                            pointHoverBackgroundColor: "#909090",
-                            pointBorderColor: "#909090",
-                            pointHoverBorderColor: "#909090",
-                        @endif
-                        borderCapStyle: 'butt',
-                        borderJoinStyle: 'round',
-                        lineTension: 0,
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10
-                    },
-                    {
-                        label: 'Total load',
-                        @if($chart['hydrogenType'] == 'green')
-                            backgroundColor: "#d3fdd8",
-                            borderColor: "#d3fdd8",
-                        @elseif($chart['hydrogenType'] == 'blue')
-                            backgroundColor: "#cbe4fd",
-                            borderColor: "#cbe4fd",
-                        @elseif($chart['hydrogenType'] == 'grey')
-                            backgroundColor: "#e8e8e8",
-                            borderColor: "#e8e8e8",
-                        @endif
-                        yAxisID: "bar-y-axis",
-                        data: @json($chart['totalLoads'])
-                    },
-                ],
-            };
-        @endforeach
+@section('onload')
+    let chartData = @json($chartData);
+    let chartDataCJS = {};
 
-        window.onload = function () {
-            @foreach($chartData as $chart)
-                var ctx = document.getElementById("canvas-{{ $chart['hydrogenType'] }}").getContext("2d");
-                window.myBar = new Chart(ctx, {
-                    type: 'bar',
-                    data: data_{{ $chart['hydrogenType'] }},
-                    options: {
-                        title: {
-                            display: true,
-                            text: "{{ ucfirst($chart['hydrogenType']) }}"
+    for (const chart in chartData) {
+        let chartDemandColor = "#4CD35D";
+        let chartTotalLoadColor = "#d3fdd8"
+
+        if (chartData[chart].hydrogenType == 'blue') {
+            chartDemandColor = "#003399";
+            chartTotalLoadColor = "#cbe4fd";
+        }
+        else if (chartData[chart].hydrogenType == 'grey') {
+            chartDemandColor = "#909090";
+            chartTotalLoadColor = "#e8e8e8";
+        }
+
+        var ctx = document.getElementById("canvas-" + chart).getContext("2d");
+
+        chartDataCJS[chart] = {
+            labels: @json($labels),
+            datasets: [
+                {
+                    data: chartData[chart].demands,
+                    type: 'line',
+                    label: 'Demand',
+                    fill: true,
+                    backgroundColor: "#00ff0000",
+                    pointBackgroundColor: "#fff",
+                    borderColor: chartDemandColor,
+                    pointHoverBackgroundColor: chartDemandColor,
+                    pointBorderColor: chartDemandColor,
+                    pointHoverBorderColor: chartDemandColor,
+                    borderCapStyle: 'butt',
+                    borderJoinStyle: 'round',
+                    lineTension: 0,
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10
+                },
+                {
+                    label: 'Total load',
+                    backgroundColor: chartTotalLoadColor,
+                    borderColor: chartTotalLoadColor,
+                    yAxisID: "bar-y-axis",
+                    data: chartData[chart].totalLoads
+                },
+            ]
+        }
+
+        window.myBar = new Chart(ctx, {
+            type: 'bar',
+            data: chartDataCJS[chart],
+            options: {
+                title: {
+                    display: true,
+                    text: chart.charAt(0).toUpperCase() + chart.slice(1)
+                },
+                tooltips: {
+                    mode: 'label'
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        categoryPercentage: 1.0,
+                        barPercentage: 1.0
+                    }],
+                    yAxes: [
+                        {
+                            stacked: false,
+                            ticks: {
+                                beginAtZero: true,
+                                min: chartData[chart].min,
+                                max: chartData[chart].max
+                            },
                         },
-                        tooltips: {
-                            mode: 'label'
-                        },
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            xAxes: [{
-                                stacked: true,
-                                categoryPercentage: 1.0,
-                                barPercentage: 1.0
-                            }],
-                            yAxes: [{
-                                stacked: false,
-                                ticks: {
-                                    beginAtZero: true,
-                                    min: {{ $chart['min'] }},
-                                    max: {{ $chart['max'] }}
-                                },
-                            }, {
-                                id: "bar-y-axis",
-                                stacked: true,
-                                display: false,
-                                ticks: {
-                                    beginAtZero: true,
-                                    min: {{ $chart['min'] }},
-                                    max: {{ $chart['max'] }}
-                                },
-                                type: 'linear'
-                            }]
+                        {
+                            id: "bar-y-axis",
+                            stacked: true,
+                            display: false,
+                            ticks: {
+                                beginAtZero: true,
+                                min: chartData[chart].min,
+                                max: chartData[chart].max
+                            },
+                            type: 'linear'
                         }
-                    }
-                });
-            @endforeach
-        };
-    </script>
-@endpush
+                    ]
+                }
+            }
+        });
+    }
+@endsection

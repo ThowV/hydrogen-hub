@@ -40,7 +40,7 @@ class ChartOverviewComponent extends Component
         $this->emit("openChartOverviewSelectionModal");
     }
 
-    public function buildCharts()
+    public function initializeCharts()
     {
         // Get the chart types
         $this->chartTypes = auth()->user()->company->hydrogenInterestsAsArray;
@@ -60,7 +60,7 @@ class ChartOverviewComponent extends Component
 
     public function mount()
     {
-        $this->buildCharts();
+        $this->initializeCharts();
     }
 
     public function render()
