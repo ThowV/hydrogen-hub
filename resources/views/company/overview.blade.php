@@ -20,12 +20,11 @@
                     <div class="w-full h-full flex flex-row flex-wrap justify-between items-center">
 
                         <h2 class="text-base xxl:text-3xl font-bold">Statistics</h2>
-
                         <div class="flex flex-row gap-4 text-sm xxl:text-2xl">
                             @can('company.settings.update')
                                 @livewire('components.company.change-company-logo-component')
                             @endcan
-                            <p class="font-bold">HydroActive</p>
+                            <p class="font-bold">{{ auth()->user()->company->name }}</p>
                         </div>
 
                         <div class="flex flex-row gap-4 text-sm xxl:text-2xl">

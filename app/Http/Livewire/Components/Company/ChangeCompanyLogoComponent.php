@@ -33,6 +33,8 @@ class ChangeCompanyLogoComponent extends Component
             auth()->user()->company->save();
             $this->formOpen = false;
         }
+        $this->reset();
+        $this->render();
     }
 
     public function render()
