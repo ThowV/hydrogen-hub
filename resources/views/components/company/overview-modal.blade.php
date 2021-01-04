@@ -102,12 +102,12 @@
                             onsubmit="return confirm('Are you sure?')" method="post">
                             @csrf @method('delete')
                             <button
-                                class="text-sm xl:text-base xxl:text-2xl font-bold text-gray-500 hover:text-gray-700 flex flex-row items-center gap-5 transition duration-200 ease-in-out">
+                                class="text-sm xl:text-base xxl:text-2xl font-bold fill-current text-gray-500 hover:text-red-700 flex flex-row items-center gap-5 transition duration-200 ease-in-out">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13.461" height="15.384"
                                     viewBox="0 0 13.461 15.384">
                                     <path id="Icon_awesome-trash-alt" data-name="Icon awesome-trash-alt"
                                         d="M.961,13.942A1.442,1.442,0,0,0,2.4,15.384h8.653A1.442,1.442,0,0,0,12.5,13.942V3.846H.961ZM9.134,6.25a.481.481,0,0,1,.961,0v6.73a.481.481,0,0,1-.961,0Zm-2.884,0a.481.481,0,0,1,.961,0v6.73a.481.481,0,0,1-.961,0Zm-2.884,0a.481.481,0,0,1,.961,0v6.73a.481.481,0,0,1-.961,0ZM12.98.961H9.375L9.092.4A.721.721,0,0,0,8.446,0H5.012a.713.713,0,0,0-.643.4L4.086.961H.481A.481.481,0,0,0,0,1.442V2.4a.481.481,0,0,0,.481.481h12.5a.481.481,0,0,0,.481-.481V1.442A.481.481,0,0,0,12.98.961Z"
-                                        fill="#bebebe"/>
+                                        />
                                 </svg>
                                 Remove employee
                             </button>

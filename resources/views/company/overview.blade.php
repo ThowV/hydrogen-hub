@@ -22,7 +22,7 @@
                         <h2 class="text-base xxl:text-3xl font-bold">Statistics</h2>
 
                         <div class="flex flex-row gap-4 text-sm xxl:text-2xl">
-                            <p>Upload picture here</p>
+                            <p class="underline cursor-pointer">Upload picture here</p>
                             <p class="font-bold">HydroActive</p>
                         </div>
 
