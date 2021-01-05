@@ -57,7 +57,7 @@ class OverviewComponent extends Component
             return $this->mount();
         }
     }
-
+  
     public function getRoleDisplayProperty()
     {
         return Role::where('name', '!=', 'Super Admin')->get();
