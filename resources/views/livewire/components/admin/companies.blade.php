@@ -3,7 +3,7 @@
         <x-admin.company-modal :companyInModal="$companyInModal"/>
     @endif
     <div class="h-24 xxl:h-32 grid grid-cols-2">
-        <h2 class="grid items-center text-xl xxl:text-3xl font-bold">Platform companies</h2>
+        <h2 class="grid items-center text-xl md:text-base xxl:text-3xl font-bold">Platform companies</h2>
 
         <div class="grid justify-items-end items-start pt-5">
             <input

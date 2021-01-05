@@ -1,5 +1,5 @@
     <div class="flex items-center h-24 xxl:h-32">
-        <h2 class="text-xl xxl:text-3xl font-bold">Requests</h2>
+        <h2 class="text-xl md:text-base xxl:text-3xl font-bold">Requests</h2>
     </div>
 
     <table class="w-full">
