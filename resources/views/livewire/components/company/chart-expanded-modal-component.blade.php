@@ -52,7 +52,9 @@
     </div>
 </div>
 
-@push('scripts_onload')
+<script type="javascript">
+    @push('scripts_onload')
+    // Create charts
     let chartDataExpanded = @json($chartData);
 
     for (const chart in chartDataExpanded) {
@@ -68,7 +70,7 @@
             chartTotalLoadColor = "#e8e8e8";
         }
 
-        var ctx = document.getElementById("canvasExpanded-" + chart).getContext("2d");
+        let ctx = document.getElementById("canvasExpanded-" + chart).getContext("2d");
 
         let chartDataExpandedCJS = {
             labels: @json($labels),
@@ -103,7 +105,7 @@
             ]
         }
 
-        window.myBar = new Chart(ctx, {
+        window.ldc = new Chart(ctx, {
             type: 'bar',
             data: chartDataExpandedCJS,
             options: {
@@ -147,4 +149,5 @@
             }
         });
     }
-@endpush
+    @endpush
+</script>
