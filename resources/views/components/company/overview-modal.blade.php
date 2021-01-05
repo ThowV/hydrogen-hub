@@ -28,12 +28,12 @@
                         <div class="w-full flex flex-col justify-center items-center text-sm sm:text-xs" align="center">
                             <label for="">Change picture URL:</label>
                             <input class="rounded-xl bg-gray-200 w-2/4 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" placeholder="Example..." wire:model="employeeToUpdate.picture_url" type="text"/>
-                            @error('employeeToUpdate.picture_url') 
-                            <span class="error text-red-500">{{ $message }}</span> @enderror                    
+                            @error('employeeToUpdate.picture_url')
+                            <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
-                    <form class="w-2/3 h-full" wire:submit.prevent="saveUpdate">
+                    <form class="w-2/3 h-full" wire:submit.prevent>
                         <ul class="h-full flex flex-col justify-between">
                             <div class="flex flex-none justify-between flex-wrap gap-2 text-sm">
                                 <li class="flex flex-col gap-3">
@@ -57,7 +57,7 @@
                                         class="error text-red-500">{{ $message }}</span> @enderror
                                 </li>
                                 <li class="flex items-center">
-                                    <button type="submit"
+                                    <button wire:click="saveUpdate" type="submit"
                                             class="rounded-lg px-2 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out" autofocus>
                                         Submit
                                     </button>
@@ -65,11 +65,11 @@
                             </div>
 
                             <!-- Roles -->
-                            <li class="flex flex-auto pt-10 sm:pt-4 text-sm">               
+                            <li class="flex flex-auto pt-10 sm:pt-4 text-sm">
                                 @hasanyrole('Super Admin|Admin')
                                     @livewire('components.admin.role-manager-component', ['user'=>$this->employeeToUpdate])
-                                @endhasanyrole                       
-                            </li> 
+                                @endhasanyrole
+                            </li>
                         </ul>
                     </form>
                 </div>

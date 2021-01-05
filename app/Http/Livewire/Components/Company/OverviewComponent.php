@@ -6,33 +6,34 @@ use App\Actions\BindRoleToUserAction;
 use App\Actions\StartUpdateUserEmailAction;
 use App\CreateEmployeeAction;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
 class OverviewComponent extends Component
 {
+
     public $employees;
     public $updateMode;
     public $employeeToUpdate;
     public $modalOpen;
     public $addEmployeeModalOpen;
     public $employeeToCreate = [
-         "roles"=>[
+        "roles" => [
 
-         ]
+        ]
     ];
 
     protected $rules = [
+        'employeeToCreate.first_name' => 'sometimes|required',
+        'employeeToCreate.last_name' => 'sometimes|required',
+        'employeeToCreate.email' => 'sometimes|required|email:rfc',
+        'employeeToCreate.roles' => 'sometimes|required',
         'employeeToUpdate.first_name' => 'sometimes|required',
         'employeeToUpdate.last_name' => 'sometimes|required',
         'employeeToUpdate.email' => 'sometimes|required',
         'employeeToUpdate.picture_url' => 'required|sometimes|sometimes',
         'employeeToUpdate.created_at' => 'sometimes|required',
-        'employeeToCreate.first_name' => 'sometimes|required',
-        'employeeToCreate.last_name' => 'sometimes|required',
-        'employeeToCreate.email' => 'sometimes|required|email:rfc',
-        'employeeToCreate.roles' => 'sometimes|required',
-
     ];
 
     public function toggleEmployeeCreationModal()
@@ -74,9 +75,10 @@ class OverviewComponent extends Component
 
     public function saveUpdate(StartUpdateUserEmailAction $action)
     {
-        $this->validate();
+        $this->validateOnly('employeeToUpdate');
         $this->maybeStartChangeEmailProcedure($action);
         $this->employeeToUpdate->save();
+        $this->reset();
         $this->mount();
     }
 
@@ -97,7 +99,7 @@ class OverviewComponent extends Component
      */
     private function getStoredEmailForUser()
     {
-        return User::find($this->employeeToUpdate->id)->email;
+        return $this->employeeToUpdate->getOriginal('email');
     }
 
     public function getEmployees()
