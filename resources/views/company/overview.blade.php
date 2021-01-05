@@ -21,9 +21,11 @@
 
                         <h2 class="xxl:text-3xl font-bold">Statistics</h2>
 
-                        <div class="flex gap-4 text-sm xxl:text-2xl">
-                            <p>Upload picture here</p>
-                            <p class="font-bold">HydroActive</p>
+                        <div class="flex flex-row items-center text-center gap-4 text-sm xxl:text-2xl">
+                            @can('company.settings.update')
+                                @livewire('components.company.change-company-logo-component')
+                            @endcan
+                            <p class="font-bold">{{ auth()->user()->company->name }}</p>
                         </div>
 
                         <div class="flex gap-4 text-sm xxl:text-2xl">

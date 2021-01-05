@@ -1,7 +1,7 @@
 <aside class="flex h-screen sticky top-0 bg-nav grid grid-rows-6">
 
     <div class="grid justify-items-center items-center text-white font-black sm:text-sm md:text-xl lg:text-xl xl:text-3xl xxl:text-4xl">
-        HydroActive
+        {{ auth()->user()->company->name }}
     </div>
 
     <nav class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-base xxl:text-3xl">

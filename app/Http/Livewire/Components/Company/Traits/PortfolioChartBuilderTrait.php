@@ -15,7 +15,7 @@ trait PortfolioChartBuilderTrait
     {
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
-            # Get date labels
+            // Get date labels
             $this->labels[] = $date->format('M d');
         }
     }
@@ -50,19 +50,30 @@ trait PortfolioChartBuilderTrait
 
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
-            # Get total load for the given date
+            // Get produce, demand and storage for the given date
+            $section = $this->getDayLogSection($dayLogs, $date, $chartType);
+
+            if ($section) {
+                foreach ($section as $key => $sectionEntry) {
+                    $this->chartData[$chartType][$key . 's'][] = $sectionEntry;
+                    $possibleBoundaries[] = $sectionEntry;
+                }
+            }
+            else {
+                foreach (['produces', 'demands', 'stores'] as $key) {
+                    $this->chartData[$chartType][$key][] = 0;
+                }
+            }
+
+            // Get total load for the given date
             $totalLoad = $this->getTotalLoad($trades, $date, $now);
+            $totalLoad = $totalLoad + $this->chartData[$chartType]['produces'][$index]; // Add the produced hydrogen of today
+            $totalLoad = $totalLoad - $this->chartData[$chartType]['stores'][$index]; // Subtract the stored hydrogen of today
 
             $this->chartData[$chartType]['totalLoads'][] = $totalLoad;
             $possibleBoundaries[] = $totalLoad;
 
-            # Get demand for the given date
-            $demand = $this->getDemand($dayLogs, $date, $chartType);
-
-            $this->chartData[$chartType]['demands'][] = $demand;
-            $possibleBoundaries[] = $demand;
-
-            # Get the shortage if it wasn't already present
+            // Get the shortage if it wasn't already present
             $shortage = $this->chartData[$chartType]['shortage'];
             $demand = $this->chartData[$chartType]['demands'][$index];
 
@@ -71,7 +82,7 @@ trait PortfolioChartBuilderTrait
             }
         }
 
-        # Update the minimum and maximum
+        // Update the minimum and maximum
         $boundaries = $this->modifyBoundaries(min($possibleBoundaries), max($possibleBoundaries));
         $this->chartData[$chartType]['min'] = $boundaries[0];
         $this->chartData[$chartType]['max'] = $boundaries[1];
@@ -90,7 +101,6 @@ trait PortfolioChartBuilderTrait
 
         foreach ($trades as $trade) {
             // Check if the trade is still running on this date
-            //dd($date, $trade->endRaw, $date->lessThanOrEqualTo($trade->endRaw));
             if ($date->lessThanOrEqualTo($trade->endRaw)) {
                 if ($trade->demander->id == auth()->user()->id) {
                     // We are receiving hydrogen
@@ -106,26 +116,29 @@ trait PortfolioChartBuilderTrait
     }
 
     /**
-     * Get the demand for a given date with a day logs collection
+     * Get the day log section for a given date with a day logs collection
      *
      * @param $dayLogs
      * @param $date
      * @param $hydrogenType
-     * @return int
+     * @return null | array
      */
-    private function getDemand($dayLogs, $date, $hydrogenType) {
-        $demand = 0;
+    private function getDayLogSection($dayLogs, $date, $hydrogenType) {
+        $section = null;
 
-        # Get first because faker generates multiple day logs with the same date, normally this isn't possible
+        // Get first because faker generates multiple day logs with the same date, normally this isn't possible
         $dayLog = $dayLogs->where('date', '=', $date->toDateString())->first();
 
         if ($dayLog && !$dayLog->sections->isEmpty() && !$dayLog->sections->where('hydrogen_type', '=', $hydrogenType)->isEmpty()) {
-            # Get first because we don't have type splitting yet
+            // Get first because we don't have type splitting yet
             $section = $dayLog->sections->where('hydrogen_type', '=', $hydrogenType)->first();
-            $demand = $section->demand;
         }
 
-        return $demand;
+        return $section ? [
+            'produce' => $section->produce,
+            'demand' => $section->demand,
+            'store' => $section->store
+        ] : null;
     }
 
     /**
