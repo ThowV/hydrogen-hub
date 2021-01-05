@@ -1,7 +1,7 @@
 <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
     <div class="flex flex-col rounded-lg px-10 bg-white text-gray-700 h-full">
         <div class="w-full flex flex-none justify-between h-24 xxl:h-32">
-            <h2 class="flex items-center text-xl xxl:text-3xl font-bold">Filters</h2>
+            <h2 class="flex items-center text-xl md:text-base xxl:text-3xl font-bold">Filters</h2>
             <!--Create modal button-->
             <div class="pt-5">
                 <button

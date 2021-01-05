@@ -18,7 +18,7 @@
         </div>
 
         <div class="flex justify-center items-center">
-            <input type="submit" value="Save" class="bg-hovBlue text-white px-6 py-1 rounded sm:text-xxs md:text-xxs lg:text-xs xl:text-sm xxl:text:lg hover:bg-nav transaction duration-300 cursor-pointer">
+            <input type="submit" value="Save" class="bg-hovBlue text-white px-6 py-1 rounded sm:text-xxs md:text-xs lg:text-xs xl:text-sm xxl:text:lg hover:bg-nav transaction duration-300 cursor-pointer">
             @error('password') <span class="error text-red-500">{{ $message }}</span> @enderror
         </div>
         

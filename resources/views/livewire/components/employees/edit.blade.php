@@ -23,7 +23,7 @@
     </div>
 
     <div class="flex justify-center items-center sm:items-start">
-        <button wire:click="save" class="bg-hovBlue text-white px-6 py-1 rounded sm:text-xxs md:text-xxs lg:text-xs xl:text-sm xxl:text:lg hover:bg-nav transaction duration-300">
+        <button wire:click="save" class="bg-hovBlue text-white px-6 py-1 rounded sm:text-xxs md:text-xs lg:text-xs xl:text-sm xxl:text:lg hover:bg-nav transaction duration-300">
         Save
         </button>
     </div>
