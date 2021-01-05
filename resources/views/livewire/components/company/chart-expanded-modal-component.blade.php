@@ -22,7 +22,6 @@
                             <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 24vw; height: 28vh;">
                                 <canvas wire:ignore id="canvasExpanded-{{ $chart['hydrogenType'] }}" class="flex z-0"></canvas>
                             </div>
-
                             @if($chart['shortage'])
                                 <p class="flex flex-none pt-8 justify-center text-xs gap-5">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
