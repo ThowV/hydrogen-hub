@@ -108,7 +108,7 @@
 
         <!--Listings table-->
         <div class="flex flex-auto h-vh50">
-            <div class="{{ count($trades) < $itemsPerPage ? '' : 'flex-grow' }} overflow-auto">
+            <div class="{{ count($trades) < $itemsPerPage ? '' : 'flex-grow' }} w-full overflow-auto">
                 <table class="relative w-full max-h-full">
                     <!-- Table head -->
                     <thead class="sticky top-0 bg-white">
@@ -196,7 +196,7 @@
 
                 <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
                     <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                        <button class="font-normal hover:font-bold transaction duration-300"
+                        <button class="text-sm font-normal hover:font-bold transaction duration-300"
                                 wire:click="applyPagination('page_previous', {{ $page-1 }})">
                             Previous
                         </button>

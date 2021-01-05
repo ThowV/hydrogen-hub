@@ -4,7 +4,7 @@
 
             <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-            <div class="modal-container max-h-full max-w-full grid row-start-2 col-span-7 sm:col-span-6 row-span-4 sm:row-span-5 mx-10 xxl:mx-20 bg-white rounded-lg shadow-lg z-50">
+            <div class="modal-container max-h-full max-w-full grid row-start-2 col-span-7 sm:col-span-6 row-span-4 sm:row-span-5 md:row-span-5 md:mt-8 mx-10 xxl:mx-20 bg-white rounded-lg shadow-lg z-50">
                 <div class="modal-content flex flex-col p-12 sm:p-4 xxl:p-16 text-left">
                     <!--Title-->
                     <div class="flex justify-between items-center pb-5 sm:pb-2">
@@ -99,13 +99,15 @@
                                 @error('trade_type') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="w-40 md:w-28 xxl:w-64 flex flex-row items-start place-content-start pt-5">
-                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="expires_at">
-                                <select class="w-2/4 pt-1" name="expires_at_type" wire:model="expires_at_type">
-                                    <option value="day">Days</option>
-                                    <option value="week">Weeks</option>
-                                    <option value="month">Months</option>
-                                </select>
+                            <div class="w-40 md:w-28 xxl:w-64 flex flex-col items-start place-content-start pt-5">
+                                <div class="flex">
+                                    <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="expires_at">
+                                    <select class="w-2/4 pt-1" name="expires_at_type" wire:model="expires_at_type">
+                                        <option value="day">Days</option>
+                                        <option value="week">Weeks</option>
+                                        <option value="month">Months</option>
+                                    </select>
+                                </div>
                                 @error('expires_at') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
                         </form>
