@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Company;
 use App\Models\CompanyDayLog;
 use App\Models\CompanyDayLogSection;
+use App\Models\CompanyHydrogenInterest;
 use App\Models\RegistrationRequest;
 use App\Models\Trade;
 use App\Models\User;
@@ -23,11 +24,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $u_1 = User::create(['email' => "melchiorkokernoot@gmail.com", "password" => Hash::make('melchior123'), "company_id" => 1, "first_name" => "Melchior", "last_name" => "kokernoot"]);
-        $u_2 = User::create(['email'=>"t.l.visscher@outlook.com", "password"=> Hash::make('thomas123'), "company_id" => rand(1,10), "first_name"=>"Thomas","last_name"=>"Visscher"]);
-        $u_3 = User::create(['email' => "martijnjongman9@gmail.com", "password" => Hash::make('martijn123'), "company_id" => rand(1,10), "first_name" => "Martijn", "last_name" => "Jongman"]);
-        $u_4 = User::create(['email' => "h.zwetsloot@groningen-seaports.com", "password" => Hash::make('Henk123!@#'), "company_id" => rand(1,10), "first_name" => "Henk", "last_name" => "Zwetsloot"]);
-        $u_5 = User::create(['email' => "rdewolf300@gmail.com", "password" => Hash::make('Rob123!@#'), "company_id" => rand(1,10), "first_name" => "Rob", "last_name" => "de Wolf"]);
+        $users[] = User::create(['email' => "melchiorkokernoot@gmail.com", "password" => Hash::make('melchior123'), "company_id" => 1, "first_name" => "Melchior", "last_name" => "kokernoot"]);
+        $users[] = User::create(['email'=>"t.l.visscher@outlook.com", "password"=> Hash::make('thomas123'), "company_id" => 2, "first_name"=>"Thomas","last_name"=>"Visscher"]);
+        $users[] = User::create(['email' => "martijnjongman9@gmail.com", "password" => Hash::make('martijn123'), "company_id" => rand(1,2), "first_name" => "Martijn", "last_name" => "Jongman"]);
+        $users[] = User::create(['email' => "h.zwetsloot@groningen-seaports.com", "password" => Hash::make('Henk123!@#'), "company_id" => rand(1,2), "first_name" => "Henk", "last_name" => "Zwetsloot"]);
+        $users[] = User::create(['email' => "rdewolf300@gmail.com", "password" => Hash::make('Rob123!@#'), "company_id" => rand(1,2), "first_name" => "Rob", "last_name" => "de Wolf"]);
 
         User::factory(25)->create();
         Company::factory(10)->create();
@@ -36,16 +37,25 @@ class DatabaseSeeder extends Seeder
         Trade::factory(50)->create();
         RegistrationRequest::factory(10)->create();
 
+        $this->createCompanyInterest([1, 2]);
         $this->createPermissions();
         $this->createRoles();
         $this->bindRolesToPermissions();
 
+        foreach ($users as $user) {
+            $user->assignRole('Super Admin');
+        }
+    }
 
-        $u_1->assignRole('Super Admin');
-        $u_2->assignRole('Super Admin');
-        $u_3->assignRole('Super Admin');
-        $u_4->assignRole('Super Admin');
-        $u_5->assignRole('Super Admin');
+    public function createCompanyInterest($company_ids)
+    {
+        foreach ($company_ids as $company_id) {
+            foreach (['green', 'blue', 'grey'] as $interest) {
+                $companyHydrogenInterest = new CompanyHydrogenInterest();
+                $companyHydrogenInterest->fill(['company_id' => $company_id, 'interest' => $interest]);
+                $companyHydrogenInterest->save();
+            }
+        }
     }
 
     public function createPermissions()
@@ -59,6 +69,12 @@ class DatabaseSeeder extends Seeder
             ["name" => "users.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "users.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "users.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.delete", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.roles.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "employees.roles.read", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
 
             ["name" => "listing.create", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "listing.buy", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],

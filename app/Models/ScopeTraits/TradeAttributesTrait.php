@@ -81,5 +81,23 @@ trait TradeAttributesTrait
         return Carbon::parse($this->expires_at)->toDateString();
     }
 
+    /**
+     * Set the trade's units at carbon date attribute on the model instance
+     *
+     * @param $date
+     * @return float|int
+     */
+    public function getUnitsAtCarbonDate($date)
+    {
+        $dealMadeAt = Carbon::parse($this->deal_made_at);
+        $end = $dealMadeAt->copy()->addHours($this->duration);
+        $durationToday = 24;
 
+        if ($date->diffInDays($end) == 0) {
+            // Only a part of today the company will be provided with the units
+            $durationToday = ceil($date->diffInMinutes($end) / 60);
+        }
+
+        return $this->units_per_hour * $durationToday;
+    }
 }

@@ -116,4 +116,26 @@ class Trade extends Model
     {
         return $this->belongsTo(User::class, 'responder_id');
     }
+
+    public function supplier() {
+        if ($this->trade_type == 'offer') {
+            // An offer means the owner is supplying hydrogen
+            return $this->owner();
+        }
+        else {
+            // A request means the responder is supplying hydrogen
+            return $this->responder();
+        }
+    }
+
+    public function demander() {
+        if ($this->trade_type == 'offer') {
+            // An offer means the responder is demanding hydrogen
+            return $this->responder();
+        }
+        else {
+            // A request means the owner is demanding hydrogen
+            return $this->owner();
+        }
+    }
 }

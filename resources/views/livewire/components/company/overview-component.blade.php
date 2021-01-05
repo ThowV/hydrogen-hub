@@ -1,47 +1,32 @@
-<div>
-    <h1 class="text-xl">Employee list component</h1>
+<div class="flex flex-col h-full">
+    <div class="flex flex-none w-full justify-between">
+        <h2 class="text-base xxl:text-3xl font-bold">Employees</h2>
+        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
+                wire:click="toggleEmployeeCreationModal"> + Add employee
+        </button>
+    </div>
 
-    <table class="table w-full border">
-        <tr>
-            <th>Employee avatar</th>
-            <th>Employee name</th>
-            <th>Employee email</th>
-            <th>Employee created at</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        <tbody>
-        @if($updateMode)
-            <tr class="text-center">
-                <form wire:submit.stop>
-                    <td align="center">
-                        <input wire:model="employeeToUpdate.picture_url" type="text"/>
-                    </td>
-                    <td>
-                        <input wire:model="employeeToUpdate.first_name" type="text"/>
-                        <input wire:model="employeeToUpdate.last_name" type="text"/>
-                    </td>
-                    <td>
-                        <input wire:model="employeeToUpdate.email" type="text"/></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <button wire:click="saveUpdate" type="submit" class="p-2 bg-green-500 rounded text-white" autofocus>Submit</button>
-                    </td>
-                </form>
-            </tr>
-        @endif
+    @if($modalOpen)
+        <x-company.overview-modal :employeeToUpdate="$employeeToUpdate"></x-company.overview-modal>
+    @endif
+
+    @if($addEmployeeModalOpen)
+        <x-components.company.employee-creation-modal></x-components.company.employee-creation-modal>
+    @endif
+    @include('components.session-messages')
+    <table class="table w-full flex-1 h-full">
+        <tbody class="flex flex-wrap justify-between p-12 xxl:p-20 gap-16 xxl:gap-24">
         @foreach($employees as $employee)
-            <tr class="text-center">
+            <tr class="flex flex-col text-center">
                 <td align="center">
-                    <img src="{{$employee->avatar}}" alt="">
+                    <img class="rounded-full xxl:w-32" src="{{$employee->avatar}}" alt="">
                 </td>
-                <td>{{$employee->full_name}}</td>
-                <td>{{$employee->email}}</td>
-                <td>{{$employee->created_at}}</td>
-                <td>
-                    <a wire:click="$emitUp('updateModeEnabled', {{$employee->id}})" class="rounded p-2 bg-yellow-500">
-                        <button>Update</button>
+                <td class="text-sm xxl:text-2xl font-bold pt-2 xxl:pt-4">{{$employee->full_name}}</td>
+                <td class="text-xs xxl:text-xl">{{$employee->email}}</td>
+                <td class="pt-4 xxl:pt-8">
+                    <a wire:click="toggleModal({{$employee->id}})"
+                       class="rounded-lg px-4 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
+                        <button>View</button>
                     </a>
                 </td>
                 <td>
