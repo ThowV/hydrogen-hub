@@ -31,9 +31,13 @@ class Companies extends Component
         $this->companyInModal = $company;
     }
 
-    public function updated()
+    public function updatedSearchTerm()
     {
         $this->searchTerm = htmlspecialchars($this->searchTerm);
+        if($this->searchTerm == ""){
+            $this->resultSet = Company::all();
+            return;
+        }
 
         $this->resultSet = Company::where('name', 'LIKE', "%$this->searchTerm%")->get()->merge(
             Company::whereHas('owner', function ($query) {

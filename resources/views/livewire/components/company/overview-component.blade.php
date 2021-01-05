@@ -27,7 +27,7 @@
                         <td class="text-xs xxl:text-xl"><p class="truncate">{{$employee->email}}</p></td>
                         <td class="pt-4 xxl:pt-8">
                             <a wire:click="toggleModal({{$employee->id}})"
-                            class="rounded-lg px-4 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
+                            class="cursor-pointer rounded-lg px-4 py-1 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xxs sm:text-xxs xxl:text-2xl transition duration-200 ease-in-out">
                                 <button>View</button>
                             </a>
                         </td>
