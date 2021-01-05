@@ -47,7 +47,7 @@
 
         <script>
             window.onload = function () {
-                @yield('onload')
+                @stack('scripts_onload')
             }
 
             const overlay = document.querySelector('#settings')
