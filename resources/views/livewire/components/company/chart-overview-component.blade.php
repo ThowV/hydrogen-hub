@@ -31,9 +31,8 @@
 </div>
 
 
-@section('onload')
+@push('scripts_onload')
     let chartData = @json($chartData);
-    let chartDataCJS = {};
 
     for (const chart in chartData) {
         let chartDemandColor = "#4CD35D";
@@ -50,7 +49,7 @@
 
         var ctx = document.getElementById("canvas-" + chart).getContext("2d");
 
-        chartDataCJS[chart] = {
+        let chartDataCJS = {
             labels: @json($labels),
             datasets: [
                 {
@@ -85,7 +84,7 @@
 
         window.myBar = new Chart(ctx, {
             type: 'bar',
-            data: chartDataCJS[chart],
+            data: chartDataCJS,
             options: {
                 title: {
                     display: true,
@@ -127,4 +126,4 @@
             }
         });
     }
-@endsection
+@endpush
