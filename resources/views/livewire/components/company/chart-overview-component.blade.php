@@ -53,7 +53,7 @@
             labels: @json($labels),
             datasets: [
                 {
-                    data: chartData[chart].demands,
+                    data: chartData[chart].demand,
                     type: 'line',
                     label: 'Demand',
                     fill: true,

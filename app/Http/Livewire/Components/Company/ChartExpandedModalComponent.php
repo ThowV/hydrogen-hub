@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Company;
 
+use App\Http\Livewire\Components\Company\Traits\DeepnessFactor;
 use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
@@ -33,14 +34,14 @@ class ChartExpandedModalComponent extends Component
     {
         // Get the period
         $now = Carbon::now();
-        $end = $now->copy()->addDays(6);
+        $end = $now->copy()->addDays(1);
         $period = CarbonPeriod::create($now->copy(), $end->copy());
 
-        $this->buildLabels($period);
+        $this->buildExtensiveLabels($period);
 
         // Loop through each chart type and get the data associated to this type
         foreach (['green', 'blue', 'grey'] as $chartType) {
-            $this->buildChart($now, $end, $period, $chartType);
+            $this->buildExtensiveChart($now, $end, $period, $chartType, DeepnessFactor::HOURS);
         }
     }
 

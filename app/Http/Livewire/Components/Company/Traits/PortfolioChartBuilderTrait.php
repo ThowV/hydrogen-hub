@@ -4,8 +4,17 @@
 namespace App\Http\Livewire\Components\Company\Traits;
 
 
+use Carbon\Carbon;
+
+abstract class DeepnessFactor
+{
+    const DAYS = 0;
+    const HOURS = 1;
+}
+
 trait PortfolioChartBuilderTrait
 {
+
     /**
      * Build the labels for a chart in a given carbon period
      *
@@ -17,6 +26,23 @@ trait PortfolioChartBuilderTrait
         foreach ($period as $index=>$date) {
             // Get date labels
             $this->labels[] = $date->format('M d');
+        }
+    }
+
+    /**
+     * Build the labels for a chart in a given carbon period
+     *
+     * @param $period
+     */
+    public function buildExtensiveLabels($period)
+    {
+        // Loop through each day in the period
+        foreach ($period as $index=>$date) {
+            // Loop through each hour in the period
+            for ($i = 0; $i < 24; $i++) {
+                // Get date labels
+                $this->labels[] = $date->format('M d') . ' - ' . $i . ':00';
+            }
         }
     }
 
@@ -36,7 +62,7 @@ trait PortfolioChartBuilderTrait
             'min' => null,
             'max' => null,
             'totalLoads' => [],
-            'demands' => [],
+            'demand' => [],
             'shortage' => null
         ];
 
@@ -55,27 +81,27 @@ trait PortfolioChartBuilderTrait
 
             if ($section) {
                 foreach ($section as $key => $sectionEntry) {
-                    $this->chartData[$chartType][$key . 's'][] = $sectionEntry;
+                    $this->chartData[$chartType][$key][] = $sectionEntry;
                     $possibleBoundaries[] = $sectionEntry;
                 }
             }
             else {
-                foreach (['produces', 'demands', 'stores'] as $key) {
+                foreach (['produce', 'demand', 'store'] as $key) {
                     $this->chartData[$chartType][$key][] = 0;
                 }
             }
 
             // Get total load for the given date
             $totalLoad = $this->getTotalLoad($trades, $date, $now);
-            $totalLoad = $totalLoad + $this->chartData[$chartType]['produces'][$index]; // Add the produced hydrogen of today
-            $totalLoad = $totalLoad - $this->chartData[$chartType]['stores'][$index]; // Subtract the stored hydrogen of today
+            $totalLoad = $totalLoad + $this->chartData[$chartType]['produce'][$index]; // Add the produced hydrogen of today
+            $totalLoad = $totalLoad - $this->chartData[$chartType]['store'][$index]; // Subtract the stored hydrogen of today
 
             $this->chartData[$chartType]['totalLoads'][] = $totalLoad;
             $possibleBoundaries[] = $totalLoad;
 
             // Get the shortage if it wasn't already present
             $shortage = $this->chartData[$chartType]['shortage'];
-            $demand = $this->chartData[$chartType]['demands'][$index];
+            $demand = $this->chartData[$chartType]['demand'][$index];
 
             if (!$shortage && $totalLoad < $demand) {
                 $this->chartData[$chartType]['shortage'] = $date->format('M d') . ' - ' . ($demand - $totalLoad) . ' units short';
@@ -86,6 +112,154 @@ trait PortfolioChartBuilderTrait
         $boundaries = $this->modifyBoundaries(min($possibleBoundaries), max($possibleBoundaries));
         $this->chartData[$chartType]['min'] = $boundaries[0];
         $this->chartData[$chartType]['max'] = $boundaries[1];
+    }
+
+    /**
+     * Build extensive chart data in a given carbon period
+     *
+     * @param $now
+     * @param $period
+     * @param $end
+     * @param $chartType
+     */
+    public function buildExtensiveChart($now, $end, $period, $chartType, $deepnessFactor)
+    {
+        // Create a new set of data for this chart type so we can modify it
+        $this->chartData[$chartType] = [
+            'hydrogenType' => $chartType,
+            'min' => null,
+            'max' => null,
+            'totalLoad' => [],
+            'bought' => [],
+            'sold' => [],
+            'produce' => [],
+            'demand' => [],
+            'store' => [],
+            'shortage' => null
+        ];
+
+        // Get every trade that is active between now and the next 7 days or longer
+        $trades = auth()->user()->company->tradesAfterCarbonDate($now)->where('hydrogen_type', '=', $chartType);
+
+        // Get every demand between now and the next 7 days or longer
+        $dayLogs = auth()->user()->company->dayLogsBetweenCarbonDates($now, $end);
+
+        $possibleBoundaries = [];
+
+        // Loop through each day in the period
+        foreach ($period as $index=>$date) {
+            $possibleBoundaries[] = 0;
+
+            // Loop through each hour in the day
+            for ($i = 0; $i < 24; $i++) {
+                $totalIn = 0;
+                $totalLoad = 0;
+
+                // Get the bought and sold values
+                $boughtSoldValues = $this->getBoughtSold($trades, $date, $i);
+
+                $this->chartData[$chartType]['bought'][] = $boughtSoldValues[0];
+                $totalLoad += $boughtSoldValues[0]; // Add bought to total load
+                $totalIn += $boughtSoldValues[0]; // Add sold to total in
+
+                $this->chartData[$chartType]['sold'][] = $boughtSoldValues[1];
+                $totalLoad += $boughtSoldValues[1]; // Add sold to total load
+                $totalIn -= $boughtSoldValues[1]; // Subtract sold from total in
+
+                // Get produce, demand and store for the given date
+                $section = $this->getDayLogSection($dayLogs, $date, $chartType);
+
+                if ($section) {
+                    foreach ($section as $key => $sectionEntry) {
+                        if ($sectionEntry != null) {
+                            $possibleBoundaries[] = $sectionEntry;
+
+                            $this->chartData[$chartType][$key][] = $sectionEntry;
+
+                            if ($key == 'produce' || $key == 'store') {
+                                $totalLoad += $sectionEntry; // Add produce and store to total load
+                                $possibleBoundaries[] = $sectionEntry;
+
+                                if ($key == 'produce') {
+                                    $totalIn += $sectionEntry; // Add produce to total in
+                                }
+                                else {
+                                    $totalIn -= $sectionEntry; // Subtract store from total in
+                                }
+                            }
+                        }
+                        else {
+                            $possibleBoundaries[] = 0;
+                        }
+                    }
+                }
+                else {
+                    foreach (['produce', 'demand', 'store'] as $key) {
+                        $this->chartData[$chartType][$key][] = 0;
+                    }
+                }
+
+                // Get the shortage if it wasn't already present
+                $shortage = $this->chartData[$chartType]['shortage'];
+                $demand = $this->chartData[$chartType]['demand'][count($this->chartData[$chartType]['demand']) - 1];
+
+                if (!$shortage && $totalIn < $demand) {
+                    $this->chartData[$chartType]['shortage'] = $date->format('M d') . ' - ' . $i . ':00' . ' ' . ($demand - $totalIn) . ' units short';
+                }
+
+                // Set the total load
+                $this->chartData[$chartType]['totalLoad'][] = $totalLoad;
+                $possibleBoundaries[] = $totalLoad;
+            }
+        }
+
+        // Make sure the array size is correct
+        if ($deepnessFactor == DeepnessFactor::DAYS) {
+            $finalChartData = [];
+            $index = 0;
+            foreach($this->chartData[$chartType] as $key => $entry) {
+                if ($index++ % 24 == 0) {
+                    $finalChartData[$key] = $entry;
+                }
+            }
+            $this->chartData[$chartType] = $finalChartData;
+        }
+
+        // Update the minimum and maximum
+        $boundaries = $this->modifyBoundaries(min($possibleBoundaries), max($possibleBoundaries));
+        $this->chartData[$chartType]['min'] = $boundaries[0];
+        $this->chartData[$chartType]['max'] = $boundaries[1];
+    }
+
+    private function getBoughtSold($trades, $date, $hour) {
+        $totalBought = 0;
+        $totalSold = 0;
+        $date = new Carbon($date->format('y-m-d') . ' ' . $hour . ':00');
+
+        foreach ($trades as $trade) {
+            // Round end date/time
+            $end = $trade->endRaw;
+            $hour = (int)$date->format('h');
+
+            if ((int)$end->format('i') >= 30) {
+                $hour += 1;
+            }
+
+            $end = new Carbon($end->format('y-m-d') . ' ' . $hour . ':00');
+
+            // Check if the trade is still running in this hour
+            if ($date->lessThan($end)) {
+                if ($trade->demander->id == auth()->user()->id) {
+                    // We are receiving hydrogen
+                    $totalBought += $trade->units_per_hour;
+                } else {
+                    // We are sending hydrogen
+                    $totalSold += $trade->units_per_hour;
+                }
+            }
+        }
+
+        return [$totalBought, $totalSold];
     }
 
     /**

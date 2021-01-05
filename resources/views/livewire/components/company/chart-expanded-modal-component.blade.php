@@ -18,8 +18,8 @@
                 <!--Body-->
                 <div>
                     @foreach($chartData as $chart)
-                        <div class="w-1/4 sm:w-full max-h-40 flex flex-col items-center" style="display: {{ $chartType == $chart['hydrogenType'] ? 'block' : 'none' }}">
-                            <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 24vw; height: 28vh;">
+                        <div class="w-full sm:w-full max-h-80 flex flex-col items-center" style="display: {{ $chartType == $chart['hydrogenType'] ? 'block' : 'none' }}">
+                            <div class="relative flex flex-col sm:w-full" style="width: 48vw; height: 56vh;">
                                 <canvas wire:ignore id="canvasExpanded-{{ $chart['hydrogenType'] }}" class="flex z-0"></canvas>
                             </div>
                             @if($chart['shortage'])
@@ -57,7 +57,12 @@
     let chartDataExpanded = @json($chartData);
 
     for (const chart in chartDataExpanded) {
+        console.log(chartDataExpanded[chart].bought);
         let chartDemandColor = "#4CD35D";
+        let chartProduceColor = "#BEBEBE";
+        let chartBoughtColor = "#CBE4FD";
+        let chartStoreColor = "#7DB0ED"
+        let chartSoldColor = "#F0CFB3";
         let chartTotalLoadColor = "#d3fdd8"
 
         if (chartDataExpanded[chart].hydrogenType == 'blue') {
@@ -75,11 +80,11 @@
             labels: @json($labels),
             datasets: [
                 {
-                    data: chartDataExpanded[chart].demands,
+                    data: chartDataExpanded[chart].demand,
                     type: 'line',
                     label: 'Demand',
                     fill: true,
-                    backgroundColor: "#00ff0000",
+                    backgroundColor: "transparent",
                     pointBackgroundColor: "#fff",
                     borderColor: chartDemandColor,
                     pointHoverBackgroundColor: chartDemandColor,
@@ -95,11 +100,38 @@
                     pointHitRadius: 10
                 },
                 {
+                    label: 'Produce',
+                    backgroundColor: chartProduceColor,
+                    xAxisID: "bar-x-axis-inner",
+                    yAxisID: "bar-y-axis",
+                    data: chartDataExpanded[chart].produce
+                },
+                {
+                    label: 'Bought',
+                    backgroundColor: chartBoughtColor,
+                    xAxisID: "bar-x-axis-inner",
+                    yAxisID: "bar-y-axis",
+                    data: chartDataExpanded[chart].bought
+                },
+                {
+                    label: 'Store',
+                    backgroundColor: chartStoreColor,
+                    xAxisID: "bar-x-axis-inner",
+                    yAxisID: "bar-y-axis",
+                    data: chartDataExpanded[chart].store
+                },
+                {
+                    label: 'Sold',
+                    backgroundColor: chartSoldColor,
+                    xAxisID: "bar-x-axis-inner",
+                    yAxisID: "bar-y-axis",
+                    data: chartDataExpanded[chart].sold
+                },
+                {
                     label: 'Total load',
                     backgroundColor: chartTotalLoadColor,
-                    borderColor: chartTotalLoadColor,
-                    yAxisID: "bar-y-axis",
-                    data: chartDataExpanded[chart].totalLoads
+                    xAxisID: "bar-x-axis-outer",
+                    data: chartDataExpanded[chart].totalLoad
                 },
             ]
         }
@@ -118,11 +150,21 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    xAxes: [{
-                        stacked: true,
-                        categoryPercentage: 1.0,
-                        barPercentage: 1.0
-                    }],
+                    xAxes: [
+                        {
+                            id: "bar-x-axis-inner",
+                            stacked: true,
+                            categoryPercentage: 1,
+                            barPercentage: 0.8
+                        },
+                        {
+                            id: "bar-x-axis-outer",
+                            stacked: false,
+                            display: false,
+                            categoryPercentage: 1.0,
+                            barPercentage: 1.0
+                        }
+                    ],
                     yAxes: [
                         {
                             stacked: false,
@@ -141,7 +183,7 @@
                                 min: chartDataExpanded[chart].min,
                                 max: chartDataExpanded[chart].max
                             },
-                            type: 'linear'
+                            type: 'linear',
                         }
                     ]
                 }
