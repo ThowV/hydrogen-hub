@@ -9,7 +9,7 @@ class ChangeCompanyLogoComponent extends Component
 {
     use WithFileUploads;
 
-    public $photo;
+    public $file;
     public $formOpen;
 
     public function mount()
@@ -25,11 +25,11 @@ class ChangeCompanyLogoComponent extends Component
     public function save()
     {
         $this->validate([
-            'photo' => 'image|max:1024', // 1MB Max
+            'file' => 'image|max:1024', // 1MB Max
         ]);
 
         if(auth()->user()->can('company.settings.update')){
-            auth()->user()->company->logo_path = "/storage/".$this->photo->store('photos');
+            auth()->user()->company->logo_path = "/storage/".$this->file->store('photos');
             auth()->user()->company->save();
             $this->formOpen = false;
         }
