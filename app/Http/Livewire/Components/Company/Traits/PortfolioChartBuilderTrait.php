@@ -152,7 +152,6 @@ trait PortfolioChartBuilderTrait
 
             // Loop through each hour in the day
             for ($i = 0; $i < 24; $i++) {
-                $totalIn = 0;
                 $totalLoad = 0;
 
                 // Get the bought and sold values
@@ -160,11 +159,9 @@ trait PortfolioChartBuilderTrait
 
                 $this->chartData[$chartType]['bought'][] = $boughtSoldValues[0];
                 $totalLoad += $boughtSoldValues[0]; // Add bought to total load
-                $totalIn += $boughtSoldValues[0]; // Add sold to total in
 
                 $this->chartData[$chartType]['sold'][] = -$boughtSoldValues[1];
                 $totalLoad -= $boughtSoldValues[1]; // Subtract sold from total load
-                $totalIn -= $boughtSoldValues[1]; // Subtract sold from total in
 
                 // Get produce, demand and store for the given date
                 $section = $this->getDayLogSection($dayLogs, $date, $chartType);
@@ -177,14 +174,13 @@ trait PortfolioChartBuilderTrait
                             $this->chartData[$chartType][$key][] = $sectionEntry;
 
                             if ($key == 'produce' || $key == 'store') {
-                                $totalLoad += $sectionEntry; // Add produce and store to total load
                                 $possibleBoundaries[] = $sectionEntry;
 
                                 if ($key == 'produce') {
-                                    $totalIn += $sectionEntry; // Add produce to total in
+                                    $totalLoad += $sectionEntry; // Add produce to total load
                                 }
                                 else {
-                                    $totalIn -= $sectionEntry; // Subtract store from total in
+                                    $totalLoad -= $sectionEntry; // Subtract store from total load
                                 }
                             }
                         }
@@ -203,8 +199,8 @@ trait PortfolioChartBuilderTrait
                 $shortage = $this->chartData[$chartType]['shortage'];
                 $demand = $this->chartData[$chartType]['demand'][count($this->chartData[$chartType]['demand']) - 1];
 
-                if (!$shortage && $totalIn < $demand) {
-                    $this->chartData[$chartType]['shortage'] = $date->format('M d') . ' - ' . $i . ':00' . ' ' . ($demand - $totalIn) . ' units short';
+                if (!$shortage && $totalLoad < $demand) {
+                    $this->chartData[$chartType]['shortage'] = $date->format('M d') . ' - ' . $i . ':00' . ' ' . ($demand - $totalLoad) . ' units short';
                 }
 
                 // Set the total load
