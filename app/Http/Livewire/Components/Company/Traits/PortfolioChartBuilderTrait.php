@@ -162,8 +162,8 @@ trait PortfolioChartBuilderTrait
                 $totalLoad += $boughtSoldValues[0]; // Add bought to total load
                 $totalIn += $boughtSoldValues[0]; // Add sold to total in
 
-                $this->chartData[$chartType]['sold'][] = $boughtSoldValues[1];
-                $totalLoad += $boughtSoldValues[1]; // Add sold to total load
+                $this->chartData[$chartType]['sold'][] = -$boughtSoldValues[1];
+                $totalLoad -= $boughtSoldValues[1]; // Subtract sold from total load
                 $totalIn -= $boughtSoldValues[1]; // Subtract sold from total in
 
                 // Get produce, demand and store for the given date

@@ -100,6 +100,26 @@
                     pointHitRadius: 10
                 },
                 {
+                    data: chartDataExpanded[chart].totalLoad,
+                    type: 'line',
+                    label: 'Total load',
+                    fill: true,
+                    backgroundColor: "transparent",
+                    pointBackgroundColor: "#fff",
+                    borderColor: chartTotalLoadColor,
+                    pointHoverBackgroundColor: chartTotalLoadColor,
+                    pointBorderColor: chartTotalLoadColor,
+                    pointHoverBorderColor: chartTotalLoadColor,
+                    borderCapStyle: 'butt',
+                    borderJoinStyle: 'round',
+                    lineTension: 0,
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10
+                },
+                {
                     label: 'Produce',
                     backgroundColor: chartProduceColor,
                     xAxisID: "bar-x-axis-inner",
@@ -126,13 +146,7 @@
                     xAxisID: "bar-x-axis-inner",
                     yAxisID: "bar-y-axis",
                     data: chartDataExpanded[chart].sold
-                },
-                {
-                    label: 'Total load',
-                    backgroundColor: chartTotalLoadColor,
-                    xAxisID: "bar-x-axis-outer",
-                    data: chartDataExpanded[chart].totalLoad
-                },
+                }
             ]
         }
 
