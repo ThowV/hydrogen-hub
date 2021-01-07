@@ -1,7 +1,7 @@
 <div class="grid grid-cols-4 grid-row-3 justify-center bg-white w-full h-screen overflow-hidden">
 
     <div
-        class="relative col-start-1 w-3/4 h-full row-span-3 transition duration-500 ease-in-out transform origin-left hover:scale-150 hover:text-red">
+        class="relative col-start-1 w-3/4 h-full row-span-3 transition duration-500 ease-in-out transform origin-left hover:scale-150">
 
         <div class="absolute inset-0 bg-auto bg-center"
                 style="background-image: url(https://news.blr.com/app/uploads/sites/2/2017/04/powerplant4.jpg)"></div>
@@ -24,7 +24,7 @@
 
     <div class="col-start-3 row-start-1 flex flex-col justify-end">
         <h1 class="text-nav font-bold text-6xl sm:text-xl md:text-3xl lg:text-5xl text-center">Retrieve password</h1>
-        <p class="text-center text-sm xxl:text-2xl sm:text-xxs">Enter your email and we'll send instructions on how
+        <p class="text-center text-sm xxl:text-2xl sm:text-xxs md:text-xs">Enter your email and we'll send instructions on how
             to reset your password.
         <p>
     </div>

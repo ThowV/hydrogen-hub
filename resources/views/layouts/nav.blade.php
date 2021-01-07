@@ -112,7 +112,7 @@
                 </svg>
             </div>
 
-            <div class="flex justify-center py-6 sm:py-2 ">
+            <div class="flex justify-center py-6 sm:py-2">
                 <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2"
                      src="{{auth()->user()->avatar}}"
                      alt="{{ auth()->user()->full_name }}">
@@ -125,14 +125,14 @@
 
             <div class="grid justify-center items-end h-full">
                 <a href="{{route('employees.edit', auth()->id())}}"
-                   class="m-auto bg-personal border border-white text-white px-8 py-2 sm:px-4 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
+                   class="w-32 bg-personal border border-white text-center text-white py-2 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
                     Personal settings
                 </a>
             </div>
 
             <div class="grid justify-center items-end h-full">
                 <a href="{{route('logout')}}"
-                   class="m-auto bg-hovBlue text-white px-12 py-2 sm:px-6 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
+                   class="w-32 bg-hovBlue text-center text-white py-2 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
                     Log out
                 </a>
             </div>

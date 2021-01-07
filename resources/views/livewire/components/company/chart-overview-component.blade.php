@@ -1,17 +1,17 @@
 <div class="flex flex-col max-w-full max-h-full">
     <div class="flex flex-none w-full justify-between">
-        <h2 class="text-base xxl:text-3xl font-bold">Portfolio</h2>
-        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
+        <h2 class="xxl:text-3xl font-bold">Portfolio</h2>
+        <button class="text-sm xxl:text-2xl font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
                 wire:click="openSelectionModal"> + Add graph
         </button>
     </div>
 
-    <div class="flex flex-auto flex-wrap justify-around sm:items-center sm:flex-col text-center">
+    <div class="flex flex-auto justify-around sm:items-center sm:flex-col text-center">
     @foreach($chartData as $chart)
         <div class="flex flex-col w-1/4 sm:w-full h-full">
             <div class="relative flex flex-col">
-                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openEnlargedChart('{{ $chart['hydrogenType'] }}')">
-                    <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg" wire:click="openEnlargedChart('{{ $chart['hydrogenType'] }}')">
+                    <span class="text-white h-full grid place-items-center text-3xl font-semibold">Expand</span>
                 </div>
 
                 <canvas wire:ignore id="canvas-{{ $chart['hydrogenType'] }}" class="flex z-0"></canvas>

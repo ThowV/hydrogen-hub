@@ -23,7 +23,7 @@
                         <td align="center">
                             <img class="rounded-full xxl:w-32" src="{{$employee->avatar}}" alt="">
                         </td>
-                        <td class="text-sm xxl:text-2xl font-bold pt-2 xxl:pt-4"><p class="truncate">{{$employee->full_name}}</p></td>
+                        <td class="text-sm md:text-xs sm:text-xs xxl:text-2xl font-bold pt-2 xxl:pt-4"><p class="truncate">{{$employee->full_name}}</p></td>
                         <td class="text-xs xxl:text-xl"><p class="truncate">{{$employee->email}}</p></td>
                         <td class="pt-4 xxl:pt-8">
                             <a wire:click="toggleModal({{$employee->id}})"

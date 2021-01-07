@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-1 flex-row py-10 sm:py-1">
+                <div class="flex flex-1 flex-row py-10 md:py-6 sm:py-1">
                     <div class="w-1/3 flex flex-col gap-y-5">
                         <div align="center" class="w-full">
                             <img class="rounded-full w-32 xxl:w-46" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2016%2F08%2F08%2F09%2F17%2Favatar-1577909_960_720.png&f=1&nofb=1" alt="">

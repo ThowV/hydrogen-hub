@@ -15,7 +15,7 @@
                 <h2 class="font-bold text-xs xxl:text-xl text-gray-600">Short Term Trading</h2>
             </div>
             <div class="col-start-2 grid justify-end py-4 px-10 xxl:py-8">
-                <h3 class="font-bold text-xs xxl:text-xl text-gray-600">Monday 23 November 2020 | 16:20:23</h3>
+                <h3 class="font-bold text-xs sm:text-xxs xxl:text-xl text-gray-600">Monday 23 November 2020 | 16:20:23</h3>
             </div>
         </div>
 
