@@ -90,8 +90,7 @@
                             @if(!$trade->responder_id && $trade->owner_id != auth()->id())
                                 <button
                                     class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
-                                    wire:click="toggleConfirmationStage"
-                                >
+                                    wire:click="toggleConfirmationStage">
                                     {{ $trade->trade_type == "offer" ? "Buy" : "Sell" }}
                                 </button>
                             @endif
