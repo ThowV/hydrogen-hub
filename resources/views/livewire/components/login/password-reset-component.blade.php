@@ -25,7 +25,7 @@
     </form>
 
     @if($success)
-        <h1 class="text-gray-700 text-2xl">Succes</h1>
+        <h1 class="text-green-500 text-2xl">Success</h1>
     @endif
 
 </div>
