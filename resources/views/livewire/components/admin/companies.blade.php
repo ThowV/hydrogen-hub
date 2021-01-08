@@ -31,7 +31,7 @@
                 <td class="py-3 xxl:py-5">{{$result->name}}</td>
                 <td class="py-3 xxl:py-5">{{$result->owner->email}}</td>
                 <td class="flex justify-end items-center pr-5 py-3 xxl:py-5">
-                    <i class="fas fa-cog fa-2x opacity-25 hover:opacity-75 transaction duration-300 z-10" wire:click="toggleModal({{$result->id}})"></i>
+                    <i class="fas fa-cog fa-lg opacity-25 hover:opacity-75 transaction duration-300 z-10" wire:click="toggleModal({{$result->id}})"></i>
                 </td>
             </tr>
         @endforeach
