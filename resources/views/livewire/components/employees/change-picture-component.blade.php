@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full bg-gray-200 p-8 rounded-xl justify-center items-center">
+<div class="flex flex-col h-full bg-gray-200 p-8 rounded-xl items-center">
     @if ($photo)
         Photo Preview:
         @php
@@ -11,14 +11,14 @@
               }
         @endphp
         @if($photoStatus)
-            <img class="w-24 h-24 max-w-24 max-h-24 rounded-full mb-5 object-fill" src=" {{ $url }}">
+            <img class="w-24 h-24 rounded-full mb-5" src="{{ $url }}">
         @else
             <span class="error text-red-500">Something went wrong while uploading the file.</span>
         @endif
     @endif
 
     @if (!$photo)
-        <img class="w-24 h-24 max-w-24 max-h-24 rounded-full mb-5 object-fill" src="{{auth()->user()->picture_url}}" alt="">
+        <img class="rounded-full w-24 h-24 mb-5 flex-none" src="{{auth()->user()->picture_url}}" alt="photo">
     @endif
 
 
