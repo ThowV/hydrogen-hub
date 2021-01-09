@@ -32,16 +32,15 @@ class ChartExpandedModalComponent extends Component
 
     public function initializeCharts()
     {
-        // Get the period
-        $now = Carbon::now();
-        $end = $now->copy()->addDays(1);
-        $period = CarbonPeriod::create($now->copy(), $end->copy());
+        // Determine the period
+        $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(2));
 
-        $this->buildExtensiveLabels($period);
+        // Build the labels
+        $this->buildLabels($period, DeepnessFactor::HOURS);
 
         // Loop through each chart type and get the data associated to this type
         foreach (['green', 'blue', 'grey'] as $chartType) {
-            $this->buildExtensiveChart($now, $end, $period, $chartType, DeepnessFactor::HOURS);
+            $this->buildChart($period, $chartType, DeepnessFactor::HOURS);
         }
     }
 

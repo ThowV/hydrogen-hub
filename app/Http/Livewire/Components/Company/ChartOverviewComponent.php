@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Events\PermissionDenied;
+use App\Http\Livewire\Components\Company\Traits\DeepnessFactor;
 use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
@@ -25,7 +26,7 @@ class ChartOverviewComponent extends Component
 
     public function chartTypesUpdated()
     {
-        // ChartJS bugs out if you do not refresh the page
+        // ChartJS bugs out due to calculations if you do not refresh the page
         return redirect()->to('/company/portfolio');
     }
 
@@ -45,16 +46,15 @@ class ChartOverviewComponent extends Component
         // Get the chart types
         $this->chartTypes = auth()->user()->company->hydrogenInterestsAsArray;
 
-        // Get the period
-        $now = Carbon::now();
-        $end = $now->copy()->addDays(6);
-        $period = CarbonPeriod::create($now->copy(), $end->copy());
+        // Determine the period
+        $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(6));
 
+        // Build the label data
         $this->buildLabels($period);
 
         // Loop through each chart type and get the data associated to this type
         foreach ($this->chartTypes as $chartType) {
-            $this->buildChart($now, $end, $period, $chartType);
+            $this->buildChart($period, $chartType);
         }
     }
 

@@ -57,7 +57,6 @@
     let chartDataExpanded = @json($chartData);
 
     for (const chart in chartDataExpanded) {
-        console.log(chartDataExpanded[chart].bought);
         let chartDemandColor = "#4CD35D";
         let chartProduceColor = "#BEBEBE";
         let chartBoughtColor = "#CBE4FD";

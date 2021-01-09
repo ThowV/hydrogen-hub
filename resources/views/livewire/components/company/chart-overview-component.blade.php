@@ -77,7 +77,7 @@
                     backgroundColor: chartTotalLoadColor,
                     borderColor: chartTotalLoadColor,
                     yAxisID: "bar-y-axis",
-                    data: chartData[chart].totalLoads
+                    data: chartData[chart].totalLoad
                 },
             ]
         }
