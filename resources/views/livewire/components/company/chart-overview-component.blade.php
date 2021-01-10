@@ -50,7 +50,7 @@
         let ctx = document.getElementById("canvas-" + chart).getContext("2d");
 
         let chartDataCJS = {
-            labels: @json($labels),
+            labels: chartData[chart].labels,
             datasets: [
                 {
                     data: chartData[chart].demand,

@@ -20,13 +20,16 @@ trait PortfolioChartBuilderTrait
      *
      * @param $period
      * @param $deepnessFactor
+     * @return array
      */
-    public function buildLabels($period, $deepnessFactor=DeepnessFactor::DAYS)
+    public function buildLabels($period, $deepnessFactor)
     {
+        $labels = [];
+
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
             if ($deepnessFactor == DeepnessFactor::DAYS) {
-                $this->labels[] = $date->format('M d');
+                $labels[] = $date->format('M d');
             }
             else {
                 // Figure out the start and end hour
@@ -44,10 +47,12 @@ trait PortfolioChartBuilderTrait
                 // Loop through each hour in the period
                 for ($i = $startHour; $i < $endHour; $i++) {
                     // Get date labels
-                    $this->labels[] = $date->format('M d') . ' - ' . $i . ':00';
+                    $labels[] = $date->format('M d') . ' - ' . $i . ':00';
                 }
             }
         }
+
+        return $labels;
     }
 
     /**
@@ -62,6 +67,8 @@ trait PortfolioChartBuilderTrait
         // Create a new set of data for this chart type so we can modify it
         $this->chartData[$chartType] = [
             'hydrogenType' => $chartType,
+            'period' => $period,
+            'labels' => $this->buildLabels($period, $deepnessFactor),
             'min' => null,
             'max' => null,
             'totalLoad' => [],
@@ -71,14 +78,18 @@ trait PortfolioChartBuilderTrait
             'demand' => [],
             'store' => [],
             'shortage' => null,
-            'possibleMinMax' => []
+            'possibleMinMax' => [],
+            'trades' => [],
+            'dayLogs' => []
         ];
 
         // Get every trade that is active between now and the next 7 days or longer
         $trades = auth()->user()->company->tradesAfterCarbonDate($period->startDate)->where('hydrogen_type', '=', $chartType);
+        $this->chartData[$chartType]['trades'] = $trades;
 
         // Get every demand between now and the end date
         $dayLogs = auth()->user()->company->dayLogsBetweenCarbonDates($period->startDate, $period->endDate);
+        $this->chartData[$chartType]['dayLogs'] = $dayLogs ;
 
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
@@ -145,7 +156,7 @@ trait PortfolioChartBuilderTrait
             // Loop through each entry
             foreach($this->chartData[$chartType] as $key => $chartDataSet) {
                 // Check if the data set is an array, we need to reduce its size from hours to days
-                if (is_array($chartDataSet)) {
+                if (is_array($chartDataSet) && $key != 'labels' && $key != 'trades' && $key != 'dayLogs') {
                     $reducedChartDataSet = [];
                     $reducedChartDataSetIndex = 0;
 

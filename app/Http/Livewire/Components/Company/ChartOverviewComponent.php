@@ -49,9 +49,6 @@ class ChartOverviewComponent extends Component
         // Determine the period
         $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(6));
 
-        // Build the label data
-        $this->buildLabels($period);
-
         // Loop through each chart type and get the data associated to this type
         foreach ($this->chartTypes as $chartType) {
             $this->buildChart($period, $chartType);

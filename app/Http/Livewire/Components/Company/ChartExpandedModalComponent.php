@@ -18,7 +18,11 @@ class ChartExpandedModalComponent extends Component
     public $chartData = [];
     public $labels = [];
 
-    protected $listeners = ['openChartExpandedModal' => 'toggleModal'];
+    protected $listeners = ['openChartExpandedModal' => 'toggleModal', 'chartClicked' => 'chartClicked'];
+
+    public function chartClicked($xIndex) {
+        $this->emit('showChartPointInfo', $xIndex, $this->chartData[$this->chartType]);
+    }
 
     public function toggleModal($chartType = null)
     {
@@ -34,9 +38,6 @@ class ChartExpandedModalComponent extends Component
     {
         // Determine the period
         $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(2));
-
-        // Build the labels
-        $this->buildLabels($period, DeepnessFactor::HOURS);
 
         // Loop through each chart type and get the data associated to this type
         foreach (['green', 'blue', 'grey'] as $chartType) {
