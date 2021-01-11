@@ -27,9 +27,6 @@
                 </thead>
 
                 <tbody class="divide-y">
-                @if(!$tradeEntries)
-                    <p>tfdsfsdfdfs</p>
-                @else
                     @foreach($tradeEntries as $tradeEntry)
                         <tr class="text-xs xl:text-sm xxl:text-2xl top-0">
                             <td class="py-2 md:py-1 sm:py-1 xxl:py-4">
@@ -63,7 +60,6 @@
                             </td>
                         </tr>
                     @endforeach
-                @endif
                 </tbody>
             </table>
         </div>

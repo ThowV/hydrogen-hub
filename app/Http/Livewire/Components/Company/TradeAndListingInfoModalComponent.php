@@ -11,7 +11,7 @@ class TradeAndListingInfoModalComponent extends Component
     public $isOpen = false;
     public $trade;
 
-    protected $listeners = ['openTradeAndListingInfoModal' => 'openTrade'];
+    protected $listeners = ['openTradeAndListingInfoModal' => 'toggleModal'];
 
     public function downloadPdf()
     {
@@ -25,14 +25,9 @@ class TradeAndListingInfoModalComponent extends Component
         );
     }
 
-    public function openTrade(Trade $trade)
+    public function toggleModal(Trade $trade = null)
     {
         $this->trade = $trade;
-        $this->toggleModal();
-    }
-
-    public function toggleModal()
-    {
         $this->isOpen = ! $this->isOpen;
     }
 
