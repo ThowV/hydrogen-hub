@@ -22,7 +22,6 @@
                             </div>
                         </div>
                     </div>
-                    {{count($this->lineProperties[$this->typeOfGraphInModal]['green'])}}
                     <div class="flex flex-row w-full h-full">
                         <canvas class="h-auto" wire:key="detailed" wire:ignore.self id="canvas-detailed"></canvas>
                     </div>
@@ -67,7 +66,11 @@
                     type: 'LineWithLine',
                     label: '{{$priceGraphLine['label']}}',
                     fill: true,
+                    @if($this->typeOfGraphInModal == "mix")
+                    backgroundColor: '#676767',
+                    @else
                     backgroundColor: '#00ff0000',
+                    @endif
                     borderColor: '{{$priceGraphLine['borderColor']}}',
                     borderCapStyle: 'butt',
                     borderJoinStyle: 'round',
@@ -109,8 +112,8 @@
                         stacked: false,
                         ticks: {
                             beginAtZero: true,
-                            min: {{$this->chartProperties['prices']['limits']['min']}},
-                            max: {{$this->chartProperties['prices']['limits']['max']}}
+                            min: {{$this->chartProperties[$this->typeOfGraphInModal]['limits']['min']}},
+                            max: {{$this->chartProperties[$this->typeOfGraphInModal]['limits']['max']}}
                         },
                     }]
                 }

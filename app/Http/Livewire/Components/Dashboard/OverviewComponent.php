@@ -21,7 +21,7 @@ class OverviewComponent extends Component
     /**
      * @var int
      */
-    private $limit = 3;
+    private $limit = 10;
     /**
      * @var CarbonPeriod
      */
@@ -126,11 +126,6 @@ class OverviewComponent extends Component
         ]
     ];
 
-    public function updatedSelectedTimeRange()
-    {
-        $this->limit = $this->selectedTimeRange;
-        $this->mount();
-    }
 
     /**
      * Component constructor

@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Components\Dashboard\Traits;
 
 use App\Models\Trade;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 trait DashboardGraphTrait
 {
