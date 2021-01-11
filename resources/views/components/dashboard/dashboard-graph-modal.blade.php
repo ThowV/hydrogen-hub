@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="flex flex-row w-full h-full">
-                        <canvas class="h-auto" wire:key="detailed" wire:ignore.self id="canvas-detailed"></canvas>
+                        <canvas class="h-vh55 w-vw80" wire:key="detailed" wire:ignore.self id="canvas-detailed"></canvas>
                     </div>
                 </div>
             </div>
