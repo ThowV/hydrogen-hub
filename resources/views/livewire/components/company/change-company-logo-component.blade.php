@@ -12,7 +12,7 @@
         </form>
     @else
         @if(isset(auth()->user()->company->logo_path))
-            <img wire:click="toggleForm" class="h-16 w-16 rounded-full cursor-pointer"
+            <img wire:click="toggleForm" class="w-16 h-16 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full cursor-pointer"
                  src="{{ auth()->user()->company->logo_path }}" alt="">
         @else
             <button class="underline cursor-pointer" wire:click="toggleForm">Upload picture here</button>

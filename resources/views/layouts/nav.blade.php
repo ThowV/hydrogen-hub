@@ -71,7 +71,7 @@
     <div class="row-start-6 text-white font-bold grid grid-cols-4 px-2 pb-10">
 
         <div class="w-full h-full grid items-end justify-items-center">
-            <img class="rounded-full w-8 xl:w-10 xxl:w-12 border"
+            <img class="rounded-full w-8 h-8 md:w-6 md:h-6 xl:w-10 xl:h-10 xxl:w-12 xxl:h-12 border"
                  src="{{ auth()->user()->avatar }}"
                  alt="{{ auth()->user()->full_name }}">
         </div>
@@ -81,8 +81,8 @@
             <a class="truncate opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">{{ auth()->user()->email  }}</a>
         </div>
 
-        <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-2" id="settings-btn">
-            <svg class="opacity-50 hover:opacity-100 duration-300 w-5 xl:w-6 xxl:w-8"
+        <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-1 lg:pb-2 xl:pb-3" id="settings-btn">
+            <svg class="opacity-50 hover:opacity-100 duration-300 w-5 md:w-4 xl:w-6 xxl:w-8"
                  xmlns="http://www.w3.org/2000/svg" width="19.721" height="19.721" viewBox="0 0 19.721 19.721">
                 <g id="Icon_ionic-md-settings" data-name="Icon ionic-md-settings" transform="translate(0)">
                     <path id="Icon_ionic-md-settings-2" data-name="Icon ionic-md-settings"
@@ -113,7 +113,7 @@
             </div>
 
             <div class="flex justify-center py-6 sm:py-2">
-                <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2"
+                <img class="rounded-full w-20 h-20 md:w-14 md:h-14 xl:w-24 xl:h-24 xxl:w-32 xxl:h-32 border row-span-2"
                      src="{{auth()->user()->avatar}}"
                      alt="{{ auth()->user()->full_name }}">
             </div>

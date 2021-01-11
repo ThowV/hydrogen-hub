@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="grid grid-rows-5 md:grid-rows-3 grid-cols-6 sm:grid-rows-3 sm:items-center">
-                    <div class="row-span-4 col-span-2 grid justify-center items-center sm:col-span-6 sm:row-span-1 md:row-span-3">
+                    <div class="row-span-4 col-span-2 grid justify-start items-center sm:col-span-6 sm:row-span-1 md:row-span-3">
                         @livewire('components.employees.change-picture-component')
                     </div>
 

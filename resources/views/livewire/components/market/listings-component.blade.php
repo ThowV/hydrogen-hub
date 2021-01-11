@@ -132,7 +132,7 @@
                     <!-- Table content -->
                     <tbody class="divide-y">
                     @foreach($trades as $trade)
-                        <tr class="w-full flex flex-row py-8 md:py-5 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200 ">
+                        <tr class="w-full flex flex-row py-8 md:py-5 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200">
                             <td class="flex w-full">
                                 <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500"
                                      height="24" width="50">
@@ -162,11 +162,19 @@
                             </td>
 
                             <td class="flex items-center w-full">
+                                @if(!$trade->responder_id && $trade->owner_id != auth()->id())
                                 <button
-                                    class="bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-8 sm:py-1 sm:px-3 rounded-lg transition duration-300 ease-in-out"
+                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
                                     wire:click="openListing({{ $trade }})">
                                     {{ $trade->trade_type === "offer" ? "Buy" : "Sell" }}
                                 </button>
+                                @else
+                                <button
+                                    class="w-24 md:w-20 sm:w-14 bg-gray-100 hover:bg-gray-500 border-2 border-gray-500 text-gray hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                    wire:click="openListing({{ $trade }})">
+                                    Own
+                                </button>
+                                @endif
                             </td>
 
                             <td class="w-full">

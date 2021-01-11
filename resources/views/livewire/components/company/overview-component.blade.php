@@ -21,7 +21,7 @@
                 @foreach($employees as $employee)
                     <tr class="flex w-32 flex-col text-center">
                         <td align="center">
-                            <img class="rounded-full xxl:w-32" src="{{$employee->avatar}}" alt="">
+                            <img class="rounded-full w-16 h-16 sm:w-10 sm:h-10 md:w-12 md:h-12 xxl:w-32" src="{{$employee->avatar}}" alt="">
                         </td>
                         <td class="text-sm md:text-xs sm:text-xs xxl:text-2xl font-bold pt-2 xxl:pt-4"><p class="truncate">{{$employee->full_name}}</p></td>
                         <td class="text-xs xxl:text-xl"><p class="truncate">{{$employee->email}}</p></td>
