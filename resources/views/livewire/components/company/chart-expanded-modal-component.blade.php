@@ -1,5 +1,5 @@
 <div class="z-40 w-full text-gray-700" style="display: {{ $isOpen ? 'block' : 'none' }}">
-    <div class="modal fixed top-0 h-full w-full grid grid-cols-8 grid-rows-6">
+    <div class="modal fixed top-0 h-full w-full grid grid-cols-8 grid-rows-7">
 
         <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
@@ -16,7 +16,7 @@
                 </div>
 
                 <!--Body-->
-                <div>
+                <div class="flex">
                     <div>
                         @foreach($chartData as $chart)
                             <div class="w-full sm:w-full max-h-80 flex flex-col items-center" style="display: {{ $chartType == $chart['hydrogenType'] ? 'block' : 'none' }}">

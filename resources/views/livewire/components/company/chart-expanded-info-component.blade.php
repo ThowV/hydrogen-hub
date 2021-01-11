@@ -1,6 +1,6 @@
 <div>
     <div>
-        Information {{ $datetime ? 'for ' . $datetime : '' }}
+        <p>Information {{ $datetime ? 'for ' . $datetime : '' }}</p>
 
         <table>
             <tr>
@@ -22,7 +22,48 @@
         </table>
     </div>
 
+    <hr />
+
     <div>
-        Running contracts
+        <p>Running trades</p>
+
+        <table>
+            <tr>
+                <td>Bought:</td>
+                <td>Sold:</td>
+            </tr>
+            <tr>
+                <td>
+                    @if(count($runningTradesBought) > 0)
+                        @foreach($runningTradesBought as $trade)
+                            <hr />
+
+                            <p>{{ $trade->totalVolume }} units</p>
+                            <p>ends: {{ $trade->end }}</p>
+                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
+
+                            <hr />
+                        @endforeach
+                    @else
+                        No running bought trades at this time.
+                    @endif
+                </td>
+                <td>
+                    @if(count($runningTradesSold) > 0)
+                        @foreach($runningTradesSold as $trade)
+                            <hr />
+
+                            <p>{{ $trade->totalVolume }} units</p>
+                            <p>ends: {{ $trade->end }}</p>
+                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
+
+                            <hr />
+                        @endforeach
+                    @else
+                        No running sold trades at this time.
+                    @endif
+                </td>
+            </tr>
+        </table>
     </div>
 </div>

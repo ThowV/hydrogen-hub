@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Company;
 
+use App\Models\Trade;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -15,6 +16,8 @@ class ChartExpandedInfoComponent extends Component
     public $sold = 0;
     public $bought = 0;
     public $position = 0;
+    public $runningTradesBought = [];
+    public $runningTradesSold = [];
 
     protected $listeners = ['showChartPointInfo' => 'showChartPointInfo'];
 
@@ -32,16 +35,21 @@ class ChartExpandedInfoComponent extends Component
         if ($this->demand != 0 && $this->totalLoad != 0) {
             if ($this->demand > $this->totalLoad) {
                 $this->position = 100 - round(($this->totalLoad / $this->demand) * 100);
-                //dd($this->totalLoad, $this->demand, $this->totalLoad / $this->demand);
             }
             else {
                 $this->position = 100 + round(($this->demand / $this->totalLoad) * 100);
-                //dd($this->demand, $this->totalLoad, $this->demand / $this->totalLoad);
             }
-
-            //dd(($this->demand / $this->totalLoad) * 100);
         }
 
+        // Get the running contracts
+        $start = Carbon::create(str_replace('-', '', $this->datetime));
+        $this->runningTradesBought = auth()->user()->company->getBoughtTradesAfterCarbonDate($start)->where('hydrogen_type', $chartData['hydrogenType']);
+        $this->runningTradesSold = auth()->user()->company->getSoldTradesAfterCarbonDate($start)->where('hydrogen_type', $chartData['hydrogenType']);
+    }
+
+    public function openTradeEntry(Trade $trade)
+    {
+        $this->emit('openTradeAndListingInfoModal', $trade);
     }
 
     public function render()
