@@ -1,5 +1,6 @@
 <div class="w-full">
     <div class="min-h-full flex flex-row">
+
         @if($modalIsOpen)
             <x-dashboard.dashboard-graph-modal></x-dashboard.dashboard-graph-modal>
         @endif
@@ -23,6 +24,7 @@
                 <canvas wire:key="mix" wire:click="openDetailedGraphModal('mix')" wire:ignore.self id="canvas-mix"></canvas>
             </div>
         @endif
+
     </div>
 </div>
 

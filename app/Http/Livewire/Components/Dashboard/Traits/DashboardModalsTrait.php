@@ -8,7 +8,7 @@ trait DashboardModalsTrait
 
     public $modalIsOpen = false;
     public $typeOfGraphInModal;
-    public $selectedTimeRange = '15';
+    public $selectedTimeRange = '182';
     public $timeRanges = [
         "1" => '1 day',
         "7" => '1 week',
@@ -33,7 +33,7 @@ trait DashboardModalsTrait
         $this->limit = $this->selectedTimeRange;
         $this->setPeriod();
         $this->setLabels();
-        $this->displayGraphs();
+        $this->displayGraphs($typeOfGraphInModal);
         $this->toggleModal();
         $this->render();
     }

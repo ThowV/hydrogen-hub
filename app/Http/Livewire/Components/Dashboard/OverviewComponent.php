@@ -143,10 +143,17 @@ class OverviewComponent extends Component
     /**
      * Execute all the actions that need to be performed to build the graphs
      */
-    private function displayGraphs()
+    private function displayGraphs($type = null)
     {
+        if($type !== null){
+            $this->getDataForGraph($type, [$this, $this->lineProperties[$type]['callback']]);
+        }else{
+            foreach ($this->lineProperties as $typeOfGraph => $graphData) {
+                $this->getDataForGraph($typeOfGraph, [$this, $graphData['callback']]);
+            }
+        }
+
         foreach ($this->lineProperties as $typeOfGraph => $graphData) {
-            $this->getDataForGraph($typeOfGraph, [$this, $graphData['callback']]);
             $this->setLimits($typeOfGraph);
         }
     }
