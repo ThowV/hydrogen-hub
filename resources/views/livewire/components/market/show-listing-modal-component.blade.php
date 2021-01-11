@@ -172,6 +172,13 @@
                         yAxisID: "bar-y-axis",
                         data: chartData.totalLoad
                     },
+                    {
+                        label: 'Impact',
+                        backgroundColor: chartImpactColor,
+                        borderColor: chartImpactColor,
+                        yAxisID: "bar-y-axis",
+                        data: chartData.impact
+                    },
                 ]
             }
 

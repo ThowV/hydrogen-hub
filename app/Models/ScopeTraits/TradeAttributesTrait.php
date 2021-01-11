@@ -89,8 +89,7 @@ trait TradeAttributesTrait
      */
     public function getUnitsAtCarbonDate($date)
     {
-        $dealMadeAt = Carbon::parse($this->deal_made_at);
-        $end = $dealMadeAt->copy()->addHours($this->duration);
+        $end = $this->getEndRawAttribute();
         $durationToday = 24;
 
         if ($date->diffInDays($end) == 0) {

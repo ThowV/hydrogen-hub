@@ -294,7 +294,7 @@ trait PortfolioChartBuilderTrait
      * @param $max
      * @return int[]
      */
-    private function modifyBoundaries($min, $max) {
+    public function modifyBoundaries($min, $max) {
         return [
             (int)($min + ceil(0.15 * $min)),
             (int)($max + ceil(0.15 * $max))
