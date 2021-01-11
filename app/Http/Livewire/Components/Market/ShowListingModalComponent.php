@@ -2,16 +2,19 @@
 
 namespace App\Http\Livewire\Components\Market;
 
+use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
 use App\Models\Trade;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class ShowListingModalComponent extends Component
 {
+    use PortfolioChartBuilderTrait;
 
     public $isOpen = false;
     public $confirmationStage = false;
-
+    public $chartData = [];
     public $trade;
 
     protected $listeners = ['openRespondModal' => 'openListing'];
@@ -20,6 +23,15 @@ class ShowListingModalComponent extends Component
     {
         $this->trade = $trade;
         $this->toggleModal();
+
+        // Get the chart types
+        $chartType = $trade->hydrogen_type;
+
+        // Determine the period
+        $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(6));
+
+        $this->buildChart($period, $chartType);
+        $this->emit('listingOpened', $this->chartData[$chartType]);
     }
 
     public function toggleConfirmationStage()

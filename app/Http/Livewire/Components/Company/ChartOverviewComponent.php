@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Events\PermissionDenied;
-use App\Http\Livewire\Components\Company\Traits\DeepnessFactor;
 use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;

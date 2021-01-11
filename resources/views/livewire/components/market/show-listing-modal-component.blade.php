@@ -28,8 +28,8 @@
                         <div class="flex flex-row h-full sm:flex-col">
 
                             @if($trade->owner_id != auth()->id())
-                                <div class="w-2/4 sm:w-full sm:pb-5 flex justify-center items-start">
-                                    <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
+                                <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 28vw; height: 32vh;">
+                                    <canvas wire:ignore id="canvas-impact" class="flex z-0"></canvas>
                                 </div>
                             @endif
 
@@ -121,3 +121,102 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+    <script>
+        Livewire.on('listingOpened', function (chartData) {
+            let ctx = document.getElementById("canvas-impact").getContext("2d");
+
+            let chartDemandColor = "#4CD35D";
+            let chartTotalLoadColor = "#d3fdd8";
+            let chartImpactColor = "#75d88c";
+
+            if (chartData.hydrogenType === 'blue') {
+                chartDemandColor = "#003399";
+                chartTotalLoadColor = "#cbe4fd";
+                chartImpactColor = "#5ea5f8";
+            }
+            else if (chartData.hydrogenType === 'grey') {
+                chartDemandColor = "#909090";
+                chartTotalLoadColor = "#e8e8e8";
+                chartImpactColor = "#999999";
+            }
+
+            let chartDataImpact = {
+                labels: chartData.labels,
+                datasets: [
+                    {
+                        data: chartData.demand,
+                        type: 'line',
+                        label: 'Demand',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: chartDemandColor,
+                        pointHoverBackgroundColor: chartDemandColor,
+                        pointBorderColor: chartDemandColor,
+                        pointHoverBorderColor: chartDemandColor,
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Total load',
+                        backgroundColor: chartTotalLoadColor,
+                        borderColor: chartTotalLoadColor,
+                        yAxisID: "bar-y-axis",
+                        data: chartData.totalLoad
+                    },
+                ]
+            }
+
+            window.ldc = new Chart(ctx, {
+                type: 'bar',
+                data: chartDataImpact,
+                options: {
+                    title: {
+                        display: false,
+                    },
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 1.0,
+                            barPercentage: 1.0
+                        }],
+                        yAxes: [
+                            {
+                                stacked: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                            },
+                            {
+                                id: "bar-y-axis",
+                                stacked: true,
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                                type: 'linear'
+                            }
+                        ]
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
