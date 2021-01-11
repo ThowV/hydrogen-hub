@@ -27,9 +27,11 @@
                         <!--Body-->
                         <div class="flex flex-row h-full sm:flex-col">
 
-                            <div class="w-2/4 sm:w-full sm:pb-5 flex justify-center items-start">
-                                <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
-                            </div>
+                            @if($trade->owner_id != auth()->id())
+                                <div class="w-2/4 sm:w-full sm:pb-5 flex justify-center items-start">
+                                    <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
+                                </div>
+                            @endif
 
                             <div class="w-2/4 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
 
