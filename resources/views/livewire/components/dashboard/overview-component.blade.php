@@ -1,26 +1,36 @@
-<div class="min-h-full flex flex-row">
-    @if($open['prices'])
-        <div class="{{$colspan}}">
-            <canvas wire:ignore id="canvas-price"></canvas>
-        </div>
-    @endif
-    @if($open['volumes'])
-        <div class="{{$colspan}}">
-            <canvas wire:ignore id="canvas-volumes"></canvas>
-        </div>
-    @endif
-    @if($open['mix'])
-        <div class="{{$colspan}}">
-            <canvas wire:ignore id="canvas-mix"></canvas>
-        </div>
-    @endif
+<div class="w-full">
+    <div class="min-h-full flex flex-row">
+        @if($modalIsOpen)
+            <x-dashboard.dashboard-graph-modal></x-dashboard.dashboard-graph-modal>
+        @endif
+        @if($open['prices'])
+            <div class="{{$colspan}}">
+                <canvas wire:key="prices" wire:click="openDetailedGraphModal('prices')" wire:ignore.self id="canvas-price"></canvas>
+            </div>
+        @endif
+        @if($open['volumes'])
+            <div class="{{$colspan}}">
+                <canvas wire:key="volumes" wire:click="openDetailedGraphModal('volumes')" wire:ignore.self id="canvas-volumes"></canvas>
+            </div>
+        @endif
+        @if($open['mix'])
+            <div class="{{$colspan}}">
+                <canvas wire:key="mix" wire:click="openDetailedGraphModal('mix')" wire:ignore.self id="canvas-mix"></canvas>
+            </div>
+        @endif
+        @if($open['mix'])
+            <div class="hidden">
+                <canvas wire:key="mix" wire:click="openDetailedGraphModal('mix')" wire:ignore.self id="canvas-mix"></canvas>
+            </div>
+        @endif
+    </div>
 </div>
+
 
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-            integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
             crossorigin="anonymous"></script>
-
     <script>
         //Add vertical line to hover effect
         Chart.defaults.LineWithLine = Chart.defaults.line;
@@ -231,8 +241,5 @@
             @endif
 
         };
-    </script>
-    <script>
-
     </script>
 @endpush

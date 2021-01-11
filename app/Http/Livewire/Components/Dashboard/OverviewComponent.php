@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Dashboard;
 
 use App\Http\Livewire\Components\Dashboard\Traits\DashboardGraphTrait;
+use App\Http\Livewire\Components\Dashboard\Traits\DashboardModalsTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
@@ -10,6 +11,7 @@ use Livewire\Component;
 class OverviewComponent extends Component
 {
     use DashboardGraphTrait;
+    use DashboardModalsTrait;
 
     /**
      * @var []
@@ -19,7 +21,7 @@ class OverviewComponent extends Component
     /**
      * @var int
      */
-    private $limit = 30;
+    private $limit = 3;
     /**
      * @var CarbonPeriod
      */
@@ -123,6 +125,12 @@ class OverviewComponent extends Component
             "callback" => "getAverageAmountOfMixTradedForDay",
         ]
     ];
+
+    public function updatedSelectedTimeRange()
+    {
+        $this->limit = $this->selectedTimeRange;
+        $this->mount();
+    }
 
     /**
      * Component constructor

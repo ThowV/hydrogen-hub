@@ -96,10 +96,10 @@ trait DashboardGraphTrait
     private function getDataForGraph($typeOfGraph, $callback)
     {
         foreach ($this->period as $day) {
-            foreach ($this->lineProperties[$typeOfGraph] as $hydrogen_type => $value) {
-                if ($hydrogen_type !== "callback") {
-                    $this->lineProperties[$typeOfGraph][$hydrogen_type]['data'][] = $this->apply_recursion_on_callback($callback,
-                        $day, $hydrogen_type);
+            foreach ($this->lineProperties[$typeOfGraph] as $hydrogen_type_line => $value) {
+                if ($hydrogen_type_line !== "callback") {
+                    $this->lineProperties[$typeOfGraph][$hydrogen_type_line]['data'][] = $this->apply_recursion_on_callback($callback,
+                        $day, $hydrogen_type_line);
                 }
             }
         }
