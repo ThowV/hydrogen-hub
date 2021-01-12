@@ -93,6 +93,7 @@
             type: 'line',
             data: dataset,
             options: {
+                onClick: dataPointClicked,
                 title: {
                     display: true,
                     text: "Detailed  {{$this->typeOfGraphInModal}} graph"

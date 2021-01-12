@@ -239,9 +239,16 @@ integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6h
                     }
                 }
             });
-
             @endif
 
         };
+
+        function dataPointClicked(event, data) {
+            $(document).ready(function () {
+                if(Array.isArray(data) && data.length > 0){
+                    Livewire.emit('getDetailedDataForDay', data[0]._index)
+                }
+            });
+        }
     </script>
 @endpush

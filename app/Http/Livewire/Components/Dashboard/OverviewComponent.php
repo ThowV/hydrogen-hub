@@ -126,6 +126,7 @@ class OverviewComponent extends Component
         ]
     ];
 
+    protected $listeners = ['getDetailedDataForDay'];
 
     /**
      * Component constructor
@@ -172,7 +173,7 @@ class OverviewComponent extends Component
     private function setLabels()
     {
         foreach ($this->period as $day) {
-            $this->labels[] = $day->format('M d');
+            $this->labels[] = $day->format('M d Y');
         }
     }
 

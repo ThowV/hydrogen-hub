@@ -3,6 +3,8 @@
 
 namespace App\Http\Livewire\Components\Dashboard\Traits;
 
+use Carbon\Carbon;
+
 trait DashboardModalsTrait
 {
 
@@ -14,6 +16,11 @@ trait DashboardModalsTrait
         "7" => '1 week',
         "183" => '6 months'
     ];
+
+    public function getDetailedDataForDay($index)
+    {
+        dd(new Carbon($this->labels[$index]));
+    }
 
     public function toggleModal()
     {
