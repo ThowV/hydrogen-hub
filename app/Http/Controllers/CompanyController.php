@@ -17,6 +17,12 @@ class CompanyController extends Controller
 
     public function portfolio()
     {
+        if (!auth()->user()->can('company.portfolio.read')) {
+            \event(new PermissionDenied());
+
+            return back();
+        }
+
         return view('company.portfolio');
     }
 

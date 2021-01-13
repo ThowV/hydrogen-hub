@@ -40,13 +40,15 @@
                             transform="translate(-6.75 -3.62)" fill="#fff"/>
                     </g>
                 </svg>
-                <a class="col-start-4" href="{{route('company.portfolio')}}">Company</a>
+                <a class="col-start-4" href="{{auth()->user()->can('company.portfolio.read') ? route('company.portfolio') : route('company.overview')}}">Company</a>
 
                 <ul class="flex flex-col items-start w-3/4 col-start-4 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20">
-                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
-                        <a class="col-start-4 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.portfolio') ? 'opacity-100' : 'opacity-25') }}"
-                           href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
-                    </li>
+                    @can('company.portfolio.read')
+                        <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
+                            <a class="col-start-4 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.portfolio') ? 'opacity-100' : 'opacity-25') }}"
+                               href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
+                        </li>
+                    @endcan
                     <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
                         <a class="hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.overview') ? 'opacity-100' : 'opacity-25') }}"
                            href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
