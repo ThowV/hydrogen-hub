@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Dashboard;
 
+use App\Models\Trade;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -11,7 +12,7 @@ class TradesComponent extends Component
 
     public function getTrades()
     {
-        $this->trades = auth()->user()->company->trades;
+        $this->trades = Trade::where('responder_id', '!=', null)->get();
     }
 
     public function getTimePassedSinceDate($date)
