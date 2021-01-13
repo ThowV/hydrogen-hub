@@ -21,6 +21,17 @@
     </div>
 
     <div class="flex flex-col justify-around h-full">
+        @if($editState)
+            <div class="text-left">
+                <p class="font-semibold text-gray-600 text-xs xxl:text-xl mb-1">Password for confirmation</p>
+                <input
+                    class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300"
+                    wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
+                >
+                @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+            </div>
+        @endif
+
         <div class="text-left">
             <p class="font-semibold text-gray-600 text-xs xxl:text-xl mb-1">Usable fund</p>
 
@@ -31,7 +42,7 @@
             @else
                 <label for="usableFundInput">€</label>
                 <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="usableFund" type="text" id="usableFundInput" name="usableFundInput">
-                @error('usableFund') <span class="text-red-600 text-xs pt-4">{{ $message }}</span> @enderror
+                @error('usableFund') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
             @endif
         </div>
 
