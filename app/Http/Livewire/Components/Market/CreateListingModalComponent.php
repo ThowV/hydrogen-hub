@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Components\Market;
 
+use App\Events\PermissionDenied;
 use App\Http\Livewire\Components\Market\Traits\MarketChartBuilderTrait;
 use App\Http\Livewire\Components\Traits\ChartBuilderTrait;
 use App\Models\Trade;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class CreateListingModalComponent extends Component
@@ -25,6 +27,8 @@ class CreateListingModalComponent extends Component
     public $mix_co2;
     public $expires_at;
 
+    public $password;
+
     // Default select does not work with livewire at the moment:
     public $duration_type = "day";
     public $expires_at_type = "day";
@@ -37,6 +41,7 @@ class CreateListingModalComponent extends Component
         'price_per_unit' => 'required|integer|min:0|max:1000000',
         'mix_co2' =>        'required|integer|min:0|max:100',
         'expires_at' =>     'required|integer|min:0|max:365',
+        'password' =>       'required',
     ];
 
     protected $listeners = ['openCreateModal' => 'toggleModal'];
@@ -133,16 +138,32 @@ class CreateListingModalComponent extends Component
     }
 
     public function toggleConfirmationStage() {
-        $this->validate();
+        if (!$this->confirmationStage) {
+            // Validate without password since this is set later
+            unset($this->rules['password']);
+            $this->validate();
+            $this->rules['password'] = 'required';
+        }
+
         $this->confirmationStage = !$this->confirmationStage;
     }
 
     public function createListing() {
+        // Validate permission
         if (!auth()->user()->can('listings.create')) {
-            return;
+            $this->toggleModal();
+            $this->toggleConfirmationStage();
+            \event(new PermissionDenied());
+
+            return back();
         }
 
-        $this->validate();
+        $data = $this->validate();
+
+        // Validate password input
+        if (!\Auth::attempt(['email' => auth()->user()->email, 'password' => $this->password])) {
+            return $this->addError('password', 'Password is invalid.');
+        }
 
         // Add owner_id value to data
         $data['owner_id'] = auth()->id();

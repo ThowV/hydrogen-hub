@@ -195,9 +195,17 @@
                                 Close
                             </button>
                         </div>
-                    @else
+
+                    @elseif($confirmationStage)
                         <div class="flex flex-row w-full h-full justify-center">
                             <div class="flex items-center gap-10">
+                                <p>Password for confirmation</p>
+                                <input
+                                    class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1"
+                                    wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
+                                >
+                                @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+
                                 <button
                                     class="bg-butOrange hover:bg-orange-600 border-2 border-butOrange hover:border-orange-600 text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
                                     wire:click="createListing">

@@ -103,7 +103,8 @@
 
                             <button wire:click="toggleModal" class="modal-close text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out">Close</button>
                         </div>
-                    @else
+
+                    @elseif($confirmationStage)
                         <div class="flex flex-row w-full h-full justify-center">
                             <div class="flex items-center gap-10">
                                 <p>Password for confirmation</p>
