@@ -25,29 +25,31 @@
                         <h2 class="w-full text-center pb-8 font-bold">Overview</h2>
 
                         <div class="flex flex-auto sm:flex-col">
-                           
+
                             <div class="w-full flex flex-col flex-auto justify-between text-sm xl:text-base xxl:text-lg sm:px-4">
 
                                 <div class="grid grid-cols-4 flex-col gap-2 ml-48 md:ml-32">
-                                    <p class="flex flex-col"><b>Hydrogen type:</b> 
+                                    <p class="flex flex-col"><b>Hydrogen type:</b>
                                         <span class="flex">
                                             <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500"
                                             height="24" width="24">
                                             <circle cx="10" cy="12" r="4"/>
-                                            </svg>        
+                                            </svg>
                                             {{ $trade->hydrogen_type }}
                                         </span>
                                     </p>
                                     <p class="flex flex-col"><b>Units per hour:</b>       {{ number_format($trade->units_per_hour, 0, '.', ' ') }}</p>
-                                    <p class="flex flex-col"><b>Duration:</b>             {{ $trade->end }}</p>  
+                                    <p class="flex flex-col"><b>Duration:</b>             {{ $trade->end }}</p>
                                     <p class="flex flex-col"><b>Mix CO2:</b>              {{ $trade->mix_co2 }}%</p>
                                 </div>
 
                                 <div class="grid grid-cols-4 flex-col gap-2 ml-48 md:ml-32">
-                                    <p class="flex flex-col"><b>Total volume:</b>         {{ number_format($trade->total_volume, 0, '.', ' ') }} units</p>              
+                                    <p class="flex flex-col"><b>Total volume:</b>         {{ number_format($trade->total_volume, 0, '.', ' ') }} units</p>
                                     <p class="flex flex-col"><b>Price per unit:</b> €     {{ number_format($trade->price_per_unit, 0, '.', ' ') }}</p>
                                     <p class="flex flex-col"><b>Trade type:</b>           {{ $trade->trade_type }}</p>
-                                    <p class="flex flex-col"><b>Expires at:</b>           {{ $trade->expires_at }}</p>
+                                    @if (!$trade->responder)
+                                        <p class="flex flex-col"><b>Expires at:</b>           {{ $trade->expires_at }}</p>
+                                    @endif
                                 </div>
 
                                 <div class="grid grid-cols-4 flex-col gap-2 ml-48 md:ml-32">
