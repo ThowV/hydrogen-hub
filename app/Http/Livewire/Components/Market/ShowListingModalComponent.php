@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Components\Market;
 
-use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
+use App\Http\Livewire\Components\Traits\PortfolioChartBuilderTrait;
 use App\Models\Trade;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
@@ -28,14 +28,12 @@ class ShowListingModalComponent extends Component
         $chartType = $trade->hydrogen_type;
 
         // Determine the period
-        $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(6));
-
-        // Build the chart data
-        $this->buildChart($period, $chartType);
-
-        // Determine the impact
         $tradePeriod = CarbonPeriod::create(Carbon::now(), $trade->end_raw);
 
+        // Build the chart data
+        $this->buildChart($tradePeriod, $chartType);
+
+        // Determine the impact
         foreach ($tradePeriod as $index => $day) {
             // Get the impact
             $impact = (int)$trade->getUnitsAtCarbonDate($day);

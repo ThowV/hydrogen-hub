@@ -37,22 +37,22 @@
                             <div class="w-40 md:w-28 xxl:w-64 pt-5">
                                 <fieldset class="grid grid-cols-2 grid-rows-2">
                                     <div>
-                                        <input class="form-radio bg-gray-200 text-typeGreen-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="green">
+                                        <input class="form-radio bg-gray-200 text-typeGreen-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="green">
                                         <label class="pl-4 sm:pl-1 md:pl-1">green</label>
                                     </div>
 
                                     <div>
-                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="blue">
+                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="blue">
                                         <label class="pl-4 sm:pl-1 md:pl-1">blue</label>
                                     </div>
 
                                     <div class="pt-2">
-                                        <input class="form-radio bg-gray-200 text-typeGrey-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="grey">
+                                        <input class="form-radio bg-gray-200 text-typeGrey-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="grey">
                                         <label class="pl-4 sm:pl-1 md:pl-1">grey</label>
                                     </div>
 
                                     <div class="pt-2">
-                                        <input class="form-radio bg-gray-200 text-typeMix-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" name="hydrogen_type" value="mix">
+                                        <input class="form-radio bg-gray-200 text-typeMix-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="mix">
                                         <label class="pl-4 sm:pl-1 md:pl-1">mix</label>
                                     </div>
                                 </fieldset>
@@ -60,12 +60,12 @@
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64 pt-5">
-                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="units_per_hour">
+                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="units_per_hour" wire:keyup="composeChart">
                                 @error('units_per_hour') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64 flex flex-wrap items-start pt-5">
-                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="duration">
+                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="duration" wire:keyup="composeChart">
                                 <select class="w-2/4 px-2 py-1" name="duration_type" wire:model="duration_type">
                                     <option value="day">Days</option>
                                     <option value="week">Weeks</option>
@@ -87,12 +87,12 @@
                             <div class="w-40 md:w-28 xxl:w-64 pt-5">
                                 <fieldset class="flex flex-col flex-nowrap gap-4 sm:gap-2">
                                     <div>
-                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4" type="radio" wire:model="trade_type" name="trade_type" value="offer">
+                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4" type="radio" wire:model="trade_type" wire:change="composeChart" name="trade_type" value="offer">
                                         <label class="pl-4 sm:pl-1 md:pl-1">offer</label>
                                     </div>
 
                                     <div>
-                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4" type="radio" wire:model="trade_type" name="trade_type" value="request">
+                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4" type="radio" wire:model="trade_type" wire:change="composeChart" name="trade_type" value="request">
                                         <label class="pl-4 sm:pl-1 md:pl-1">request</label>
                                     </div>
                                 </fieldset>
@@ -117,7 +117,9 @@
 
                         <div class="flex flex-row sm:flex-col h-full">
                             <div class="w-1/3 sm:w-full flex justify-center items-start">
-                                <img class="object-contain w-4/6 sm:w-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
+                                <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 28vw; height: 32vh;">
+                                    <canvas wire:ignore id="canvas-impact" class="flex z-0"></canvas>
+                                </div>
                             </div>
 
                             <div class="w-2/3 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm sm:text-xxs xxl:text-2xl">
@@ -215,3 +217,214 @@
         </div>
     @endif
 </div>
+
+
+@push('scripts')
+    <script>
+        let ctx = null;
+        let chart = null
+
+        let colors = {
+            "chartDemandColor": "",
+            "chartNewTotalLoadColor": "",
+            "chartLoadLeftColor": "",
+            "chartLoadRemovedColor": "",
+            "chartLoadAddedColor": ""
+        }
+
+        function setup(chartData) {
+            ctx = document.getElementById("canvas-impact").getContext("2d");
+
+            colors["chartDemandColor"] = "#4CD35D";
+            colors["chartNewTotalLoadColor"] = "#75d88c";
+            colors["chartLoadLeftColor"] = "#d3fdd8";
+            colors["chartLoadRemovedColor"] = "#F0CFB3";
+            colors["chartLoadAddedColor"] = "#7DB0ED";
+
+            if (chartData.hydrogenType === 'blue') {
+                colors["chartDemandColor"] = "#003399";
+                colors["chartLoadLeftColor"] = "#cbe4fd";
+                colors["chartNewTotalLoadColor"] = "#5ea5f8";
+            }
+            else if (chartData.hydrogenType === 'grey') {
+                colors["chartDemandColor"] = "#909090";
+                colors["chartLoadLeftColor"] = "#e8e8e8";
+                colors["chartNewTotalLoadColor"] = "#999999";
+            }
+        }
+
+        function clear() {
+            ctx = document.getElementById("canvas-impact").getContext("2d");
+
+            for (let color in colors) {
+                colors[color] = "#000000";
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                options: {
+                    title: {
+                        display: false,
+                    },
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 1.0,
+                            barPercentage: 1.0
+                        }],
+                        yAxes: [
+                            {
+                                stacked: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 100
+                                },
+                            },
+                            {
+                                id: "bar-y-axis",
+                                stacked: true,
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 100
+                                },
+                                type: 'linear'
+                            }
+                        ]
+                    }
+                }
+            });
+            ctx = null;
+        }
+
+        Livewire.on('listingParametersFilled', function (chartData) {
+            setup(chartData);
+
+            let chartDataImpact = {
+                labels: chartData.labels,
+                datasets: [
+                    {
+                        data: chartData.newTotalLoad,
+                        type: 'line',
+                        label: 'New total load',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: colors["chartNewTotalLoadColor"],
+                        pointHoverBackgroundColor: colors["chartNewTotalLoadColor"],
+                        pointBorderColor: colors["chartNewTotalLoadColor"],
+                        pointHoverBorderColor: colors["chartNewTotalLoadColor"],
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    {
+                        data: chartData.demand,
+                        type: 'line',
+                        label: 'Demand',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: colors["chartDemandColor"],
+                        pointHoverBackgroundColor: colors["chartDemandColor"],
+                        pointBorderColor: colors["chartDemandColor"],
+                        pointHoverBorderColor: colors["chartDemandColor"],
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Load left',
+                        backgroundColor: colors["chartLoadLeftColor"],
+                        borderColor: colors["chartLoadLeftColor"],
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadLeft
+                    },
+                    {
+                        label: 'Load removed',
+                        backgroundColor: colors["chartLoadRemovedColor"],
+                        borderColor: colors["chartLoadRemovedColor"],
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadRemoved
+                    },
+                    {
+                        label: 'Load added',
+                        backgroundColor: colors["chartLoadAddedColor"],
+                        borderColor: colors["chartLoadAddedColor"],
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadAdded
+                    },
+                ]
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: chartDataImpact,
+                options: {
+                    title: {
+                        display: false,
+                    },
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 1.0,
+                            barPercentage: 1.0
+                        }],
+                        yAxes: [
+                            {
+                                stacked: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                            },
+                            {
+                                id: "bar-y-axis",
+                                stacked: true,
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                                type: 'linear'
+                            }
+                        ]
+                    }
+                }
+            });
+        });
+
+        Livewire.on('listingParametersCleared', function () {
+            if (chart) {
+                chart.destroy();
+            }
+
+            clear();
+        });
+    </script>
+@endpush
+

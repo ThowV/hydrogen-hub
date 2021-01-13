@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Components\Company;
 
-use App\Http\Livewire\Components\Company\Traits\DeepnessFactor;
-use App\Http\Livewire\Components\Company\Traits\PortfolioChartBuilderTrait;
+use App\Http\Livewire\Components\Traits\DeepnessFactor;
+use App\Http\Livewire\Components\Traits\PortfolioChartBuilderTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;

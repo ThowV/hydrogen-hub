@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Livewire\Components\Company\Traits;
+namespace App\Http\Livewire\Components\Traits;
 
 
 use Carbon\Carbon;
@@ -225,6 +225,18 @@ trait PortfolioChartBuilderTrait
 
         $this->chartData[$chartType]['min'] = $boundaries[0];
         $this->chartData[$chartType]['max'] = $boundaries[1];
+    }
+
+    /**
+     * Build impact chart data in a given carbon period
+     *
+     * @param $period
+     * @param $chartType
+     * @param $deepnessFactor
+     */
+    public function buildImpactChart($period, $chartType)
+    {
+        $this->buildChart($period, $chartType, DeepnessFactor::DAYS);
     }
 
     /**

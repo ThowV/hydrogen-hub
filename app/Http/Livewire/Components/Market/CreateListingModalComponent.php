@@ -2,14 +2,19 @@
 
 namespace App\Http\Livewire\Components\Market;
 
+use App\Http\Livewire\Components\Traits\PortfolioChartBuilderTrait;
 use App\Models\Trade;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Livewire\Component;
 
 class CreateListingModalComponent extends Component
 {
+    use PortfolioChartBuilderTrait;
+
     public $isOpen = false;
     public $confirmationStage = false;
+    public $chartData = [];
 
     public $trade_type;
     public $hydrogen_type;
@@ -19,8 +24,6 @@ class CreateListingModalComponent extends Component
     public $mix_co2;
     public $expires_at;
 
-    public $trade;
-
     // Default select does not work with livewire at the moment:
     public $duration_type = "day";
     public $expires_at_type = "day";
@@ -28,14 +31,110 @@ class CreateListingModalComponent extends Component
     protected $rules = [
         'trade_type' =>     'required',
         'hydrogen_type' =>  'required',
-        'units_per_hour' => 'required|numeric|min:0|max:1000000',
-        'duration' =>       'required|numeric',
-        'price_per_unit' => 'required|numeric|min:0|max:1000000',
-        'mix_co2' =>        'required|numeric|min:0|max:100',
-        'expires_at' =>     'required|numeric',
+        'units_per_hour' => 'required|integer|min:0|max:1000000',
+        'duration' =>       'required|integer|min:0|max:365',
+        'price_per_unit' => 'required|integer|min:0|max:1000000',
+        'mix_co2' =>        'required|integer|min:0|max:100',
+        'expires_at' =>     'required|integer|min:0|max:365',
     ];
 
     protected $listeners = ['openCreateModal' => 'toggleModal'];
+
+    public function composeChart() {
+        // Emit the event to clear the chart on the front-end
+        $this->emit('listingParametersCleared');
+
+        if ($this->hydrogen_type == '' || $this->units_per_hour == '' || $this->duration == '' || $this->trade_type == '') {
+            return;
+        }
+
+        // Modify duration data
+        $duration = $this->getDuration($this->duration, $this->duration_type);
+
+        // Determine the period
+        $start = Carbon::now()->addHour()->setMinute(0)->setSecond(0);
+        $period = CarbonPeriod::create($start, $start->copy()->addHours($duration));
+
+        // Build the chart data
+        $chartType = $this->hydrogen_type;
+        $this->buildChart($period, $chartType);
+
+        // Determine the impact
+        foreach ($period as $index => $day) {
+            // Get the impact
+            $durationOnDay = 24;
+
+            if ($day->diffInDays($period->start) == 0) {
+                $startDayEnd = $day->copy();
+                $startDayEnd->hour = 24;
+
+                // Only a part of today the company will be provided with the units
+                $durationOnDay = ceil($day->diffInMinutes($startDayEnd) / 60);
+            }
+            else if ($day->diffInDays($period->end) == 0) {
+                $day->hour = 0;
+
+                // Only a part of today the company will be provided with the units
+                $durationOnDay = ceil($day->diffInMinutes($period->end) / 60);
+            }
+
+            $impact = (int)$this->units_per_hour * $durationOnDay;
+
+            if ($this->trade_type == "request") {
+                $impact = -$impact;
+            }
+
+            // Calculate the new load
+            $totalLoad = $this->chartData[$chartType]['totalLoad'][$index];
+            $loadRemoved = 0;
+            $loadAdded = 0;
+            $newTotalLoad = $totalLoad + $impact;
+
+            if (($impact >= 0 && $totalLoad < 0) || ($impact < 0 && $totalLoad >= 0)) {
+                if (($impact >= 0 && $newTotalLoad < 0) || $impact < 0 && $newTotalLoad >= 0) {
+                    $loadRemoved = -$impact; // We are removing all hydrogen
+                    $totalLoad = $newTotalLoad; // Our last total load is now what is left
+                }
+                else if (($impact >= 0 && $newTotalLoad >= 0) || ($impact < 0 && $newTotalLoad < 0)) {
+                    $loadRemoved = $totalLoad; // We are removing the entire last total load
+                    $totalLoad = 0; // Our last total load is now zero
+                    $loadAdded = $newTotalLoad; // We are adding what is left to be added
+                }
+            }
+            else if ($impact >= 0) {
+                $loadAdded = $impact; // We are adding all hydrogen
+            }
+            else if ($impact < 0) {
+                $loadRemoved = $impact; // We are removing all hydrogen
+            }
+
+            // Set the impact, previous total load and new total load
+            $this->chartData[$chartType]['loadLeft'][$index] = $totalLoad;
+            $this->chartData[$chartType]['newTotalLoad'][] = $newTotalLoad;
+            $this->chartData[$chartType]['loadRemoved'][] = $loadRemoved;
+            $this->chartData[$chartType]['loadAdded'][] = $loadAdded;
+
+            // Update the min and max values
+            $bounds = [$this->chartData[$chartType]['min'], $this->chartData[$chartType]['max']];
+
+            foreach ([$totalLoad, $loadRemoved, $loadAdded, $newTotalLoad] as $value) {
+                if ($value < $bounds[0]) {
+                    $bounds = $this->modifyBoundaries($value, $bounds[1]);
+                }
+                else if ($value > $bounds[1]) {
+                    $bounds = $this->modifyBoundaries($bounds[0], $value);
+                }
+
+                $this->chartData[$chartType]['min'] = $bounds[0];
+                $this->chartData[$chartType]['max'] = $bounds[1];
+            }
+        }
+
+        if ($chartType != 'mix') {
+            // Emit the event to initialize the chart on the front-end
+            $this->emit('listingParametersFilled', $this->chartData[$chartType]);
+        }
+    }
 
     private function refresh()
     {
@@ -53,24 +152,24 @@ class CreateListingModalComponent extends Component
         ]);
     }
 
-    public function toggleModal()
-    {
+    public function toggleModal() {
         $this->isOpen = !$this->isOpen;
+
+        if ($this->isOpen) {
+            // Emit the event to clear the chart on the front-end
+            $this->emit('listingParametersCleared');
+        }
+
         $this->refresh();
     }
 
-    public function toggleConfirmationStage()
-    {
-        if (!$this->confirmationStage) {
-            $this->validate();
-        }
-
+    public function toggleConfirmationStage() {
+        $this->validate();
         $this->confirmationStage = !$this->confirmationStage;
     }
 
-    public function createListing()
-    {
-        $data = $this->validate();
+    public function createListing() {
+        $this->validate();
 
         // Add owner_id value to data
         $data['owner_id'] = auth()->id();
@@ -92,8 +191,7 @@ class CreateListingModalComponent extends Component
         $this->toggleModal();
     }
 
-    private function getDuration($duration, $type)
-    {
+    private function getDuration($duration, $type) {
         $now = Carbon::now();
         $end = $now->copy();
 
@@ -110,8 +208,7 @@ class CreateListingModalComponent extends Component
         return $now->diffInHours($end);
     }
 
-    public function getTotalPriceReadable()
-    {
+    public function getTotalPriceReadable() {
         if ($this->duration && $this->duration_type && $this->units_per_hour && $this->price_per_unit) {
             $total_price = $this->getDuration($this->duration, $this->duration_type) * $this->units_per_hour * $this->price_per_unit;
             return '€ ' . number_format($total_price, 0, '.', ' ');
@@ -120,8 +217,7 @@ class CreateListingModalComponent extends Component
         return 'Not provided.';
     }
 
-    public function getTotalVolumeReadable()
-    {
+    public function getTotalVolumeReadable() {
         if ($this->duration && $this->duration_type && $this->units_per_hour) {
             $total_volume = $this->getDuration($this->duration, $this->duration_type) * $this->units_per_hour;
             return number_format($total_volume, 0, '.', ' ') . ' unit' . ($total_volume > 1 ? 's' : '');
@@ -130,8 +226,7 @@ class CreateListingModalComponent extends Component
         return 'Not provided.';
     }
 
-    public function getDurationReadable()
-    {
+    public function getDurationReadable() {
         if ($this->duration && $this->duration_type && is_numeric($this->duration)) {
             return $this->duration . ' ' . $this->duration_type . ($this->duration > 1 ? 's' : '');
         }
@@ -139,24 +234,19 @@ class CreateListingModalComponent extends Component
         return 'Not provided.';
     }
 
-    public function getExpiresAtReadable()
-    {
-        if ($this->expires_at && $this->expires_at_type)
-        {
+    public function getExpiresAtReadable() {
+        if ($this->expires_at && $this->expires_at_type) {
             return Carbon::now()->addHours($this->getDuration($this->expires_at, $this->expires_at_type))->toDateString();
         }
 
         return 'Not provided.';
     }
 
-    public function mount()
-    {
-        $this->trade = new Trade();
-        $this->trade->fill(['units_per_hour' => 0]);
+    public function updated($propertyName) {
+        $this->validateOnly($propertyName);
     }
 
-    public function render()
-    {
+    public function render() {
         return view('livewire.components.market.create-listing-modal-component');
     }
 }
