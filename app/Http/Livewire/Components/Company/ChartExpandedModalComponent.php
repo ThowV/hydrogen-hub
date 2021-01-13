@@ -3,14 +3,14 @@
 namespace App\Http\Livewire\Components\Company;
 
 use App\Http\Livewire\Components\Traits\DeepnessFactor;
-use App\Http\Livewire\Components\Traits\PortfolioChartBuilderTrait;
+use App\Http\Livewire\Components\Traits\ChartBuilderTrait;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class ChartExpandedModalComponent extends Component
 {
-    use PortfolioChartBuilderTrait;
+    use ChartBuilderTrait;
 
     public $isOpen = false;
     public $chartType;

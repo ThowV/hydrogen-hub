@@ -12,7 +12,7 @@ abstract class DeepnessFactor
     const HOURS = 1;
 }
 
-trait PortfolioChartBuilderTrait
+trait ChartBuilderTrait
 {
 
     /**
