@@ -3,12 +3,14 @@
         <div class="w-full flex flex-none justify-between h-24 xxl:h-32">
             <h2 class="flex items-center text-xl md:text-base xxl:text-3xl font-bold">Filters</h2>
             <!--Create modal button-->
+            @can('listings.create')
             <div class="pt-5">
                 <button
                     class="flex items-center bg-butOrange hover:bg-orange-700 text-white text-xs xxl:text-2xl py-2 px-8 xxl:py-4 xxl:px-10 rounded-lg transition duration-300 ease-in-out"
                     wire:click="openCreateModal">Sell/Request
                 </button>
             </div>
+            @endcan
         </div>
 
         <!--Filter listings-->

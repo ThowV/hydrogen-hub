@@ -138,6 +138,10 @@ class CreateListingModalComponent extends Component
     }
 
     public function createListing() {
+        if (!auth()->user()->can('listings.create')) {
+            return;
+        }
+
         $this->validate();
 
         // Add owner_id value to data
