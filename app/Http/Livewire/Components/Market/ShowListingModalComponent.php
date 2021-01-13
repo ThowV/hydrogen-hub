@@ -37,44 +37,56 @@ class ShowListingModalComponent extends Component
         $tradePeriod = CarbonPeriod::create(Carbon::now(), $trade->end_raw);
 
         foreach ($tradePeriod as $index => $day) {
-            // Set the impact
+            // Get the impact
             $impact = (int)$trade->getUnitsAtCarbonDate($day);
 
             if ($trade->trade_type == "request") {
                 $impact = -$impact;
             }
 
-            $this->chartData[$chartType]['impact'][] = $impact;
-
-            // Update the min and max values
+            // Calculate the new load
             $totalLoad = $this->chartData[$chartType]['totalLoad'][$index];
-            $bounds = null;
+            $loadRemoved = 0;
+            $loadAdded = 0;
+            $newTotalLoad = $totalLoad + $impact;
 
-            if ($impact > 0) {
-                // Update max
-                if ($totalLoad > 0 && $totalLoad + $impact > $this->chartData[$chartType]['max']) {
-                    $bounds = $this->modifyBoundaries($this->chartData[$chartType]['min'], $totalLoad + $impact);
+            if (($impact >= 0 && $totalLoad < 0) || ($impact < 0 && $totalLoad >= 0)) {
+                if (($impact >= 0 && $newTotalLoad < 0) || $impact < 0 && $newTotalLoad >= 0) {
+                    $loadRemoved = -$impact; // We are removing all hydrogen
+                    $totalLoad = $newTotalLoad; // Our last total load is now what is left
                 }
-                else if($impact > $this->chartData[$chartType]['max']) {
-                    $bounds = $this->modifyBoundaries($this->chartData[$chartType]['min'], $impact);
-                }
-
-                if ($bounds) {
-                    $this->chartData[$chartType]['max'] = $bounds[1];
+                else if (($impact >= 0 && $newTotalLoad >= 0) || ($impact < 0 && $newTotalLoad < 0)) {
+                    $loadRemoved = $totalLoad; // We are removing the entire last total load
+                    $totalLoad = 0; // Our last total load is now zero
+                    $loadAdded = $newTotalLoad; // We are adding what is left to be added
                 }
             }
+            else if ($impact >= 0) {
+                $loadAdded = $impact; // We are adding all hydrogen
+            }
             else if ($impact < 0) {
-                // Update min
-                if ($totalLoad < 0 && $totalLoad + $impact < $this->chartData[$chartType]['min']) {
-                    $bounds = $this->modifyBoundaries($totalLoad + $impact, $this->chartData[$chartType]['max']);
+                $loadRemoved = $impact; // We are removing all hydrogen
+            }
+
+            // Set the impact, previous total load and new total load
+            $this->chartData[$chartType]['loadLeft'][$index] = $totalLoad;
+            $this->chartData[$chartType]['newTotalLoad'][] = $newTotalLoad;
+            $this->chartData[$chartType]['loadRemoved'][] = $loadRemoved;
+            $this->chartData[$chartType]['loadAdded'][] = $loadAdded;
+
+            // Update the min and max values
+            $bounds = [$this->chartData[$chartType]['min'], $this->chartData[$chartType]['max']];
+
+            foreach ([$totalLoad, $loadRemoved, $loadAdded, $newTotalLoad] as $value) {
+                if ($value < $bounds[0]) {
+                    $bounds = $this->modifyBoundaries($value, $bounds[1]);
                 }
-                else if ($impact < $this->chartData[$chartType]['min']) {
-                    $bounds = $this->modifyBoundaries($impact, $this->chartData[$chartType]['max']);
+                else if ($value > $bounds[1]) {
+                    $bounds = $this->modifyBoundaries($bounds[0], $value);
                 }
 
-                if ($bounds) {
-                    $this->chartData[$chartType]['min'] = $bounds[0];
-                }
+                $this->chartData[$chartType]['min'] = $bounds[0];
+                $this->chartData[$chartType]['max'] = $bounds[1];
             }
         }
 

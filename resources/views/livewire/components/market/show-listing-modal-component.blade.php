@@ -128,23 +128,45 @@
             let ctx = document.getElementById("canvas-impact").getContext("2d");
 
             let chartDemandColor = "#4CD35D";
-            let chartTotalLoadColor = "#d3fdd8";
-            let chartImpactColor = "#75d88c";
+            let chartNewTotalLoadColor = "#75d88c";
+            let chartLoadLeftColor = "#d3fdd8";
+            let chartLoadRemovedColor = "#F0CFB3";
+            let chartLoadAddedColor = "#7DB0ED";
 
             if (chartData.hydrogenType === 'blue') {
                 chartDemandColor = "#003399";
-                chartTotalLoadColor = "#cbe4fd";
-                chartImpactColor = "#5ea5f8";
+                chartLoadLeftColor = "#cbe4fd";
+                chartNewTotalLoadColor = "#5ea5f8";
             }
             else if (chartData.hydrogenType === 'grey') {
                 chartDemandColor = "#909090";
-                chartTotalLoadColor = "#e8e8e8";
-                chartImpactColor = "#999999";
+                chartLoadLeftColor = "#e8e8e8";
+                chartNewTotalLoadColor = "#999999";
             }
 
             let chartDataImpact = {
                 labels: chartData.labels,
                 datasets: [
+                    {
+                        data: chartData.newTotalLoad,
+                        type: 'line',
+                        label: 'New total load',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: chartNewTotalLoadColor,
+                        pointHoverBackgroundColor: chartNewTotalLoadColor,
+                        pointBorderColor: chartNewTotalLoadColor,
+                        pointHoverBorderColor: chartNewTotalLoadColor,
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
                     {
                         data: chartData.demand,
                         type: 'line',
@@ -166,18 +188,25 @@
                         pointHitRadius: 10
                     },
                     {
-                        label: 'Total load',
-                        backgroundColor: chartTotalLoadColor,
-                        borderColor: chartTotalLoadColor,
+                        label: 'Load left',
+                        backgroundColor: chartLoadLeftColor,
+                        borderColor: chartLoadLeftColor,
                         yAxisID: "bar-y-axis",
-                        data: chartData.totalLoad
+                        data: chartData.loadLeft
                     },
                     {
-                        label: 'Impact',
-                        backgroundColor: chartImpactColor,
-                        borderColor: chartImpactColor,
+                        label: 'Load removed',
+                        backgroundColor: chartLoadRemovedColor,
+                        borderColor: chartLoadRemovedColor,
                         yAxisID: "bar-y-axis",
-                        data: chartData.impact
+                        data: chartData.loadRemoved
+                    },
+                    {
+                        label: 'Load added',
+                        backgroundColor: chartLoadAddedColor,
+                        borderColor: chartLoadAddedColor,
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadAdded
                     },
                 ]
             }
