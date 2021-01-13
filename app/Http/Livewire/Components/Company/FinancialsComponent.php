@@ -11,8 +11,12 @@ class FinancialsComponent extends Component
     public $editState = false;
     public $usableFund;
 
+    protected $rules = ['usableFund' => 'required|integer|min:0|max:1000000000000'];
+
     public function saveEdits()
     {
+        $this->validate();
+        
         $this->toggleEditState();
 
         if (! auth()->user()->can('company.fund.update')) {
