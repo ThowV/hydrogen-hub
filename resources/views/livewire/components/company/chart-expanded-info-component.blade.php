@@ -36,19 +36,21 @@
     <div class="px-8" style="height: 50%">
         <p class="font-semibold pb-4">Running trades</p>
 
-        <div class="flex w-full">
-            <div class="w-full h-full overflow-auto">
+        <div class="flex w-full flex gap-2">
+            <div class="w-full h-64 overflow-auto">
                 <table class="relative w-full max-h-full">
-                    <thead class="sticky top-0 w-full font-semibold text-sm pb-2 border-b-2 bg-white">
-                        <td class="">Bought:</td>
+                    <thead class="sticky top-0 w-full bg-white">
+                        <tr class="w-full border-b-2 flex pb-2 sticky top-0 text-left bg-white font-semibold text-sm">
+                            <th>Bought:</th>
+                        </tr>
                     </thead>
                     <tbody class="divide-y">
                         <tr class="w-full text-sm md:text-xs">
-                            <td class="w-2/4 pr-4 align-text-top">
+                            <td class="w-2/4 align-text-top">
                                 @if(count($runningTradesBought) > 0)
                                     @foreach($runningTradesBought as $trade)
-                                        <div class="w-full flex justify-between py-1">
-                                            <p class="w-56 md:w-32 truncate pr-4">{{ $trade->totalVolume }} units ends: {{ $trade->end }}</p>
+                                        <div class="w-full flex justify-between py-2">
+                                            <p class="w-56 md:w-32 truncate">{{ $trade->totalVolume }} units ends: {{ $trade->end }}</p>
                                             <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
                                         </div>
                                     @endforeach
@@ -61,18 +63,20 @@
                 </table>
             </div>
 
-            <div class="w-full h-full overflow-auto">
+            <div class="w-full h-64 overflow-y-auto">
                 <table class="relative w-full max-h-full">
-                    <thead class="sticky top-0 w-full font-semibold text-sm pb-2 border-b-2 bg-white">
-                        <td class="">Sold:</td>
+                    <thead class="sticky top-0 w-full bg-white">
+                        <tr class="w-full border-b-2 flex pb-2 sticky top-0 text-left bg-white font-semibold text-sm">
+                            <th>Sold:</th>
+                        </tr>
                     </thead>
                     <tbody class="divide-y">
-                        <tr class="w-full text-sm md:text-xs">
-                            <td class="w-2/4 pr-4 align-text-top">
+                        <tr class="text-sm md:text-xs">
+                            <td class="w-2/4 align-text-top">
                                 @if(count($runningTradesSold) > 0)
                                     @foreach($runningTradesSold as $trade)
-                                        <div class="w-full flex justify-between py-1">
-                                            <p class="w-56 md:w-32 truncate pr-4">{{ $trade->totalVolume }} units ends: {{ $trade->end }}</p>
+                                        <div class="flex justify-between py-2">
+                                            <p class="w-56 md:w-32 truncate">{{ $trade->totalVolume }} units ends: {{ $trade->end }}</p>
                                             <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>  
                                         </div>         
                                     @endforeach
