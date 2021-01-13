@@ -140,4 +140,13 @@ trait CompanyScopesTrait
     {
         return $this->trades->where('end_raw', '>=', $start);
     }
+
+    public function getTotalVolumesTradedAttribute()
+    {
+        $return = 0;
+        foreach ($this->trades as $trade) {
+            $return += $trade->total_volume;
+        }
+        return $return;
+    }
 }
