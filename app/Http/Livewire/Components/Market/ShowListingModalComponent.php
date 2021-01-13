@@ -77,6 +77,7 @@ class ShowListingModalComponent extends Component
         $this->emit('tradeMade');
 
         $this->toggleModal();
+        $this->toggleConfirmationStage();
     }
 
     public function toggleModal()
