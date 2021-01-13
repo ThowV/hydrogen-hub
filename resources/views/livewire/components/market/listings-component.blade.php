@@ -1,86 +1,85 @@
 <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
-    <div class="rounded-lg px-10 bg-white text-gray-700 h-full w-full">
-        <div class="w-full h-24 xxl:h-32 grid grid-rows-1 grid-cols-2">
-            <h2 class="grid items-center text-xl xxl:text-3xl font-bold">Filters</h2>
-
+    <div class="flex flex-col rounded-lg px-10 bg-white text-gray-700 h-full">
+        <div class="w-full flex flex-none justify-between h-24 xxl:h-32">
+            <h2 class="flex items-center text-xl md:text-base xxl:text-3xl font-bold">Filters</h2>
             <!--Create modal button-->
-            <div class="grid justify-items-end items-start pt-5">
+            <div class="pt-5">
                 <button
-                    class="flex justify-end items-center bg-butOrange hover:bg-orange-700 text-white text-xs xxl:text-2xl py-2 px-8 xxl:py-4 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                    class="flex items-center bg-butOrange hover:bg-orange-700 text-white text-xs xxl:text-2xl py-2 px-8 xxl:py-4 xxl:px-10 rounded-lg transition duration-300 ease-in-out"
                     wire:click="openCreateModal">Sell/Request
                 </button>
             </div>
         </div>
 
         <!--Filter listings-->
-        <form class="flex flex-row justify-between flex-wrap sm:gap-6 md:gap-4 w-full"
+        <form class="flex flex-none justify-between flex-wrap sm:gap-6 md:gap-4"
               wire:submit.prevent="updateTrades">
-            <div class="w-40 xxl:w-64">
+            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64">
                 <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Hydrogen type</label>
 
                 <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 text-sm xl:text-base xxl:text-2xl">
-                    <div class="">
-                        <input type="checkbox" class="form-checkbox text-typeGreen-500 cursor-pointer" id="green"
+                    <div>
+                        <input type="checkbox" class="form-checkbox text-typeGreen-500" id="green"
                                value="green" wire:model="filter.hydrogen_type">
-                        <label for="green">green</label>
+                        <label class="cursor-pointer" for="green">green</label>
                     </div>
 
-                    <div class="">
+                    <div>
                         <input type="checkbox" class="form-checkbox text-typeBlue-500 cursor-pointer" id="blue"
                                value="blue" wire:model="filter.hydrogen_type">
-                        <label for="blue">blue</label>
+                        <label class="cursor-pointer" for="blue">blue</label>
                     </div>
 
-                    <div class="">
+                    <div>
                         <input type="checkbox" class="form-checkbox text-typeGrey-500 cursor-pointer" id="grey"
                                value="grey" wire:model="filter.hydrogen_type">
-                        <label for="grey">grey</label>
+                        <label class="cursor-pointer" for="grey">grey</label>
                     </div>
 
-                    <div class="">
+                    <div>
                         <input type="checkbox" class="form-checkbox text-typeMix-500 cursor-pointer" id="mix"
                                value="mix" wire:model="filter.hydrogen_type">
-                        <label for="mix">mix</label>
+                        <label class="cursor-pointer" for="mix">mix</label>
                     </div>
                 </fieldset>
             </div>
 
-            <div class="w-40 xxl:w-64 grid">
+            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per
                     hour</label>
 
-                <div class="grid items-end" wire:ignore x-data x-init="initUnitsPerHourSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initUnitsPerHourSlider">
                     <input type="text" id="units_per_hour"/>
                 </div>
             </div>
 
-            <div class="w-40 xxl:w-64 grid">
+            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration
                     (hours)</label>
 
-                <div class="grid items-end" wire:ignore x-data x-init="initDurationSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initDurationSlider">
                     <input type="text" id="duration"/>
                 </div>
             </div>
 
-            <div class="w-40 xxl:w-64 grid">
+            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
 
-                <div class="grid items-end" wire:ignore x-data x-init="initTotalVolumeSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initTotalVolumeSlider">
                     <input type="text" id="total_volume"/>
                 </div>
             </div>
 
-            <div class="w-40 xxl:w-64 grid">
+            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label for="price_per_unit" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per
                     unit</label>
 
-                <div class="grid items-end" wire:ignore x-data x-init="initPricePerUnitSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initPricePerUnitSlider">
                     <input type="text" id="price_per_unit"/>
                 </div>
             </div>
 
-            <div class="w-40 xxl:w-64 grid">
+            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
 
                 <div class="grid items-end" wire:ignore x-data x-init="initMixCO2Slider">
@@ -88,43 +87,43 @@
                 </div>
             </div>
 
-            <div class="w-40 pl-10 xxl:w-64">
+            <div class="w-32 lg:w-40 xl:w-56 pl-10 xxl:w-64">
                 <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Trade type</label>
 
-                <fieldset class="flex flex-col gap-2 pt-2 sm:flex-row text-sm xl:text-base  xxl:text-2xl">
+                <fieldset class="flex flex-col gap-2 pt-2 text-sm xl:text-base  xxl:text-2xl">
                     <div class="">
-                        <input type="checkbox" class="form-checkbox text-typeBlue" id="offer" value="offer"
+                        <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="offer" value="offer"
                                wire:model="filter.trade_type">
-                        <label for="offer">offer</label>
+                        <label class="cursor-pointer" for="offer">offer</label>
                     </div>
 
                     <div class="">
-                        <input type="checkbox" class="form-checkbox text-typeBlue" id="request" value="request"
+                        <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="request" value="request"
                                wire:model="filter.trade_type">
-                        <label for="request">request</label>
+                        <label class="cursor-pointer" for="request">request</label>
                     </div>
                 </fieldset>
             </div>
         </form>
 
         <!--Listings table-->
-        <div class="flex flex-col h-vh60 md:h-vh55 xl:h-vh70 xxl:h-vh70">
-            <div class="{{ count($trades) < $itemsPerPage ? '' : 'flex-grow' }} overflow-auto">
-                <table class="relative w-full h-full">
+        <div class="flex flex-auto h-vh50">
+            <div class="{{ count($trades) < $itemsPerPage ? '' : 'flex-grow' }} w-full overflow-auto">
+                <table class="relative w-full max-h-full">
                     <!-- Table head -->
-                    <thead class="sticky top-0 w-full bg-white">
-                        <tr class="w-full flex flex-row border-b-2 pt-4 pb-2 sticky top-0 text-left bg-white">
+                    <thead class="sticky top-0 bg-white">
+                        <tr class="flex border-b-2 pt-4 pb-2 text-left text-xs xxl:text-sm">
                             <!--Sorting-->
                             @foreach ($sort as $key => $value)
-                                <th class="w-full">
-                                    <button class="font-medium text-top text-xs xxl:text-xl"
-                                            wire:click="changeSort('{{$key}}')">
-                                        {{ $value[0] }}
-                                        {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
-                                    </button>
-                                </th>
+                            <th class="w-full">
+                                <button class="text-top"
+                                        wire:click="changeSort('{{$key}}')">
+                                    {{ $value[0] }}
+                                    {{ $value[1] == 'ASC' ? '↑' : '' }} {{ $value[1] == 'DESC' ? '↓' : '' }}
+                                </button>
+                            </th>
                             @endforeach
-                            <th class="font-medium text-left text-xs w-40 md:w-20 sm:w-10 xxl:text-xl xxl:w-64 w-full">
+                            <th class="font-normal w-full">
                                 Expires at
                             </th>
                         </tr>
@@ -133,8 +132,8 @@
                     <!-- Table content -->
                     <tbody class="divide-y">
                     @foreach($trades as $trade)
-                        <tr class="w-full flex flex-row py-8 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200 font-medium">
-                            <td class="flex flex-row w-full">
+                        <tr class="w-full flex flex-row py-8 md:py-5 xxl:py-12 items-center text-sm sm:text-xs xl:text-base xxl:text-3xl border-gray-200">
+                            <td class="flex w-full">
                                 <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500"
                                      height="24" width="50">
                                     <circle cx="10" cy="12" r="6"/>
@@ -163,11 +162,19 @@
                             </td>
 
                             <td class="flex items-center w-full">
+                                @if(!$trade->responder_id && $trade->owner_id != auth()->id())
                                 <button
-                                    class="w-2/4 sm:w-full md:w-3/4 bg-blue-100 border-2 border-hovBlue hover:bg-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 px-6 md:px-3 sm:px-1 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
                                     wire:click="openListing({{ $trade }})">
                                     {{ $trade->trade_type === "offer" ? "Buy" : "Sell" }}
                                 </button>
+                                @else
+                                <button
+                                    class="w-24 md:w-20 sm:w-14 bg-gray-100 hover:bg-gray-500 border-2 border-gray-500 text-gray hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                    wire:click="openListing({{ $trade }})">
+                                    Own
+                                </button>
+                                @endif
                             </td>
 
                             <td class="w-full">
@@ -182,48 +189,48 @@
 
         <!--Pagination-->
         @if (!(count($trades) < $itemsPerPage) || (count($trades) < $itemsPerPage && $page != 1))
-            <div class="flex w-full h-14 md:h-32 xl:h-18 xxl:h-32 flex flex-row pt-5">
-                <ul class="w-full h-full grid grid-cols-3 grid-rows-1">
-                    <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
-                        <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
-                            <button class="font-normal hover:font-bold"
-                                    wire:click="applyPagination('page_previous', {{ $page-1 }})">
-                                Previous
-                            </button>
-                        </li>
+        <div class="flex flex-none py-2">
+            <ul class="w-full grid grid-cols-3">
+                <div class="col-start-1 flex justify-start items-end xxl:text-3xl">
+                    <li class="text-xs xxl:text-2xl">
+                        Jump to Page
+                        <select class="cursor-pointer" title="" wire:click="updateTrades" wire:model="page" wire:change="updateTrades">
+                            @for($i = 1; $i <= $paginator['last_page']; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </li>
+                </div>
 
-                        <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
-                            <button class="font-normal hover:font-bold"
-                                    wire:click="applyPagination('page_next', {{ $page+1 }})">
-                                Next
-                            </button>
-                        </li>
-                    </div>
+                <div class="col-start-2 flex justify-center items-end xxl:text-3xl gap-10">
+                    <li style="display: {{ $page == 1 ? 'none' : 'block'}}">
+                        <button class="text-sm font-normal hover:font-bold transaction duration-300"
+                                wire:click="applyPagination('page_previous', {{ $page-1 }})">
+                            Previous
+                        </button>
+                    </li>
 
-                    <div class="col-start-3 flex flex-row justify-end items-end gap-4">
-                        <li class="text-xs xxl:text-2xl">
-                            Jump to Page
+                    <li style="display: {{ $page == $paginator['last_page'] ? 'none' : 'block'}}">
+                        <button class="text-sm font-normal hover:font-bold transaction duration-300"
+                                wire:click="applyPagination('page_next', {{ $page+1 }})">
+                            Next
+                        </button>
+                    </li>
+                </div>
 
-                            <select class="cursor-pointer" title="" wire:click="updateTrades" wire:model="page" wire:change="updateTrades">
-                                @for($i = 1; $i <= $paginator['last_page']; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                        </li>
-
-                        <li class="text-xs xxl:text-2xl">
-                            Items per Page
-
-                            <select class="cursor-pointer" title="" wire:model="itemsPerPage"
-                                    wire:change="applyPagination('', {{ $page }})">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                            </select>
-                        </li>
-                    </div>
-                </ul>
-            </div>
+                <div class="col-start-3 flex justify-end items-end">
+                    <li class="text-xs xxl:text-2xl">
+                        Items per Page
+                        <select class="cursor-pointer" title="" wire:model="itemsPerPage"
+                                wire:change="applyPagination('', {{ $page }})">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                        </select>
+                    </li>
+                </div>
+            </ul>
+        </div>
         @endif
     </div>
 </div>

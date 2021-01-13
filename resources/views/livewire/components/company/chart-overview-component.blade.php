@@ -1,12 +1,12 @@
 <div class="flex flex-col max-w-full max-h-full">
     <div class="flex flex-none w-full justify-between">
-        <h2 class="text-base xxl:text-3xl font-bold">Portfolio</h2>
-        <button class="text-sm xxl:text-2xl bg-none font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
+        <h2 class="xxl:text-3xl font-bold">Portfolio</h2>
+        <button class="text-sm xxl:text-2xl font-semibold text-gray-600 hover:text-gray-800 transaction duration-300"
                 wire:click="openSelectionModal"> + Add graph
         </button>
     </div>
 
-    <div class="flex flex-auto flex-wrap justify-around sm:items-center sm:flex-col text-center">
+    <div class="flex flex-auto justify-around sm:items-center sm:flex-col text-center">
     @foreach($chartData as $chart)
         <div class="w-1/4 sm:w-full max-h-40 flex flex-col items-center">
             <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 24vw; height: 28vh;">

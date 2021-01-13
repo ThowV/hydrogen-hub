@@ -1,7 +1,7 @@
 <aside class="flex h-screen sticky top-0 bg-nav grid grid-rows-6">
 
     <div class="grid justify-items-center items-center text-white font-black sm:text-sm md:text-xl lg:text-xl xl:text-3xl xxl:text-4xl">
-        HydroActive
+        {{ auth()->user()->company->name }}
     </div>
 
     <nav class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-base xxl:text-3xl">
@@ -71,7 +71,7 @@
     <div class="row-start-6 text-white font-bold grid grid-cols-4 px-2 pb-10">
 
         <div class="w-full h-full grid items-end justify-items-center">
-            <img class="rounded-full w-8 xl:w-10 xxl:w-12 border"
+            <img class="rounded-full w-8 h-8 md:w-6 md:h-6 xl:w-10 xl:h-10 xxl:w-12 xxl:h-12 border"
                  src="{{ auth()->user()->avatar }}"
                  alt="{{ auth()->user()->full_name }}">
         </div>
@@ -81,8 +81,8 @@
             <a class="truncate opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">{{ auth()->user()->email  }}</a>
         </div>
 
-        <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-2" id="settings-btn">
-            <svg class="opacity-50 hover:opacity-100 duration-300 w-5 xl:w-6 xxl:w-8"
+        <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-1 lg:pb-2 xl:pb-3" id="settings-btn">
+            <svg class="opacity-50 hover:opacity-100 duration-300 w-5 md:w-4 xl:w-6 xxl:w-8"
                  xmlns="http://www.w3.org/2000/svg" width="19.721" height="19.721" viewBox="0 0 19.721 19.721">
                 <g id="Icon_ionic-md-settings" data-name="Icon ionic-md-settings" transform="translate(0)">
                     <path id="Icon_ionic-md-settings-2" data-name="Icon ionic-md-settings"
@@ -112,8 +112,8 @@
                 </svg>
             </div>
 
-            <div class="flex justify-center py-6 sm:py-2 ">
-                <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2"
+            <div class="flex justify-center py-6 sm:py-2">
+                <img class="rounded-full w-20 h-20 md:w-14 md:h-14 xl:w-24 xl:h-24 xxl:w-32 xxl:h-32 border row-span-2"
                      src="{{auth()->user()->avatar}}"
                      alt="{{ auth()->user()->full_name }}">
             </div>
@@ -125,14 +125,14 @@
 
             <div class="grid justify-center items-end h-full">
                 <a href="{{route('employees.edit', auth()->id())}}"
-                   class="m-auto bg-personal border border-white text-white px-8 py-2 sm:px-4 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
+                   class="w-32 bg-personal border border-white text-center text-white py-2 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
                     Personal settings
                 </a>
             </div>
 
             <div class="grid justify-center items-end h-full">
                 <a href="{{route('logout')}}"
-                   class="m-auto bg-hovBlue text-white px-12 py-2 sm:px-6 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
+                   class="w-32 bg-hovBlue text-center text-white py-2 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
                     Log out
                 </a>
             </div>

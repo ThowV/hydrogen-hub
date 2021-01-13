@@ -4,13 +4,13 @@
 
         <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleEmployeeCreationModal()"></div>
 
-            <div class="modal-container max-h-full max-w-full grid col-start-2 sm:col-start-3 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded shadow-lg z-50">
+            <div class="modal-container max-h-full max-w-full grid col-start-2 sm:col-start-3 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded-lg shadow-lg z-50">
 
                 <div class="modal-content flex flex-col gap-5 w-full h-full p-8 sm:p-4 xxl:p-12 text-left">
-                
+
                     <div class="flex flex-none w-full justify-between">
                         <h2 class="text-base xxl:text-3xl font-bold">Add employee</h2>
-                        <div class="modal-close cursor-pointer h-full z-50">
+                        <div wire:click="toggleEmployeeCreationModal()" class="modal-close cursor-pointer h-full z-50">
                             <svg class="fill-current text-gray-600 hover:text-gray-900 transaction duration-300 w-8 h-8 xxl:w-12 xxl:h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
                                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
                             </svg>
@@ -36,7 +36,7 @@
                                 <div class="flex flex-row justify-between flex-wrap pt-3 gap-2">
                                     @foreach($this->roleDisplay as $role)
                                     <div class="flex flex-row items-center gap-1">
-                                        <input type="checkbox" class="form-checkbox text-typeBlue-500 cursor-pointer" id="{{$loop->index}}" value="{{$role->name}}" wire:model="employeeToCreate.roles.{{$loop->index}}">
+                                        <input type="checkbox" class="form-checkbox text-typeBlue-500 cursor-pointer" id="{{$loop->index}}" value="{{$role->name}}" wire:model="employeeToCreate.roles">
                                         {{$role->name}}
                                     </div>
                                     @endforeach
@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="flex justify-center">
-                                <button class="w-32 text-center bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg transition duration-200 ease-in-out" 
+                                <button class="w-32 text-center bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg transition duration-200 ease-in-out"
                                 type="submit">Add
                                 </button>
                             </div>

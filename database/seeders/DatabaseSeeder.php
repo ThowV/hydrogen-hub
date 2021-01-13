@@ -92,6 +92,7 @@ class DatabaseSeeder extends Seeder
             ["name" => "company.produced.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "company.stored.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
             ["name" => "company.demand.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
+            ["name" => "company.settings.update", "guard_name" => "web", "created_at" => Carbon::now(), "updated_at" => Carbon::now()],
 
         ]);
     }

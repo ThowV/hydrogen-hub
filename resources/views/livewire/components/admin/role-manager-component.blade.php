@@ -1,4 +1,4 @@
-<div class="w-full flex flex-row text-sm">
+<div class="w-full flex text-sm">
     <div class="w-2/4 gap-3">
         <label class="text-sm" for="">Roles:</label>
         <ul class="flex flex-row flex-wrap gap-3 pt-3">
