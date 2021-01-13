@@ -15,6 +15,7 @@ class ShowListingModalComponent extends Component
 
     public $isOpen = false;
     public $confirmationStage = false;
+    public $tradeAble = false;
     public $chartData = [];
     public $trade;
 
@@ -24,6 +25,19 @@ class ShowListingModalComponent extends Component
     {
         $this->trade = $trade;
         $this->toggleModal();
+
+        //dd(auth()->user()->company->usable_fund);
+
+        // Check if we have enough fund
+        if ($trade->trade_type == "offer" && auth()->user()->company->usable_fund >= $trade->getTotalPriceAttribute()) {
+            $this->tradeAble = true;
+        }
+        else if ($trade->trade_type == "request") {
+            $this->tradeAble = true;
+        }
+        else {
+            $this->tradeAble = false;
+        }
 
         // Get the chart types
         $chartType = $trade->hydrogen_type;
@@ -68,6 +82,19 @@ class ShowListingModalComponent extends Component
 
     public function makeTrade(Trade $trade)
     {
+        if (!$this->tradeAble) {
+            return;
+        }
+
+        if ($trade->trade_type == "offer") {
+            auth()->user()->company->usable_fund -= $trade->getTotalPriceAttribute();
+        }
+        else if ($trade->trade_type == "request") {
+            auth()->user()->company->usable_fund += $trade->getTotalPriceAttribute();
+        }
+
+        auth()->user()->company->save();
+
         // Update trade to create deal
         $trade->responder_id = auth()->id();
         $trade->deal_made_at = now();
