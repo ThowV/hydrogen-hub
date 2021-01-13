@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Market;
 
+use App\Events\PermissionDenied;
 use App\Http\Livewire\Components\Market\Traits\MarketChartBuilderTrait;
 use App\Http\Livewire\Components\Traits\ChartBuilderTrait;
 use App\Models\Trade;
@@ -15,9 +16,14 @@ class ShowListingModalComponent extends Component
 
     public $isOpen = false;
     public $confirmationStage = false;
+    public $password;
     public $tradeAble = false;
     public $chartData = [];
     public $trade;
+
+    protected $rules = [
+        'password' => 'required'
+    ];
 
     protected $listeners = ['openRespondModal' => 'openListing'];
 
@@ -25,8 +31,6 @@ class ShowListingModalComponent extends Component
     {
         $this->trade = $trade;
         $this->toggleModal();
-
-        //dd(auth()->user()->company->usable_fund);
 
         // Check if we have enough fund
         if ($trade->trade_type == "offer" && auth()->user()->company->usable_fund >= $trade->getTotalPriceAttribute()) {
@@ -82,10 +86,28 @@ class ShowListingModalComponent extends Component
 
     public function makeTrade(Trade $trade)
     {
+        // Validate permission
+        if (($trade->trade_type == "offer" && !auth()->user()->can('listings.buy'))
+            || ($trade->trade_type == "request") && !auth()->user()->can('listings.sellto')) {
+            $this->toggleModal();
+            $this->toggleConfirmationStage();
+            \event(new PermissionDenied());
+
+            return back();
+        }
+
+        // Validate if we can carry out this trade
         if (!$this->tradeAble) {
             return;
         }
 
+        // Validate password input
+        $this->validate();
+        if (!\Auth::attempt(['email' => auth()->user()->email, 'password' => $this->password])) {
+            return $this->addError('password', 'Password is invalid.');
+        }
+
+        // Deduct the total price
         if ($trade->trade_type == "offer") {
             auth()->user()->company->usable_fund -= $trade->getTotalPriceAttribute();
         }
