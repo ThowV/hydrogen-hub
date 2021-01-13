@@ -1,32 +1,32 @@
 <div class="flex flex-col h-full">
     <div class="px-8" style="height: 50%">
         <p class="font-semibold pb-4">Information {{ $datetime ? 'for ' . $datetime : '' }}</p>
- 
+
         <table class="w-full" style="height: 60%">
             <tbody class="text-sm">
                 <tr>
                     <td class="w-1/4">Demand: </td>
-                    <td class="w-1/4 font-semibold">{{ $demand }}</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($demand, 0, '.', ' ') }}</td>
 
-                    <td class="w-1/4">Total load:</td> 
-                    <td class="w-1/4 font-semibold">{{ $totalLoad }}</td>
+                    <td class="w-1/4">Total load:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($totalLoad, 0, '.', ' ') }}</td>
                 </tr>
                 <tr>
-                    <td class="w-1/4">Store:</td> 
-                    <td class="w-1/4 font-semibold">{{ $store }}</td>
+                    <td class="w-1/4">Store:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($store, 0, '.', ' ') }}</td>
 
-                    <td class="w-1/4">Sold:</td> 
-                    <td class="w-1/4 font-semibold">{{ $sold }}</td>
+                    <td class="w-1/4">Sold:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($sold, 0, '.', ' ') }}</td>
                 </tr>
                 <tr>
-                    <td class="w-1/4">Produce:</td> 
-                    <td class="w-1/4 font-semibold">{{ $produce }}</td>
+                    <td class="w-1/4">Produce:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($produce, 0, '.', ' ') }}</td>
 
-                    <td class="w-1/4">Bought:</td> 
-                    <td class="w-1/4 font-semibold">{{ $bought }}</td>
+                    <td class="w-1/4">Bought:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($bought, 0, '.', ' ') }}</td>
                 </tr>
                 <tr>
-                    <td class="w-1/4">Position:</td> 
+                    <td class="w-1/4">Position:</td>
                     <td class="w-1/4 font-semibold">{{ $position }}</td>
                 </tr>
             </tbody>
@@ -50,7 +50,7 @@
                                 @if(count($runningTradesBought) > 0)
                                     @foreach($runningTradesBought as $trade)
                                         <div class="w-full flex justify-between py-2">
-                                            <p class="w-56 md:w-32 truncate">{{ $trade->totalVolume }} units ends: {{ $trade->end }}</p>
+                                            <p class="w-56 md:w-32 truncate">{{ number_format($trade->totalVolume, 0, '.', ' ') }} units ends: {{ $trade->end }}</p>
                                             <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
                                         </div>
                                     @endforeach
@@ -76,9 +76,9 @@
                                 @if(count($runningTradesSold) > 0)
                                     @foreach($runningTradesSold as $trade)
                                         <div class="flex justify-between py-2">
-                                            <p class="w-56 md:w-32 truncate">{{ $trade->totalVolume }} units ends: {{ $trade->end }}</p>
-                                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>  
-                                        </div>         
+                                            <p class="w-56 md:w-32 truncate">{{ number_format($trade->totalVolume, 0, '.', ' ') }} units ends: {{ $trade->end }}</p>
+                                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
+                                        </div>
                                     @endforeach
                                 @else
                                     No running sold trades at this time.
@@ -87,7 +87,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>      
+            </div>
         </div>
     </div>
 </div>
