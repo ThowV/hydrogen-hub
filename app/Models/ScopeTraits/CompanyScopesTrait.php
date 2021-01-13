@@ -144,7 +144,8 @@ trait CompanyScopesTrait
     public function getTotalVolumesTradedAttribute()
     {
         $return = 0;
-        foreach ($this->trades as $trade) {
+        $trades = collect($this->trades);
+        foreach ($trades->where('responder_id', '!=', null) as $trade) {
             $return += $trade->total_volume;
         }
         return $return;
