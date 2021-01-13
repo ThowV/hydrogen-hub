@@ -37,7 +37,7 @@
         <p class="font-semibold pb-4">Running trades</p>
 
         <div class="flex w-full flex gap-2">
-            <div class="w-full h-64 overflow-auto">
+            <div class="w-full h-64 md:h-56 overflow-auto">
                 <table class="relative w-full max-h-full">
                     <thead class="sticky top-0 w-full bg-white">
                         <tr class="w-full border-b-2 flex pb-2 sticky top-0 text-left bg-white font-semibold text-sm">
@@ -63,7 +63,7 @@
                 </table>
             </div>
 
-            <div class="w-full h-64 overflow-y-auto">
+            <div class="w-full h-64 md:h-56 overflow-y-auto">
                 <table class="relative w-full max-h-full">
                     <thead class="sticky top-0 w-full bg-white">
                         <tr class="w-full border-b-2 flex pb-2 sticky top-0 text-left bg-white font-semibold text-sm">

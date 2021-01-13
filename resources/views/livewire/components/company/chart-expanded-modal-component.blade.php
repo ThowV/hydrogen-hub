@@ -3,7 +3,7 @@
 
         <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-        <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 mb-10 xxl:mx-20 row-span-5 bg-white rounded-lg shadow-lg z-50">
+        <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-1 col-span-7 sm:col-span-6 mx-10 my-32 md:my-24 xxl:mx-20 row-span-6 bg-white rounded-lg shadow-lg z-50">
             <div class="modal-content flex flex-auto flex-col w-full h-full px-12 pt-12 sm:p-4 xxl:p-16 text-left">
                 <!--Title-->
                 <div class="flex flex-none justify-between items-center pb-2">
