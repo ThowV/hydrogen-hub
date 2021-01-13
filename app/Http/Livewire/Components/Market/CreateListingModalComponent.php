@@ -122,7 +122,8 @@ class CreateListingModalComponent extends Component
             'price_per_unit'    => '',
             'mix_co2'           => '',
             'expires_at'        => '',
-            'expires_at_type'   => 'day'
+            'expires_at_type'   => 'day',
+            'password'          => '',
         ]);
     }
 
@@ -181,8 +182,8 @@ class CreateListingModalComponent extends Component
         $this->emit('listingCreated');
 
         // Hide the form
-        $this->toggleConfirmationStage();
         $this->toggleModal();
+        $this->toggleConfirmationStage();
     }
 
     private function getDuration($duration, $type) {
