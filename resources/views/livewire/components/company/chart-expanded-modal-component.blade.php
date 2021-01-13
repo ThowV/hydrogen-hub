@@ -3,7 +3,7 @@
 
         <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-        <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-1 col-span-7 sm:col-span-6 mx-10 my-32 md:my-24 xxl:mx-20 row-span-6 bg-white rounded-lg shadow-lg z-50">
+        <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-1 col-span-7 sm:col-span-6 mx-10 my-24 xxl:mx-20 row-span-6 bg-white rounded-lg shadow-lg z-50">
             <div class="modal-content flex flex-auto flex-col w-full h-full px-12 pt-12 sm:p-4 xxl:p-16 text-left">
                 <!--Title-->
                 <div class="flex flex-none justify-between items-center pb-2">
@@ -67,20 +67,20 @@
     let chartDataExpanded = @json($chartData);
 
     for (const chart in chartDataExpanded) {
-        let chartDemandColor = "#4CD35D";
+        let chartDemandColor = "#317939";
         let chartProduceColor = "#BEBEBE";
         let chartBoughtColor = "#CBE4FD";
         let chartStoreColor = "#7DB0ED"
         let chartSoldColor = "#F0CFB3";
-        let chartTotalLoadColor = "#d3fdd8"
+        let chartTotalLoadColor = "#5CE06A"
 
         if (chartDataExpanded[chart].hydrogenType == 'blue') {
             chartDemandColor = "#003399";
-            chartTotalLoadColor = "#cbe4fd";
+            chartTotalLoadColor = "#0099ff";
         }
         else if (chartDataExpanded[chart].hydrogenType == 'grey') {
-            chartDemandColor = "#909090";
-            chartTotalLoadColor = "#e8e8e8";
+            chartDemandColor = "#2F2F2F";
+            chartTotalLoadColor = "#796758";
         }
 
         let ctx = document.getElementById("canvasExpanded-" + chart).getContext("2d");

@@ -25,10 +25,7 @@
                         <h2 class="w-full text-center pb-8 font-bold">Overview</h2>
 
                         <div class="flex flex-auto sm:flex-col">
-                            <div class="w-2/4 sm:w-full sm:pb-5 flex flex-none justify-center items-start">
-                                <img class="object-scale-down w-4/6 h-4/6 sm:w-3/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
-                            </div>
-
+                           
                             <div class="flex flex-col flex-auto justify-between text-sm xl:text-base xxl:text-lg sm:px-4">
 
                                 <div class="grid grid-cols-4 flex-col gap-2">
