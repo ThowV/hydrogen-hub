@@ -17,16 +17,32 @@ trait CompanyShortTrait
     public function isShortOnDayForType(Carbon $date, $type): bool
     {
         //Determine demand for the day with h2type
-        $demandForDay = $this->getDemandForH2TypeAndCarbonDate($date,$type);
+        $demandForDay = $this->getDemandForH2TypeAndCarbonDate($date, $type);
 
         //If we have no demand, we have no shortage
-        if(!$demandForDay){
+        if (!$demandForDay) {
             return false;
         }
 
         //Calculate actual amount for the day
+        $actualAmount = $this->getActualAmountOfHydrogenForTypeForCarbonDate($date, $type);
+
         //return is_negative(actual_amount - demand)
-        return true;
+        return ($actualAmount - $demandForDay) < 0;
+    }
+
+    /**
+     * @param  Carbon  $date
+     * @param $type
+     * @return int
+     */
+    public function getActualAmountOfHydrogenForTypeForCarbonDate(Carbon $date, $type): int
+    {
+        $total = 0;
+        foreach ($this->trades->where('hydrogen_type', $type) as $trade) {
+            $total += $trade->getUnitsAtCarbonDate($date);
+        }
+        return $total;
     }
 
     /**
@@ -36,7 +52,8 @@ trait CompanyShortTrait
      */
     public function getDemandForH2TypeAndCarbonDate(Carbon $date, $type): int
     {
-        foreach ($this->dayLogs()->where('date', $date->format('Y-m-d'))->first()->sections->where('hydrogen_type', $type) as $dayLogSection) {
+        foreach ($this->dayLogs()->where('date', $date->format('Y-m-d'))->first()->sections->where('hydrogen_type',
+            $type) as $dayLogSection) {
             return $dayLogSection->demand;
         }
         return 0;
@@ -48,9 +65,21 @@ trait CompanyShortTrait
      * @param  Carbon  $date
      * @return int
      */
-    public function shortOnDayForType(Carbon $date): int
+    public function shortOnDayForType(Carbon $date, $type): int
     {
+        //Determine demand for the day with h2type
+        $demandForDay = $this->getDemandForH2TypeAndCarbonDate($date, $type);
 
+        //If we have no demand, we have no shortage
+        if (!$demandForDay) {
+            return false;
+        }
+
+        //Calculate actual amount for the day
+        $actualAmount = $this->getActualAmountOfHydrogenForTypeForCarbonDate($date, $type);
+
+        //return is_negative(actual_amount - demand)
+        return ($actualAmount - $demandForDay);
     }
 
     /**
