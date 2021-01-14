@@ -27,9 +27,9 @@ class CompanyDayLogSectionFactory extends Factory
         return [
             'company_day_log_id' => rand(1,100),
             'hydrogen_type' => $hydrogen_types[array_rand($hydrogen_types)],
-            'produce' => $this->faker->numberBetween(0, 1000),
+            'produce' => $this->faker->numberBetween(0, 300),
             'demand' => $this->faker->numberBetween(0, 1000),
-            'store' => $this->faker->numberBetween(0, 1000),
+            'store' => $this->faker->numberBetween(0, 200),
         ];
     }
 }

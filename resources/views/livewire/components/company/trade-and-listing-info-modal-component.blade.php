@@ -25,35 +25,34 @@
                         <h2 class="w-full text-center pb-8 font-bold">Overview</h2>
 
                         <div class="flex flex-auto sm:flex-col">
-                            <div class="w-2/4 sm:w-full sm:pb-5 flex flex-none justify-center items-start">
-                                <img class="object-scale-down w-4/6 h-4/6 sm:w-3/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
-                            </div>
 
-                            <div class="flex flex-col flex-auto justify-between text-sm xl:text-base xxl:text-lg sm:px-4">
+                            <div class="w-full flex flex-col flex-auto justify-between text-sm xl:text-base xxl:text-lg sm:px-4">
 
-                                <div class="grid grid-cols-4 flex-col gap-2">
-                                    <p class="flex flex-col"><b>Hydrogen type:</b> 
+                                <div class="grid grid-cols-4 flex-col gap-2 ml-48 md:ml-32">
+                                    <p class="flex flex-col"><b>Hydrogen type:</b>
                                         <span class="flex">
                                             <svg class="fill-current text-type{{ ucfirst($trade["hydrogen_type"]) }}-500"
                                             height="24" width="24">
                                             <circle cx="10" cy="12" r="4"/>
-                                            </svg>        
+                                            </svg>
                                             {{ $trade->hydrogen_type }}
                                         </span>
                                     </p>
                                     <p class="flex flex-col"><b>Units per hour:</b>       {{ number_format($trade->units_per_hour, 0, '.', ' ') }}</p>
-                                    <p class="flex flex-col"><b>Duration:</b>             {{ $trade->end }}</p>  
+                                    <p class="flex flex-col"><b>Duration:</b>             {{ $trade->end }}</p>
                                     <p class="flex flex-col"><b>Mix CO2:</b>              {{ $trade->mix_co2 }}%</p>
                                 </div>
 
-                                <div class="grid grid-cols-4 flex-col gap-2">
-                                    <p class="flex flex-col"><b>Total volume:</b>         {{ number_format($trade->total_volume, 0, '.', ' ') }} units</p>              
+                                <div class="grid grid-cols-4 flex-col gap-2 ml-48 md:ml-32">
+                                    <p class="flex flex-col"><b>Total volume:</b>         {{ number_format($trade->total_volume, 0, '.', ' ') }} units</p>
                                     <p class="flex flex-col"><b>Price per unit:</b> €     {{ number_format($trade->price_per_unit, 0, '.', ' ') }}</p>
                                     <p class="flex flex-col"><b>Trade type:</b>           {{ $trade->trade_type }}</p>
-                                    <p class="flex flex-col"><b>Expires at:</b>           {{ $trade->expires_at }}</p>
+                                    @if (!$trade->responder)
+                                        <p class="flex flex-col"><b>Expires at:</b>           {{ $trade->expires_at }}</p>
+                                    @endif
                                 </div>
 
-                                <div class="grid grid-cols-4 flex-col gap-2">
+                                <div class="grid grid-cols-4 flex-col gap-2 ml-48 md:ml-32">
                                     @if ($trade->responder)
                                         <p class="flex flex-col">
                                             <b>Deal made at:</b>
@@ -94,7 +93,7 @@
 
 
                 <!--Footer-->
-                    <div class="flex flex-none justify-center gap-10 pt-2">
+                    <div class="flex flex-none justify-center gap-10 pt-4">
                         <button
                             class="modal-close bg-white border-2 hover:bg-gray-400 hover:border-gray-400 text-gray-600 hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-8  rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
                             wire:click="toggleModal">
