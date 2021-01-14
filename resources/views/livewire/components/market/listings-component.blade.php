@@ -3,12 +3,14 @@
         <div class="w-full flex flex-none justify-between h-24 xxl:h-32">
             <h2 class="flex items-center text-xl md:text-base xxl:text-3xl font-bold">Filters</h2>
             <!--Create modal button-->
+            @can('listings.create')
             <div class="pt-5">
                 <button
                     class="flex items-center bg-butOrange hover:bg-orange-700 text-white text-xs xxl:text-2xl py-2 px-8 xxl:py-4 xxl:px-10 rounded-lg transition duration-300 ease-in-out"
                     wire:click="openCreateModal">Sell/Request
                 </button>
             </div>
+            @endcan
         </div>
 
         <!--Filter listings-->
@@ -162,18 +164,34 @@
                             </td>
 
                             <td class="flex items-center w-full">
-                                @if(!$trade->responder_id && $trade->owner_id != auth()->id())
-                                <button
-                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
-                                    wire:click="openListing({{ $trade }})">
-                                    {{ $trade->trade_type === "offer" ? "Buy" : "Sell" }}
-                                </button>
+                                @can('listings.read')
+                                    @if(!$trade->responder_id)
+                                        @if($trade->owner_id != auth()->id())
+                                            @if($trade->trade_type === "offer" && auth()->user()->can('listings.buy'))
+                                                <button
+                                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                                    wire:click="openListing({{ $trade }})"
+                                                >
+                                                    buy
+                                                </button>
+                                            @elseif($trade->trade_type === "request" && auth()->user()->can('listings.sellto'))
+                                                <button
+                                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                                    wire:click="openListing({{ $trade }})"
+                                                >
+                                                    sell
+                                                </button>
+                                            @endif
+                                        @else
+                                            <button
+                                                class="w-24 md:w-20 sm:w-14 bg-gray-100 hover:bg-gray-500 border-2 border-gray-500 text-gray hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                                wire:click="openListing({{ $trade }})">
+                                                Own
+                                            </button>
+                                        @endif
+                                    @endif
                                 @else
-                                <button
-                                    class="w-24 md:w-20 sm:w-14 bg-gray-100 hover:bg-gray-500 border-2 border-gray-500 text-gray hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
-                                    wire:click="openListing({{ $trade }})">
-                                    Own
-                                </button>
+                                    Not permitted
                                 @endif
                             </td>
 

@@ -2,17 +2,28 @@
 
 namespace App\Http\Livewire\Components\Market;
 
+use App\Events\PermissionDenied;
+use App\Http\Livewire\Components\Market\Traits\MarketChartBuilderTrait;
+use App\Http\Livewire\Components\Traits\ChartBuilderTrait;
 use App\Models\Trade;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 class ShowListingModalComponent extends Component
 {
+    use ChartBuilderTrait, MarketChartBuilderTrait;
 
     public $isOpen = false;
     public $confirmationStage = false;
-
+    public $password;
+    public $tradeAble = false;
+    public $chartData = [];
     public $trade;
+
+    protected $rules = [
+        'password' => 'required'
+    ];
 
     protected $listeners = ['openRespondModal' => 'openListing'];
 
@@ -20,6 +31,52 @@ class ShowListingModalComponent extends Component
     {
         $this->trade = $trade;
         $this->toggleModal();
+
+        // Check if we have enough fund
+        if ($trade->trade_type == "offer" && auth()->user()->company->usable_fund >= $trade->getTotalPriceAttribute()) {
+            $this->tradeAble = true;
+        }
+        else if ($trade->trade_type == "request") {
+            $this->tradeAble = true;
+        }
+        else {
+            $this->tradeAble = false;
+        }
+
+        // Get the chart types
+        $chartType = $trade->hydrogen_type;
+
+        // Determine the period
+        $tradePeriod = CarbonPeriod::create(Carbon::now(), $trade->end_raw);
+
+        // Build the chart data
+        $this->buildChart($tradePeriod, $chartType);
+
+        // Determine the impact
+        foreach ($tradePeriod as $index => $day) {
+            // Get the impact
+            $impact = (int)$trade->getUnitsAtCarbonDate($day);
+
+            if ($trade->trade_type == "request") {
+                $impact = -$impact;
+            }
+
+            // Calculate all the values as a result of the impact
+            $totalLoad = $this->chartData[$chartType]['totalLoad'][$index];
+            $bounds = [$this->chartData[$chartType]['min'], $this->chartData[$chartType]['max']];
+
+            $impactValues = $this->calculateImpactValues($totalLoad, $impact, $bounds);
+
+            $this->chartData[$chartType]['loadLeft'][] = $impactValues['totalLoad'];
+            $this->chartData[$chartType]['newTotalLoad'][] = $impactValues['newTotalLoad'];
+            $this->chartData[$chartType]['loadRemoved'][] = $impactValues['loadRemoved'];
+            $this->chartData[$chartType]['loadAdded'][] = $impactValues['loadAdded'];
+            $this->chartData[$chartType]['min'] = $impactValues['min'];
+            $this->chartData[$chartType]['max'] = $impactValues['max'];
+        }
+
+        // Emit the event to initialize the chart on the front-end
+        $this->emit('listingOpened', $this->chartData[$chartType]);
     }
 
     public function toggleConfirmationStage()
@@ -29,6 +86,37 @@ class ShowListingModalComponent extends Component
 
     public function makeTrade(Trade $trade)
     {
+        // Validate permission
+        if (($trade->trade_type == "offer" && !auth()->user()->can('listings.buy'))
+            || ($trade->trade_type == "request") && !auth()->user()->can('listings.sellto')) {
+            $this->toggleModal();
+            $this->toggleConfirmationStage();
+            \event(new PermissionDenied());
+
+            return back();
+        }
+
+        // Validate if we can carry out this trade
+        if (!$this->tradeAble) {
+            return;
+        }
+
+        // Validate password input
+        $this->validate();
+        if (!\Auth::attempt(['email' => auth()->user()->email, 'password' => $this->password])) {
+            return $this->addError('password', 'Password is invalid.');
+        }
+
+        // Deduct the total price
+        if ($trade->trade_type == "offer") {
+            auth()->user()->company->usable_fund -= $trade->getTotalPriceAttribute();
+        }
+        else if ($trade->trade_type == "request") {
+            auth()->user()->company->usable_fund += $trade->getTotalPriceAttribute();
+        }
+
+        auth()->user()->company->save();
+
         // Update trade to create deal
         $trade->responder_id = auth()->id();
         $trade->deal_made_at = now();
@@ -38,6 +126,7 @@ class ShowListingModalComponent extends Component
         $this->emit('tradeMade');
 
         $this->toggleModal();
+        $this->toggleConfirmationStage();
     }
 
     public function toggleModal()

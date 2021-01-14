@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Livewire\Components\Company\Traits;
+namespace App\Http\Livewire\Components\Traits;
 
 
 use Carbon\Carbon;
@@ -12,7 +12,7 @@ abstract class DeepnessFactor
     const HOURS = 1;
 }
 
-trait PortfolioChartBuilderTrait
+trait ChartBuilderTrait
 {
 
     /**
@@ -228,6 +228,18 @@ trait PortfolioChartBuilderTrait
     }
 
     /**
+     * Build impact chart data in a given carbon period
+     *
+     * @param $period
+     * @param $chartType
+     * @param $deepnessFactor
+     */
+    public function buildImpactChart($period, $chartType)
+    {
+        $this->buildChart($period, $chartType, DeepnessFactor::DAYS);
+    }
+
+    /**
      * Get the total bought and sold values for a given hour
      *
      * @param $trades
@@ -294,7 +306,7 @@ trait PortfolioChartBuilderTrait
      * @param $max
      * @return int[]
      */
-    private function modifyBoundaries($min, $max) {
+    public function modifyBoundaries($min, $max) {
         return [
             (int)($min + ceil(0.15 * $min)),
             (int)($max + ceil(0.15 * $max))

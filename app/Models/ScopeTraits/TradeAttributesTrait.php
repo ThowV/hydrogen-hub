@@ -36,7 +36,7 @@ trait TradeAttributesTrait
     }
 
     /**
-     * Get the end date of this trade in Carbon format
+     * Get the end date of this listing in Carbon format
      *
      * @return Carbon
      */
@@ -48,6 +48,22 @@ trait TradeAttributesTrait
         } else {
             // If the trade has not been closed yet the duration should stay the same
             return Carbon::now()->addHours($this->duration);
+        }
+    }
+
+    /**
+     * Get the start date of this listing in Carbon format
+     *
+     * @return Carbon
+     */
+    public function getStartRawAttribute()
+    {
+        if ($this->deal_made_at) {
+            // If the trade has been closed we should count down
+            return Carbon::parse($this->deal_made_at);
+        } else {
+            // If the trade has not been closed yet the duration should stay the same
+            return Carbon::now();
         }
     }
 
@@ -89,13 +105,17 @@ trait TradeAttributesTrait
      */
     public function getUnitsAtCarbonDate($date)
     {
-        $dealMadeAt = Carbon::parse($this->deal_made_at);
-        $end = $dealMadeAt->copy()->addHours($this->duration);
+        $start = $this->getStartRawAttribute();
+        $end = $this->getEndRawAttribute();
         $durationToday = 24;
 
         if ($date->diffInDays($end) == 0) {
             // Only a part of today the company will be provided with the units
             $durationToday = ceil($date->diffInMinutes($end) / 60);
+        }
+        else if ($date->diffInDays($start) == 0) {
+            // Only a part of today the company will be provided with the units
+            $durationToday = ceil($date->diffInMinutes($start) / 60);
         }
 
         return $this->units_per_hour * $durationToday;

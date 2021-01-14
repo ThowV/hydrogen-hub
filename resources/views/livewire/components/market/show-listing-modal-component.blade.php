@@ -27,9 +27,11 @@
                         <!--Body-->
                         <div class="flex flex-row h-full sm:flex-col">
 
-                            <div class="w-2/4 sm:w-full sm:pb-5 flex justify-center items-start">
-                                <img class="object-scale-down w-4/6 h-4/6 sm:w-2/6 sm:h-2/6" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.stack.imgur.com%2FveUID.png&f=1&nofb=1" alt="placeholder">
-                            </div>
+                            @if($trade->owner_id != auth()->id())
+                                <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 28vw; height: 32vh;">
+                                    <canvas wire:ignore id="canvas-impact" class="flex z-0"></canvas>
+                                </div>
+                            @endif
 
                             <div class="w-2/4 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
 
@@ -87,19 +89,31 @@
 
                         <!--Footer-->
                         <div class="w-full h-24 flex justify-center items-center gap-10">
-                            @if(!$trade->responder_id && $trade->owner_id != auth()->id())
-                                <button
-                                    class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
-                                    wire:click="toggleConfirmationStage">
-                                    {{ $trade->trade_type == "offer" ? "Buy" : "Sell" }}
-                                </button>
+                            @if($trade->owner_id != auth()->id())
+                                @if($tradeAble && !$trade->responder_id)
+                                    <button
+                                        class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                        wire:click="toggleConfirmationStage">
+                                        {{ $trade->trade_type == "offer" ? "Buy" : "Sell" }}
+                                    </button>
+                                @elseif(!$tradeAble)
+                                        Not enough funds
+                                @endif
                             @endif
 
                             <button wire:click="toggleModal" class="modal-close text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out">Close</button>
                         </div>
-                    @else
+
+                    @elseif($confirmationStage)
                         <div class="flex flex-row w-full h-full justify-center">
                             <div class="flex items-center gap-10">
+                                <p>Password for confirmation</p>
+                                <input
+                                    class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1"
+                                    wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
+                                >
+                                @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+
                                 <button
                                     class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
                                     wire:click="makeTrade({{ $trade->id }})">
@@ -119,3 +133,138 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+    <script>
+        Livewire.on('listingOpened', function (chartData) {
+            let ctx = document.getElementById("canvas-impact").getContext("2d");
+
+            let chartDemandColor = "#4CD35D";
+            let chartNewTotalLoadColor = "#75d88c";
+            let chartLoadLeftColor = "#d3fdd8";
+            let chartLoadRemovedColor = "#F0CFB3";
+            let chartLoadAddedColor = "#7DB0ED";
+
+            if (chartData.hydrogenType === 'blue') {
+                chartDemandColor = "#003399";
+                chartLoadLeftColor = "#cbe4fd";
+                chartNewTotalLoadColor = "#5ea5f8";
+            }
+            else if (chartData.hydrogenType === 'grey') {
+                chartDemandColor = "#909090";
+                chartLoadLeftColor = "#e8e8e8";
+                chartNewTotalLoadColor = "#999999";
+            }
+
+            let chartDataImpact = {
+                labels: chartData.labels,
+                datasets: [
+                    {
+                        data: chartData.newTotalLoad,
+                        type: 'line',
+                        label: 'New total load',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: chartNewTotalLoadColor,
+                        pointHoverBackgroundColor: chartNewTotalLoadColor,
+                        pointBorderColor: chartNewTotalLoadColor,
+                        pointHoverBorderColor: chartNewTotalLoadColor,
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    {
+                        data: chartData.demand,
+                        type: 'line',
+                        label: 'Demand',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: chartDemandColor,
+                        pointHoverBackgroundColor: chartDemandColor,
+                        pointBorderColor: chartDemandColor,
+                        pointHoverBorderColor: chartDemandColor,
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Load left',
+                        backgroundColor: chartLoadLeftColor,
+                        borderColor: chartLoadLeftColor,
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadLeft
+                    },
+                    {
+                        label: 'Load removed',
+                        backgroundColor: chartLoadRemovedColor,
+                        borderColor: chartLoadRemovedColor,
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadRemoved
+                    },
+                    {
+                        label: 'Load added',
+                        backgroundColor: chartLoadAddedColor,
+                        borderColor: chartLoadAddedColor,
+                        yAxisID: "bar-y-axis",
+                        data: chartData.loadAdded
+                    },
+                ]
+            }
+
+            window.ldc = new Chart(ctx, {
+                type: 'bar',
+                data: chartDataImpact,
+                options: {
+                    title: {
+                        display: false,
+                    },
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 1.0,
+                            barPercentage: 1.0
+                        }],
+                        yAxes: [
+                            {
+                                stacked: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                            },
+                            {
+                                id: "bar-y-axis",
+                                stacked: true,
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                                type: 'linear'
+                            }
+                        ]
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

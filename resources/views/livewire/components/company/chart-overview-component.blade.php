@@ -36,13 +36,13 @@
 
     for (const chart in chartData) {
         let chartDemandColor = "#4CD35D";
-        let chartTotalLoadColor = "#d3fdd8"
+        let chartTotalLoadColor = "#d3fdd8";
 
-        if (chartData[chart].hydrogenType == 'blue') {
+        if (chartData[chart].hydrogenType === 'blue') {
             chartDemandColor = "#003399";
             chartTotalLoadColor = "#cbe4fd";
         }
-        else if (chartData[chart].hydrogenType == 'grey') {
+        else if (chartData[chart].hydrogenType === 'grey') {
             chartDemandColor = "#909090";
             chartTotalLoadColor = "#e8e8e8";
         }
