@@ -1,69 +1,93 @@
-<div>
-    <div>
-        <p>Information {{ $datetime ? 'for ' . $datetime : '' }}</p>
+<div class="flex flex-col h-full">
+    <div class="px-8" style="height: 50%">
+        <p class="font-semibold pb-4">Information {{ $datetime ? 'for ' . $datetime : '' }}</p>
 
-        <table>
-            <tr>
-                <td>Demand: {{ $demand }}</td>
-                <td>Total load: {{ $totalLoad }}</td>
-            </tr>
-            <tr>
-                <td>Store: {{ $store }}</td>
-                <td>Sold: {{ $sold }}</td>
-            </tr>
-            <tr>
-                <td>Produce: {{ $produce }}</td>
-                <td>Bought: {{ $bought }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Position: {{ $position }}</td>
-            </tr>
+        <table class="w-full" style="height: 60%">
+            <tbody class="text-sm">
+                <tr>
+                    <td class="w-1/4">Demand: </td>
+                    <td class="w-1/4 font-semibold">{{ number_format($demand, 0, '.', ' ') }}</td>
+
+                    <td class="w-1/4">Total load:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($totalLoad, 0, '.', ' ') }}</td>
+                </tr>
+                <tr>
+                    <td class="w-1/4">Store:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($store, 0, '.', ' ') }}</td>
+
+                    <td class="w-1/4">Sold:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($sold, 0, '.', ' ') }}</td>
+                </tr>
+                <tr>
+                    <td class="w-1/4">Produce:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($produce, 0, '.', ' ') }}</td>
+
+                    <td class="w-1/4">Bought:</td>
+                    <td class="w-1/4 font-semibold">{{ number_format($bought, 0, '.', ' ') }}</td>
+                </tr>
+                <tr>
+                    <td class="w-1/4">Position:</td>
+                    <td class="w-1/4 font-semibold">{{ $position }}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
-    <hr />
+    <div class="px-8" style="height: 50%">
+        <p class="font-semibold pb-4">Running trades</p>
 
-    <div>
-        <p>Running trades</p>
+        <div class="flex w-full flex gap-2">
+            <div class="w-full h-64 md:h-56 overflow-auto">
+                <table class="relative w-full max-h-full">
+                    <thead class="sticky top-0 w-full bg-white">
+                        <tr class="w-full border-b-2 flex pb-2 sticky top-0 text-left bg-white font-semibold text-sm">
+                            <th>Bought:</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr class="w-full text-sm md:text-xs">
+                            <td class="w-2/4 align-text-top">
+                                @if(count($runningTradesBought) > 0)
+                                    @foreach($runningTradesBought as $trade)
+                                        <div class="w-full flex justify-between py-2">
+                                            <p class="w-56 md:w-32 truncate">{{ number_format($trade->totalVolume, 0, '.', ' ') }} units ends: {{ $trade->end }}</p>
+                                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    No running bought trades at this time.
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <table>
-            <tr>
-                <td>Bought:</td>
-                <td>Sold:</td>
-            </tr>
-            <tr>
-                <td>
-                    @if(count($runningTradesBought) > 0)
-                        @foreach($runningTradesBought as $trade)
-                            <hr />
-
-                            <p>{{ $trade->totalVolume }} units</p>
-                            <p>ends: {{ $trade->end }}</p>
-                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
-
-                            <hr />
-                        @endforeach
-                    @else
-                        No running bought trades at this time.
-                    @endif
-                </td>
-                <td>
-                    @if(count($runningTradesSold) > 0)
-                        @foreach($runningTradesSold as $trade)
-                            <hr />
-
-                            <p>{{ $trade->totalVolume }} units</p>
-                            <p>ends: {{ $trade->end }}</p>
-                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
-
-                            <hr />
-                        @endforeach
-                    @else
-                        No running sold trades at this time.
-                    @endif
-                </td>
-            </tr>
-        </table>
+            <div class="w-full h-64 md:h-56 overflow-y-auto">
+                <table class="relative w-full max-h-full">
+                    <thead class="sticky top-0 w-full bg-white">
+                        <tr class="w-full border-b-2 flex pb-2 sticky top-0 text-left bg-white font-semibold text-sm">
+                            <th>Sold:</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr class="text-sm md:text-xs">
+                            <td class="w-2/4 align-text-top">
+                                @if(count($runningTradesSold) > 0)
+                                    @foreach($runningTradesSold as $trade)
+                                        <div class="flex justify-between py-2">
+                                            <p class="w-56 md:w-32 truncate">{{ number_format($trade->totalVolume, 0, '.', ' ') }} units ends: {{ $trade->end }}</p>
+                                            <button class="font-semibold underline" wire:click="openTradeEntry({{ $trade }})">Info</button>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    No running sold trades at this time.
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

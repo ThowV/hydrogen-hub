@@ -1,13 +1,20 @@
 <div class="z-40 w-full text-gray-700" style="display: {{ $isOpen ? 'block' : 'none' }}">
-    <div class="modal fixed top-0 h-full w-full grid grid-cols-8 grid-rows-7">
+    <div class="modal fixed top-0 h-full w-full grid grid-cols-8 grid-rows-6">
 
         <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-        <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded shadow-lg z-50">
-            <div class="modal-content flex flex-col w-full h-full p-12 sm:p-4 xxl:p-16 text-left">
+        <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-1 col-span-7 sm:col-span-6 mx-10 my-24 xxl:mx-20 row-span-6 bg-white rounded-lg shadow-lg z-50">
+            <div class="modal-content flex flex-auto flex-col w-full h-full px-12 pt-12 sm:p-4 xxl:p-16 text-left">
                 <!--Title-->
                 <div class="flex flex-none justify-between items-center pb-2">
-                    <p class="text-lg font-bold">{{ ucfirst($chartType) }} hydrogen</p>
+                    <div class="flex">
+                        <svg class="fill-current text-type{{ ucfirst($chartType) }}-500"
+                            height="24" width="24">
+                            <circle cx="10" cy="12" r="6"/>
+                        </svg> 
+                        <p class="text-lg font-bold">{{ ucfirst($chartType) }} hydrogen</p>
+                    </div>
+
                     <div wire:click="toggleModal" class="modal-close cursor-pointer z-50">
                         <svg class="fill-current text-gray-600 hover:text-gray-900 transaction duration-300 w-8 h-8 xxl:w-12 xxl:h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
                             <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
@@ -16,7 +23,7 @@
                 </div>
 
                 <!--Body-->
-                <div class="flex">
+                <div class="flex flex-auto">
                     <div>
                         @foreach($chartData as $chart)
                             <div class="w-full sm:w-full max-h-80 flex flex-col items-center" style="display: {{ $chartType == $chart['hydrogenType'] ? 'block' : 'none' }}">
@@ -35,7 +42,7 @@
                         @endforeach
                     </div>
 
-                    <div>
+                    <div class="h-full w-full">
                         @livewire('components.company.chart-expanded-info-component')
                     </div>
                 </div>
@@ -43,9 +50,9 @@
 
 
             <!--Footer-->
-            <div class="flex flex-none justify-center gap-10 pt-2">
+            <div class="flex flex-none justify-center pb-4">
                 <button
-                    class="modal-close bg-white border-2 hover:bg-gray-400 hover:border-gray-400 text-gray-600 hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-8  rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                    class="modal-close my-auto bg-white border-2 hover:bg-gray-400 hover:border-gray-400 text-gray-600 hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-8 rounded-lg transition duration-200 ease-in-out"
                     wire:click="toggleModal">
                     Close
                 </button>
@@ -60,20 +67,20 @@
     let chartDataExpanded = @json($chartData);
 
     for (const chart in chartDataExpanded) {
-        let chartDemandColor = "#4CD35D";
+        let chartDemandColor = "#317939";
         let chartProduceColor = "#BEBEBE";
         let chartBoughtColor = "#CBE4FD";
         let chartStoreColor = "#7DB0ED"
         let chartSoldColor = "#F0CFB3";
-        let chartTotalLoadColor = "#d3fdd8"
+        let chartTotalLoadColor = "#5CE06A"
 
         if (chartDataExpanded[chart].hydrogenType == 'blue') {
             chartDemandColor = "#003399";
-            chartTotalLoadColor = "#cbe4fd";
+            chartTotalLoadColor = "#0099ff";
         }
         else if (chartDataExpanded[chart].hydrogenType == 'grey') {
-            chartDemandColor = "#909090";
-            chartTotalLoadColor = "#e8e8e8";
+            chartDemandColor = "#2F2F2F";
+            chartTotalLoadColor = "#796758";
         }
 
         let ctx = document.getElementById("canvasExpanded-" + chart).getContext("2d");

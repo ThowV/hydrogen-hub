@@ -49,7 +49,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
     Route::get('/market',                                           [MarketplaceController::class, 'index'])->name('market');
     Route::get('/admin',                                            [AdminController::class, 'index'])->name('admin');
-    Route::get('/company',                                          [CompanyController::class, 'index'])->name('company');
     Route::delete('/company/{company}',                             [CompanyController::class, 'destroy'])->name('company.destroy');
     Route::get('/company/portfolio',                                [CompanyController::class, 'portfolio'])->name('company.portfolio');
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');

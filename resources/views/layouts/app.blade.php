@@ -21,11 +21,13 @@
 
         @stack('styles')
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <script src="https://kit.fontawesome.com/d7f253ad4b.js" crossorigin="anonymous"></script>
         <!-- ChartJS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
                 integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
                 crossorigin="anonymous"></script>
+
+        <!-- Fontawesome -->
+        <script src="https://kit.fontawesome.com/d7f253ad4b.js" crossorigin="anonymous"></script>
         @livewireStyles
     </head>
 
@@ -34,7 +36,7 @@
         <div class="grid grid-cols-8 grid-rows-1">
             @auth()
             <div class="h-screen sticky top-0 col-span-1 sm:col-span-2 z-50">
-                    @include('layouts.nav')
+                @include('layouts.nav')
             </div>
             @endauth
 
