@@ -35,7 +35,7 @@
         <div class="grid grid-cols-8 grid-rows-1">
             @auth()
             <div class="h-screen sticky top-0 col-span-1 sm:col-span-2 z-50">
-                    @include('layouts.nav')
+                @include('layouts.nav')
             </div>
             @endauth
 
