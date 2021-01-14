@@ -54,6 +54,10 @@ class FinancialsComponent extends Component
         if ($this->editState) {
             $this->usableFund = $this->company['usable_fund'];
         }
+        else {
+            $this->fill(['password' => '']);
+            $this->clearValidation(['password']);
+        }
     }
 
     public function mount()
