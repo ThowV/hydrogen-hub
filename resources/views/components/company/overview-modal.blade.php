@@ -70,21 +70,20 @@
 
                 <div class="flex flex-auto">
                     <div class="flex flex-row w-full text-sm sm:text-xs xxl:text-xl">
-                        <div class="w-2/4 flex flex-col gap-3 sm:gap-1">
+                        <div class="w-2/4 flex flex-col gap-3 sm:gap-1 pr-10">
                             <span class="font-semibold">Activity</span>
-                            <ul class="flex flex-col gap-8 sm:gap-1">
+                            <ul class="flex flex-col gap-8 sm:gap-1 md:h-24 overflow-auto">
                                 <li><b>Sold 27/h</b> for <b>6 hours 23 minutes</b> of <b>green hydrogen</b> at the price of <b>€ 0.0576/unit 15 hours ago</b> </li>
                                 <li><b>Bought 292/h</b> for <b>12 hours 32 minutes</b> of <b>blue hydrogen</b> at the price of <b>€ 0.0432/unit 19 hours ago</b> </li>
                                 <li><b>Bought 132/h</b> for <b>46 hours 12 minutes</b> of <b>grey hydrogen</b> at the price of <b>€ 0.0172/unit 22 hours ago</b> </li>
-
                             </ul>
                         </div>
                         <div class="w-2/4 flex flex-col gap-3 sm:gap-1">
-                            <span class="font-semibold">Stats</span>
-                            <ul class="flex flex-col gap-8 sm:gap-1">
-                                <li>Total trades: {{count($employeeToUpdate->trades)}}</li>
-                                <li>Total offers: {{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</li>
-                                <li>Total sold: {{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</li>
+                            <span class="font-semibold">Statistics</span>
+                            <ul class="flex flex-col gap-8 md:gap-4 sm:gap-1">
+                                <li>Total trades: <b>{{count($employeeToUpdate->trades)}}</b></li>
+                                <li>Total offers: <b>{{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</b></li>
+                                <li>Total sold: <b>{{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</b></li>
                             </ul>
                         </div>
                     </div>

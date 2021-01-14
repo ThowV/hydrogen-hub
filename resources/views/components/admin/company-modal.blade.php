@@ -78,7 +78,7 @@
 
                     <div class="flex flex-col h-ful w-2/4 gap-5">
 
-                        <p class="font-bold xl:text-xl xxl:text-2xl">Stats</p>
+                        <p class="font-bold xl:text-xl xxl:text-2xl">Statistics</p>
 
                         <ul class="flex flex-row gap-5 xxl:text-2xl">
                             <div class="flex flex-col gap-8">
