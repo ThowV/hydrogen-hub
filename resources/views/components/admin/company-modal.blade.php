@@ -52,11 +52,11 @@
                 <!-- Activity and Stats -->
                 <div class="flex flex-auto w-full py-10 text-sm" style="height: 30vh">
 
-                    <div class="flex flex-col h-full w-3/4 gap-5">
+                    <div class="flex flex-col h-full w-2/4 gap-5 pr-20">
 
                         <p class="font-bold xl:text-xl xxl:text-2xl">Activity</p>
 
-                        <ul class="flex flex-row gap-8 xxl:text-2xl">
+                        <ul class="flex flex-col gap-8 xxl:text-2xl h-56 overflow-auto">
                             @if(count($companyInModal->getAllActivities()) > 0)
                                 @foreach($companyInModal->getAllActivities(true) as $key => $activity)
                                     <li class="@if($key % 2 == 0) @endif">
@@ -76,7 +76,7 @@
                         </ul>
                     </div>
 
-                    <div class="flex flex-col h-ful w-1/4 gap-5">
+                    <div class="flex flex-col h-ful w-2/4 gap-5">
 
                         <p class="font-bold xl:text-xl xxl:text-2xl">Stats</p>
 

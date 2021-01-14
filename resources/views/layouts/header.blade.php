@@ -11,7 +11,7 @@
     </div>
 
     <div class="col-start-2 flex justify-end py-4 xxl:py-10">
-        <h3 id="date-time" class="font-bold text-xs sm:text-xxs xxl:text-xl text-gray-600 py-6">Monday 23 November 2020 | 16:20:23</h3>
+        <h3 id="date-time" class="font-bold text-xs sm:text-xxs xxl:text-xl text-gray-600 py-6">Loading...</h3>
 
         <div class="opacity-25 transform scale-50 pt-1 transaction hover:opacity-100 duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="124.01" height="99.208" viewBox="0 0 124.01 99.208">
