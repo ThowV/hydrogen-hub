@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="grid grid-rows-5 md:grid-rows-3 grid-cols-6 sm:grid-rows-3 sm:items-center">
-                    <div class="row-span-4 col-span-2 grid justify-start items-center sm:col-span-6 sm:row-span-1 md:row-span-3">
+                    <div class=" w-full row-span-5 col-span-2 grid justify-center items-center sm:col-span-6 sm:row-span-1 md:row-span-3">
                         @livewire('components.employees.change-picture-component')
                     </div>
 
@@ -28,7 +28,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-6 md:pt-12 xl:pt-20 xxl:pt-32">
+                <div class="grid grid-cols-6 pb-10 px-10 md:pt-12 xl:pt-20 xxl:pt-32">
 
                     <div class="grid col-span-3">
                         <h2 class="text-lg xxl:text-4xl font-bold sm:text-sm md:text-sm">Activity</h2>

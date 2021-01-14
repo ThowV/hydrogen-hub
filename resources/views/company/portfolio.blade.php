@@ -5,6 +5,10 @@
         <!--Chart overview selection modal-->
         @livewire('components.company.chart-overview-selection-modal-component')
 
+        <!--Chart expanded modal-->
+        @livewire('components.company.chart-expanded-modal-component')
+
+
         <!--Trade and listing info modal-->
         @livewire('components.company.trade-and-listing-info-modal-component')
 

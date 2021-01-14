@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex h-full flex-col">
         <!--Header-->
-    @include('layouts.header', ['title' => 'Company overview'])
+        @include('layouts.header', ['title' => 'Company overview'])
 
         <!-- Company stats -->
         <div class="px-10 xxl:px-20 pb-5 xxl:pb-10 xxl:pt-10">
@@ -20,20 +20,7 @@
                             <p class="font-bold">{{ auth()->user()->company->name }}</p>
                         </div>
 
-                        <div class="flex gap-4 text-sm xxl:text-2xl">
-                            <p>Total volumes traded:</p>
-                            <p class="font-bold">17.234.324</p>
-                        </div>
-
-                        <div class="flex gap-4 text-sm xxl:text-2xl">
-                            <p>Total trades:</p>
-                            <p class="font-bold">1.625</p>
-                        </div>
-
-                        <div class="flex gap-4 text-sm xxl:text-2xl">
-                            <p>Total employees:</p>
-                            <p class="font-bold">4</p>
-                        </div>
+                        @livewire('components.company.statistics-component', ['company'=>auth()->user()->company])
                     </div>
                 </div>
             </div>

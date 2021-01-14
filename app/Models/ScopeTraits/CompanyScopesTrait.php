@@ -64,7 +64,7 @@ trait CompanyScopesTrait
     }
 
     /**
-     * All trades that have been completed where this company is sending hydrogen
+     * All trades where this company is sending hydrogen
      *
      * @return mixed
      */
@@ -138,6 +138,41 @@ trait CompanyScopesTrait
      */
     public function tradesAfterCarbonDate(Carbon $start)
     {
-        return $this->trades->where('end_raw', '>=', $start);
+        return $this->trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+    }
+
+    /**
+     * All trades that are running after a date have been completed where this company is receiving hydrogen
+     *
+     * @param Carbon $start
+     * @param Carbon $end
+     * @return mixed
+     */
+    public function getBoughtTradesAfterCarbonDate(Carbon $start)
+    {
+        $trades = $this->getBoughtTradesAttribute();
+        return $trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+    }
+
+    /**
+     * All trades that are running after a date where this company is sending hydrogen
+     *
+     * @param  Carbon  $start
+     * @return mixed
+     */
+    public function getSoldTradesAfterCarbonDate(Carbon $start)
+    {
+        $trades = $this->getSoldTradesAttribute();
+        return $trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+    }
+
+    public function getTotalVolumesTradedAttribute()
+    {
+        $return = 0;
+        $trades = collect($this->trades);
+        foreach ($trades->where('responder_id', '!=', null) as $trade) {
+            $return += $trade->total_volume;
+        }
+        return $return;
     }
 }
