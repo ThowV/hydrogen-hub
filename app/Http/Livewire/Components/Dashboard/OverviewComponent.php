@@ -138,7 +138,6 @@ class OverviewComponent extends Component
         $this->setLabels();
         //display price graph
         $this->displayGraphs();
-
     }
 
     /**

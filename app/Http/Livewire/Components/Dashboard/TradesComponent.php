@@ -12,7 +12,7 @@ class TradesComponent extends Component
 
     public function getTrades()
     {
-        $this->trades = Trade::where('responder_id', '!=', null)->get();
+        $this->trades = Trade::where('responder_id', '!=', null)->limit(15)->get();
     }
 
     public function getTimePassedSinceDate($date)
