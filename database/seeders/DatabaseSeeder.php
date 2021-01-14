@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $users[] = User::create(['email' => "martijnjongman9@gmail.com", "password" => Hash::make('martijn123'), "company_id" => rand(1,2), "first_name" => "Martijn", "last_name" => "Jongman"]);
         $users[] = User::create(['email' => "h.zwetsloot@groningen-seaports.com", "password" => Hash::make('Henk123!@#'), "company_id" => rand(1,2), "first_name" => "Henk", "last_name" => "Zwetsloot"]);
         $users[] = User::create(['email' => "rdewolf300@gmail.com", "password" => Hash::make('Rob123!@#'), "company_id" => rand(1,2), "first_name" => "Rob", "last_name" => "de Wolf"]);
+        $users[] = User::create(['email' => "michiel@energy21.com", "password" => Hash::make('Michiel123!@#'), "company_id" => rand(1,2), "first_name" => "Michiel", "last_name" => "Dorresteijn"]);
 
         User::factory(25)->create();
         Company::factory(10)->create();
