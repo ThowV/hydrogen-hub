@@ -18,7 +18,7 @@ class ChartExpandedModalComponent extends Component
     public $chartData = [];
     public $labels = [];
 
-    protected $listeners = ['openChartExpandedModal' => 'toggleModal', 'chartClicked' => 'chartClicked'];
+    protected $listeners = ['openChartExpandedModal' => 'toggleModal', 'chartClicked' => 'chartClicked', 'chartDataModifed' => 'chartDataModified'];
 
     public function chartClicked($xIndex) {
         $this->emit('showChartPointInfo', $xIndex, $this->chartData[$this->chartType]);
@@ -30,10 +30,24 @@ class ChartExpandedModalComponent extends Component
         $this->isOpen = !$this->isOpen;
 
         if ($this->isOpen && $this->chartType) {
-            $this->chart = $this->chartData[$this->chartType];
-        } else {
+            $this->setChartData($this->chartType);
+            $this->emit('chartExpandedOpened', $this->chartData[$this->chartType]);
+        }
+        else {
             $this->emit('closeChartExpandedModal', false);
         }
+    }
+
+    public function chartDataModified() {
+        if ($this->isOpen && $this->chartType) {
+            $this->setChartData($this->chartType);
+            $this->emit('chartDataUpdated', $this->chartData[$this->chartType]);
+        }
+    }
+
+    public function setChartData($chartType) {
+        $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(2));
+        $this->buildChart($period, $chartType, DeepnessFactor::HOURS);
     }
 
     public function initializeCharts()
@@ -45,11 +59,6 @@ class ChartExpandedModalComponent extends Component
         foreach (['green', 'blue', 'grey'] as $chartType) {
             $this->buildChart($period, $chartType, DeepnessFactor::HOURS);
         }
-    }
-
-    public function mount()
-    {
-        $this->initializeCharts();
     }
 
     public function render()

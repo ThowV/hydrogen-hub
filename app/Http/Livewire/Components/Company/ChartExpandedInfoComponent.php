@@ -152,6 +152,7 @@ class ChartExpandedInfoComponent extends Component
 
         $section->save();
         $this->toggleEditState();
+        $this->emit('chartDataModifed');
     }
 
     public function render()

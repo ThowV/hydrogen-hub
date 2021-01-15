@@ -58,6 +58,7 @@
                     @elseif($editState && auth()->user()->can('company.stored.update'))
                         <td class="w-1/4 font-semibold">
                             <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="store" type="text" id="storeInput" name="storeInput">
+                            <label for="storeInput">/hour</label>
                             @error('store') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
                         </td>
                     @endif
@@ -72,6 +73,7 @@
                     @elseif($editState && auth()->user()->can('company.produced.update'))
                         <td class="w-1/4 font-semibold">
                             <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="produce" type="text" id="produceInput" name="produceInput">
+                            <label for="produceInput">/hour</label>
                             @error('produce') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
                         </td>
                     @endif
