@@ -4,7 +4,7 @@
 
             <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-            <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded shadow-lg z-50 ">
+            <div class="modal-container max-h-full max-w-full grid col-start-1 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded-lg shadow-lg z-50 ">
                 <!-- Add margin if you want to see some of the overlay behind the modal-->
                 <div class="modal-content flex flex-col w-full h-full p-8 sm:p-4 xxl:p-12 text-left ">
                     <!--Title-->
@@ -25,15 +25,20 @@
 
                     @if (!$confirmationStage)
                         <!--Body-->
-                        <div class="flex flex-row h-full sm:flex-col">
+                        <div class="flex flex-row w-full h-full sm:flex-col">
 
                             @if($trade->owner_id != auth()->id())
-                                <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 28vw; height: 32vh;">
-                                    <canvas wire:ignore id="canvas-impact" class="flex z-0"></canvas>
-                                </div>
-                            @endif
+                            <div class="w-2/4 flex justify-center">
+                                    <div class="relative flex flex-col sm:w-full" style="width: 28vw; height: 32vh;">
+                                        <canvas wire:ignore id="canvas-impact" class="flex z-0"></canvas>
+                                    </div>
+                            </div>
 
                             <div class="w-2/4 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
+                            @else
+                            <div class="w-full sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
+                            @endif                           
+
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
                                     <p class="text-sm sm:text-xxs xxl:text-xl">Hydrogen type:</p>
@@ -88,7 +93,7 @@
                         </div>
 
                         <!--Footer-->
-                        <div class="w-full h-24 flex justify-center items-center gap-10">
+                        <div class="w-full h-24 flex justify-center items-center gap-10 text-red-600">
                             @if($trade->owner_id != auth()->id())
                                 @if($tradeAble && !$trade->responder_id)
                                     <button
@@ -139,7 +144,7 @@
         Livewire.on('listingOpened', function (chartData) {
             let ctx = document.getElementById("canvas-impact").getContext("2d");
 
-            let chartDemandColor = "#4CD35D";
+            let chartDemandColor = "#317939";
             let chartNewTotalLoadColor = "#75d88c";
             let chartLoadLeftColor = "#d3fdd8";
             let chartLoadRemovedColor = "#F0CFB3";
@@ -151,7 +156,7 @@
                 chartNewTotalLoadColor = "#5ea5f8";
             }
             else if (chartData.hydrogenType === 'grey') {
-                chartDemandColor = "#909090";
+                chartDemandColor = "#2F2F2F";
                 chartLoadLeftColor = "#e8e8e8";
                 chartNewTotalLoadColor = "#999999";
             }

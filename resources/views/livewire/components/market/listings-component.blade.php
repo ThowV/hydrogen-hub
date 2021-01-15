@@ -169,24 +169,24 @@
                                         @if($trade->owner_id != auth()->id())
                                             @if($trade->trade_type === "offer" && auth()->user()->can('listings.buy'))
                                                 <button
-                                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                                    class="w-32 md:w-24 sm:w-20 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-2 rounded-lg transition duration-300 ease-in-out"
                                                     wire:click="openListing({{ $trade }})"
                                                 >
-                                                    buy
+                                                    Buy - Details
                                                 </button>
                                             @elseif($trade->trade_type === "request" && auth()->user()->can('listings.sellto'))
                                                 <button
-                                                    class="w-24 md:w-20 sm:w-14 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                                    class="w-32 md:w-24 sm:w-20 bg-blue-100 hover:bg-hovBlue border-2 border-hovBlue text-hovBlue hover:text-white text-xs sm:text-xxs xxl:text-2xl py-2 rounded-lg transition duration-300 ease-in-out"
                                                     wire:click="openListing({{ $trade }})"
                                                 >
-                                                    sell
+                                                    Sell - Details
                                                 </button>
                                             @endif
                                         @else
                                             <button
-                                                class="w-24 md:w-20 sm:w-14 bg-gray-100 hover:bg-gray-500 border-2 border-gray-500 text-gray hover:text-white text-xs sm:text-xxs xxl:text-2xl py-1 rounded-lg transition duration-300 ease-in-out"
+                                                class="w-32 md:w-24 sm:w-20 bg-gray-100 hover:bg-gray-500 border-2 border-gray-500 text-gray hover:text-white text-xs sm:text-xxs xxl:text-2xl py-2 rounded-lg transition duration-300 ease-in-out"
                                                 wire:click="openListing({{ $trade }})">
-                                                Own
+                                                Own - Details
                                             </button>
                                         @endif
                                     @endif
