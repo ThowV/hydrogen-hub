@@ -20,7 +20,7 @@
                     @if (!$confirmationStage)
                         <div class="flex justify-center font-bold pb-12 sm:pb-4 text-xl xxl:text-2xl">Overview</div>
                     @else
-                        <div class="flex justify-center font-bold pb-12 sm:pb-4 text-xl xxl:text-2xl">Are you sure?</div>
+                        <div class="flex justify-center font-bold pb-12 sm:pb-4 text-xl xxl:text-2xl">Accept this listing?</div>
                     @endif
 
                     @if (!$confirmationStage)
@@ -111,25 +111,30 @@
 
                     @elseif($confirmationStage)
                         <div class="flex flex-row w-full h-full justify-center">
-                            <div class="flex items-center gap-10">
-                                <p>Password for confirmation</p>
-                                <input
-                                    class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1"
-                                    wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
-                                >
-                                @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+                            <div class="flex flex-col h-full justify-center gap-10">
 
-                                <button
-                                    class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
-                                    wire:click="makeTrade({{ $trade->id }})">
-                                    Confirm
-                                </button>
+                                <div class="flex flex-col gap-2 text-left">
+                                    <p>Password for confirmation</p>
+                                    <input
+                                        class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1"
+                                        wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
+                                    >
+                                    @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+                                </div>
 
-                                <button
-                                    class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
-                                    wire:click="toggleConfirmationStage">
-                                    Cancel
-                                </button>
+                                <div class="flex gap-10 items-center w-full">
+                                    <button
+                                        class="bg-personal hover:bg-hovBlue border-2 border-personal hover:border-hovBlue text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                        wire:click="makeTrade({{ $trade->id }})">
+                                        Confirm
+                                    </button>
+
+                                    <button
+                                        class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
+                                        wire:click="toggleConfirmationStage">
+                                        Cancel
+                                    </button>                              
+                                </div>
                             </div>
                         </div>
                     @endif
