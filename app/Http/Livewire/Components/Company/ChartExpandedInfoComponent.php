@@ -8,17 +8,12 @@ use App\Models\CompanyDayLog;
 use App\Models\CompanyDayLogSection;
 use App\Models\Trade;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use function PHPUnit\Framework\isEmpty;
 
 class ChartExpandedInfoComponent extends Component
 {
     use ChartBuilderTrait;
-
-
-    public $chartData = [];
 
     public $editState = false;
     public $password;
@@ -36,7 +31,7 @@ class ChartExpandedInfoComponent extends Component
     public $runningTradesBought = [];
     public $runningTradesSold = [];
 
-    protected $listeners = ['showChartPointInfo' => 'showChartPointInfo'];
+    protected $listeners = ['showChartPointInfo' => 'showChartPointInfo', 'closeChartExpandedModal' => 'toggleEditState'];
 
     protected $rules = [
         'demand' => 'required|integer|min:-1000000000000|max:1000000000000',
@@ -82,7 +77,7 @@ class ChartExpandedInfoComponent extends Component
         $this->emit('openTradeAndListingInfoModal', $trade);
     }
 
-    public function toggleEditState()
+    public function toggleEditState($forcedState = null)
     {
         if ($this->editState == false && ! auth()->user()->can('company.fund.update')) {
             \event(new PermissionDenied());
@@ -90,7 +85,12 @@ class ChartExpandedInfoComponent extends Component
             return back();
         }
 
-        $this->editState = !$this->editState;
+        if (!is_bool($forcedState)) {
+            $this->editState = !$this->editState;
+        }
+        else {
+            $this->editState = $forcedState;
+        }
 
         if (!$this->editState) {
             $this->fill(['password' => '']);
@@ -149,10 +149,6 @@ class ChartExpandedInfoComponent extends Component
         if (auth()->user()->can('company.stored.update')) {
             $section->store = (int)((int)$this->store * 24);
         }
-
-        //$this->buildChart(CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(5)), $this->chartType);
-        //dd($this->chartData);
-        //dd($dayLog, $section);
 
         $section->save();
         $this->toggleEditState();

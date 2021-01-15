@@ -31,6 +31,8 @@ class ChartExpandedModalComponent extends Component
 
         if ($this->isOpen && $this->chartType) {
             $this->chart = $this->chartData[$this->chartType];
+        } else {
+            $this->emit('closeChartExpandedModal', false);
         }
     }
 
