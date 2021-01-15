@@ -29,7 +29,7 @@ trait ChartBuilderTrait
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
             if ($deepnessFactor == DeepnessFactor::DAYS) {
-                $labels[] = $date->format('M d');
+                $labels[] = $date->format('M d, Y');
             }
             else {
                 // Figure out the start and end hour
@@ -47,7 +47,7 @@ trait ChartBuilderTrait
                 // Loop through each hour in the period
                 for ($i = $startHour; $i < $endHour; $i++) {
                     // Get date labels
-                    $labels[] = $date->format('M d') . ' - ' . $i . ':00';
+                    $labels[] = $date->format('M d, Y') . ' - ' . $i . ':00';
                 }
             }
         }
@@ -90,6 +90,9 @@ trait ChartBuilderTrait
         // Get every demand between now and the end date
         $dayLogs = auth()->user()->company->dayLogsBetweenCarbonDates($period->startDate, $period->endDate);
         $this->chartData[$chartType]['dayLogs'] = $dayLogs ;
+        if ($chartType == "blue") {
+            //dd(auth()->user()->company->dayLogs, $period->startDate, $period->endDate);
+        }
 
         // Loop through each day in the period
         foreach ($period as $index=>$date) {

@@ -43,7 +43,7 @@ class FinancialsComponent extends Component
 
     public function toggleEditState()
     {
-        if (! auth()->user()->can('company.fund.update')) {
+        if ($this->editState && ! auth()->user()->can('company.fund.update')) {
             \event(new PermissionDenied());
 
             return back();

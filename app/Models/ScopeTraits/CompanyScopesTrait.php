@@ -126,7 +126,7 @@ trait CompanyScopesTrait
      */
     public function dayLogsBetweenCarbonDates(Carbon $start, Carbon $end)
     {
-        return $this->dayLogs->where('date', '>=', $start)->where('date', '<=', $end);
+        return $this->dayLogs->where('date', '>=', $start->toDateString())->where('date', '<=', $end->toDateString());
     }
 
 
@@ -138,7 +138,7 @@ trait CompanyScopesTrait
      */
     public function tradesAfterCarbonDate(Carbon $start)
     {
-        return $this->trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+        return $this->trades->where('end_raw', '>=', $start->toDateString())->where('deal_made_at', '<=', $start->toDateString());
     }
 
     /**
@@ -151,7 +151,7 @@ trait CompanyScopesTrait
     public function getBoughtTradesAfterCarbonDate(Carbon $start)
     {
         $trades = $this->getBoughtTradesAttribute();
-        return $trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+        return $trades->where('end_raw', '>=', $start->toDateString())->where('deal_made_at', '<=', $start->toDateString());
     }
 
     /**
@@ -163,7 +163,7 @@ trait CompanyScopesTrait
     public function getSoldTradesAfterCarbonDate(Carbon $start)
     {
         $trades = $this->getSoldTradesAttribute();
-        return $trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+        return $trades->where('end_raw', '>=', $start->toDateString())->where('deal_made_at', '<=', $start->toDateString());
     }
 
     public function getTotalVolumesTradedAttribute()

@@ -176,7 +176,8 @@ class CreateListingModalComponent extends Component
         $data['expires_at'] = now()->add($data['expires_at'], $this->expires_at_type);
 
         // Create trade
-        Trade::create($data);
+        $trade = Trade::create($data);
+        $trade->save();
 
         // Emit an event telling the parent component that the listing has been created
         $this->emit('listingCreated');
