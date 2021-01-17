@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
     public function createCompanyInterest($company_ids)
     {
         foreach ($company_ids as $company_id) {
-            foreach (['green', 'blue', 'grey'] as $interest) {
+            foreach (['green', 'blue', 'grey', 'mix', 'combined'] as $interest) {
                 $companyHydrogenInterest = new CompanyHydrogenInterest();
                 $companyHydrogenInterest->fill(['company_id' => $company_id, 'interest' => $interest]);
                 $companyHydrogenInterest->save();

@@ -16,7 +16,7 @@ class CreateCompanyHydrogenInterestsTable extends Migration
         Schema::create('company_hydrogen_interests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id');
-            $table->enum('interest', ['green', 'blue', 'grey', 'mix']);
+            $table->enum('interest', ['green', 'blue', 'grey', 'mix', 'combined']);
             $table->timestamps();
         });
     }
