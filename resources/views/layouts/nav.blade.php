@@ -57,7 +57,7 @@
             </li>
 
             @role('Super Admin')
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16  xxl:px-16 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('admin') ? 'opacity-100' : '' }}"">
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('admin') ? 'opacity-100' : '' }}"">
                 <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
                     height="25" viewBox="0 0 25 25">
                     <path id="Icon_metro-wrench" data-name="Icon metro-wrench"
@@ -67,6 +67,14 @@
                 <a class="col-start-4" href="{{route('admin')}}">Admin</a>
             </li>
             @endrole()
+
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 hover:opacity-100 duration-300 cursor-pointer {{ Route::is('help') ? 'opacity-100' : 'opacity-25' }}"
+                href="/market">
+                <svg class="xxl:mx-10 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="20.949" height="20.949" viewBox="0 0 20.949 20.949">
+                    <path id="Icon_material-help-outline" data-name="Icon material-help-outline" d="M12.427,19.759h2.095V17.664H12.427ZM13.474,3A10.474,10.474,0,1,0,23.949,13.474,10.478,10.478,0,0,0,13.474,3Zm0,18.854a8.379,8.379,0,1,1,8.379-8.379A8.391,8.391,0,0,1,13.474,21.854Zm0-14.664a4.189,4.189,0,0,0-4.19,4.19h2.095a2.095,2.095,0,1,1,4.19,0c0,2.095-3.142,1.833-3.142,5.237h2.095c0-2.357,3.142-2.619,3.142-5.237A4.189,4.189,0,0,0,13.474,7.19Z" transform="translate(-3 -3)" fill="#fff"/>
+                </svg>
+                <a class="col-start-4" href="{{route('help')}}">Help</a>
+            </li>
         </ul>
     </nav>
 
