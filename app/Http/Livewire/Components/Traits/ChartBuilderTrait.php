@@ -74,7 +74,6 @@ trait ChartBuilderTrait
     {
         if ($chartType == 'combined') {
             $this->chartData[$chartType] = $this->buildCombinedChart($period, $chartType, $deepnessFactor)['combined'];
-            //dd($this->chartData[$chartType]);
             return $this->chartData[$chartType];
         }
 
