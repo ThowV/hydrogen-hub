@@ -16,7 +16,7 @@
                             <p class="text-lg font-bold">{{ ucfirst($chartType) }} hydrogen</p>
                         </div>
 
-                        <div wire:click="toggleModal" class="modal-close cursor-pointer z-50">
+                        <div wire:click="toggleModal" class="modal-close cursor-pointer z-50 transform translate-x-4 -translate-y-4">
                             <svg class="fill-current text-gray-600 hover:text-gray-900 transaction duration-300 w-8 h-8 xxl:w-12 xxl:h-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
                                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
                             </svg>

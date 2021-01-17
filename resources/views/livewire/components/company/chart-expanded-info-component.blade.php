@@ -24,10 +24,10 @@
         </div>
 
         @if($editState)
-            <div class="text-left">
+            <div class="text-left pb-4">
                 <p class="font-semibold text-gray-600 text-xs xxl:text-xl mb-1">Password for confirmation</p>
                 <input
-                    class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300"
+                    class="w-2/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300"
                     wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
                 >
                 @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
@@ -41,10 +41,12 @@
                     @if (!$editState)
                         <td class="w-1/4 font-semibold">{{ number_format($demand, 0, '.', ' ') }}</td>
                     @elseif($editState && auth()->user()->can('company.demand.update'))
-                        <td class="w-1/4 font-semibold">
-                            <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="demand" type="text" id="demandInput" name="demandInput">
-                            <label for="demandInput">/hour</label>
-                            @error('demand') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+                        <td class="w-1/4 font-semibold pr-4">
+                            <div class="w-full flex justify-between gap-1">
+                                <input class="w-3/4 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="demand" type="text" id="demandInput" name="demandInput">
+                                <label class="w-1/4 my-auto" for="demandInput">/hour</label>
+                                @error('demand') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+                            </div>
                         </td>
                     @endif
 
@@ -56,9 +58,11 @@
                     @if (!$editState)
                         <td class="w-1/4 font-semibold">{{ number_format($store, 0, '.', ' ') }}</td>
                     @elseif($editState && auth()->user()->can('company.stored.update'))
-                        <td class="w-1/4 font-semibold">
-                            <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="store" type="text" id="storeInput" name="storeInput">
-                            <label for="storeInput">/hour</label>
+                        <td class="w-1/4 font-semibold pr-4">
+                            <div class="w-full flex justify-between gap-1">
+                                <input class="w-3/4 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="store" type="text" id="storeInput" name="storeInput">
+                                <label class="w-1/4 my-auto" for="storeInput">/hour</label>
+                            </div>
                             @error('store') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
                         </td>
                     @endif
@@ -71,9 +75,11 @@
                     @if (!$editState)
                         <td class="w-1/4 font-semibold">{{ number_format($produce, 0, '.', ' ') }}</td>
                     @elseif($editState && auth()->user()->can('company.produced.update'))
-                        <td class="w-1/4 font-semibold">
-                            <input class="w-4/5 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="produce" type="text" id="produceInput" name="produceInput">
-                            <label for="produceInput">/hour</label>
+                        <td class="w-1/4 font-semibold pr-4">
+                            <div class="w-full flex justify-between gap-1">
+                                <input class="w-3/4 rounded-xl bg-gray-200 px-4 py-1 text-sm transaction duration-300 hover:bg-gray-300 focus:bg-gray-300" wire:model="produce" type="text" id="produceInput" name="produceInput">
+                                <label class="w-1/4 my-auto" for="produceInput">/hour</label>
+                            </div>
                             @error('produce') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
                         </td>
                     @endif
