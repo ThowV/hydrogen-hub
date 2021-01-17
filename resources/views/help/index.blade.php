@@ -7,7 +7,7 @@
 
         <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
             <div class="flex flex-nowrap min-h-full sm:flex-col text-gray-700">
-                <div class="rounded-lg p-10 w-full h-full bg-white">
+                <div class="rounded-lg px-10 pt-10 w-full min-h-full bg-white">
                     <div class="h-vh80 md:h-vh75 overflow-auto">
 
                         <h1 class="text-personal font-bold text-xl pb-4">Terms: Company portfolio charts</h1>
