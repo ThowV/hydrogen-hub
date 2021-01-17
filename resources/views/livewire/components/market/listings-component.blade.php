@@ -50,7 +50,7 @@
                 <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per
                     hour</label>
 
-                <div class="w-full grid items-end cursor-pointer" wire:ignore x-data x-init="initUnitsPerHourSlider">
+                <div class="w-full grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('units_per_hour', 'u/h')">
                     <input type="text" id="units_per_hour"/>
                     <div class="flex justify-between text-sm pt-2">
                         <input class="w-5/12 bg-gray-200 rounded-full text-center" id="units_per_hour_input_from"/>
@@ -63,7 +63,7 @@
                 <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration
                     (hours)</label>
 
-                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initDurationSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('duration', 'h')">
                     <input type="text" id="duration"/>
                     <div class="flex justify-between text-sm pt-2">
                         <input class="w-5/12 bg-gray-200 rounded-full text-center" id="duration_input_from"/>
@@ -75,7 +75,7 @@
             <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
 
-                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initTotalVolumeSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('total_volume', 'u')">
                     <input type="text" id="total_volume"/>
                     <div class="flex justify-between text-sm pt-2">
                         <input class="w-5/12 bg-gray-200 rounded-full text-center" id="total_volume_input_from"/>
@@ -87,7 +87,7 @@
             <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label for="price_per_unit" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per unit</label>
 
-                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initPricePerUnitSlider">
+                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('price_per_unit', '', '€ ')">
                     <input type="text" id="price_per_unit"/>
                     <div class="flex justify-between text-sm pt-2">
                         <input class="w-5/12 bg-gray-200 rounded-full text-center" id="price_per_unit_input_from"/>
@@ -99,7 +99,7 @@
             <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
                 <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
 
-                <div class="grid items-end" wire:ignore x-data x-init="initMixCO2Slider">
+                <div class="grid items-end" wire:ignore x-data x-init="initSlider('mix_co2', '%')">
                     <input type="text" id="mix_co2"/>
                     <div class="flex justify-between text-sm pt-2">
                         <input class="w-5/12 bg-gray-200 rounded-full text-center" id="mix_co2_input_from"/>
@@ -124,6 +124,10 @@
                         <label class="cursor-pointer" for="request">request</label>
                     </div>
                 </fieldset>
+            </div>
+
+            <div class="w-32 lg:w-40 xl:w-56 pl-10 xxl:w-64">
+                <button wire:click="resetFilters">Reset</button>
             </div>
         </form>
 
@@ -273,158 +277,93 @@
 </div>
 
 <!-- Range slider -->
-<script>
-    function setInputs(sliderId, data) {
+@push('scripts')
+    <script>
+        let sliders = [];
 
+        function setInputs(sliderId, data) {
+            $("#" + sliderId + "_input_from").prop("value", data.from);
+            $("#" + sliderId + "_input_to").prop("value", data.to);
 
-        $("#" + sliderId + "_input_from").prop("value", data.from);
-        $("#" + sliderId + "_input_to").prop("value", data.to);
-
-        @this.set("filter." + sliderId, [data.from, data.to])
-    }
-
-    function updateInput(sliderId, inputBound) {
-        let data = $("#" + sliderId).data("ionRangeSlider");
-        let dataFrom = data.result.from;
-        let dataTo = data.result.to;
-        let dataMin = data.result.min;
-        let dataMax = data.result.max;
-        let inputId = null;
-
-        // Determine which input id to use for the update
-        if (inputBound === 0) {
-            inputId = "#" + sliderId + "_input_from";
-        }
-        else if (inputBound === 1) {
-            inputId = "#" + sliderId + "_input_to";
+            @this.set("filter." + sliderId, [data.from, data.to])
         }
 
-        if (inputId) {
-            let inputValue = $(inputId).prop("value");
+        function updateInput(sliderId, inputBound) {
+            let data = $("#" + sliderId).data("ionRangeSlider");
+            let dataFrom = data.result.from;
+            let dataTo = data.result.to;
+            let dataMin = data.result.min;
+            let dataMax = data.result.max;
+            let inputId = null;
 
-            // Validate
-            if (inputValue < dataMin) {
-                inputValue = dataMin;
-            }
-            if (inputValue > dataMax) {
-                inputValue = dataMax;
-            }
-            if (inputBound === 0 && inputValue > dataTo) {
-                inputValue = dataTo;
-            }
-            if (inputBound === 1 && inputValue < dataFrom) {
-                inputValue = dataFrom;
-            }
-
-            // Update
+            // Determine which input id to use for the update
             if (inputBound === 0) {
-                setInputs(sliderId, {from: inputValue, to: dataTo});
-                data.update({from: inputValue, to: dataTo});
+                inputId = "#" + sliderId + "_input_from";
             }
             else if (inputBound === 1) {
-                setInputs(sliderId, {from: dataFrom, to: inputValue});
-                data.update({from: dataFrom, to: inputValue});
+                inputId = "#" + sliderId + "_input_to";
+            }
+
+            if (inputId) {
+                let inputValue = $(inputId).prop("value");
+
+                // Validate
+                if (inputValue < dataMin) {
+                    inputValue = dataMin;
+                }
+                if (inputValue > dataMax) {
+                    inputValue = dataMax;
+                }
+                if (inputBound === 0 && inputValue > dataTo) {
+                    inputValue = dataTo;
+                }
+                if (inputBound === 1 && inputValue < dataFrom) {
+                    inputValue = dataFrom;
+                }
+
+                // Update
+                if (inputBound === 0) {
+                    setInputs(sliderId, {from: inputValue, to: dataTo});
+                    data.update({from: inputValue, to: dataTo});
+                }
+                else if (inputBound === 1) {
+                    setInputs(sliderId, {from: dataFrom, to: inputValue});
+                    data.update({from: dataFrom, to: inputValue});
+                }
             }
         }
-    }
 
-    function initUnitsPerHourSlider() {
-        $('#units_per_hour').ionRangeSlider({
-            skin: 'round',
-            type: 'double',
-            min: {{ $filter["units_per_hour"][0] }},
-            max: {{ $filter["units_per_hour"][1] }},
-            from: {{ $filter["units_per_hour"][0] }},
-            to: {{ $filter["units_per_hour"][1] }},
-            prettify_enabled: true,
-            prettify_separator: ' ',
-            postfix: 'u/h',
-            onStart: (data) => setInputs("units_per_hour", data),
-            onChange: (data) => setInputs("units_per_hour", data),
-            onFinish: (data) => setInputs("units_per_hour", data)
+        function initSlider(sliderId, postfix='', prefix='') {
+            filter = @json($filter);
+
+            sliders[sliderId] = $(`#${sliderId}`).ionRangeSlider({
+                skin: 'round',
+                type: 'double',
+                min: filter[sliderId][0],
+                max: filter[sliderId][1],
+                from: filter[sliderId][0],
+                to: filter[sliderId][1],
+                prettify_enabled: true,
+                prettify_separator: ' ',
+                postfix: postfix,
+                prefix: prefix,
+                onStart: (data) => setInputs(sliderId, data),
+                onChange: (data) => setInputs(sliderId, data),
+                onFinish: (data) => setInputs(sliderId, data)
+            });
+
+            $(`#${sliderId}_input_from`).on("change", () => updateInput(sliderId, 0));
+            $(`#${sliderId}_input_to`).on("change", () => updateInput(sliderId, 1));
+        }
+
+        Livewire.on('resetFilters', function(filters) {
+            const fixPositions = ['post', 'post', 'post', 'pre', 'post']
+            const fixes = ['u/h', 'h', 'u', '€ ', '%'];
+            const sliderIds = ['units_per_hour', 'duration', 'total_volume', 'price_per_unit', 'mix_co2'];
+
+            for (let i = 0; i < sliderIds.length; i++) {
+                $(`#${sliderIds[i]}`).data("ionRangeSlider").reset();
+            }
         });
-
-        $("#units_per_hour_input_from").on("change", () => updateInput("units_per_hour", 0));
-        $("#units_per_hour_input_to").on("change", () => updateInput("units_per_hour", 1));
-    }
-
-    function initDurationSlider() {
-        $('#duration').ionRangeSlider({
-            skin: 'round',
-            type: 'double',
-            min: {{ $filter["duration"][0] }},
-            max: {{ $filter["duration"][1] }},
-            from: {{ $filter["duration"][0] }},
-            to: {{ $filter["duration"][1] }},
-            prettify_enabled: true,
-            prettify_separator: ' ',
-            postfix: 'h',
-            onStart: (data) => setInputs("duration", data),
-            onChange: (data) => setInputs("duration", data),
-            onFinish: (data) => setInputs("duration", data)
-        });
-
-        $("#duration_input_from").on("change", () => updateInput("duration", 0));
-        $("#duration_input_to").on("change", () => updateInput("duration", 1));
-    }
-
-    function initTotalVolumeSlider() {
-        $('#total_volume').ionRangeSlider({
-            skin: 'round',
-            type: 'double',
-            min: {{ $filter["total_volume"][0] }},
-            max: {{ $filter["total_volume"][1] }},
-            from: {{ $filter["total_volume"][0] }},
-            to: {{ $filter["total_volume"][1] }},
-            prettify_enabled: true,
-            prettify_separator: ' ',
-            postfix: 'u',
-            onStart: (data) => setInputs("total_volume", data),
-            onChange: (data) => setInputs("total_volume", data),
-            onFinish: (data) => setInputs("total_volume", data)
-        });
-
-        $("#total_volume_input_from").on("change", () => updateInput("total_volume", 0));
-        $("#total_volume_input_to").on("change", () => updateInput("total_volume", 1));
-    }
-
-    function initPricePerUnitSlider() {
-        $('#price_per_unit').ionRangeSlider({
-            skin: 'round',
-            type: 'double',
-            min: {{ $filter["price_per_unit"][0] }},
-            max: {{ $filter["price_per_unit"][1] }},
-            from: {{ $filter["price_per_unit"][0] }},
-            to: {{ $filter["price_per_unit"][1] }},
-            prettify_enabled: true,
-            prettify_separator: ' ',
-            prefix: '€ ',
-            onStart: (data) => setInputs("price_per_unit", data),
-            onChange: (data) => setInputs("price_per_unit", data),
-            onFinish: (data) => setInputs("price_per_unit", data)
-        });
-
-        $("#price_per_unit_input_from").on("change", () => updateInput("price_per_unit", 0));
-        $("#price_per_unit_input_to").on("change", () => updateInput("price_per_unit", 1));
-    }
-
-    function initMixCO2Slider() {
-        $('#mix_co2').ionRangeSlider({
-            skin: 'round',
-            type: 'double',
-            min: {{ $filter["mix_co2"][0] }},
-            max: {{ $filter["mix_co2"][1] }},
-            from: {{ $filter["mix_co2"][0] }},
-            to: {{ $filter["mix_co2"][1] }},
-            prettify_enabled: true,
-            prettify_separator: ' ',
-            postfix: '%',
-            onStart: (data) => setInputs("mix_co2", data),
-            onChange: (data) => setInputs("mix_co2", data),
-            onFinish: (data) => setInputs("mix_co2", data)
-        });
-
-        $("#mix_co2_input_from").on("change", () => updateInput("mix_co2", 0));
-        $("#mix_co2_input_to").on("change", () => updateInput("mix_co2", 1));
-    }
-</script>
+    </script>
+@endpush
