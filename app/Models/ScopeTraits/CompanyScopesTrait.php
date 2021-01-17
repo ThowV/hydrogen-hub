@@ -47,7 +47,7 @@ trait CompanyScopesTrait
      */
     public function getTradesAttribute()
     {
-        return $this->tradesAsResponder->merge($this->tradesAsOwner);
+        return $this->tradesAsResponder->merge($this->tradesAsOwner)->sortByDesc('deal_made_at');
     }
 
 
