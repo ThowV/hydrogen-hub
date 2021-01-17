@@ -76,19 +76,25 @@ class ShowListingModalComponent extends Component
         }
 
         // Emit the event to initialize the chart on the front-end
-        $this->emit('listingOpened', $this->chartData[$chartType]);
+        if($trade->owner_id != auth()->id()) {
+            $this->emit('listingOpened', $this->chartData[$chartType]);
+        }
     }
 
     public function toggleConfirmationStage()
     {
         $this->confirmationStage = !$this->confirmationStage;
+
+        if (!$this->confirmationStage) {
+            $this->emit('listingOpened', $this->chartData[$this->trade->hydrogen_type]);
+        }
     }
 
-    public function makeTrade(Trade $trade)
+    public function makeTrade()
     {
         // Validate permission
-        if (($trade->trade_type == "offer" && !auth()->user()->can('listings.buy'))
-            || ($trade->trade_type == "request") && !auth()->user()->can('listings.sellto')) {
+        if (($this->trade->trade_type == "offer" && !auth()->user()->can('listings.buy'))
+            || ($this->trade->trade_type == "request") && !auth()->user()->can('listings.sellto')) {
             $this->toggleModal();
             $this->toggleConfirmationStage();
             \event(new PermissionDenied());
@@ -108,21 +114,21 @@ class ShowListingModalComponent extends Component
         }
 
         // Deduct the total price
-        if ($trade->trade_type == "offer") {
-            auth()->user()->company->usable_fund -= $trade->getTotalPriceAttribute();
+        if ($this->trade->trade_type == "offer") {
+            auth()->user()->company->usable_fund -= $this->trade->getTotalPriceAttribute();
         }
-        else if ($trade->trade_type == "request") {
-            auth()->user()->company->usable_fund += $trade->getTotalPriceAttribute();
+        else if ($this->trade->trade_type == "request") {
+            auth()->user()->company->usable_fund += $this->trade->getTotalPriceAttribute();
         }
 
         auth()->user()->company->save();
 
         // Update trade to create deal
-        $trade->responder_id = auth()->id();
-        $trade->deal_made_at = now();
+        $this->trade->responder_id = auth()->id();
+        $this->trade->deal_made_at = now();
 
         // Finalize
-        $trade->save();
+        $this->trade->save();
         $this->emit('tradeMade');
 
         $this->toggleModal();
