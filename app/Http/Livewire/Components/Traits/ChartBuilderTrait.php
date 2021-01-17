@@ -90,9 +90,6 @@ trait ChartBuilderTrait
         // Get every demand between now and the end date
         $dayLogs = auth()->user()->company->dayLogsBetweenCarbonDates($period->startDate, $period->endDate);
         $this->chartData[$chartType]['dayLogs'] = $dayLogs ;
-        if ($chartType == "blue") {
-            //dd(auth()->user()->company->dayLogs, $period->startDate, $period->endDate);
-        }
 
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
@@ -189,8 +186,6 @@ trait ChartBuilderTrait
 
             // Set the new possible min max
             $this->chartData[$chartType]['possibleMinMax'] = $possibleMinMax;
-
-            //dd($this->chartData[$chartType]);
         }
 
         // Determine the shortage if it wasn't already present
