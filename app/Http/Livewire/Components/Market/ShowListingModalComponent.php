@@ -133,6 +133,7 @@ class ShowListingModalComponent extends Component
 
         $this->toggleModal();
         $this->toggleConfirmationStage();
+        return redirect()->to('/company/portfolio');
     }
 
     public function toggleModal()
