@@ -12,7 +12,7 @@ class ChartOverviewComponent extends Component
 {
     use ChartBuilderTrait;
 
-    public $chartTypes = ['blue', 'green', 'grey'];
+    public $chartTypes = ['blue', 'green', 'grey', 'mix', 'combined'];
     public $chartData = [];
     public $labels = [];
 

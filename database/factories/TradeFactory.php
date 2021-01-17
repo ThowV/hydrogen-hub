@@ -21,7 +21,7 @@ class TradeFactory extends Factory
      */
     public function definition()
     {
-        $enum = ['green', 'blue', 'grey'];
+        $enum = ['green', 'blue', 'grey', 'mix'];
         $trades = ['offer', 'request'];
 
         return [

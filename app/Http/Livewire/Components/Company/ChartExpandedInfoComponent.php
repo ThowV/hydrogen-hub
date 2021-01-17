@@ -68,8 +68,13 @@ class ChartExpandedInfoComponent extends Component
 
         // Get the running contracts
         $start = Carbon::create(str_replace('-', '', $this->datetime));
-        $this->runningTradesBought = auth()->user()->company->getBoughtTradesAfterCarbonDate($start)->where('hydrogen_type', $chartData['hydrogenType']);
-        $this->runningTradesSold = auth()->user()->company->getSoldTradesAfterCarbonDate($start)->where('hydrogen_type', $chartData['hydrogenType']);
+        $this->runningTradesBought = auth()->user()->company->getBoughtTradesAfterCarbonDate($start);
+        $this->runningTradesSold = auth()->user()->company->getSoldTradesAfterCarbonDate($start);
+
+        if ($this->chartType != 'combined') {
+            $this->runningTradesBought = $this->runningTradesBought->where('hydrogen_type', $chartData['hydrogenType']);
+            $this->runningTradesSold = $this->runningTradesSold->where('hydrogen_type', $chartData['hydrogenType']);
+        }
     }
 
     public function openTradeEntry(Trade $trade)

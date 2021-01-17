@@ -12,6 +12,12 @@ abstract class DeepnessFactor
     const HOURS = 1;
 }
 
+abstract class BuildMethod
+{
+    const SET = 0;
+    const RETURN = 1;
+}
+
 trait ChartBuilderTrait
 {
 
@@ -60,12 +66,19 @@ trait ChartBuilderTrait
      *
      * @param $period
      * @param $chartType
-     * @param $deepnessFactor
+     * @param int $deepnessFactor
+     * @param bool $avoidSet
+     * @return array|null
      */
-    public function buildChart($period, $chartType, $deepnessFactor=DeepnessFactor::DAYS)
+    public function buildChart($period, $chartType, $deepnessFactor=DeepnessFactor::DAYS, $avoidSet=false)
     {
+        if ($chartType == 'combined') {
+            $this->chartData[$chartType] = $this->buildCombinedChart($period, $chartType, $deepnessFactor)['combined'];
+            return $this->chartData[$chartType];
+        }
+
         // Create a new set of data for this chart type so we can modify it
-        $this->chartData[$chartType] = [
+        $chartData[$chartType] = [
             'hydrogenType' => $chartType,
             'period' => $period,
             'labels' => $this->buildLabels($period, $deepnessFactor),
@@ -85,14 +98,11 @@ trait ChartBuilderTrait
 
         // Get every trade that is active between now and the next 7 days or longer
         $trades = auth()->user()->company->tradesAfterCarbonDate($period->startDate)->where('hydrogen_type', '=', $chartType);
-        $this->chartData[$chartType]['trades'] = $trades;
+        $chartData[$chartType]['trades'] = $trades;
 
         // Get every demand between now and the end date
         $dayLogs = auth()->user()->company->dayLogsBetweenCarbonDates($period->startDate, $period->endDate);
-        $this->chartData[$chartType]['dayLogs'] = $dayLogs ;
-        if ($chartType == "blue") {
-            //dd(auth()->user()->company->dayLogs, $period->startDate, $period->endDate);
-        }
+        $chartData[$chartType]['dayLogs'] = $dayLogs ;
 
         // Loop through each day in the period
         foreach ($period as $index=>$date) {
@@ -130,26 +140,26 @@ trait ChartBuilderTrait
 
 
                 foreach ($hydrogenIn as $key => $in) {
-                    $this->chartData[$chartType][$key][] = $in;
+                    $chartData[$chartType][$key][] = $in;
                     $totalIn += $in;
                 }
 
                 foreach ($hydrogenOut as $key => $out) {
-                    $this->chartData[$chartType][$key][] = -$out;
+                    $chartData[$chartType][$key][] = -$out;
                     $totalOut += $out;
                 }
 
                 // Set the total load
                 $totalLoad = $totalIn - $totalOut;
-                $this->chartData[$chartType]['totalLoad'][] = $totalLoad;
+                $chartData[$chartType]['totalLoad'][] = $totalLoad;
 
                 // Set the demand
-                $this->chartData[$chartType]['demand'][] = $demand;
+                $chartData[$chartType]['demand'][] = $demand;
 
                 // Push the possible boundaries
-                $this->chartData[$chartType]['possibleMinMax'][] = $totalIn;
-                $this->chartData[$chartType]['possibleMinMax'][] = $demand;
-                $this->chartData[$chartType]['possibleMinMax'][] = -$totalOut;
+                $chartData[$chartType]['possibleMinMax'][] = $totalIn;
+                $chartData[$chartType]['possibleMinMax'][] = $demand;
+                $chartData[$chartType]['possibleMinMax'][] = -$totalOut;
             }
         }
 
@@ -158,7 +168,7 @@ trait ChartBuilderTrait
             $possibleMinMax = [];
 
             // Loop through each entry
-            foreach($this->chartData[$chartType] as $key => $chartDataSet) {
+            foreach($chartData[$chartType] as $key => $chartDataSet) {
                 // Check if the data set is an array, we need to reduce its size from hours to days
                 if (is_array($chartDataSet) && $key != 'labels' && $key != 'trades' && $key != 'dayLogs') {
                     $reducedChartDataSet = [];
@@ -183,23 +193,21 @@ trait ChartBuilderTrait
                         $reducedChartDataSet[$reducedChartDataSetIndex] += $chartDataSetEntry;
                     }
 
-                    $this->chartData[$chartType][$key] = $reducedChartDataSet;
+                    $chartData[$chartType][$key] = $reducedChartDataSet;
                 }
             }
 
             // Set the new possible min max
-            $this->chartData[$chartType]['possibleMinMax'] = $possibleMinMax;
-
-            //dd($this->chartData[$chartType]);
+            $chartData[$chartType]['possibleMinMax'] = $possibleMinMax;
         }
 
         // Determine the shortage if it wasn't already present
-        $shortage = $this->chartData[$chartType]['shortage'];
+        $shortage = $chartData[$chartType]['shortage'];
 
         if (!$shortage) {
-            for ($i = 0; $i < count($this->chartData[$chartType]['demand']); $i++) {
-                $totalLoad = $this->chartData[$chartType]['totalLoad'][$i];
-                $demand = $this->chartData[$chartType]['demand'][$i];
+            for ($i = 0; $i < count($chartData[$chartType]['demand']); $i++) {
+                $totalLoad = $chartData[$chartType]['totalLoad'][$i];
+                $demand = $chartData[$chartType]['demand'][$i];
 
                 // Check if the total load is lower than the demand, if so, we have a shortage so we build the label
                 $shortage = $demand - $totalLoad;
@@ -215,7 +223,7 @@ trait ChartBuilderTrait
                         $label = $date->format('M d') . ', ' . (($i + 2) % 24) . ':00';
                     }
 
-                    $this->chartData[$chartType]['shortage'] = $label . ' - ' . $shortage . ' units short';
+                    $chartData[$chartType]['shortage'] = $label . ' - ' . $shortage . ' units short';
                     break;
                 }
             }
@@ -223,16 +231,112 @@ trait ChartBuilderTrait
 
         // Determine the minimum and maximum
         $boundaries = $this->modifyBoundaries(
-            min($this->chartData[$chartType]['possibleMinMax']),
-            max($this->chartData[$chartType]['possibleMinMax'])
+            min($chartData[$chartType]['possibleMinMax']),
+            max($chartData[$chartType]['possibleMinMax'])
         );
 
         if ($boundaries[1] == 0) {
             $boundaries[1] = 100;
         }
 
-        $this->chartData[$chartType]['min'] = $boundaries[0];
-        $this->chartData[$chartType]['max'] = $boundaries[1];
+        $chartData[$chartType]['min'] = $boundaries[0];
+        $chartData[$chartType]['max'] = $boundaries[1];
+
+        // Finalize
+        if (!$avoidSet) {
+            $this->chartData[$chartType] = $chartData[$chartType];
+        }
+
+        return $chartData[$chartType];
+    }
+
+    /**
+     * Build extensive chart data in a given carbon period
+     *
+     * @param $period
+     * @param $chartType
+     * @param $deepnessFactor
+     * @return array
+     */
+    public function buildCombinedChart($period, $chartType, $deepnessFactor=DeepnessFactor::DAYS)
+    {
+        $chartData = ['combined' => [
+            'hydrogenType' => $chartType,
+            'period' => $period,
+            'labels' => $this->buildLabels($period, $deepnessFactor),
+            'min' => 0,
+            'max' => 0,
+            'totalLoad' => [],
+            'bought' => [],
+            'sold' => [],
+            'produce' => [],
+            'demand' => [],
+            'store' => [],
+            'trades' => [],
+            'shortage' => ''
+        ]];
+
+        // Combine the charts
+        $hydrogenInterests = auth()->user()->company->hydrogenInterests->toArray();
+        foreach ($hydrogenInterests as $subChartType) {
+            $subChartType = $subChartType['interest'];
+
+            if ($subChartType == 'combined') {
+                continue;
+            }
+
+            $subChartData = $this->buildChart($period, $subChartType, $deepnessFactor, true);
+
+            foreach ($subChartData as $key=>$value) {
+                if ($key == 'shortage' || $key == 'possibleMinMax' || $key == 'dayLogs') {
+                    continue;
+                }
+
+                $combinedDataVal = $chartData['combined'][$key];
+
+                if (($key == 'min' && $value < $combinedDataVal) || ($key == 'max' && $value > $combinedDataVal)) {
+                    $chartData['combined'][$key] = $value;
+                }
+                else if ($key == 'totalLoad' || $key == 'bought' || $key == 'sold' || $key == 'produce'
+                    || $key == 'demand' || $key == 'store' || $key == 'trades') {
+
+                    foreach ($value as $index=>$subDataEntry) {
+                        if (!is_numeric($subDataEntry) || count($combinedDataVal) < ($index+1)) {
+                            $chartData['combined'][$key][] = $subDataEntry;
+                        }
+                        else {
+                            $chartData['combined'][$key][$index] += $subDataEntry;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Get the shortage
+        for ($i = 0; $i < count($chartData['combined']['demand']); $i++) {
+            $totalLoad = $chartData['combined']['totalLoad'][$i];
+            $demand = $chartData['combined']['demand'][$i];
+
+            // Check if the total load is lower than the demand, if so, we have a shortage so we build the label
+            $shortage = $demand - $totalLoad;
+            if ($shortage > 0) {
+                $label = '';
+
+                if ($deepnessFactor == DeepnessFactor::DAYS) {
+                    $date = $period->startDate->addDays($i);
+                    $label = $date->format('M d');
+                }
+                if ($deepnessFactor == DeepnessFactor::HOURS) {
+                    $date = $period->startDate->addHours($i);
+                    $label = $date->format('M d') . ', ' . (($i + 2) % 24) . ':00';
+                }
+
+                $chartData[$chartType]['shortage'] = $label . ' - ' . $shortage . ' units short';
+                break;
+            }
+        }
+
+        return $chartData;
     }
 
     /**

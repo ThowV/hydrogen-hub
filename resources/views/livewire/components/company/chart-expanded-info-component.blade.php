@@ -4,7 +4,7 @@
             <p class="font-semibold pb-4">Information {{ $datetime ? 'for ' . $datetime : '(click on an hour in the graph to view)' }}</p>
 
             @canany(['company.produced.update', 'company.stored.update', 'company.demand.update'])
-                @if ($datetime != '')
+                @if ($datetime != '' && $chartType != "combined")
                     <div class="flex justify-items-end items-start">
                         @if (!$editState)
                             <svg wire:click="toggleEditState" class="opacity-25 hover:opacity-75 transaction duration-300" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20">
