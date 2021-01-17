@@ -112,7 +112,6 @@ class ChartExpandedInfoComponent extends Component
         $dayLog = auth()->user()->company->dayLogs->where('date', '=', $this->date->toDateString())->first(); // Get first because faker generates multiple day logs with the same date, normally this isn't possible
 
         if (!$dayLog) {
-            var_dump('I HAD TO CREATE A DAY LOG?');
             // Create a day log
             $dayLog = CompanyDayLog::create([
                 'company_id' => auth()->user()->company->id,
@@ -126,7 +125,6 @@ class ChartExpandedInfoComponent extends Component
             $section = $dayLog->sections->where('hydrogen_type', '=', $this->chartType)->first();
         }
         else {
-            var_dump('I HAD TO CREATE A DAY LOG SECTION?');
             // Create a day log section
             $section = CompanyDayLogSection::create([
                 'company_day_log_id' => $dayLog->id,

@@ -16,7 +16,7 @@ class ChartOverviewComponent extends Component
     public $chartData = [];
     public $labels = [];
 
-    protected $listeners = ['chartTypesUpdated' => 'chartTypesUpdated'];
+    protected $listeners = ['chartTypesUpdated' => 'chartTypesUpdated', 'chartExpandedDataUpdated' => 'chartDataUpdated'];
 
     public function openChartExpandedModal($chartType)
     {
@@ -38,6 +38,12 @@ class ChartOverviewComponent extends Component
         }
 
         $this->emit("openChartOverviewSelectionModal");
+    }
+
+    public function chartDataUpdated($chartDataUpdated) {
+        $this->initializeCharts();
+
+        $this->emit('chartDataOverviewsUpdated', $this->chartData);
     }
 
     public function initializeCharts()

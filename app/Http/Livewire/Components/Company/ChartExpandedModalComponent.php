@@ -41,7 +41,7 @@ class ChartExpandedModalComponent extends Component
     public function chartDataModified() {
         if ($this->isOpen && $this->chartType) {
             $this->setChartData($this->chartType);
-            $this->emit('chartDataUpdated', $this->chartData[$this->chartType]);
+            $this->emit('chartExpandedDataUpdated', $this->chartData[$this->chartType]);
         }
     }
 

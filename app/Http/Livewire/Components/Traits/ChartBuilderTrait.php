@@ -147,7 +147,8 @@ trait ChartBuilderTrait
                 $this->chartData[$chartType]['demand'][] = $demand;
 
                 // Push the possible boundaries
-                $this->chartData[$chartType]['possibleMinMax'][] = $totalIn > $demand ? $totalIn : $demand;
+                $this->chartData[$chartType]['possibleMinMax'][] = $totalIn;
+                $this->chartData[$chartType]['possibleMinMax'][] = $demand;
                 $this->chartData[$chartType]['possibleMinMax'][] = -$totalOut;
             }
         }
@@ -225,6 +226,10 @@ trait ChartBuilderTrait
             min($this->chartData[$chartType]['possibleMinMax']),
             max($this->chartData[$chartType]['possibleMinMax'])
         );
+
+        if ($boundaries[1] == 0) {
+            $boundaries[1] = 100;
+        }
 
         $this->chartData[$chartType]['min'] = $boundaries[0];
         $this->chartData[$chartType]['max'] = $boundaries[1];
@@ -311,7 +316,7 @@ trait ChartBuilderTrait
      */
     public function modifyBoundaries($min, $max) {
         return [
-            (int)($min + ceil(0.15 * $min)),
+            (int)($min + floor(0.15 * $min)),
             (int)($max + ceil(0.15 * $max))
         ];
     }

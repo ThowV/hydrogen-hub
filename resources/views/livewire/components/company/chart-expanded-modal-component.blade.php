@@ -63,10 +63,10 @@
 
 @push('scripts')
     <script>
-        let ctx = null;
-        let chart = null
+        let ctxExpanded = null;
+        let chartExpanded = null
 
-        let colors = {
+        let colorsExpanded = {
             "chartDemandColor": "",
             "chartProduceColor": "",
             "chartBoughtColor": "",
@@ -75,29 +75,27 @@
             "chartTotalLoadColor": '',
         }
 
-        function setup(chartData) {
-            ctx = document.getElementById("canvas-expanded").getContext("2d");
+        function setupExpanded(hydrogenType) {
+            ctxExpanded = document.getElementById("canvas-expanded").getContext("2d");
 
-            colors["chartDemandColor"] = "#317939";
-            colors['chartProduceColor'] = "#BEBEBE";
-            colors['chartBoughtColor'] = "#CBE4FD";
-            colors["chartStoreColor"] = "#7DB0ED"
-            colors["chartSoldColor"] = "#F0CFB3";
-            colors["chartTotalLoadColor"] = "#5CE06A"
+            colorsExpanded["chartDemandColor"] = "#317939";
+            colorsExpanded['chartProduceColor'] = "#BEBEBE";
+            colorsExpanded['chartBoughtColor'] = "#CBE4FD";
+            colorsExpanded["chartStoreColor"] = "#7DB0ED"
+            colorsExpanded["chartSoldColor"] = "#F0CFB3";
+            colorsExpanded["chartTotalLoadColor"] = "#5CE06A"
 
-            if (chartData.hydrogenType === 'blue') {
-                colors["chartDemandColor"] = "#003399";
-                colors["chartTotalLoadColor"] = "#0099ff";
+            if (hydrogenType === 'blue') {
+                colorsExpanded["chartDemandColor"] = "#003399";
+                colorsExpanded["chartTotalLoadColor"] = "#0099ff";
             }
-            else if (chartData.hydrogenType === 'grey') {
-                colors["chartDemandColor"] = "#2F2F2F";
-                colors["chartTotalLoadColor"] = "#796758";
+            else if (hydrogenType === 'grey') {
+                colorsExpanded["chartDemandColor"] = "#2F2F2F";
+                colorsExpanded["chartTotalLoadColor"] = "#796758";
             }
         }
 
-        Livewire.on('chartExpandedOpened', function (chartData) {
-            setup(chartData);
-
+        function createExpanded(chartData) {
             let chartDataExpanded = {
                 labels: chartData.labels,
 
@@ -109,10 +107,10 @@
                         fill: true,
                         backgroundColor: "transparent",
                         pointBackgroundColor: "#fff",
-                        borderColor: colors['chartDemandColor'],
-                        pointHoverBackgroundColor: colors['chartDemandColor'],
-                        pointBorderColor: colors['chartDemandColor'],
-                        pointHoverBorderColor: colors['chartDemandColor'],
+                        borderColor: colorsExpanded['chartDemandColor'],
+                        pointHoverBackgroundColor: colorsExpanded['chartDemandColor'],
+                        pointBorderColor: colorsExpanded['chartDemandColor'],
+                        pointHoverBorderColor: colorsExpanded['chartDemandColor'],
                         borderCapStyle: 'butt',
                         borderJoinStyle: 'round',
                         lineTension: 0,
@@ -129,10 +127,10 @@
                         fill: true,
                         backgroundColor: "transparent",
                         pointBackgroundColor: "#fff",
-                        borderColor: colors['chartTotalLoadColor'],
-                        pointHoverBackgroundColor: colors['chartTotalLoadColor'],
-                        pointBorderColor: colors['chartTotalLoadColor'],
-                        pointHoverBorderColor: colors['chartTotalLoadColor'],
+                        borderColor: colorsExpanded['chartTotalLoadColor'],
+                        pointHoverBackgroundColor: colorsExpanded['chartTotalLoadColor'],
+                        pointBorderColor: colorsExpanded['chartTotalLoadColor'],
+                        pointHoverBorderColor: colorsExpanded['chartTotalLoadColor'],
                         borderCapStyle: 'butt',
                         borderJoinStyle: 'round',
                         lineTension: 0,
@@ -144,28 +142,28 @@
                     },
                     {
                         label: 'Produce',
-                        backgroundColor: colors['chartProduceColor'],
+                        backgroundColor: colorsExpanded['chartProduceColor'],
                         xAxisID: "bar-x-axis-inner",
                         yAxisID: "bar-y-axis",
                         data: chartData.produce
                     },
                     {
                         label: 'Bought',
-                        backgroundColor: colors['chartBoughtColor'],
+                        backgroundColor: colorsExpanded['chartBoughtColor'],
                         xAxisID: "bar-x-axis-inner",
                         yAxisID: "bar-y-axis",
                         data: chartData.bought
                     },
                     {
                         label: 'Store',
-                        backgroundColor: colors['chartStoreColor'],
+                        backgroundColor: colorsExpanded['chartStoreColor'],
                         xAxisID: "bar-x-axis-inner",
                         yAxisID: "bar-y-axis",
                         data: chartData.store
                     },
                     {
                         label: 'Sold',
-                        backgroundColor: colors['chartSoldColor'],
+                        backgroundColor: colorsExpanded['chartSoldColor'],
                         xAxisID: "bar-x-axis-inner",
                         yAxisID: "bar-y-axis",
                         data: chartData.sold
@@ -173,7 +171,7 @@
                 ]
             };
 
-            chart = new Chart(ctx, {
+            chartExpanded = new Chart(ctxExpanded, {
                 type: 'bar',
                 data: chartDataExpanded,
                 options: {
@@ -227,20 +225,20 @@
                     }
                 }
             });
-        });
+        }
 
-        function clear() {
-            if (chart) {
-                chart.destroy();
+        function clearExpanded() {
+            if (chartExpanded) {
+                chartExpanded.destroy();
             }
 
-            ctx = document.getElementById("canvas-expanded").getContext("2d");
+            ctxExpanded = document.getElementById("canvas-expanded").getContext("2d");
 
-            for (let color in colors) {
-                colors[color] = "#000000";
+            for (let color in colorsExpanded) {
+                colorsExpanded[color] = "#000000";
             }
 
-            chart = new Chart(ctx, {
+            chartExpanded = new Chart(ctxExpanded, {
                 type: 'bar',
                 options: {
                     title: {
@@ -292,7 +290,7 @@
                 }
             });
 
-            ctx = null;
+            ctxExpanded = null;
         }
 
         function chartClicked(event, array) {
@@ -303,14 +301,15 @@
             }
         }
 
-        Livewire.on('clearChart', function () {
-            clear();
-        })
+        Livewire.on('chartExpandedOpened', function (chartData) {
+            setupExpanded(chartData.hydrogenType);
+            createExpanded(chartData);
+        });
 
-        Livewire.on('chartDataUpdated', function (chartData) {
-            clear();
-
-            Livewire.emit('chartExpandedOpened',chartData);
+        Livewire.on('chartExpandedDataUpdated', function (chartData) {
+            clearExpanded();
+            setupExpanded(chartData.hydrogenType);
+            createExpanded(chartData);
         });
     </script>
 @endpush

@@ -30,101 +30,205 @@
     </div>
 </div>
 
-<script type="javascript">
-    @push('scripts_onload')
-    let chartData = @json($chartData);
+@push('scripts')
+    <script type>
+        let ctxOverview = null;
+        let chartOverview = null
 
-    for (const chart in chartData) {
-        let chartDemandColor = "#4CD35D";
-        let chartTotalLoadColor = "#d3fdd8";
-
-        if (chartData[chart].hydrogenType === 'blue') {
-            chartDemandColor = "#003399";
-            chartTotalLoadColor = "#cbe4fd";
-        }
-        else if (chartData[chart].hydrogenType === 'grey') {
-            chartDemandColor = "#909090";
-            chartTotalLoadColor = "#e8e8e8";
+        let colorsOverview = {
+            "chartDemandColor": "",
+            "chartTotalLoadColor": ""
         }
 
-        let ctx = document.getElementById("canvas-" + chart).getContext("2d");
+        createOverviews();
 
-        let chartDataCJS = {
-            labels: chartData[chart].labels,
-            datasets: [
-                {
-                    data: chartData[chart].demand,
-                    type: 'line',
-                    label: 'Demand',
-                    fill: true,
-                    backgroundColor: "#00ff0000",
-                    pointBackgroundColor: "#fff",
-                    borderColor: chartDemandColor,
-                    pointHoverBackgroundColor: chartDemandColor,
-                    pointBorderColor: chartDemandColor,
-                    pointHoverBorderColor: chartDemandColor,
-                    borderCapStyle: 'butt',
-                    borderJoinStyle: 'round',
-                    lineTension: 0,
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10
-                },
-                {
-                    label: 'Total load',
-                    backgroundColor: chartTotalLoadColor,
-                    borderColor: chartTotalLoadColor,
-                    yAxisID: "bar-y-axis",
-                    data: chartData[chart].totalLoad
-                },
-            ]
-        }
+        function createOverviews(chartData=null) {
+            if (!chartData) {
+                chartData = @json($chartData);
+            }
 
-        window.ldc = new Chart(ctx, {
-            type: 'bar',
-            data: chartDataCJS,
-            options: {
-                title: {
-                    display: true,
-                    text: chart.charAt(0).toUpperCase() + chart.slice(1)
-                },
-                tooltips: {
-                    mode: 'label'
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        stacked: true,
-                        categoryPercentage: 1.0,
-                        barPercentage: 1.0
-                    }],
-                    yAxes: [
-                        {
-                            stacked: false,
-                            ticks: {
-                                beginAtZero: true,
-                                min: chartData[chart].min,
-                                max: chartData[chart].max
-                            },
-                        },
-                        {
-                            id: "bar-y-axis",
-                            stacked: true,
-                            display: false,
-                            ticks: {
-                                beginAtZero: true,
-                                min: chartData[chart].min,
-                                max: chartData[chart].max
-                            },
-                            type: 'linear'
-                        }
-                    ]
+            if (chartData) {
+                for(let k in chartData) {
+                    setupOverview(chartData[k].hydrogenType);
+                    createOverview(chartData[k]);
                 }
             }
+        }
+
+        function setupOverview(hydrogenType) {
+            ctxOverview = document.getElementById(`canvas-${hydrogenType}`).getContext("2d");
+
+            colorsOverview["chartDemandColor"] = "#4CD35D";
+            colorsOverview["chartTotalLoadColor"] = "#d3fdd8";
+
+            if (hydrogenType === 'blue') {
+                colorsOverview["chartDemandColor"] = "#003399";
+                colorsOverview["chartTotalLoadColor"] = "#cbe4fd";
+            }
+            else if (hydrogenType === 'grey') {
+                colorsOverview["chartDemandColor"] = "#909090";
+                colorsOverview["chartTotalLoadColor"] = "#e8e8e8";
+            }
+        }
+
+        function clearOverviews() {
+            let chartData = @json($chartData);
+
+            if (chartData) {
+                for(let k in chartData) {
+                    clearOverview(chartData[k].hydrogenType);
+                }
+            }
+        }
+
+        function clearOverview(hydrogenType) {
+            if (chartOverview) {
+                chartOverview.destroy();
+            }
+
+            ctxOverview = document.getElementById(`canvas-${hydrogenType}`).getContext("2d");
+
+            for (let color in colorsOverview) {
+                colorsOverview[color] = "#000000";
+            }
+
+            chartOverview = new Chart(ctxOverview, {
+                type: 'bar',
+                options: {
+                    title: {
+                        display: false,
+                    },
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                            categoryPercentage: 1.0,
+                            barPercentage: 1.0
+                        }],
+                        yAxes: [
+                            {
+                                stacked: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 100
+                                },
+                            },
+                            {
+                                id: "bar-y-axis",
+                                stacked: true,
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0,
+                                    max: 100
+                                },
+                                type: 'linear'
+                            }
+                        ]
+                    }
+                }
+            });
+            ctxOverview = null;
+        }
+
+        function createOverview(chartData) {
+            let chartDataOverview = {
+                labels: chartData.labels,
+                datasets: [
+                    {
+                        data: chartData.demand,
+                        type: 'line',
+                        label: 'Demand',
+                        fill: true,
+                        backgroundColor: "#00ff0000",
+                        pointBackgroundColor: "#fff",
+                        borderColor: colorsOverview["chartDemandColor"],
+                        pointHoverBackgroundColor: colorsOverview["chartDemandColor"],
+                        pointBorderColor: colorsOverview["chartDemandColor"],
+                        pointHoverBorderColor: colorsOverview["chartDemandColor"],
+                        borderCapStyle: 'butt',
+                        borderJoinStyle: 'round',
+                        lineTension: 0,
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10
+                    },
+                    {
+                        label: 'Total load',
+                        backgroundColor: colorsOverview["chartTotalLoadColor"],
+                        borderColor: colorsOverview["chartTotalLoadColor"],
+                        yAxisID: "bar-y-axis",
+                        data: chartData.totalLoad
+                    },
+                ]
+            }
+
+            chartOverview = new Chart(ctxOverview, {
+                type: 'bar',
+                data: chartDataOverview,
+                options: {
+                    onClick: chartClicked,
+                    title: {
+                        display: true,
+                        text: `${chartData.hydrogenType.charAt(0).toUpperCase() + chartData.hydrogenType.slice(1)}`,
+                    },
+                    tooltips: {
+                        mode: 'label'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [
+                            {
+                                id: "bar-x-axis-inner",
+                                stacked: true,
+                                categoryPercentage: 1,
+                                barPercentage: 0.8
+                            },
+                            {
+                                id: "bar-x-axis-outer",
+                                stacked: false,
+                                display: false,
+                                categoryPercentage: 1.0,
+                                barPercentage: 1.0
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                stacked: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                            },
+                            {
+                                id: "bar-y-axis",
+                                stacked: true,
+                                display: false,
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: chartData.min,
+                                    max: chartData.max
+                                },
+                                type: 'linear',
+                            }
+                        ]
+                    }
+                }
+            });
+        }
+
+        Livewire.on('chartDataOverviewsUpdated', function (chartData) {
+            clearOverviews();
+            createOverviews(chartData);
         });
-    }
-    @endpush
-</script>
+    </script>
+@endpush
