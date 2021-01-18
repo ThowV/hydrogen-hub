@@ -6,10 +6,10 @@
         </button>
     </div>
 
-    <div class="flex flex-auto justify-around sm:items-center sm:flex-col text-center">
+    <div class="flex flex-auto justify-between sm:items-center sm:flex-col text-center overflow-auto gap-10 pb-6">
     @foreach($chartData as $chart)
-        <div class="w-1/4 sm:w-full max-h-40 flex flex-col items-center">
-            <div class="relative flex flex-col w-vw24 h-28vh sm:w-full" style="width: 24vw; height: 28vh;">
+        <div class="sm:w-full max-h-40 flex flex-col items-center">
+            <div class="relative flex flex-col sm:w-full" style="width: 24vw; height: 28vh;">
                 <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openChartExpandedModal('{{ $chart['hydrogenType'] }}')">
                     <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
                 </div>
@@ -68,6 +68,14 @@
             else if (hydrogenType === 'grey') {
                 colorsOverview["chartDemandColor"] = "#909090";
                 colorsOverview["chartTotalLoadColor"] = "#e8e8e8";
+            }
+            else if (hydrogenType === 'mix') {
+                colorsOverview["chartDemandColor"] = "#CEB076";
+                colorsOverview["chartTotalLoadColor"] = "#EDD3A1";
+            }
+            else if (hydrogenType === 'combined') {
+                colorsOverview["chartDemandColor"] = "#FCA357";
+                colorsOverview["chartTotalLoadColor"] = "#F4C9A4";
             }
         }
 

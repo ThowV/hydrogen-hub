@@ -93,6 +93,14 @@
                 colorsExpanded["chartDemandColor"] = "#2F2F2F";
                 colorsExpanded["chartTotalLoadColor"] = "#796758";
             }
+            else if (hydrogenType === 'mix') {
+                colorsExpanded["chartDemandColor"] = "#CEB076";
+                colorsExpanded["chartTotalLoadColor"] = "#EDD3A1";
+            }
+            else if (hydrogenType === 'combined') {
+                colorsExpanded["chartDemandColor"] = "#F87C12";
+                colorsExpanded["chartTotalLoadColor"] = "#FCB06F";
+            }
         }
 
         function createExpanded(chartData) {

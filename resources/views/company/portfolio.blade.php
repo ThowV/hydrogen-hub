@@ -17,7 +17,7 @@
 
         <!--Graphs-->
         <div class="flex-auto px-10 xxl:px-20 pb-5 xxl:pb-20 xxl:pt-10">
-            <div class="rounded-lg p-10 w-full bg-white text-gray-700">
+            <div class="rounded-lg px-10 pt-10 w-full bg-white text-gray-700">
                 <div class="max-w-full">
                     @livewire('components.company.chart-overview-component')
                 </div>
