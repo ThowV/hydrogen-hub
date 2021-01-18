@@ -52,7 +52,7 @@
                         <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per
                             hour</label>
 
-                        <div class="w-full grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('units_per_hour', 'u/h')">
+                        <div class="w-full grid items-end cursor-pointer pr-8" wire:ignore x-data x-init="initSlider('units_per_hour', 'u/h')">
                             <input type="text" id="units_per_hour"/>
                             <div class="flex justify-between text-sm pt-2">
                                 <input class="w-5/12 bg-gray-200 rounded-full text-center" id="units_per_hour_input_from"/>
@@ -65,7 +65,7 @@
                         <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration
                             (hours)</label>
 
-                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('duration', 'h')">
+                        <div class="grid items-end cursor-pointer pr-8" wire:ignore x-data x-init="initSlider('duration', 'h')">
                             <input type="text" id="duration"/>
                             <div class="flex justify-between text-sm pt-2">
                                 <input class="w-5/12 bg-gray-200 rounded-full text-center" id="duration_input_from"/>
@@ -77,7 +77,7 @@
                     <td class="w-full grid">
                         <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
 
-                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('total_volume', 'u')">
+                        <div class="grid items-end cursor-pointer pr-8" wire:ignore x-data x-init="initSlider('total_volume', 'u')">
                             <input type="text" id="total_volume"/>
                             <div class="flex justify-between text-sm pt-2">
                                 <input class="w-5/12 bg-gray-200 rounded-full text-center" id="total_volume_input_from"/>
@@ -89,7 +89,7 @@
                     <td class="w-full grid">
                         <label for="price_per_unit" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per unit</label>
 
-                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('price_per_unit', '', '€ ')">
+                        <div class="grid items-end cursor-pointer pr-8" wire:ignore x-data x-init="initSlider('price_per_unit', '', '€ ')">
                             <input type="text" id="price_per_unit"/>
                             <div class="flex justify-between text-sm pt-2">
                                 <input class="w-5/12 bg-gray-200 rounded-full text-center" id="price_per_unit_input_from"/>
@@ -101,7 +101,7 @@
                     <td class="w-full grid">
                         <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
 
-                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('mix_co2', '%')">
+                        <div class="grid items-end cursor-pointer pr-8" wire:ignore x-data x-init="initSlider('mix_co2', '%')">
                             <input type="text" id="mix_co2"/>
                             <div class="flex justify-between text-sm pt-2">
                                 <input class="w-5/12 bg-gray-200 rounded-full text-center" id="mix_co2_input_from"/>
