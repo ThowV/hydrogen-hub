@@ -1,5 +1,5 @@
 <div class="w-full h-full">
-    <div class="w-full xxl:h-12 flex justify-between">
+    <div class="w-full flex justify-between">
         <h2 class="text-base xxl:text-3xl font-bold">Financials</h2>
 
         @can('company.fund.update')

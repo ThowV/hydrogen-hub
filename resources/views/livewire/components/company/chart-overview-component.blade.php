@@ -39,7 +39,7 @@
         let chartTotalLoadColor = "#d3fdd8";
 
         if (chartData[chart].hydrogenType === 'blue') {
-            chartDemandColor = "#003399";
+            chartDemandColor = "#0099FF";
             chartTotalLoadColor = "#cbe4fd";
         }
         else if (chartData[chart].hydrogenType === 'grey') {
@@ -58,7 +58,7 @@
                     label: 'Demand',
                     fill: true,
                     backgroundColor: "#00ff0000",
-                    pointBackgroundColor: "#fff",
+                    pointBackgroundColor: chartDemandColor,
                     borderColor: chartDemandColor,
                     pointHoverBackgroundColor: chartDemandColor,
                     pointBorderColor: chartDemandColor,
@@ -69,7 +69,7 @@
                     pointBorderWidth: 1,
                     pointHoverRadius: 5,
                     pointHoverBorderWidth: 2,
-                    pointRadius: 4,
+                    pointRadius: 3,
                     pointHitRadius: 10
                 },
                 {

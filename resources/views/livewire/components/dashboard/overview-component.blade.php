@@ -1,29 +1,47 @@
 <div class="w-full">
-    <div class="min-h-full flex flex-row">
-
+    <div class="">
+        <h2 class="xxl:text-3xl font-bold pb-6">Hydrogen Hub overview</h2>
+    </div>
+    <div class="min-h-full flex justify-between">
         @if($modalIsOpen)
             <x-dashboard.dashboard-graph-modal></x-dashboard.dashboard-graph-modal>
         @endif
         @if($open['prices'])
-            <div class="{{$colspan}}">
+            <div class="{{$colspan}} relative flex flex-col sm:w-full" style="width: 24vw; height: 28vh;">
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openDetailedGraphModal('prices')">
+                    <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
+                </div>
+
                 <canvas wire:key="prices" wire:click="openDetailedGraphModal('prices')" wire:ignore.self
                         id="canvas-price"></canvas>
             </div>
         @endif
         @if($open['volumes'])
-            <div class="{{$colspan}}">
+            <div class="{{$colspan}} relative flex flex-col sm:w-full" style="width: 24vw; height: 28vh;">
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openDetailedGraphModal('volumes')">
+                    <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
+                </div>
+
                 <canvas wire:key="volumes" wire:click="openDetailedGraphModal('volumes')" wire:ignore.self
                         id="canvas-volumes"></canvas>
             </div>
         @endif
         @if($open['mix'])
-            <div class="{{$colspan}}">
+            <div class="{{$colspan}} relative flex flex-col sm:w-full" style="width: 24vw; height: 28vh;">
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col"  wire:click="openDetailedGraphModal('mix')">
+                    <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
+                </div>
+
                 <canvas wire:key="mix" wire:click="openDetailedGraphModal('mix')" wire:ignore.self
                         id="canvas-mix"></canvas>
             </div>
         @endif
         @if($open['mix'])
-            <div class="hidden">
+            <div class="hidden relative flex flex-col sm:w-full" style="width: 24vw; height: 28vh;">
+                <div class="absolute z-10 inset-0 opacity-0 hover:opacity-50 transaction duration-300 cursor-pointer bg-gray-900 rounded-lg flex-col" wire:click="openDetailedGraphModal('mix')">
+                    <span class="text-white flex h-full items-center justify-center text-3xl font-semibold">Expand</span>
+                </div>
+
                 <canvas wire:key="mix" wire:click="openDetailedGraphModal('mix')" wire:ignore.self
                         id="canvas-mix"></canvas>
             </div>
@@ -85,7 +103,7 @@
                 pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
                 pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
                 pointHoverBorderWidth: 2,
-                pointRadius: 2,
+                pointRadius: 3,
                 pointHitRadius: 10
             },
             @endforeach
@@ -104,6 +122,7 @@
                 mode: 'label'
             },
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     stacked: true,
@@ -146,7 +165,7 @@
                 pointHoverBackgroundColor: '{{$priceGraphLine['pointHoverBackgroundColor']}}',
                 pointHoverBorderColor: '{{$priceGraphLine['pointHoverBorderColor']}}',
                 pointHoverBorderWidth: 2,
-                pointRadius: 2,
+                pointRadius: 3,
                 pointHitRadius: 10
             },
             @endforeach
@@ -165,6 +184,7 @@
                 mode: 'label'
             },
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     stacked: true,
@@ -206,7 +226,7 @@
                 pointHoverBackgroundColor: '{{$lineProperties['mix']['grey']['pointHoverBackgroundColor']}}',
                 pointHoverBorderColor: '{{$lineProperties['mix']['grey']['pointHoverBorderColor']}}',
                 pointHoverBorderWidth: 2,
-                pointRadius: 2,
+                pointRadius: 3,
                 pointHitRadius: 10
             },
         ],
@@ -224,6 +244,7 @@
                 mode: 'label'
             },
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 xAxes: [{
                     stacked: true,
