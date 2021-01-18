@@ -14,121 +14,126 @@
         </div>
 
         <!--Filter listings-->
-        <form class="flex flex-none justify-between flex-wrap sm:gap-6 md:gap-4"
+        <form class="flex flex-none justify-between flex-wrap"
               wire:submit.prevent="updateTrades">
-            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64">
-                <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Hydrogen type</label>
+            <table>
+                <tr class="flex">
+                    <td class="w-full">
+                        <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Hydrogen type</label>
 
-                <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 text-sm xl:text-base xxl:text-2xl">
-                    <div>
-                        <input type="checkbox" class="form-checkbox text-typeGreen-500" id="green"
-                               value="green" wire:model="filter.hydrogen_type">
-                        <label class="cursor-pointer" for="green">green</label>
-                    </div>
+                        <fieldset class="grid grid-cols-2 grid-rows-2 gap-2 pt-2 text-sm xl:text-base xxl:text-2xl">
+                            <div>
+                                <input type="checkbox" class="form-checkbox text-typeGreen-500" id="green"
+                                    value="green" wire:model="filter.hydrogen_type">
+                                <label class="cursor-pointer" for="green">green</label>
+                            </div>
 
-                    <div>
-                        <input type="checkbox" class="form-checkbox text-typeBlue-500 cursor-pointer" id="blue"
-                               value="blue" wire:model="filter.hydrogen_type">
-                        <label class="cursor-pointer" for="blue">blue</label>
-                    </div>
+                            <div>
+                                <input type="checkbox" class="form-checkbox text-typeBlue-500 cursor-pointer" id="blue"
+                                    value="blue" wire:model="filter.hydrogen_type">
+                                <label class="cursor-pointer" for="blue">blue</label>
+                            </div>
 
-                    <div>
-                        <input type="checkbox" class="form-checkbox text-typeGrey-500 cursor-pointer" id="grey"
-                               value="grey" wire:model="filter.hydrogen_type">
-                        <label class="cursor-pointer" for="grey">grey</label>
-                    </div>
+                            <div>
+                                <input type="checkbox" class="form-checkbox text-typeGrey-500 cursor-pointer" id="grey"
+                                    value="grey" wire:model="filter.hydrogen_type">
+                                <label class="cursor-pointer" for="grey">grey</label>
+                            </div>
 
-                    <div>
-                        <input type="checkbox" class="form-checkbox text-typeMix-500 cursor-pointer" id="mix"
-                               value="mix" wire:model="filter.hydrogen_type">
-                        <label class="cursor-pointer" for="mix">mix</label>
-                    </div>
-                </fieldset>
-            </div>
+                            <div>
+                                <input type="checkbox" class="form-checkbox text-typeMix-500 cursor-pointer" id="mix"
+                                    value="mix" wire:model="filter.hydrogen_type">
+                                <label class="cursor-pointer" for="mix">mix</label>
+                            </div>
+                        </fieldset>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
-                <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per
-                    hour</label>
+                    <td class="w-full grid">
+                        <label for="units_per_hour" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Units per
+                            hour</label>
 
-                <div class="w-full grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('units_per_hour', 'u/h')">
-                    <input type="text" id="units_per_hour"/>
-                    <div class="flex justify-between text-sm pt-2">
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="units_per_hour_input_from"/>
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="units_per_hour_input_to"/>
-                    </div>
-                </div>
-            </div>
+                        <div class="w-full grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('units_per_hour', 'u/h')">
+                            <input type="text" id="units_per_hour"/>
+                            <div class="flex justify-between text-sm pt-2">
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="units_per_hour_input_from"/>
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="units_per_hour_input_to"/>
+                            </div>
+                        </div>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
-                <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration
-                    (hours)</label>
+                    <td class="w-full grid">
+                        <label for="duration" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Duration
+                            (hours)</label>
 
-                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('duration', 'h')">
-                    <input type="text" id="duration"/>
-                    <div class="flex justify-between text-sm pt-2">
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="duration_input_from"/>
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="duration_input_to"/>
-                    </div>
-                </div>
-            </div>
+                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('duration', 'h')">
+                            <input type="text" id="duration"/>
+                            <div class="flex justify-between text-sm pt-2">
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="duration_input_from"/>
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="duration_input_to"/>
+                            </div>
+                        </div>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
-                <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
+                    <td class="w-full grid">
+                        <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Total volume (units)</label>
 
-                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('total_volume', 'u')">
-                    <input type="text" id="total_volume"/>
-                    <div class="flex justify-between text-sm pt-2">
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="total_volume_input_from"/>
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="total_volume_input_to"/>
-                    </div>
-                </div>
-            </div>
+                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('total_volume', 'u')">
+                            <input type="text" id="total_volume"/>
+                            <div class="flex justify-between text-sm pt-2">
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="total_volume_input_from"/>
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="total_volume_input_to"/>
+                            </div>
+                        </div>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
-                <label for="price_per_unit" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per unit</label>
+                    <td class="w-full grid">
+                        <label for="price_per_unit" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Price per unit</label>
 
-                <div class="grid items-end cursor-pointer" wire:ignore x-data x-init="initSlider('price_per_unit', '', '€ ')">
-                    <input type="text" id="price_per_unit"/>
-                    <div class="flex justify-between text-sm pt-2">
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="price_per_unit_input_from"/>
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="price_per_unit_input_to"/>
-                    </div>
-                </div>
-            </div>
+                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('price_per_unit', '', '€ ')">
+                            <input type="text" id="price_per_unit"/>
+                            <div class="flex justify-between text-sm pt-2">
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="price_per_unit_input_from"/>
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="price_per_unit_input_to"/>
+                            </div>
+                        </div>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 xxl:w-64 grid">
-                <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
+                    <td class="w-full grid">
+                        <label for="mix_co2" class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Mix CO2</label>
 
-                <div class="grid items-end" wire:ignore x-data x-init="initSlider('mix_co2', '%')">
-                    <input type="text" id="mix_co2"/>
-                    <div class="flex justify-between text-sm pt-2">
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="mix_co2_input_from"/>
-                        <input class="w-5/12 bg-gray-200 rounded-full text-center" id="mix_co2_input_to"/>
-                    </div>
-                </div>
-            </div>
+                        <div class="grid items-end cursor-pointer pr-2" wire:ignore x-data x-init="initSlider('mix_co2', '%')">
+                            <input type="text" id="mix_co2"/>
+                            <div class="flex justify-between text-sm pt-2">
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="mix_co2_input_from"/>
+                                <input class="w-5/12 bg-gray-200 rounded-full text-center" id="mix_co2_input_to"/>
+                            </div>
+                        </div>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 pl-10 xxl:w-64">
-                <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Trade type</label>
+                    <td class="w-full">
+                        <label class="font-bold sm:text-xxs text-xs xl:text-sm xxl:text-2xl">Trade type</label>
 
-                <fieldset class="flex flex-col gap-2 pt-2 text-sm xl:text-base  xxl:text-2xl">
-                    <div class="">
-                        <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="offer" value="offer"
-                               wire:model="filter.trade_type">
-                        <label class="cursor-pointer" for="offer">offer</label>
-                    </div>
+                        <fieldset class="flex flex-col gap-2 pt-2 text-sm xl:text-base  xxl:text-2xl">
+                            <div class="">
+                                <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="offer" value="offer"
+                                    wire:model="filter.trade_type">
+                                <label class="cursor-pointer" for="offer">offer</label>
+                            </div>
 
-                    <div class="">
-                        <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="request" value="request"
-                               wire:model="filter.trade_type">
-                        <label class="cursor-pointer" for="request">request</label>
-                    </div>
-                </fieldset>
-            </div>
+                            <div class="">
+                                <input type="checkbox" class="form-checkbox text-typeBlue cursor-pointer" id="request" value="request"
+                                    wire:model="filter.trade_type">
+                                <label class="cursor-pointer" for="request">request</label>
+                            </div>
+                        </fieldset>
+                    </td>
 
-            <div class="w-32 lg:w-40 xl:w-56 pl-10 xxl:w-64">
-                <button wire:click="resetFilters">Reset</button>
-            </div>
+                    <td class="w-full my-auto text-right">
+                        <button class="bg-gray-100 hover:bg-red-500 border-2 border-gray-500 hover:border-red-500 text-gray-600 hover:text-white text-xs xxl:text-2xl py-1 px-6 xxl:py-2 xxl:px-10 rounded-lg transition duration-200 ease-in-out"
+                        wire:click="resetFilters">Reset</button>
+                    </td>
+                </tr>
+            </table>
         </form>
 
         <!--Listings table-->
