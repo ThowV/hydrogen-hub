@@ -102,7 +102,7 @@
                 datasets: [
                     {
                         data: chartData.demand,
-                        type: 'line',
+                        type: 'LineWithLine',
                         label: 'Demand',
                         fill: true,
                         backgroundColor: "transparent",
