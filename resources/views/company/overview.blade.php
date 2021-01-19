@@ -32,7 +32,7 @@
         <!-- Company employees -->
         <div class="h-full px-10 xxl:px-20 pb-10 xxl:pb-20 xxl:pt-10">
             <div class="flex h-full">
-                <div class="rounded-lg p-10 xxl:px-24 xxl:py-24 bg-white text-gray-700">
+                <div class="rounded-lg p-10 xxl:px-24 xxl:py-24 bg-white text-gray-700 w-full">
                     <div class="w-full h-full">
                         @livewire('components.company.overview-component')
                     </div>

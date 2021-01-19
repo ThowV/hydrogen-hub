@@ -264,6 +264,11 @@
                 colors["chartLoadLeftColor"] = "#e8e8e8";
                 colors["chartNewTotalLoadColor"] = "#999999";
             }
+            else if (chartData.hydrogenType === 'mix') {
+                colors["chartDemandColor"] = "#CEB076";
+                colors["chartLoadLeftColor"] = "#e8e8e8";
+                colors["chartNewTotalLoadColor"] = "#EDD3A1";
+            }
         }
 
         function clear() {
