@@ -109,39 +109,41 @@ trait ChartBuilderTrait
 
             // Loop through each hour in the day
             for ($i = $startHour; $i < $endHour; $i++) {
-                $totalIn = 0;
-                $totalOut = 0;
+                $totalIn = '0';
+                $totalOut = '0';
 
                 $hydrogenIn = [];
                 $hydrogenOut = [];
 
                 // Get all values
                 $boughtSoldValues = $this->getBoughtSold($trades, $date, $i); // Get the bought and sold values
-                $hydrogenIn['bought'] = $boughtSoldValues[0]; // Add bought to hydrogen in
-                $hydrogenOut['sold'] = $boughtSoldValues[1]; // Add sold to hydrogen out
+                $hydrogenIn['bought'] = strval($boughtSoldValues[0]); // Add bought to hydrogen in
+                $hydrogenOut['sold'] = strval($boughtSoldValues[1]); // Add sold to hydrogen out
 
                 $section = $this->getDayLogSection($dayLogs, $date, $chartType); // Get produce, demand and store
-                $hydrogenIn['produce'] = isset($section['produce']) ? (int)($section['produce'] / 24) : 0; // Add produce to hydrogen in
-                $hydrogenOut['store'] = isset($section['store']) ? (int)($section['store'] / 24) : 0; // Add store to hydrogen out
-                $demand = isset($section['demand']) ? (int)($section['demand'] / 24) : 0;
+                $hydrogenIn['produce'] = isset($section['produce']) ? strval((int)($section['produce'] / 24)) : "0"; // Add produce to hydrogen in
+                $hydrogenOut['store'] = isset($section['store']) ? strval((int)($section['store'] / 24)) : "0"; // Add store to hydrogen out
+                $demand = isset($section['demand']) ? strval((int)($section['demand'] / 24)) : "0";
 
 
+                // Calculate total in
                 foreach ($hydrogenIn as $key => $in) {
-                    $this->chartData[$chartType][$key][] = $in;
+                    $this->chartData[$chartType][$key][] = strval($in);
                     $totalIn += $in;
                 }
 
+                // Calculate total out
                 foreach ($hydrogenOut as $key => $out) {
-                    $this->chartData[$chartType][$key][] = -$out;
+                    $this->chartData[$chartType][$key][] = strval(-$out);
                     $totalOut += $out;
                 }
 
                 // Set the total load
                 $totalLoad = $totalIn - $totalOut;
-                $this->chartData[$chartType]['totalLoad'][] = $totalLoad;
+                $this->chartData[$chartType]['totalLoad'][] = strval($totalLoad);
 
                 // Set the demand
-                $this->chartData[$chartType]['demand'][] = $demand;
+                $this->chartData[$chartType]['demand'][] = strval($demand);
 
                 // Push the possible boundaries
                 $this->chartData[$chartType]['possibleMinMax'][] = $totalIn > $demand ? $totalIn : $demand;
