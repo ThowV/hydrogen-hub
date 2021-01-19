@@ -25,12 +25,6 @@
                         <div align="center" class="w-full">
                             <img class="rounded-full w-32 xxl:w-46" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2016%2F08%2F08%2F09%2F17%2Favatar-1577909_960_720.png&f=1&nofb=1" alt="">
                         </div>
-                        <div class="w-full flex flex-col justify-center items-center text-sm sm:text-xs" align="center">
-                            <label for="">Change picture URL:</label>
-                            <input class="rounded-xl bg-gray-200 w-2/4 px-4 py-1 xxl:text-xl transaction duration-300 hover:bg-gray-300 focus:bg-gray-300 sm:text-xs xxl:text-xl" placeholder="Example..." wire:model="employeeToUpdate.picture_url" type="text"/>
-                            @error('employeeToUpdate.picture_url')
-                            <span class="error text-red-500">{{ $message }}</span> @enderror
-                        </div>
                     </div>
 
                     <form class="w-2/3 h-full" wire:submit.prevent>
@@ -76,20 +70,20 @@
 
                 <div class="flex flex-auto">
                     <div class="flex flex-row w-full text-sm sm:text-xs xxl:text-xl">
-                        <div class="w-3/4 flex flex-col gap-3 sm:gap-1">
+                        <div class="w-2/4 flex flex-col gap-3 sm:gap-1 pr-10">
                             <span class="font-semibold">Activity</span>
-                            <ul class="flex flex-col gap-3 sm:gap-1">
-                                <li>Total Trades: {{count($employeeToUpdate->trades)}}</li>
-                                <li>Total Offers: {{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</li>
-                                <li>Total Sold: {{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</li>
+                            <ul class="flex flex-col gap-8 sm:gap-1 md:h-24 overflow-auto">
+                                <li><b>Sold 27/h</b> for <b>6 hours 23 minutes</b> of <b>green hydrogen</b> at the price of <b>€ 0.0576/unit 15 hours ago</b> </li>
+                                <li><b>Bought 292/h</b> for <b>12 hours 32 minutes</b> of <b>blue hydrogen</b> at the price of <b>€ 0.0432/unit 19 hours ago</b> </li>
+                                <li><b>Bought 132/h</b> for <b>46 hours 12 minutes</b> of <b>grey hydrogen</b> at the price of <b>€ 0.0172/unit 22 hours ago</b> </li>
                             </ul>
                         </div>
-                        <div class="w-1/4 flex flex-col gap-3 sm:gap-1">
-                            <span class="font-semibold">Stats</span>
-                            <ul class="flex flex-col gap-3 sm:gap-1">
-                                <li>Total trades: {{count($employeeToUpdate->trades)}}</li>
-                                <li>Total offers: {{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</li>
-                                <li>Total sold: {{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</li>
+                        <div class="w-2/4 flex flex-col gap-3 sm:gap-1">
+                            <span class="font-semibold">Statistics</span>
+                            <ul class="flex flex-col gap-8 md:gap-4 sm:gap-1">
+                                <li>Total trades: <b>{{count($employeeToUpdate->trades)}}</b></li>
+                                <li>Total offers: <b>{{count($employeeToUpdate->tradesAsOwner->where('trade_type', 'offer'))}}</b></li>
+                                <li>Total sold: <b>{{count($employeeToUpdate->tradesAsResponder->where('trade_type', 'request'))}}</b></li>
                             </ul>
                         </div>
                     </div>

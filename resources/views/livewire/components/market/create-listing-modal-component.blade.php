@@ -4,7 +4,7 @@
 
             <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal"></div>
 
-            <div class="modal-container max-h-full max-w-full grid row-start-2 col-span-7 sm:col-span-6 row-span-4 sm:row-span-5 md:row-span-5 md:mt-8 mx-10 xxl:mx-20 bg-white rounded-lg shadow-lg z-50">
+            <div class="modal-container max-h-full max-w-full grid row-start-1 col-span-7 row-span-6 md:mt-8 mx-10 my-24 md:my-12 xxl:mx-20 bg-white rounded-lg shadow-lg z-50">
                 <div class="modal-content flex flex-col p-12 sm:p-4 xxl:p-16 text-left">
                     <!--Title-->
                     <div class="flex justify-between items-center pb-5 sm:pb-2">
@@ -17,7 +17,7 @@
                     </div>
 
                     @if ($confirmationStage)
-                        <div class="flex justify-center font-bold pb-12 sm:pb-4 text-xl xxl:text-2xl">Are you sure?</div>
+                        <div class="flex justify-center font-bold pb-4 sm:pb-4 text-xl xxl:text-2xl">Create this listing?</div>
                     @endif
 
                     <!--Body-->
@@ -122,7 +122,7 @@
                                 </div>
                             </div>
 
-                            <div class="w-2/3 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm sm:text-xxs xxl:text-2xl">
+                            <div class="w-2/3 ml-20 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm sm:text-xxs xxl:text-2xl">
                                 <div class="flex flex-col gap-5 sm:gap-1 md:gap-1 pb-2">
                                     <p>Hydrogen type:</p>
 
@@ -198,25 +198,30 @@
 
                     @elseif($confirmationStage)
                         <div class="flex flex-row w-full h-full justify-center">
-                            <div class="flex items-center gap-10">
-                                <p>Password for confirmation</p>
-                                <input
-                                    class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1"
-                                    wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
-                                >
-                                @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+                            <div class="flex flex-col h-full justify-center gap-10">
 
-                                <button
-                                    class="bg-butOrange hover:bg-orange-600 border-2 border-butOrange hover:border-orange-600 text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
-                                    wire:click="createListing">
-                                    Confirm
-                                </button>
+                                <div class="flex flex-col gap-2 text-left">
+                                    <p>Password for confirmation</p>
+                                    <input
+                                        class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1"
+                                        wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
+                                    >
+                                    @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
+                                </div>
 
-                                <button
-                                    class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
-                                    wire:click="toggleConfirmationStage">
-                                    Cancel
-                                </button>
+                                <div class="flex gap-10 items-center w-full">
+                                    <button
+                                        class="bg-butOrange hover:bg-orange-600 border-2 border-butOrange hover:border-orange-600 text-white hover:text-white text-xs xxl:text-2xl py-1 px-8 xxl:py-2 xxl:px-10 rounded-lg focus:outline-none focus:shadow-outline 2 transition duration-200 ease-in-out"
+                                        wire:click="createListing">
+                                        Confirm
+                                    </button>
+
+                                    <button
+                                        class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
+                                        wire:click="toggleConfirmationStage">
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -340,7 +345,7 @@
                     },
                     {
                         data: chartData.demand,
-                        type: 'line',
+                        type: 'LineWithLine',
                         label: 'Demand',
                         fill: true,
                         backgroundColor: "#00ff0000",

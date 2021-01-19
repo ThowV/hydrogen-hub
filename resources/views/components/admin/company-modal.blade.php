@@ -8,7 +8,7 @@
         <div class="modal-overlay fixed w-full h-full fixed bg-gray-900 opacity-50" wire:click="toggleModal()"></div>
 
         <div
-            class="modal-container max-h-full max-w-full grid col-start-2 sm:col-start-3 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded shadow-lg z-50">
+            class="modal-container max-h-full max-w-full grid col-start-2 sm:col-start-3 row-start-2 col-span-7 sm:col-span-6 mx-10 xxl:mx-20 row-span-4 bg-white rounded-lg shadow-lg z-50">
 
             <div class="modal-content flex flex-col w-full h-full p-8 sm:p-4 xxl:p-12 text-left">
 
@@ -52,20 +52,20 @@
                 <!-- Activity and Stats -->
                 <div class="flex flex-auto w-full py-10 text-sm" style="height: 30vh">
 
-                    <div class="flex flex-col h-full w-3/4 gap-5">
+                    <div class="flex flex-col h-full w-2/4 gap-5 pr-20">
 
                         <p class="font-bold xl:text-xl xxl:text-2xl">Activity</p>
 
-                        <ul class="flex flex-row gap-8 xxl:text-2xl">
+                        <ul class="flex flex-col gap-8 xxl:text-2xl h-56 overflow-auto">
                             @if(count($companyInModal->getAllActivities()) > 0)
                                 @foreach($companyInModal->getAllActivities(true) as $key => $activity)
                                     <li class="@if($key % 2 == 0) @endif">
                                         <span class="font-bold">{{ucfirst($activity[0])}}</span> <span
-                                            class="font-bold">{{$activity[1]}}</span>/h for <span
+                                            class="font-bold">{{$activity[1]}}/h</span> for <span
                                             class="font-bold">{{$activity[2]}}</span> of <span
                                             class="font-bold">{{$activity[3]}}</span>
                                         hydrogen at
-                                        the price of € <span class="font-bold">{{$activity[4] / 100}}</span>/unit
+                                        the price of € <span class="font-bold">{{$activity[4] / 100}}/unit</span>
                                         <span
                                             class="font-bold">{{ \Carbon\Carbon::parse( $activity[5])->diffForHumans()}}</span>
                                     </li>
@@ -76,9 +76,9 @@
                         </ul>
                     </div>
 
-                    <div class="flex flex-col h-ful w-1/4 gap-5">
+                    <div class="flex flex-col h-ful w-2/4 gap-5">
 
-                        <p class="font-bold xl:text-xl xxl:text-2xl">Stats</p>
+                        <p class="font-bold xl:text-xl xxl:text-2xl">Statistics</p>
 
                         <ul class="flex flex-row gap-5 xxl:text-2xl">
                             <div class="flex flex-col gap-8">

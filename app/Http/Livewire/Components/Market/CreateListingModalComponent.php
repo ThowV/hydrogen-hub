@@ -147,6 +147,11 @@ class CreateListingModalComponent extends Component
         }
 
         $this->confirmationStage = !$this->confirmationStage;
+
+        if (!$this->confirmationStage && $this->hydrogen_type != 'mix') {
+            // Emit the event to initialize the chart on the front-end
+            $this->emit('listingParametersFilled', $this->chartData[$this->hydrogen_type]);
+        }
     }
 
     public function createListing() {

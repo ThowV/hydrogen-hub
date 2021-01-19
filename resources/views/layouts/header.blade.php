@@ -11,7 +11,7 @@
     </div>
 
     <div class="col-start-2 flex justify-end py-4 xxl:py-10">
-        <h3 id="date-time" class="font-bold text-xs sm:text-xxs xxl:text-xl text-gray-600 py-6">Monday 23 November 2020 | 16:20:23</h3>
+        <h3 id="date-time" class="font-bold text-xs sm:text-xxs xxl:text-xl text-gray-600 py-6">Loading...</h3>
 
         <div class="opacity-25 transform scale-50 pt-1 transaction hover:opacity-100 duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="124.01" height="99.208" viewBox="0 0 124.01 99.208">
@@ -22,19 +22,21 @@
     </div>
 </div>
 
-<script>
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+@push('scripts')
+    <script>
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    let date = new Date();
-    let dateString = `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-    let minutesString = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
+        let headerDate = new Date();
+        let headerDateString = `${days[headerDate.getDay()]} ${headerDate.getDate()} ${months[headerDate.getMonth()]} ${headerDate.getFullYear()}`;
+        let headerMinutesString = headerDate.getMinutes() < 10 ? `0${headerDate.getMinutes()}` : `${headerDate.getMinutes()}`;
 
-    let timer = setInterval(function() {
-        let date = new Date();
-        let secondsString = date.getSeconds() < 10 ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
-        let timeString = `${date.getHours()}:${minutesString}:${secondsString}`;
+        let timer = setInterval(function() {
+            let date = new Date();
+            let secondsString = date.getSeconds() < 10 ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
+            let timeString = `${date.getHours()}:${headerMinutesString}:${secondsString}`;
 
-        document.getElementById("date-time").innerHTML = `${dateString} | ${timeString}`;
-    }, 1000);
-</script>
+            document.getElementById("date-time").innerHTML = `${headerDateString} | ${timeString}`;
+        }, 1000);
+    </script>
+@endpush

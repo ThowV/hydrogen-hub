@@ -68,7 +68,7 @@
 
     <div class="col-start-3 row-start-3 grid justify-center items-end">
         <a href="{{ route('login') }}"
-            class="text-gray-600 underline font-bold text-xs sm:text-xxs xxl:text-xl pb-4 cursor-pointer hover:text-blue-800">
+            class="text-gray-600 underline font-bold text-sm sm:text-xxs xxl:text-xl pb-4 cursor-pointer hover:text-blue-800 duration-200">
             Already have an account? Log in here!
         </a>
     </div>

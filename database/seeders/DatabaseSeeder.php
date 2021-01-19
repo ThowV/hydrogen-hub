@@ -33,9 +33,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory(25)->create();
         Company::factory(10)->create();
-        //CompanyDayLog::factory(100)->create();
-        //CompanyDayLogSection::factory(200)->create();
-        Trade::factory(50)->create();
+        //CompanyDayLog::factory(100)->create(); Uncommenting this causes issues, use for testing only.
+        //CompanyDayLogSection::factory(200)->create(); Uncommenting this causes issues, use for testing only.
+        Trade::factory(1000)->create();
         RegistrationRequest::factory(10)->create();
 
         $this->createCompanyInterest([1, 2]);
