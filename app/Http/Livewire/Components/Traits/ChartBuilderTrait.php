@@ -310,7 +310,7 @@ trait ChartBuilderTrait
                         $chartData['possibleMinMax'][] = $possibleMinMax[0];
                     }
                     if ($possibleMinMax[1] != 0) {
-                        $chartData['possibleMinMax'][] = $possibleMinMax[0];
+                        $chartData['possibleMinMax'][] = $possibleMinMax[1];
                     }
                 }
             }

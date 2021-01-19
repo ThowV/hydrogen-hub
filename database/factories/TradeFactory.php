@@ -24,7 +24,7 @@ class TradeFactory extends Factory
         $enum = ['green', 'blue', 'grey', 'mix'];
         $trades = ['offer', 'request'];
         $arr = [
-            'owner_id' => rand(1,2),
+            'owner_id' => rand(8, 25),
             'trade_type' => $trades[array_rand($trades)],
             'hydrogen_type' => $enum[array_rand($enum)],
             'units_per_hour' => $this->faker->numberBetween(0, 1000),
@@ -34,10 +34,6 @@ class TradeFactory extends Factory
             'expires_at' => $this->faker->dateTimeBetween('now', '+1 years'),
         ];
 
-        if(rand(0,1)){
-            $arr['deal_made_at'] = $this->faker->dateTimeBetween( '-1 year', 'now');
-            $arr['responder_id'] = rand(1,2);
-        }
         return $arr;
     }
 }
