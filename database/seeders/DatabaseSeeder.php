@@ -12,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
         Company::factory(10)->create();
         //CompanyDayLog::factory(100)->create(); Uncommenting this causes issues, use for testing only.
         //CompanyDayLogSection::factory(200)->create(); Uncommenting this causes issues, use for testing only.
-        Trade::factory(1000)->create();
+        Trade::factory(100)->create();
         RegistrationRequest::factory(10)->create();
 
         $this->createCompanyInterest([1, 2]);
