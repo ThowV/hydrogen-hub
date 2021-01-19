@@ -209,38 +209,21 @@ trait ChartBuilderTrait
                 $totalLoad = $chartData[$chartType]['totalLoad'][$i];
                 $demand = $chartData[$chartType]['demand'][$i];
 
-                // Check if the total load is lower than the demand, if so, we have a shortage so we build the label
-                $shortage = $demand - $totalLoad;
-                if ($shortage > 0) {
-                    $label = '';
+                $shortage = $this->getShortage($i, $period, $demand, $totalLoad, $deepnessFactor);
 
-                    if ($deepnessFactor == DeepnessFactor::DAYS) {
-                        $date = $period->startDate->addDays($i);
-                        $label = $date->format('M d');
-                    }
-                    if ($deepnessFactor == DeepnessFactor::HOURS) {
-                        $date = $period->startDate->addHours($i);
-                        $label = $date->format('M d') . ', ' . (($i + 2) % 24) . ':00';
-                    }
-
-                    $chartData[$chartType]['shortage'] = $label . ' - ' . $shortage . ' units short';
+                if ($shortage != '') {
+                    $chartData[$chartType]['shortage'] = $shortage;
                     break;
                 }
             }
         }
 
         // Determine the minimum and maximum
-        $boundaries = $this->modifyBoundaries(
-            min($chartData[$chartType]['possibleMinMax']),
-            max($chartData[$chartType]['possibleMinMax'])
-        );
-
-        if ($boundaries[1] == 0) {
-            $boundaries[1] = 100;
-        }
-
-        $chartData[$chartType]['min'] = $boundaries[0];
-        $chartData[$chartType]['max'] = $boundaries[1];
+        // Get the min and max
+        $minMax = $this->getMinMax($chartData[$chartType]['possibleMinMax']);
+        
+        $chartData[$chartType]['min'] = $minMax[0];
+        $chartData[$chartType]['max'] = $minMax[1];
 
         // Finalize
         if (!$avoidSet) {
@@ -251,7 +234,7 @@ trait ChartBuilderTrait
     }
 
     /**
-     * Build extensive chart data in a given carbon period
+     * Build extensive combined chart data in a given carbon period
      *
      * @param $period
      * @param $chartType
@@ -294,19 +277,43 @@ trait ChartBuilderTrait
 
                 $combinedDataVal = $chartData['combined'][$key];
 
+                // Update the min and max
                 if (($key == 'min' && $value < $combinedDataVal) || ($key == 'max' && $value > $combinedDataVal)) {
                     $chartData['combined'][$key] = $value;
                 }
                 else if ($key == 'totalLoad' || $key == 'bought' || $key == 'sold' || $key == 'produce'
                     || $key == 'demand' || $key == 'store' || $key == 'trades') {
 
+                    $possibleMinMax = [0, 0];
+
                     foreach ($value as $index=>$subDataEntry) {
+                        // Add the array entry to the combined array
                         if (!is_numeric($subDataEntry) || count($combinedDataVal) < ($index+1)) {
-                            $chartData['combined'][$key][] = $subDataEntry;
+                            $combinedDataEntry = $subDataEntry;
+                            $chartData['combined'][$key][] = $combinedDataEntry;
                         }
                         else {
-                            $chartData['combined'][$key][$index] += $subDataEntry;
+                            $combinedDataEntry = $chartData['combined'][$key][$index] + $subDataEntry;
+                            $chartData['combined'][$key][$index] = $combinedDataEntry;
                         }
+
+                        // Get the min and max
+                        if (is_numeric($subDataEntry)) {
+                            if ($combinedDataEntry < $possibleMinMax[0]) {
+                                $possibleMinMax[0] = $combinedDataEntry;
+                            }
+                            if ($combinedDataEntry > $possibleMinMax[1]) {
+                                $possibleMinMax[1] = $combinedDataEntry;
+                            }
+                        }
+                    }
+
+                    // Add possible min max to the combined possible min max values
+                    if ($possibleMinMax[0] != 0) {
+                        $chartData['combined']['possibleMinMax'][] = $possibleMinMax[0];
+                    }
+                    if ($possibleMinMax[1] != 0) {
+                        $chartData['combined']['possibleMinMax'][] = $possibleMinMax[0];
                     }
                 }
             }
@@ -317,24 +324,18 @@ trait ChartBuilderTrait
             $totalLoad = $chartData['combined']['totalLoad'][$i];
             $demand = $chartData['combined']['demand'][$i];
 
-            // Check if the total load is lower than the demand, if so, we have a shortage so we build the label
-            $shortage = $demand - $totalLoad;
-            if ($shortage > 0) {
-                $label = '';
+            $shortage = $this->getShortage($i, $period, $demand, $totalLoad, $deepnessFactor);
 
-                if ($deepnessFactor == DeepnessFactor::DAYS) {
-                    $date = $period->startDate->addDays($i);
-                    $label = $date->format('M d');
-                }
-                if ($deepnessFactor == DeepnessFactor::HOURS) {
-                    $date = $period->startDate->addHours($i);
-                    $label = $date->format('M d') . ', ' . (($i + 2) % 24) . ':00';
-                }
-
-                $chartData[$chartType]['shortage'] = $label . ' - ' . $shortage . ' units short';
+            if ($shortage != '') {
+                $chartData['combined']['shortage'] = $shortage;
                 break;
             }
         }
+
+        // Get the min and max
+        $minMax = $this->getMinMax($chartData['combined']['possibleMinMax']);
+        $chartData['combined']['min'] = $minMax[0];
+        $chartData['combined']['max'] = $minMax[1];
 
         return $chartData;
     }
@@ -349,6 +350,42 @@ trait ChartBuilderTrait
     public function buildImpactChart($period, $chartType)
     {
         $this->buildChart($period, $chartType, DeepnessFactor::DAYS);
+    }
+
+    private function getMinMax($possibleMinMax) {
+        // Determine the minimum and maximum
+        $boundaries = $this->modifyBoundaries(
+            min($possibleMinMax),
+            max($possibleMinMax)
+        );
+
+        if ($boundaries[1] == 0) {
+            $boundaries[1] = 100;
+        }
+
+        return $boundaries;
+    }
+
+    private function getShortage($add, $period, $demand, $totalLoad, $deepnessFactor) {
+        // Check if the total load is lower than the demand, if so, we have a shortage so we build the label
+        $shortage = $demand - $totalLoad;
+
+        if ($shortage > 0) {
+            $label = '';
+
+            if ($deepnessFactor == DeepnessFactor::DAYS) {
+                $date = $period->startDate->addDays($add);
+                $label = $date->format('M d');
+            }
+            if ($deepnessFactor == DeepnessFactor::HOURS) {
+                $date = $period->startDate->addHours($add);
+                $label = $date->format('M d') . ', ' . (($add + 2) % 24) . ':00';
+            }
+
+            return $label . ' - ' . $shortage . ' units short';
+        }
+
+        return '';
     }
 
     /**
