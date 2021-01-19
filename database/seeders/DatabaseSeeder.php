@@ -12,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -33,9 +34,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory(25)->create();
         Company::factory(10)->create();
-        CompanyDayLog::factory(100)->create();
-        CompanyDayLogSection::factory(200)->create();
-        Trade::factory(1000)->create();
+        //CompanyDayLog::factory(100)->create(); Uncommenting this causes issues, use for testing only.
+        //CompanyDayLogSection::factory(200)->create(); Uncommenting this causes issues, use for testing only.
+        Trade::factory(100)->create();
         RegistrationRequest::factory(10)->create();
 
         $this->createCompanyInterest([1, 2]);
@@ -51,7 +52,7 @@ class DatabaseSeeder extends Seeder
     public function createCompanyInterest($company_ids)
     {
         foreach ($company_ids as $company_id) {
-            foreach (['green', 'blue', 'grey'] as $interest) {
+            foreach (['green', 'blue', 'grey', 'mix', 'combined'] as $interest) {
                 $companyHydrogenInterest = new CompanyHydrogenInterest();
                 $companyHydrogenInterest->fill(['company_id' => $company_id, 'interest' => $interest]);
                 $companyHydrogenInterest->save();

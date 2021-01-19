@@ -18,8 +18,8 @@ class CreateCompanyDayLogSectionsTable extends Migration
             $table->foreignId('company_day_log_id');
             $table->enum('hydrogen_type', ['green', 'blue', 'grey', 'mix']);
             $table->unsignedBigInteger('produce')->default(0);
-            $table->unsignedBigInteger('demand')->default(0);
-            $table->unsignedBigInteger('store')->default(0);
+            $table->BigInteger('demand')->default(0);
+            $table->BigInteger('store')->default(0);
             $table->timestamps();
         });
     }
