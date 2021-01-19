@@ -37,7 +37,7 @@
                             <div class="w-2/4 sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
                             @else
                             <div class="w-full sm:w-full h-full grid grid-cols-4 grid-rows-3 text-sm">
-                            @endif                           
+                            @endif
 
 
                                 <div class="flex flex-col gap-5 sm:gap-3">
@@ -133,7 +133,7 @@
                                         class="text-gray-600 hover:text-gray-900 transition duration-300 ease-in-out"
                                         wire:click="toggleConfirmationStage">
                                         Cancel
-                                    </button>                              
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                     },
                     {
                         data: chartData.demand,
-                        type: 'line',
+                        type: 'LineWithLine',
                         label: 'Demand',
                         fill: true,
                         backgroundColor: "#00ff0000",

@@ -199,7 +199,7 @@
                     @elseif($confirmationStage)
                         <div class="flex flex-row w-full h-full justify-center">
                             <div class="flex flex-col h-full justify-center gap-10">
-                            
+
                                 <div class="flex flex-col gap-2 text-left">
                                     <p>Password for confirmation</p>
                                     <input
@@ -207,7 +207,7 @@
                                         wire:model="password" id="passwordInput" name="passwordInput" type="password" placeholder="******************"
                                     >
                                     @error('password') <p class="text-red-600 text-xs pt-4">{{ $message }}</p> @enderror
-                                </div>  
+                                </div>
 
                                 <div class="flex gap-10 items-center w-full">
                                     <button
@@ -345,7 +345,7 @@
                     },
                     {
                         data: chartData.demand,
-                        type: 'line',
+                        type: 'LineWithLine',
                         label: 'Demand',
                         fill: true,
                         backgroundColor: "#00ff0000",

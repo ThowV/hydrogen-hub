@@ -149,3 +149,19 @@
         </div>
     </div>
 </aside>
+
+@push('scripts')
+    <script>
+        const overlay = document.getElementById('settings');
+        const selectBtn = document.getElementById('settings-btn');
+        const closeBtn = document.getElementById('close-settings');
+
+        const toggleSetting = () => {
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('grid');
+        }
+
+        selectBtn.addEventListener('click', toggleSetting);
+        closeBtn.addEventListener('click', toggleSetting);
+    </script>
+@endpush
