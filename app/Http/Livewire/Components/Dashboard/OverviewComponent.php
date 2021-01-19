@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Dashboard;
 
+use App\Actions\DetermineIfEnoughTradesToBaseAvarageAction;
 use App\Http\Livewire\Components\Dashboard\Traits\DashboardGraphTrait;
 use App\Http\Livewire\Components\Dashboard\Traits\DashboardModalsTrait;
 use Carbon\CarbonPeriod;
@@ -127,17 +128,37 @@ class OverviewComponent extends Component
     ];
 
     protected $listeners = ['getDetailedDataForDay'];
+    /**
+     * @var bool|mixed
+     */
+    public $tooFewTrades;
 
     /**
      * Component constructor
      */
     public function mount()
     {
+        if(!DetermineIfEnoughTradesToBaseAvarageAction::execute(5)){
+            $this->tooFewTrades = true;
+            $this->setDefaultLimits();
+            return;
+        }
+
         $this->determineColSpan();
         $this->setPeriod();
         $this->setLabels();
         //display price graph
         $this->displayGraphs();
+    }
+
+    private function setDefaultLimits()
+    {
+        foreach ($this->lineProperties as $lineProperty => $content){
+            if($lineProperty != 'callback'){
+                $this->chartProperties[$lineProperty]['limits']['min'] = 0;
+                $this->chartProperties[$lineProperty]['limits']['max'] = 100;
+            }
+        }
     }
 
     /**

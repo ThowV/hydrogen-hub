@@ -15,7 +15,7 @@
         <div class="w-full h-full pb-12 flex flex-auto flex-col justify-around text-sm md:text-xs font-semibold">
             @foreach(['green','blue','grey'] as $hydrogen_type)
             <div class="py-2 flex">
-                <div class="w-1/3 flex items-center">
+                <div class="w-1/3 flex items-center text-type{{ucfirst($hydrogen_type)}}-500">
                     <svg class="fill-current text-type{{ucfirst($hydrogen_type)}}-500" height="24" width="50">
                         <circle cx="10" cy="12" r="6"/>
                     </svg>
@@ -24,9 +24,11 @@
                 <div class="w-1/3">
                     @if(auth()->user()->company->isShortOnDayForType(\Carbon\Carbon::tomorrow(), $hydrogen_type))
                         {{auth()->user()->company->shortOnDayForType(\Carbon\Carbon::tomorrow(), $hydrogen_type)}}
+                    @else
+                        <span class="text-green-700">0</span>
                     @endif
                 </div>
-                <div></div>
+                <div class="text-center"> N/A </div>
             </div>
             @endforeach
         </div>
