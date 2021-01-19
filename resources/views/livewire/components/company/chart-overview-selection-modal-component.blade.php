@@ -35,6 +35,18 @@
                                    value="grey" wire:model="interests">
                             <label for="grey">grey</label>
                         </div>
+
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox text-typeMix-500 cursor-pointer" id="mix"
+                                   value="mix" wire:model="interests">
+                            <label for="mix">mix</label>
+                        </div>
+
+                        <div class="">
+                            <input type="checkbox" class="form-checkbox cursor-pointer" id="combined"
+                                   value="combined" wire:model="interests" style="color: #FCA357">
+                            <label for="combined">combined</label>
+                        </div>
                     </fieldset>
 
                     <!--Footer-->

@@ -7,6 +7,8 @@ namespace App\Models\ScopeTraits;
 use App\Models\Trade;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Query\Builder;
+use function PHPUnit\Framework\isInstanceOf;
 
 trait CompanyScopesTrait
 {
@@ -47,7 +49,7 @@ trait CompanyScopesTrait
      */
     public function getTradesAttribute()
     {
-        return $this->tradesAsResponder->merge($this->tradesAsOwner);
+        return $this->tradesAsResponder->merge($this->tradesAsOwner)->sortByDesc('deal_made_at');
     }
 
 
@@ -126,7 +128,7 @@ trait CompanyScopesTrait
      */
     public function dayLogsBetweenCarbonDates(Carbon $start, Carbon $end)
     {
-        return $this->dayLogs->where('date', '>=', $start)->where('date', '<=', $end);
+        return $this->dayLogs->where('date', '>=', $start->toDateString() . '00:00:00')->where('date', '<=', $end->toDateString() . '00:00:00');
     }
 
 
@@ -138,7 +140,7 @@ trait CompanyScopesTrait
      */
     public function tradesAfterCarbonDate(Carbon $start)
     {
-        return $this->trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+        return $this->trades->where('end_raw', '>=', $start->toDateString() . '00:00:00')->where('deal_made_at', '<=', $start->toDateString() . '00:00:00');
     }
 
     /**
@@ -151,7 +153,7 @@ trait CompanyScopesTrait
     public function getBoughtTradesAfterCarbonDate(Carbon $start)
     {
         $trades = $this->getBoughtTradesAttribute();
-        return $trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+        return $trades->where('end_raw', '>=', $start->toDateString() . '00:00:00')->where('deal_made_at', '<=', $start->toDateString() . '00:00:00');
     }
 
     /**
@@ -163,7 +165,7 @@ trait CompanyScopesTrait
     public function getSoldTradesAfterCarbonDate(Carbon $start)
     {
         $trades = $this->getSoldTradesAttribute();
-        return $trades->where('end_raw', '>=', $start)->where('deal_made_at', '<=', $start);
+        return $trades->where('end_raw', '>=', $start->toDateString() . '00:00:00')->where('deal_made_at', '<=', $start->toDateString() . '00:00:00');
     }
 
     public function getTotalVolumesTradedAttribute()

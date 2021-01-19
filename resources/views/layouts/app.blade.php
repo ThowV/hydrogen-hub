@@ -49,10 +49,6 @@
         </div>
 
         <script>
-            window.onload = function () {
-                @stack('scripts_onload')
-            }
-
             //Add vertical line to hover effect
             Chart.defaults.LineWithLine = Chart.defaults.line;
             Chart.controllers.LineWithLine = Chart.controllers.line.extend({

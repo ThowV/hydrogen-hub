@@ -12,11 +12,11 @@ class ChartOverviewComponent extends Component
 {
     use ChartBuilderTrait;
 
-    public $chartTypes = ['blue', 'green', 'grey'];
+    public $chartTypes = ['blue', 'green', 'grey', 'mix', 'combined'];
     public $chartData = [];
     public $labels = [];
 
-    protected $listeners = ['chartTypesUpdated' => 'chartTypesUpdated'];
+    protected $listeners = ['chartTypesUpdated' => 'chartTypesUpdated', 'chartExpandedDataUpdated' => 'chartDataUpdated'];
 
     public function openChartExpandedModal($chartType)
     {
@@ -40,6 +40,12 @@ class ChartOverviewComponent extends Component
         $this->emit("openChartOverviewSelectionModal");
     }
 
+    public function chartDataUpdated($chartDataUpdated) {
+        $this->initializeCharts();
+
+        $this->emit('chartDataOverviewsUpdated', $this->chartData);
+    }
+
     public function initializeCharts()
     {
         // Get the chart types
@@ -49,8 +55,18 @@ class ChartOverviewComponent extends Component
         $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(6));
 
         // Loop through each chart type and get the data associated to this type
+        $createCombined = false;
         foreach ($this->chartTypes as $chartType) {
+            if ($chartType == 'combined') {
+                $createCombined = true;
+                continue;
+            }
+
             $this->buildChart($period, $chartType);
+        }
+
+        if ($createCombined) {
+            $this->buildCombinedChart($period);
         }
     }
 
