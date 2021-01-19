@@ -10,22 +10,9 @@ class TradesComponent extends Component
 {
     public $trades;
 
-    public function getTrades()
-    {
-        $this->trades = Trade::where('responder_id', '!=', null)->limit(15)->get();
-    }
-
-    public function getTimePassedSinceDate($date)
-    {
-        $date = Carbon::parse($date);
-        $now = Carbon::now();
-        $end = $now->copy()->addHours(1200);
-        return $now->toDateString() . ' - ' . $date->toDateString() . ' - ' . $end->diffForHumans($now);
-    }
-
     public function mount()
     {
-        $this->getTrades();
+        $this->trades = Trade::where('responder_id', '!=', null)->orderByDesc('deal_made_at')->limit(15)->get();
     }
 
     public function render()

@@ -22,19 +22,21 @@
     </div>
 </div>
 
-<script>
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+@push('scripts')
+    <script>
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    let date = new Date();
-    let dateString = `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
-    let minutesString = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
+        let headerDate = new Date();
+        let headerDateString = `${days[headerDate.getDay()]} ${headerDate.getDate()} ${months[headerDate.getMonth()]} ${headerDate.getFullYear()}`;
+        let headerMinutesString = headerDate.getMinutes() < 10 ? `0${headerDate.getMinutes()}` : `${headerDate.getMinutes()}`;
 
-    let timer = setInterval(function() {
-        let date = new Date();
-        let secondsString = date.getSeconds() < 10 ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
-        let timeString = `${date.getHours()}:${minutesString}:${secondsString}`;
+        let timer = setInterval(function() {
+            let date = new Date();
+            let secondsString = date.getSeconds() < 10 ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
+            let timeString = `${date.getHours()}:${headerMinutesString}:${secondsString}`;
 
-        document.getElementById("date-time").innerHTML = `${dateString} | ${timeString}`;
-    }, 1000);
-</script>
+            document.getElementById("date-time").innerHTML = `${headerDateString} | ${timeString}`;
+        }, 1000);
+    </script>
+@endpush
