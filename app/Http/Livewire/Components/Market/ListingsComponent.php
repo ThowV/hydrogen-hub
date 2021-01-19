@@ -39,7 +39,7 @@ class ListingsComponent extends Component
         'trade_type'        => ['Type', ''],
     ];
 
-    private function determineStartingFilters()
+    public function determineStartingFilters()
     {
         // Determine bounds for database fields
         foreach (collect($this->filter)->except(self::EXCLUDED_FILTERS) as $key => $value) {
@@ -51,6 +51,16 @@ class ListingsComponent extends Component
             Trade::min('units_per_hour') * Trade::min('duration'),
             Trade::max('units_per_hour') * Trade::max('duration'),
         ];
+    }
+
+    public function resetFilters() {
+        $this->determineStartingFilters();
+
+        $filters = $this->filter;
+        unset($filters['hydrogen_type']);
+        unset($filters['trade_type']);
+
+        $this->emit('resetFilters', $filters);
     }
 
     private function getFilteredSortedListings()
