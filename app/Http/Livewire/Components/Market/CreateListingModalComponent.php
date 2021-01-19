@@ -104,10 +104,8 @@ class CreateListingModalComponent extends Component
             $this->chartData[$chartType]['max'] = $impactValues['max'];
         }
 
-        if ($chartType != 'mix') {
-            // Emit the event to initialize the chart on the front-end
-            $this->emit('listingParametersFilled', $this->chartData[$chartType]);
-        }
+        // Emit the event to initialize the chart on the front-end
+        $this->emit('listingParametersFilled', $this->chartData[$chartType]);
     }
 
     private function refresh()
@@ -148,7 +146,7 @@ class CreateListingModalComponent extends Component
 
         $this->confirmationStage = !$this->confirmationStage;
 
-        if (!$this->confirmationStage && $this->hydrogen_type != 'mix') {
+        if (!$this->confirmationStage) {
             // Emit the event to initialize the chart on the front-end
             $this->emit('listingParametersFilled', $this->chartData[$this->hydrogen_type]);
         }
@@ -187,8 +185,8 @@ class CreateListingModalComponent extends Component
         $this->emit('listingCreated');
 
         // Hide the form
-        $this->toggleModal();
         $this->toggleConfirmationStage();
+        $this->toggleModal();
     }
 
     private function getDuration($duration, $type) {
