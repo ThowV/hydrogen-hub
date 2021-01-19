@@ -128,7 +128,7 @@ trait CompanyScopesTrait
      */
     public function dayLogsBetweenCarbonDates(Carbon $start, Carbon $end)
     {
-        return $this->dayLogs->where('date', '>=', $start->toDateString() . '00:00:00')->where('date', '<=', $end->toDateString() . '00:00:00');
+        return $this->dayLogs->where('date', '>=', $start->toDateString())->where('date', '<=', $end->toDateString());
     }
 
 

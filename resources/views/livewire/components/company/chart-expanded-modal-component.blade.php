@@ -302,13 +302,11 @@
         }
 
         Livewire.on('chartExpandedOpened', function (chartData) {
-            console.log('open')
             setupExpanded(chartData.hydrogenType);
             createExpanded(chartData);
         });
 
         Livewire.on('chartExpandedDataUpdated', function (chartData) {
-            console.log('update');
             clearExpanded();
             setupExpanded(chartData.hydrogenType);
             createExpanded(chartData);
