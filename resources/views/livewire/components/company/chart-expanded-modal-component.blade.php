@@ -30,14 +30,6 @@
                                 <div class="relative flex flex-col sm:w-full" style="width: 48vw; height: 56vh;">
                                     <canvas wire:ignore id="canvas-expanded" class="flex z-0"></canvas>
                                 </div>
-                                @if($chart && $chart['shortage'])
-                                    <p class="flex flex-none pt-8 justify-center text-xs gap-5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                                            <path id="Icon_material-error-outline" data-name="Icon material-error-outline" d="M11.1,14.7h1.8v1.8H11.1Zm0-7.2h1.8v5.4H11.1ZM11.991,3A9,9,0,1,0,21,12,9,9,0,0,0,11.991,3ZM12,19.2A7.2,7.2,0,1,1,19.2,12,7.2,7.2,0,0,1,12,19.2Z" transform="translate(-3 -3)" fill="#f05959"/>
-                                        </svg>
-                                        {{ $chart['shortage'] }}
-                                    </p>
-                                @endif
                             </div>
                         </div>
 
@@ -310,11 +302,13 @@
         }
 
         Livewire.on('chartExpandedOpened', function (chartData) {
+            console.log('open')
             setupExpanded(chartData.hydrogenType);
             createExpanded(chartData);
         });
 
         Livewire.on('chartExpandedDataUpdated', function (chartData) {
+            console.log('update');
             clearExpanded();
             setupExpanded(chartData.hydrogenType);
             createExpanded(chartData);
