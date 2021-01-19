@@ -134,23 +134,22 @@ trait ChartBuilderTrait
 
                 // Calculate total in
                 foreach ($hydrogenIn as $key => $in) {
-                    $this->chartData[$chartType][$key][] = strval($in);
+                    $chartData[$chartType][$key][] = strval($in);
                     $totalIn += $in;
                 }
 
                 // Calculate total out
                 foreach ($hydrogenOut as $key => $out) {
-                    $this->chartData[$chartType][$key][] = strval(-$out);
+                    $chartData[$chartType][$key][] = strval(-$out);
                     $totalOut += $out;
                 }
 
                 // Set the total load
                 $totalLoad = $totalIn - $totalOut;
-                $this->chartData[$chartType]['totalLoad'][] = strval($totalLoad);
+                $chartData[$chartType]['totalLoad'][] = strval($totalLoad);
 
                 // Set the demand
-                $this->chartData[$chartType]['demand'][] = strval($demand);
-
+                $chartData[$chartType]['demand'][] = strval($demand);
                 // Push the possible boundaries
                 $chartData[$chartType]['possibleMinMax'][] = $totalIn;
                 $chartData[$chartType]['possibleMinMax'][] = $demand;
