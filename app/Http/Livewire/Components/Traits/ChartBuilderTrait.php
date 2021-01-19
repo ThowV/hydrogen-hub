@@ -67,16 +67,9 @@ trait ChartBuilderTrait
      * @param $period
      * @param $chartType
      * @param int $deepnessFactor
-     * @param bool $avoidSet
-     * @return array|null
      */
-    public function buildChart($period, $chartType, $deepnessFactor=DeepnessFactor::DAYS, $avoidSet=false)
+    public function buildChart($period, $chartType, $deepnessFactor=DeepnessFactor::DAYS)
     {
-        if ($chartType == 'combined') {
-            $this->chartData[$chartType] = $this->buildCombinedChart($period, $chartType, $deepnessFactor)['combined'];
-            return $this->chartData[$chartType];
-        }
-
         // Create a new set of data for this chart type so we can modify it
         $chartData[$chartType] = [
             'hydrogenType' => $chartType,
@@ -221,16 +214,12 @@ trait ChartBuilderTrait
         // Determine the minimum and maximum
         // Get the min and max
         $minMax = $this->getMinMax($chartData[$chartType]['possibleMinMax']);
-        
+
         $chartData[$chartType]['min'] = $minMax[0];
         $chartData[$chartType]['max'] = $minMax[1];
 
         // Finalize
-        if (!$avoidSet) {
-            $this->chartData[$chartType] = $chartData[$chartType];
-        }
-
-        return $chartData[$chartType];
+        $this->chartData[$chartType] = $chartData[$chartType];
     }
 
     /**
@@ -241,10 +230,10 @@ trait ChartBuilderTrait
      * @param $deepnessFactor
      * @return array
      */
-    public function buildCombinedChart($period, $chartType, $deepnessFactor=DeepnessFactor::DAYS)
+    public function buildCombinedChart($period, $deepnessFactor=DeepnessFactor::DAYS)
     {
-        $chartData = ['combined' => [
-            'hydrogenType' => $chartType,
+        $chartData = [
+            'hydrogenType' => 'combined',
             'period' => $period,
             'labels' => $this->buildLabels($period, $deepnessFactor),
             'min' => 0,
@@ -256,30 +245,38 @@ trait ChartBuilderTrait
             'demand' => [],
             'store' => [],
             'trades' => [],
+            'possibleMinMax' => [0, 0],
             'shortage' => ''
-        ]];
+        ];
 
         // Combine the charts
         $hydrogenInterests = auth()->user()->company->hydrogenInterests->toArray();
         foreach ($hydrogenInterests as $subChartType) {
             $subChartType = $subChartType['interest'];
 
+            // Skip combined type
             if ($subChartType == 'combined') {
                 continue;
             }
 
-            $subChartData = $this->buildChart($period, $subChartType, $deepnessFactor, true);
+            // Check if the chart data is already built, if it isn't, build it.
+            if (!array_key_exists($subChartType, $this->chartData)) {
+                $this->buildChart($period, $subChartType, $deepnessFactor);
+            }
+
+            // Loop through the sub chart data and combine it.
+            $subChartData = $this->chartData[$subChartType];
 
             foreach ($subChartData as $key=>$value) {
                 if ($key == 'shortage' || $key == 'possibleMinMax' || $key == 'dayLogs') {
                     continue;
                 }
 
-                $combinedDataVal = $chartData['combined'][$key];
+                $combinedDataVal = $chartData[$key];
 
                 // Update the min and max
                 if (($key == 'min' && $value < $combinedDataVal) || ($key == 'max' && $value > $combinedDataVal)) {
-                    $chartData['combined'][$key] = $value;
+                    $chartData[$key] = $value;
                 }
                 else if ($key == 'totalLoad' || $key == 'bought' || $key == 'sold' || $key == 'produce'
                     || $key == 'demand' || $key == 'store' || $key == 'trades') {
@@ -290,11 +287,11 @@ trait ChartBuilderTrait
                         // Add the array entry to the combined array
                         if (!is_numeric($subDataEntry) || count($combinedDataVal) < ($index+1)) {
                             $combinedDataEntry = $subDataEntry;
-                            $chartData['combined'][$key][] = $combinedDataEntry;
+                            $chartData[$key][] = $combinedDataEntry;
                         }
                         else {
-                            $combinedDataEntry = $chartData['combined'][$key][$index] + $subDataEntry;
-                            $chartData['combined'][$key][$index] = $combinedDataEntry;
+                            $combinedDataEntry = $chartData[$key][$index] + $subDataEntry;
+                            $chartData[$key][$index] = $combinedDataEntry;
                         }
 
                         // Get the min and max
@@ -310,33 +307,35 @@ trait ChartBuilderTrait
 
                     // Add possible min max to the combined possible min max values
                     if ($possibleMinMax[0] != 0) {
-                        $chartData['combined']['possibleMinMax'][] = $possibleMinMax[0];
+                        $chartData['possibleMinMax'][] = $possibleMinMax[0];
                     }
                     if ($possibleMinMax[1] != 0) {
-                        $chartData['combined']['possibleMinMax'][] = $possibleMinMax[0];
+                        $chartData['possibleMinMax'][] = $possibleMinMax[0];
                     }
                 }
             }
         }
 
         // Get the shortage
-        for ($i = 0; $i < count($chartData['combined']['demand']); $i++) {
-            $totalLoad = $chartData['combined']['totalLoad'][$i];
-            $demand = $chartData['combined']['demand'][$i];
+        for ($i = 0; $i < count($chartData['demand']); $i++) {
+            $totalLoad = $chartData['totalLoad'][$i];
+            $demand = $chartData['demand'][$i];
 
             $shortage = $this->getShortage($i, $period, $demand, $totalLoad, $deepnessFactor);
 
             if ($shortage != '') {
-                $chartData['combined']['shortage'] = $shortage;
+                $chartData['shortage'] = $shortage;
                 break;
             }
         }
 
         // Get the min and max
-        $minMax = $this->getMinMax($chartData['combined']['possibleMinMax']);
-        $chartData['combined']['min'] = $minMax[0];
-        $chartData['combined']['max'] = $minMax[1];
+        $minMax = $this->getMinMax($chartData['possibleMinMax']);
+        $chartData['min'] = $minMax[0];
+        $chartData['max'] = $minMax[1];
 
+        // Finalize
+        $this->chartData['combined'] = $chartData;
         return $chartData;
     }
 

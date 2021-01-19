@@ -43,8 +43,8 @@
                         </div>
 
                         <div class="">
-                            <input type="checkbox" class="form-checkbox text-typeGreen-500 cursor-pointer" id="combined"
-                                   value="combined" wire:model="interests">
+                            <input type="checkbox" class="form-checkbox cursor-pointer" id="combined"
+                                   value="combined" wire:model="interests" style="color: #FCA357">
                             <label for="combined">combined</label>
                         </div>
                     </fieldset>

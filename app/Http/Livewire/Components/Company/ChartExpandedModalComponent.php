@@ -47,7 +47,12 @@ class ChartExpandedModalComponent extends Component
 
     public function setChartData($chartType) {
         $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(2));
-        $this->buildChart($period, $chartType, DeepnessFactor::HOURS);
+        if ($chartType != 'combined') {
+            $this->buildChart($period, $chartType, DeepnessFactor::HOURS);
+        }
+        else {
+            $this->buildCombinedChart($period, DeepnessFactor::HOURS);
+        }
     }
 
     public function initializeCharts()

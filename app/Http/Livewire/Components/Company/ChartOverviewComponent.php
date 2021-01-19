@@ -55,8 +55,18 @@ class ChartOverviewComponent extends Component
         $period = CarbonPeriod::create(Carbon::now(), Carbon::now()->addDays(6));
 
         // Loop through each chart type and get the data associated to this type
+        $createCombined = false;
         foreach ($this->chartTypes as $chartType) {
+            if ($chartType == 'combined') {
+                $createCombined = true;
+                continue;
+            }
+
             $this->buildChart($period, $chartType);
+        }
+
+        if ($createCombined) {
+            $this->buildCombinedChart($period);
         }
     }
 
