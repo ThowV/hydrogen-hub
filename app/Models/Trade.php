@@ -84,7 +84,7 @@ class Trade extends Model
             ['d', 'day', [false, false, true, true, false, false]],
             ['h', 'hour', [false, false, false, true, true, false]],
             ['i', 'minute', [false, false, false, false, true, true]],
-            ['s', 'second', []],
+            ['s', 'second', [false, false, false, false, false, true]],
         ];
         $activeModifierPointer = 0;
 
