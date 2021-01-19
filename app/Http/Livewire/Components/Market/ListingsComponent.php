@@ -138,6 +138,9 @@ class ListingsComponent extends Component
             }
         }
 
+        //$trades->where('owner_id','!=', auth()->user()->id);
+        $trades->whereNotIn('owner_id', auth()->user()->company->employees->pluck('id'));
+
         return $trades;
     }
 
