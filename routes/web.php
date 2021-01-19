@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\PasswordResetsController;
 use App\Http\Controllers\RegistrationRequestController;
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',                                        [DashboardController::class, 'show'])->name('dashboard');
     Route::get('/market',                                           [MarketplaceController::class, 'index'])->name('market');
     Route::get('/admin',                                            [AdminController::class, 'index'])->name('admin');
+    Route::get('/help',                                             [HelpController::class, 'show'])->name('help');
     Route::delete('/company/{company}',                             [CompanyController::class, 'destroy'])->name('company.destroy');
     Route::get('/company/portfolio',                                [CompanyController::class, 'portfolio'])->name('company.portfolio');
     Route::get('/company/employees',                                [CompanyController::class, 'overview'])->name('company.overview');

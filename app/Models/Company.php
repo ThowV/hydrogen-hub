@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\ScopeTraits\CompanyActivityTrait;
 use App\Models\ScopeTraits\CompanyScopesTrait;
+use App\Models\ScopeTraits\CompanyShortTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Company query()
- * @method static \Illuminate\Database\Eloquent\Builder|Company whereCreatedAt($value)
+ * @method static \IlluOminate\Database\Eloquent\Builder|Company whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereLogoPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
@@ -50,6 +51,7 @@ class Company extends Model
     use HasFactory;
     use CompanyScopesTrait;
     use CompanyActivityTrait;
+    use CompanyShortTrait;
 
     protected $fillable = [
         'name',
