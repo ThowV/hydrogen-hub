@@ -80,9 +80,5 @@
                 document.getElementById(`trade-time-${tradeId}`).innerHTML = timeString;
             }, 1000);
         }
-
-        Livewire.on('loadTrades', function () {
-            console.log(':))))')
-        });
     </script>
 @endpush
