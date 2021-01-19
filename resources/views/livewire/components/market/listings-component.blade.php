@@ -7,7 +7,7 @@
             <div class="pt-5">
                 <button
                     class="flex items-center bg-butOrange hover:bg-orange-700 text-white text-xs xxl:text-2xl py-2 px-8 xxl:py-4 xxl:px-10 rounded-lg transition duration-300 ease-in-out"
-                    wire:click="openCreateModal">Sell/Request
+                    wire:click="openCreateModal">Offer/Request
                 </button>
             </div>
             @endcan
