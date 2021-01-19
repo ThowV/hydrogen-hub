@@ -1,6 +1,9 @@
 <div class="w-full">
     <div class="">
         <h2 class="xxl:text-3xl font-bold pb-6">Hydrogen Hub overview</h2>
+        @if($tooFewTrades === true)
+            <span>Unfortunately, at this time not many trades have been made. Please take that into account when viewing these averages.</span>
+        @endif
     </div>
     <div class="min-h-full flex justify-between">
         @if($modalIsOpen)

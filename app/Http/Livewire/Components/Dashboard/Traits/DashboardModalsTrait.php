@@ -3,6 +3,7 @@
 
 namespace App\Http\Livewire\Components\Dashboard\Traits;
 
+use App\Actions\DetermineIfEnoughTradesToBaseAvarageAction;
 use Carbon\Carbon;
 
 trait DashboardModalsTrait
@@ -39,7 +40,12 @@ trait DashboardModalsTrait
         $this->limit = $this->selectedTimeRange;
         $this->setPeriod();
         $this->setLabels();
+
         $this->displayGraphs($typeOfGraphInModal);
+        if(!DetermineIfEnoughTradesToBaseAvarageAction::execute(5)){
+            $this->setDefaultLimits();
+        }
+
         $this->toggleModal();
         $this->render();
     }

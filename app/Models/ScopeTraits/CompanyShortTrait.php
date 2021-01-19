@@ -52,9 +52,12 @@ trait CompanyShortTrait
      */
     public function getDemandForH2TypeAndCarbonDate(Carbon $date, $type): int
     {
-        foreach ($this->dayLogs()->where('date', $date->format('Y-m-d'))->first()->sections->where('hydrogen_type',
-            $type) as $dayLogSection) {
-            return $dayLogSection->demand;
+        $dayLog = $this->dayLogs()->where('date', $date->format('Y-m-d'))->first();
+        if(!is_null($dayLog) && !is_null($dayLog->sections)){
+            foreach ($dayLog->sections->where('hydrogen_type',
+                $type) as $dayLogSection) {
+                return $dayLogSection->demand;
+            }
         }
         return 0;
     }
