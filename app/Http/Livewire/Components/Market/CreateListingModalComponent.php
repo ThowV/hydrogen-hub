@@ -47,12 +47,14 @@ class CreateListingModalComponent extends Component
     protected $listeners = ['openCreateModal' => 'toggleModal'];
 
     public function composeChart() {
-        // Emit the event to clear the chart on the front-end
-        $this->emit('listingParametersCleared');
-
         if ($this->hydrogen_type == '' || $this->units_per_hour == '' || $this->duration == '' || $this->trade_type == '') {
+            // Emit the event to clear the chart on the front-end
+            $this->emit('listingParametersCleared');
             return;
         }
+
+        // Emit the event to clear the chart on the front-end
+        $this->emit('listingParametersCleared');
 
         // Modify duration data
         $duration = $this->getDuration($this->duration, $this->duration_type);
