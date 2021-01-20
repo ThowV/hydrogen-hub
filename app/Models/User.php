@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -61,6 +62,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
     use HasRoles;
+    use SoftDeletes;
     use ReceivesWelcomeNotification;
 
     /**
@@ -128,11 +130,27 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return $this->first_name . " " . $this->last_name;
+        return $this->first_name." ".$this->last_name;
     }
 
     public function getAvatarAttribute()
     {
         return $this->picture_url ?? "https://placehold.it/50x50";
+    }
+
+    public function getActivityAttribute()
+    {
+        //Als trade owner is, heeft hij hem geplaatst, anders gereageerd
+        foreach ($this->listings() as $tradeAsOwner) {
+            $ar[] = [
+                "Placed: ",
+                $tradeAsOwner->units_per_hour,
+                $tradeAsOwner->end,
+                $tradeAsOwner->hydrogen_type,
+                ($tradeAsOwner->price_per_unit / 100),
+                $tradeAsOwner->deal_made_at
+            ];
+        }
+        $ar[] = $this->tradesAsResponder();
     }
 }

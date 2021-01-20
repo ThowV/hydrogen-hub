@@ -95,11 +95,6 @@
             <th>Mix CO2</th>
             <td>{{ $trade["mix_co2"] }}%</td>
         </tr>
-
-        <tr>
-            <th>Expires at</th>
-            <td>{{ $trade["expires_at"] }}</td>
-        </tr>
     </table>
 </body>
 

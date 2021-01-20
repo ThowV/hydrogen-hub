@@ -17,7 +17,7 @@ class ListingsComponent extends Component
     public $page = 1;
     public $itemsPerPage = 10;
     public $totalItems = 0;
-    public $trades_coll;
+    public $tradesColl;
 
     public $filter = [
         'hydrogen_type' => ['green', 'blue', 'grey', 'mix'],
@@ -39,7 +39,7 @@ class ListingsComponent extends Component
         'trade_type'        => ['Type', ''],
     ];
 
-    private function determineStartingFilters()
+    public function determineStartingFilters()
     {
         // Determine bounds for database fields
         foreach (collect($this->filter)->except(self::EXCLUDED_FILTERS) as $key => $value) {
@@ -51,6 +51,16 @@ class ListingsComponent extends Component
             Trade::min('units_per_hour') * Trade::min('duration'),
             Trade::max('units_per_hour') * Trade::max('duration'),
         ];
+    }
+
+    public function resetFilters() {
+        $this->determineStartingFilters();
+
+        $filters = $this->filter;
+        unset($filters['hydrogen_type']);
+        unset($filters['trade_type']);
+
+        $this->emit('resetFilters', $filters);
     }
 
     private function getFilteredSortedListings()
@@ -128,6 +138,9 @@ class ListingsComponent extends Component
             }
         }
 
+        //$trades->where('owner_id','!=', auth()->user()->id);
+        $trades->whereNotIn('owner_id', auth()->user()->company->employees->pluck('id'));
+
         return $trades;
     }
 
@@ -140,7 +153,7 @@ class ListingsComponent extends Component
 
         $this->totalItems = $trades->total();
         $this->paginator = $trades->toArray();
-        $this->trades_coll = $trades->items();
+        $this->tradesColl = $trades->items();
     }
 
     public function applyPagination($action, $value)
