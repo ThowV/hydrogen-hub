@@ -1,6 +1,6 @@
 <aside class="flex h-screen sticky top-0 bg-nav grid grid-rows-6">
 
-    <div class="grid justify-items-center items-center text-white font-black sm:text-sm md:text-xl lg:text-xl xl:text-3xl xxl:text-4xl">
+    <div class="grid text-center justify-items-center items-center text-white font-black sm:text-sm md:text-xl lg:text-xl xl:text-3xl xxl:text-4xl">
         {{ auth()->user()->company->name }}
     </div>
 
