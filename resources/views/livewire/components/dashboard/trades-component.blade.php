@@ -62,13 +62,15 @@
                 let diff = Math.round((newStamp-tradeStamp) / 1000);
 
                 // Calculate time values
-                let days = Math.floor(diff / (24 * 60 * 60)); /* though I hope she won't be working for consecutive days :) */
+                let days = Math.floor(diff / (24 * 60 * 60));
                 diff = diff - (days * 24 * 60 * 60);
                 let hours = Math.floor(diff / (60 * 60));
                 diff = diff - (hours * 60 * 60);
                 let minutes = Math.floor(diff/(60));
                 diff = diff - (minutes * 60);
                 let seconds = diff;
+
+                hours -= 1;
 
                 // Create readable string
                 let secondsPart =   hours < 1 ? ` ${seconds} second${seconds > 1 ? 's' : ''}` : '';
