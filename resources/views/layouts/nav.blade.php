@@ -1,28 +1,23 @@
 <aside class="flex h-screen sticky top-0 bg-nav grid grid-rows-6">
 
-    <div
-        class="grid justify-items-center items-center text-white font-black sm:text-sm md:text-xl lg:text-xl xl:text-3xl xxl:text-4xl">
-        HydroActive
+    <div class="grid text-center justify-items-center items-center text-white font-black sm:text-sm md:text-xl lg:text-xl xl:text-3xl xxl:text-4xl">
+        {{ auth()->user()->company->name }}
     </div>
 
-    <nav
-        class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-xl xxl:text-3xl">
+    <nav class="row-start-2 grid justify-items-center items-center sm:text-sm md:text-sm lg:text-sm xl:text-base xxl:text-3xl">
         <ul class="text-white font-bold">
-
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer   {{ Request::is('/') ? 'opacity-100' : '' }}"
-                href="/"
-            ">
-            <svg class="xxl:mx-10 sm:w-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
-                 height="25" viewBox="0 0 25 25">
-                <path id="Icon_material-dashboard" data-name="Icon material-dashboard"
-                      d="M4.5,18.389H15.611V4.5H4.5ZM4.5,29.5H15.611V21.167H4.5Zm13.889,0H29.5V15.611H18.389Zm0-25v8.333H29.5V4.5Z"
-                      transform="translate(-4.5 -4.5)" fill="#fff" opacity="1"/>
-            </svg>
-            <a class="grid col-start-4" href="{{route('home')}}">Dashboard</a>
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('/') ? 'opacity-100' : 'opacity-25' }}"
+                href="/">
+                <svg class="xxl:mx-10 sm:w-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
+                     height="25" viewBox="0 0 25 25">
+                    <path id="Icon_material-dashboard" data-name="Icon material-dashboard"
+                          d="M4.5,18.389H15.611V4.5H4.5ZM4.5,29.5H15.611V21.167H4.5Zm13.889,0H29.5V15.611H18.389Zm0-25v8.333H29.5V4.5Z"
+                          transform="translate(-4.5 -4.5)" fill="#fff" opacity="1"/>
+                </svg>
+                <a class="grid col-start-4" href="{{route('home')}}">Dashboard</a>
             </li>
 
-
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer   {{ Request::is('market') ? 'opacity-100' : '' }}"
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 hover:opacity-100 duration-300 cursor-pointer {{ Route::is('market') ? 'opacity-100' : 'opacity-25' }}"
                 href="/market">
                 <svg class="xxl:mx-10 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg"
                      width="25" height="25" viewBox="0 0 25 25" href="/market">
@@ -33,59 +28,60 @@
                 <a class="col-start-4" href="{{route('market')}}">Marketplace</a>
             </li>
 
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 hover:opacity-100 transaction duration-300 cursor-pointer {{ Route::is('company.*') ? 'opacity-100' : 'opacity-25' }}">
+                <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5 " xmlns="http://www.w3.org/2000/svg"
+                     width="19.495" height="25.344" viewBox="0 0 19.495 25.344">
+                    <g id="Icon_ionic-ios-business" data-name="Icon ionic-ios-business" opacity="1">
+                        <path id="Path_6" data-name="Path 6"
+                              d="M10.1,5.287H23.5a1.1,1.1,0,0,0,1.1-1.1h0a1.1,1.1,0,0,0-1.1-1.1H10.1A1.1,1.1,0,0,0,9,4.19H9A1.1,1.1,0,0,0,10.1,5.287Z"
+                              transform="translate(-7.05 -3.094)" fill="#fff"/>
+                        <path id="Path_7" data-name="Path 7"
+                              d="M25.149,7.031H7.847a1.1,1.1,0,0,0-.122,2.193V27.5a1.466,1.466,0,0,0,1.462,1.462h5.361a.489.489,0,0,0,.487-.487V26.039a.489.489,0,0,1,.487-.487h1.95a.489.489,0,0,1,.487.487v2.437a.489.489,0,0,0,.487.487h5.361A1.466,1.466,0,0,0,25.27,27.5V9.224a1.1,1.1,0,0,0-.122-2.193ZM12.6,23.115a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Z"
+                              transform="translate(-6.75 -3.62)" fill="#fff"/>
+                    </g>
+                </svg>
+                <a class="col-start-4" href="{{auth()->user()->can('company.portfolio.read') ? route('company.portfolio') : route('company.overview')}}">Company</a>
 
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16  xxl:px-16  sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('company/') ? 'opacity-100' : '' }}"
-            ">
-
-            <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5 " xmlns="http://www.w3.org/2000/svg"
-                 width="19.495" height="25.344" viewBox="0 0 19.495 25.344">
-                <g id="Icon_ionic-ios-business" data-name="Icon ionic-ios-business" opacity="1">
-                    <path id="Path_6" data-name="Path 6"
-                          d="M10.1,5.287H23.5a1.1,1.1,0,0,0,1.1-1.1h0a1.1,1.1,0,0,0-1.1-1.1H10.1A1.1,1.1,0,0,0,9,4.19H9A1.1,1.1,0,0,0,10.1,5.287Z"
-                          transform="translate(-7.05 -3.094)" fill="#fff"/>
-                    <path id="Path_7" data-name="Path 7"
-                          d="M25.149,7.031H7.847a1.1,1.1,0,0,0-.122,2.193V27.5a1.466,1.466,0,0,0,1.462,1.462h5.361a.489.489,0,0,0,.487-.487V26.039a.489.489,0,0,1,.487-.487h1.95a.489.489,0,0,1,.487.487v2.437a.489.489,0,0,0,.487.487h5.361A1.466,1.466,0,0,0,25.27,27.5V9.224a1.1,1.1,0,0,0-.122-2.193ZM12.6,23.115a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487H16.01a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm4.874,11.7a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487V22.14a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Zm0-3.9a.489.489,0,0,1-.487.487h-.975a.489.489,0,0,1-.487-.487v-.975a.489.489,0,0,1,.487-.487h.975a.489.489,0,0,1,.487.487Z"
-                          transform="translate(-6.75 -3.62)" fill="#fff"/>
-                </g>
-            </svg>
-            <a class="col-start-4" href="{{route('company')}}">Company</a>
-
-            <ul class="items-center col-start-4">
-                <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
-                    <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company.portfolio') ? 'opacity-100' : '' }}"
-                       href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
-                </li>
-                <li class="grid items-center opacity-75 hover:opacity-100 duration-300 sm:text-sm md:text-xs lg:text-xs xl:text-base xxl:text-xl">
-                    <a class="sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ Route::is('company.overview') ? 'opacity-100' : '' }}"
-                       href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
-                </li>
-            </ul>
+                <ul class="flex flex-col items-start w-3/4 col-start-4 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20">
+                    @can('company.portfolio.read')
+                        <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
+                            <a class="col-start-4 hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.portfolio') ? 'opacity-100' : 'opacity-25') }}"
+                               href="{{route('company.portfolio')}}">●&nbsp;&nbsp;&nbsp;Portfolio</a></li>
+                        </li>
+                    @endcan
+                    <li class="grid items-center sm:text-sm md:text-xs lg:text-xs xl:text-sm xxl:text-xl">
+                        <a class="hover:opacity-100 transaction duration-300 sm:pt-2 md:pt-3 lg:pt-4 xl:pt-4 xxl:pt-6 {{ !Route::is('company.*') ? 'opacity-100' : (Route::is('company.overview') ? 'opacity-100' : 'opacity-25') }}"
+                           href="{{route('company.overview')}}">●&nbsp;&nbsp;&nbsp;Overview</a></li>
+                    </li>
+                </ul>
             </li>
 
             @role('Super Admin')
-            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16  xxl:px-16 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('admin') ? 'opacity-100' : '' }}"
-            ">
-
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 sm:pb-8 md:pb-8 lg:pb-10 xl:pb-12 xxl:pb-20 opacity-25 hover:opacity-100 duration-300 cursor-pointer {{ Request::is('admin') ? 'opacity-100' : '' }}"">
             <svg class="xxl:mx-11 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="25"
                  height="25" viewBox="0 0 25 25">
                 <path id="Icon_metro-wrench" data-name="Icon metro-wrench"
                       d="M27.056,21.9,15.812,12.258A7.035,7.035,0,0,0,7.56,2.23l4.062,4.062a1.567,1.567,0,0,1,0,2.21L9.144,10.979a1.567,1.567,0,0,1-2.21,0L2.872,6.917A7.033,7.033,0,0,0,12.9,15.17l9.638,11.244a1.428,1.428,0,0,0,2.122.081l2.478-2.478a1.428,1.428,0,0,0-.081-2.122Z"
                       transform="translate(-2.571 -1.928)" fill="#fff"/>
             </svg>
-
             <a class="col-start-4" href="{{route('admin')}}">Admin</a>
-
             </li>
             @endrole()
 
+            <li class="grid grid-cols-8 items-center sm:px-8 md:px-8 lg:px-12 xl:px-16 xxl:px-16 hover:opacity-100 duration-300 cursor-pointer {{ Route::is('help') ? 'opacity-100' : 'opacity-25' }}"
+                href="/market">
+                <svg class="xxl:mx-10 sm:w-3 sm:h-3 md:w-4 lg:w-4 xl:w-5" xmlns="http://www.w3.org/2000/svg" width="20.949" height="20.949" viewBox="0 0 20.949 20.949">
+                    <path id="Icon_material-help-outline" data-name="Icon material-help-outline" d="M12.427,19.759h2.095V17.664H12.427ZM13.474,3A10.474,10.474,0,1,0,23.949,13.474,10.478,10.478,0,0,0,13.474,3Zm0,18.854a8.379,8.379,0,1,1,8.379-8.379A8.391,8.391,0,0,1,13.474,21.854Zm0-14.664a4.189,4.189,0,0,0-4.19,4.19h2.095a2.095,2.095,0,1,1,4.19,0c0,2.095-3.142,1.833-3.142,5.237h2.095c0-2.357,3.142-2.619,3.142-5.237A4.189,4.189,0,0,0,13.474,7.19Z" transform="translate(-3 -3)" fill="#fff"/>
+                </svg>
+                <a class="col-start-4" href="{{route('help')}}">Help</a>
+            </li>
         </ul>
     </nav>
-
 
     <div class="row-start-6 text-white font-bold grid grid-cols-4 px-2 pb-10">
 
         <div class="w-full h-full grid items-end justify-items-center">
-            <img class="rounded-full w-8 xl:w-10 xxl:w-12 border"
+            <img class="rounded-full w-8 h-8 md:w-6 md:h-6 xl:w-10 xl:h-10 xxl:w-12 xxl:h-12 border"
                  src="{{ auth()->user()->avatar }}"
                  alt="{{ auth()->user()->full_name }}">
         </div>
@@ -95,9 +91,8 @@
             <a class="truncate opacity-50 sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-lg">{{ auth()->user()->email  }}</a>
         </div>
 
-
-        <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-2" id="settings-btn">
-            <svg class="opacity-50 hover:opacity-100 duration-300 w-5 xl:w-6 xxl:w-8"
+        <div class="w-full h-full grid items-end justify-items-center cursor-pointer pb-1 lg:pb-2 xl:pb-3" id="settings-btn">
+            <svg class="opacity-50 hover:opacity-100 duration-300 w-5 md:w-4 xl:w-6 xxl:w-8"
                  xmlns="http://www.w3.org/2000/svg" width="19.721" height="19.721" viewBox="0 0 19.721 19.721">
                 <g id="Icon_ionic-md-settings" data-name="Icon ionic-md-settings" transform="translate(0)">
                     <path id="Icon_ionic-md-settings-2" data-name="Icon ionic-md-settings"
@@ -107,17 +102,12 @@
             </svg>
         </div>
 
-
     </div>
 
     <!-- Personal information section -->
-    <div class="absolute bg-personal hidden row-start-5 w-full h-full rounded-t-xl text-white px-8 xxl:px-12 py-6"
-         id="settings">
-
+    <div class="absolute bg-personal hidden row-start-5 w-full h-full rounded-t-xl text-white px-8 xxl:px-12 py-6" id="settings">
         <div class="flex flex-col w-full h-full">
-
             <div class="grid justify-items-end items-end">
-
                 <svg class="col-start-2 row-start-1 w-4 xxl:w-12 opacity-50 hover:opacity-100 cursor-pointer"
                      xmlns="http://www.w3.org/2000/svg" width="22.429" height="22.429" viewBox="0 0 22.429 22.429"
                      id="close-settings">
@@ -130,45 +120,48 @@
                               stroke-width="3"/>
                     </g>
                 </svg>
-
             </div>
 
-            <div class="flex justify-center py-6 sm:py-2 ">
-
-                <img class="rounded-full w-12 lg:w-20 xl:w-24 xxl:w-32 border row-span-2"
+            <div class="flex justify-center py-6 sm:py-2">
+                <img class="rounded-full w-20 h-20 md:w-14 md:h-14 xl:w-24 xl:h-24 xxl:w-32 xxl:h-32 border row-span-2"
                      src="{{auth()->user()->avatar}}"
                      alt="{{ auth()->user()->full_name }}">
-
             </div>
-
 
             <div>
                 <p class="text-center font-bold sm:text-xxs md:text-xxs lg:text-xs xl:text-md xxl:text-xl">{{ auth()->user()->full_name  }}</p>
-
                 <p class="text-center opacity-50 font-bold sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text-xl">{{ auth()->user()->email  }}</p>
-
             </div>
 
-
             <div class="grid justify-center items-end h-full">
-
                 <a href="{{route('employees.edit', auth()->id())}}"
-                   class="m-auto bg-personal border border-white text-white px-8 py-2 sm:px-4 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
+                   class="w-32 bg-personal border border-white text-center text-white py-2 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-hovBlue hover:text-white transaction duration-300">
                     Personal settings
                 </a>
             </div>
 
             <div class="grid justify-center items-end h-full">
                 <a href="{{route('logout')}}"
-                   class="m-auto bg-hovBlue text-white px-12 py-2 sm:px-6 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
+                   class="w-32 bg-hovBlue text-center text-white py-2 rounded sm:text-xxs md:text-xxs lg:text-xxs xl:text-xs xxl:text:lg hover:bg-white hover:text-hovBlue transaction duration-300">
                     Log out
                 </a>
             </div>
-
         </div>
-
     </div>
-
 </aside>
 
+@push('scripts')
+    <script>
+        const overlay = document.getElementById('settings');
+        const selectBtn = document.getElementById('settings-btn');
+        const closeBtn = document.getElementById('close-settings');
 
+        const toggleSetting = () => {
+            overlay.classList.toggle('hidden');
+            overlay.classList.toggle('grid');
+        }
+
+        selectBtn.addEventListener('click', toggleSetting);
+        closeBtn.addEventListener('click', toggleSetting);
+    </script>
+@endpush

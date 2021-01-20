@@ -45,6 +45,8 @@ class RegistrationRequest extends Model
         "company_admin_email",
         "company_admin_first_name",
         "company_admin_last_name",
+        "company_phone_number",
+        "company_backup_email"
     ];
 
     public function accept()

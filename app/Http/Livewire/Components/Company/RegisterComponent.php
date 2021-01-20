@@ -11,6 +11,8 @@ class RegisterComponent extends Component
 {
     public $company_name;
     public $company_admin_email;
+    public $company_backup_email;
+    public $company_phone_number;
     public $company_admin_last_name;
     public $company_admin_first_name;
     public $success;
@@ -20,6 +22,8 @@ class RegisterComponent extends Component
         "company_admin_email" => "required|unique:registration_requests,company_admin_email",
         "company_admin_last_name" => "required",
         "company_admin_first_name" => "required",
+        "company_backup_email" => "required|unique:registration_requests",
+        "company_phone_number" => "required|unique:registration_requests,company_phone_number",
     ];
 
     public function mount()
@@ -31,7 +35,6 @@ class RegisterComponent extends Component
     {
         $data = $this->validate();
 
-
         try {
             RegistrationRequest::create($data);
         } catch (Exception $exception) {
@@ -41,6 +44,12 @@ class RegisterComponent extends Component
             return $this->success = false;
         }
 
+        $this->reset(['company_name',
+            'company_admin_email',
+            'company_admin_last_name',
+            'company_admin_first_name',
+            'company_backup_email',
+            'company_phone_number',]);
         return $this->success = true;
     }
 

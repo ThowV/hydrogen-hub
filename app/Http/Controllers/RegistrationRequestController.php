@@ -14,24 +14,27 @@ class RegistrationRequestController extends Controller
 {
     public function accept(RegistrationRequest $registrationRequest, CreateCompanyAction $action)
     {
-        if (! auth()->user()->can('request.allow')) {
+        if (!auth()->user()->can('request.allow')) {
             \event(new PermissionDenied());
 
             return back();
         }
 
-        $action->execute($registrationRequest);
-        Password::sendResetLink(
-            ["email" => $registrationRequest->company_admin_email]
-        );
-        Mail::to($registrationRequest->company_admin_email)->send(new CompanyAccepted());
+        if (false !== $action->execute($registrationRequest)) {
+            Mail::to($registrationRequest->company_admin_email)->send(new CompanyAccepted());
+            Password::sendResetLink(
+                ["email" => $registrationRequest->company_admin_email]
+            );
+            return back();
+        } else {
+            return back()->withStatus('An error has occurred. Please try again later');
+        }
 
-        return back();
     }
 
     public function deny(RegistrationRequest $registrationRequest)
     {
-        if (! auth()->user()->can('request.deny')) {
+        if (!auth()->user()->can('request.deny')) {
             $registrationRequest->deny();
             \event(new PermissionDenied());
 

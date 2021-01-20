@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property int $company_id
- * @property int $produced
- * @property int $demand
- * @property int $stored
+ * @property string $date
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
@@ -32,8 +30,18 @@ class CompanyDayLog extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'company_id',
+        'date'
+    ];
+
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function sections()
+    {
+        return $this->hasMany(CompanyDayLogSection::class);
     }
 }

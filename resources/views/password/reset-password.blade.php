@@ -13,6 +13,5 @@
 
         <input type="hidden" name="token" value="{{Request::query('token')}}">
         <button type="submit">Send</button>
-
     </form>
 </div>
