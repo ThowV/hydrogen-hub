@@ -20,7 +20,7 @@ trait DashboardModalsTrait
 
     public function getDetailedDataForDay($index)
     {
-        dd(new Carbon($this->labels[$index]));
+        
     }
 
     public function toggleModal()
