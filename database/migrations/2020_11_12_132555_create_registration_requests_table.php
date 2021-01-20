@@ -19,6 +19,8 @@ class CreateRegistrationRequestsTable extends Migration
             $table->string('company_admin_email')->unique();
             $table->string('company_admin_first_name');
             $table->string('company_admin_last_name');
+            $table->string('company_phone_number')->nullable();
+            $table->string('company_backup_email')->nullable();
             $table->boolean('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
