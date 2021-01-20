@@ -18,6 +18,7 @@ class CreateListingModalComponent extends Component
     public $isOpen = false;
     public $confirmationStage = false;
     public $chartData = [];
+    public $disableMixCO2 = false;
 
     public $trade_type;
     public $hydrogen_type;
@@ -45,6 +46,18 @@ class CreateListingModalComponent extends Component
     ];
 
     protected $listeners = ['openCreateModal' => 'toggleModal'];
+
+    public function hydrogenTypeChanged() {
+        if ($this->hydrogen_type == 'green') {
+            $this->mix_co2 = 0;
+            $this->disableMixCO2 = true;
+        }
+        else {
+            $this->disableMixCO2 = false;
+        }
+
+        $this->composeChart();
+    }
 
     public function composeChart() {
         if ($this->hydrogen_type == '' || $this->units_per_hour == '' || $this->duration == '' || $this->trade_type == '') {
