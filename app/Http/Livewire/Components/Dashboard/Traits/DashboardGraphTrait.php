@@ -80,7 +80,7 @@ trait DashboardGraphTrait
             case "volumes":
             {
                 if ($minOrMax) {
-                    return 20000;
+                    return 50000;
                 } else {
                     return 0;
                 }
