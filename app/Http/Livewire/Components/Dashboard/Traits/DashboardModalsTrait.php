@@ -4,7 +4,6 @@
 namespace App\Http\Livewire\Components\Dashboard\Traits;
 
 use App\Actions\DetermineIfEnoughTradesToBaseAvarageAction;
-use Carbon\Carbon;
 
 trait DashboardModalsTrait
 {
@@ -20,7 +19,7 @@ trait DashboardModalsTrait
 
     public function getDetailedDataForDay($index)
     {
-        dd(new Carbon($this->labels[$index]));
+
     }
 
     public function toggleModal()

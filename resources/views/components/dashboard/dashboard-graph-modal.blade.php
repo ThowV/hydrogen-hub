@@ -14,15 +14,6 @@
                         <h2 class="text-base xxl:text-3xl font-bold">Detailed {{$this->typeOfGraphInModal}} graph </h2>
 
                         <div class="flex gap-5">
-                            <div class="flex items-center gap-2">
-                                <p>Time range:</p>
-                                <select class="bg-gray-200" wire:model="selectedTimeRange">
-                                @foreach($this->timeRanges as $amount => $timeRange)
-                                        <option value="{{$amount}}">{{$timeRange}}</option>
-                                @endforeach
-                                </select>      
-                            </div> 
-                        
                             <div wire:click="toggleModal()" class="modal-close cursor-pointer h-full z-50 pt-2">
                                 <svg
                                     class="fill-current text-gray-600 hover:text-gray-900 transaction duration-300 w-8 h-8 xxl:w-12 xxl:h-12"
@@ -33,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-              
+
                     <div class="flex flex-auto w-full h-full items-center">
                         <div class="">
                             <div class="relative flex flex-col" style="width: 60vw; height: 56vh;">
@@ -45,36 +36,36 @@
                             <div class="h-full flex flex-none pl-8">
                                 <div class="flex flex-col h-full w-full">
                                     <div class="w-full flex justify-between pt-4">
-                                        <p class="font-semibold">Information</p>                                                              
+                                        <p class="font-semibold">Information</p>
                                     </div>
 
                                     @if($this->typeOfGraphInModal == 'mix')
-                                    <div class="h-full w-full flex flex-col justify-around">                              
+                                    <div class="h-full w-full flex flex-col justify-around">
                                         <div class="w-full text-center flex flex-col">
                                             <p class="">Grey</p>
                                             <p class="text-xl font-semibold">0</p>
-                                        </div> 
-                                    </div> 
+                                        </div>
+                                    </div>
                                     @else
-                                    <div class="h-full w-full flex flex-col justify-around">                              
+                                    <div class="h-full w-full flex flex-col justify-around">
                                         <div class="w-full text-center flex flex-col">
                                             <p class="">Green</p>
                                             <p class="text-xl font-semibold">0</p>
-                                        </div>  
+                                        </div>
 
                                         <div class="w-full text-center flex flex-col">
                                             <p class="">Blue</p>
                                             <p class="text-xl font-semibold">0</p>
-                                        </div>  
+                                        </div>
 
                                         <div class="w-full text-center flex flex-col">
                                             <p class="">Grey</p>
                                             <p class="text-xl font-semibold">0</p>
-                                        </div>                      
+                                        </div>
                                     </div>
-                                    @endif                              
+                                    @endif
                                 </div>
-                            </div>                       
+                            </div>
                         </div>
                     </div>
 

@@ -44,6 +44,12 @@ class RegisterComponent extends Component
             return $this->success = false;
         }
 
+        $this->reset(['company_name',
+            'company_admin_email',
+            'company_admin_last_name',
+            'company_admin_first_name',
+            'company_backup_email',
+            'company_phone_number',]);
         return $this->success = true;
     }
 
