@@ -21,7 +21,7 @@ class TradesAndListingsComponent extends Component
 
         if ($this->componentType == 'listings') {
             // Paginate querybuilder
-            $tradeEntriesPaginator = auth()->user()->company->listings()->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
+            $tradeEntriesPaginator = auth()->user()->company->listings()->orderBy('created_at', 'DESC')->paginate($this->itemsPerPage, ['*'], 'page', $this->page);
         }
         elseif ($this->componentType == 'trades') {
             // Paginatie collection using custom service

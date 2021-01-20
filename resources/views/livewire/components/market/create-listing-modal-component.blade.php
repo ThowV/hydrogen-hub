@@ -27,7 +27,9 @@
                             <label class="w-40 md:w-28 xxl:w-64">Units per hour</label>
                             <label class="w-40 md:w-28 xxl:w-64">Duration</label>
                             <label class="w-40 md:w-28 xxl:w-64">Price per unit</label>
-                            <label class="w-40 md:w-28 xxl:w-64">Mix CO2</label>
+                            @if (!$disableMixCO2)
+                                <label class="w-40 md:w-28 xxl:w-64">Mix CO2</label>
+                            @endif
                             <label class="w-40 md:w-28 xxl:w-64">Trade type</label>
                             <label class="w-40 md:w-28 xxl:w-64">Expire in</label>
                         </div>
@@ -37,22 +39,22 @@
                             <div class="w-40 md:w-28 xxl:w-64 pt-5">
                                 <fieldset class="grid grid-cols-2 grid-rows-2">
                                     <div>
-                                        <input class="form-radio bg-gray-200 text-typeGreen-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="green">
+                                        <input class="form-radio bg-gray-200 text-typeGreen-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="hydrogenTypeChanged" name="hydrogen_type" value="green">
                                         <label class="pl-4 sm:pl-1 md:pl-1">green</label>
                                     </div>
 
                                     <div>
-                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="blue">
+                                        <input class="form-radio bg-gray-200 text-typeBlue-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="hydrogenTypeChanged" name="hydrogen_type" value="blue">
                                         <label class="pl-4 sm:pl-1 md:pl-1">blue</label>
                                     </div>
 
                                     <div class="pt-2">
-                                        <input class="form-radio bg-gray-200 text-typeGrey-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="grey">
+                                        <input class="form-radio bg-gray-200 text-typeGrey-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="hydrogenTypeChanged" name="hydrogen_type" value="grey">
                                         <label class="pl-4 sm:pl-1 md:pl-1">grey</label>
                                     </div>
 
                                     <div class="pt-2">
-                                        <input class="form-radio bg-gray-200 text-typeMix-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="composeChart" name="hydrogen_type" value="mix">
+                                        <input class="form-radio bg-gray-200 text-typeMix-500 h-4 w-4 xxl:h-6 xxl:h-6" type="radio" wire:model="hydrogen_type" wire:change="hydrogenTypeChanged" name="hydrogen_type" value="mix">
                                         <label class="pl-4 sm:pl-1 md:pl-1">mix</label>
                                     </div>
                                 </fieldset>
@@ -79,10 +81,12 @@
                                 @error('price_per_unit') <span class="text-red-600 text-xs pt-4">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="w-40 md:w-28 xxl:w-64 pt-5">
-                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="mix_co2">
-                                @error('mix_co2') <span class="text-red-600 text-xs pt-4">{{ $message }}</span> @enderror
-                            </div>
+                            @if (!$disableMixCO2)
+                                <div class="w-40 md:w-28 xxl:w-64 pt-5">
+                                    <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="mix_co2">
+                                    @error('mix_co2') <span class="text-red-600 text-xs pt-4">{{ $message }}</span> @enderror
+                                </div>
+                            @endif
 
                             <div class="w-40 md:w-28 xxl:w-64 pt-5">
                                 <fieldset class="flex flex-col flex-nowrap gap-4 sm:gap-2">
