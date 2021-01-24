@@ -141,14 +141,13 @@ class CreateListingModalComponent extends Component
     }
 
     public function toggleModal() {
+        $this->refresh();
         $this->isOpen = !$this->isOpen;
 
         if ($this->isOpen) {
             // Emit the event to clear the chart on the front-end
             $this->emit('listingParametersCleared');
         }
-
-        $this->refresh();
     }
 
     public function toggleConfirmationStage() {
@@ -180,7 +179,7 @@ class CreateListingModalComponent extends Component
         $data = $this->validate();
 
         // Validate password input
-        if (!\Auth::attempt(['email' => auth()->user()->email, 'password' => $this->password])) {
+        if (!\Hash::check($this->password, auth()->user()->getAuthPassword())) {
             return $this->addError('password', 'Password is invalid.');
         }
 

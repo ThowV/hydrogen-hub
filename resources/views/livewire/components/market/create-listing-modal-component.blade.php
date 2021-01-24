@@ -62,12 +62,12 @@
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64 pt-5">
-                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="units_per_hour" wire:keyup="composeChart">
+                                <input class="w-full bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" id="units_per_hour" wire:model="units_per_hour" wire:keyup="composeChart">
                                 @error('units_per_hour') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="w-40 md:w-28 xxl:w-64 flex flex-wrap items-start pt-5">
-                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" wire:model="duration" wire:keyup="composeChart">
+                                <input class="w-2/4 bg-gray-200 text-gray-700 rounded px-2 py-1" type="text" placeholder="Amount" id="duration" wire:model="duration" wire:keyup="composeChart">
                                 <select class="w-2/4 px-2 py-1" name="duration_type" wire:model="duration_type" wire:change="composeChart">
                                     <option value="day">Days</option>
                                     <option value="week">Weeks</option>
