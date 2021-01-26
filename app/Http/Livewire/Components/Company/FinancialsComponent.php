@@ -32,7 +32,7 @@ class FinancialsComponent extends Component
         $this->validate();
 
         // Validate password
-        if (! Auth::attempt(["email" => auth()->user()->email, "password" => $this->password])) {
+        if (!\Hash::check($this->password, auth()->user()->getAuthPassword())) {
             return $this->addError('password', 'Password is invalid.');
         }
 
